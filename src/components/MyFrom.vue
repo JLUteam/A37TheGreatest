@@ -7,9 +7,11 @@
         >
         <MyUserName @UserName="UserName" :key="1"/>
         <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2"/>
-        <MyPassword @Password="Password" :key="3"/>
-        <MyTip @IsAgree="isAgree" :key="4"/>
-        <input type="submit" class="base_button" value="Sign In" :key="5" @click.prevent="submit"></input>
+        <MyBirthday  @setBirthDay="setBirthDay" :key="3"></MyBirthday>
+
+        <MyPassword @Password="Password" :key="4"/>
+        <MyTip @IsAgree="isAgree" :key="5"/>
+        <input type="submit" class="base_button" value="Sign In" :key="6" @click.prevent="submit"/>
         </transition-group>
     </form>
 </template>
@@ -19,9 +21,10 @@ import MyUserName from "./MyUserName.vue";
 import MyPhoneNumber from "./MyPhoneNumber.vue";
 import MyPassword from "./MyPassword.vue";
 import MyTip from "./MyTip.vue";
+import MyBirthday from "./MyBirthday.vue"
 export default {
   name: "MyFrom",
-  components: { MyUserName, MyPhoneNumber, MyPassword, MyTip },
+  components: { MyUserName, MyPhoneNumber, MyPassword, MyTip, MyBirthday },
   data() {
     return {
       userinfo: {
@@ -29,6 +32,7 @@ export default {
         username: "",
         password: "",
         IsAgree: false,
+        birthday:''
       },
     };
   },
@@ -50,9 +54,17 @@ export default {
       this.userinfo.password = Password;
     },
     isAgree(t) {
-      console.log("我接受到", t);
       this.userinfo.IsAgree = t;
     },
+    setBirthDay(birtydayInfo) {
+      this.birtydayInfo = birtydayInfo;
+      let {
+        year = '1900',
+        month = '1',
+        day = '1',
+      } = this.birtydayInfo;
+      this.userinfo.birthday = `${year}-${month}-${day}`;
+    }
   },
 };
 </script>

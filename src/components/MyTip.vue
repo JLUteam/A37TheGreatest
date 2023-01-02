@@ -45,8 +45,6 @@ export default {
   watch: {
     isagree: {
       handler(val) {
-        console.log(123);
-        console.log(val);
         this.$emit("IsAgree", val);
       },
     },
