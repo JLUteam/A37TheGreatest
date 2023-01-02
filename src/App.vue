@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div class="basic">
+    <Mylogo />
+    <MyFrom/>
+    <MySocial/>
+    <MySignIn/>
+    </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Mylogo from './components/Mylogo.vue'
+import MyFrom from './components/MyFrom.vue'
+import MySocial from './components/MySocial.vue';
+import MySignIn from './components/MySignIn.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Mylogo,
+    MyFrom,
+    MySocial,
+    MySignIn
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.basic {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
 }
 </style>

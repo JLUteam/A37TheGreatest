@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="IconsEmail">
+    <path d="M24 0L24 24L0 24L0 0L24 0Z" id="Vector" fill="none" fill-rule="evenodd" stroke="none" />
+    <path d="M4 3C2.34315 3 1 4.34315 1 6L1 18C1 19.6569 2.34315 21 4 21L20 21C21.6569 21 23 19.6569 23 18L23 6C23 4.34315 21.6569 3 20 3L4 3Z" id="👑-Edit-Color" fill="#D3D5DA" fill-rule="evenodd" stroke="none" />
+    <path d="M6.64021 7.2318C6.21593 6.87824 5.58537 6.93556 5.2318 7.35984C4.87824 7.78412 4.93556 8.41468 5.35984 8.76825L10.0795 12.7013C11.192 13.6284 12.808 13.6284 13.9206 12.7013L18.6402 8.76825C19.0645 8.41468 19.1218 7.78412 18.7682 7.35984C18.4147 6.93556 17.7841 6.87824 17.3598 7.2318L12.6402 11.1648C12.2694 11.4739 11.7307 11.4739 11.3598 11.1648L6.64021 7.2318Z" id="👑-Edit-Color" fill="#121826" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>
