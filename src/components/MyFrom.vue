@@ -1,19 +1,25 @@
 <template>
-    <form id="from"  class="from">
-        <transition-group 
-        appear
-        name="animate__animated animate__bounce"
-        enter-active-class="animate__backInLeft"
-        >
-        <MyUserName @UserName="UserName" :key="1"/>
-        <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2"/>
-        <MyBirthday  @setBirthDay="setBirthDay" :key="3"></MyBirthday>
+  <form id="from" class="from">
+    <transition-group
+      appear
+      name="animate__animated animate__bounce"
+      enter-active-class="animate__backInLeft"
+    >
+      <MyUserName @UserName="UserName" :key="1" />
+      <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2" />
+      <MyBirthday @setBirthDay="setBirthDay" :key="3"></MyBirthday>
 
-        <MyPassword @Password="Password" :key="4"/>
-        <MyTip @IsAgree="isAgree" :key="5"/>
-        <input type="submit" class="base_button" value="Sign In" :key="6" @click.prevent="submit"/>
-        </transition-group>
-    </form>
+      <MyPassword @Password="Password" :key="4" />
+      <MyTip @IsAgree="isAgree" :key="5" />
+      <input
+        type="submit"
+        class="base_button"
+        value="Sign In"
+        :key="6"
+        @click.prevent="submit"
+      />
+    </transition-group>
+  </form>
 </template>
 <script>
 import "animate.css";
@@ -21,7 +27,7 @@ import MyUserName from "./MyUserName.vue";
 import MyPhoneNumber from "./MyPhoneNumber.vue";
 import MyPassword from "./MyPassword.vue";
 import MyTip from "./MyTip.vue";
-import MyBirthday from "./MyBirthday.vue"
+import MyBirthday from "./MyBirthday.vue";
 export default {
   name: "MyFrom",
   components: { MyUserName, MyPhoneNumber, MyPassword, MyTip, MyBirthday },
@@ -32,7 +38,7 @@ export default {
         username: "",
         password: "",
         IsAgree: false,
-        birthday:''
+        birthday: "",
       },
     };
   },
@@ -43,6 +49,12 @@ export default {
       } else {
         alert("没有确认同意用户协议");
       }
+      this.$router.push({
+        name: "Captcha",
+        params: {
+          phoneNumber: this.userinfo.phonenumbe,
+        },
+      });
     },
     UserName(UserName) {
       this.userinfo.username = UserName;
@@ -58,78 +70,78 @@ export default {
     },
     setBirthDay(birtydayInfo) {
       this.birtydayInfo = birtydayInfo;
-      let {
-        year = '1900',
-        month = '1',
-        day = '1',
-      } = this.birtydayInfo;
+      let { year = "1900", month = "1", day = "1" } = this.birtydayInfo;
       this.userinfo.birthday = `${year}-${month}-${day}`;
-    }
+    },
   },
 };
 </script>
 
-<style>
+<style lang="less" >
 .from {
-  width: 375px;
-  border-radius: 1rem;
+  width: 7.5rem;
+  border-radius: 0.32rem;
 
   background-color: #ffffff;
 }
 
 .form__div {
   position: relative;
-  height: 98px;
-  margin-bottom: 1.5rem;
-  margin: 1rem 1.5rem 0;
+  height: 1.96rem;
+  margin-bottom: 0.48rem;
+  margin: 0.32rem 0.48rem 0;
 }
 
 .form__title {
   color: #121826;
   font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.28rem;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 0.48rem;
 }
 
 .form__input {
   position: absolute;
   left: 0;
-  top: 2.125rem;
-  width: 327px;
-  height: 64px;
-  padding-left: 3rem;
+  top: 0.68rem;
+  width: 6.54rem;
+  height: 1.28rem;
+  padding-left: 0.96rem;
   background: none;
   outline: none;
   z-index: 1;
-  border-radius: 1rem;
+  border-radius: 0.32rem;
   background: #f4f4f6;
   background-blend-mode: normal;
   border: none;
+  font-size: .28rem;
+    font-weight: 500;
+    line-height: .48rem;
 }
 
 .base_button {
   position: relative;
-  width: 327px;
-  height: 64px;
-  border-radius: 1.5rem;
+  width: 6.54rem;
+  height: 1.28rem;
+  border-radius: 0.48rem;
   background: #928fff;
   opacity: 0.4;
-  margin-left: 1.5rem;
+  margin-left: 0.48rem;
   background-blend-mode: normal;
   border: none;
   color: #ffffff;
   font-family: Manrope;
-  font-size: 16px;
+  font-size: 0.32rem;
   font-weight: 700;
-  line-height: 26px;
+  line-height: 0.52rem;
   text-align: center;
   transition: 0.3s;
   cursor: pointer;
+  margin-top: 0.32rem;
 }
 
 .base_button:hover {
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.2rem 0.72rem rgba(0, 0, 0, 0.15);
   opacity: 1;
 }
 </style>

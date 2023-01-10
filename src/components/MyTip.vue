@@ -1,13 +1,9 @@
 <template>
   <div class="terms" id="terms">
-    <transition-group
-      appear
-      name="animate__animated animate__bounce"
-      enter-active-class="animate__backInLeft"
-    >
+    <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
       <div class="Checkbox" :key="1">
         <div class="check" @click="toggleisagree">
-          <img :src="currentImage_Checkbox" alt="Agree" />
+          <img class="Checkbox_img" :src="currentImage_Checkbox" alt="Agree" />
         </div>
         <div :class="mood"></div>
       </div>
@@ -17,7 +13,7 @@
     </transition-group>
   </div>
 </template>
-<script>
+<script >
 export default {
   name: "MyTip",
   data() {
@@ -52,68 +48,71 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 .terms {
   position: relative;
-  /* left: 0rem;
-  top: 21.375rem; */
-  margin: 1.5rem;
-  width: 328px;
-  height: 32px;
+  margin: .48rem;
+  width: 6.56rem;
+  height: .64rem;
   background-color: #ffffff;
-}
 
-.terms .Checkbox {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  margin-top: 0.5rem;
-  cursor: pointer;
-}
+  .Checkbox {
+    position: absolute;
+    width: .36rem;
+    height: .36rem;
+    margin-top: .16rem;
+    cursor: pointer;
 
-.terms .Checkbox .check {
-  position: absolute;
-  z-index: 2;
-  width: 8px;
-  height: 6px;
-  background-blend-mode: normal;
-}
+    .check {
+      position: absolute;
+      z-index: 2;
+      width: .16rem;
+      height: .12rem;
+      background-blend-mode: normal;
+    }
 
-.terms .Checkbox .rectangle_true {
-  position: absolute;
-  z-index: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  background: #928fff;
-  background-blend-mode: normal;
-}
+    .rectangle_true {
+      position: absolute;
+      z-index: 0;
+      width: .36rem;
+      height: .36rem;
+      border-radius: .08rem;
+      background: #928fff;
+      background-blend-mode: normal;
+    }
 
-.terms .Checkbox .rectangle_false {
-  position: absolute;
-  z-index: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  background: #d3d3d3;
-  background-blend-mode: normal;
-}
+    .rectangle_false {
+      position: absolute;
+      z-index: 0;
+      width: .36rem;
+      height: .36rem;
+      border-radius: .08rem;
+      background: #d3d3d3;
+      background-blend-mode: normal;
+    }
+  }
 
-.terms .tip {
-  position: absolute;
-  width: 340px;
-  height: 32px;
-  color: #6c727f;
-  padding-left: 1.5rem;
-  font-family: Manrope;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-}
+  .Checkbox_img {
+    width: .36rem;
+    height: .36rem;
+  }
 
-.terms .tip2 {
-  color: #4a44c6;
-  font-family: Manrope;
-  font-weight: bold;
+  .tip {
+    position: absolute;
+    width: 6.8rem;
+    height: .64rem;
+    color: #6c727f;
+    padding-left: .48rem;
+    font-family: Manrope;
+    font-size: .24rem;
+    font-weight: 400;
+    line-height: .32rem;
+  }
+
+  .tip2 {
+    color: #4a44c6;
+    font-family: Manrope;
+    font-weight: bold;
+  }
 }
 </style>
