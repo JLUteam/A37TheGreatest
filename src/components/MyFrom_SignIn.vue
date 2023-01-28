@@ -1,16 +1,12 @@
 <template>
-    <form id="from"  class="from">
-        <transition-group 
-        appear
-        name="animate__animated animate__bounce"
-        enter-active-class="animate__backInLeft"
-        >
-        <MyUserName @UserName="UserName" :key="1"/>
-        <!-- <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2"/> -->
-        <MyPassword @Password="Password" :key="2"/>
-        <input type="submit" class="base_button" value="Sign In" :key="6" @click.prevent="submit"/>
-        </transition-group>
-    </form>
+  <form id="from" class="from">
+    <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
+      <MyUserName @UserName="UserName" :key="1" />
+      <!-- <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2"/> -->
+      <MyPassword @Password="Password" :key="2" />
+      <input type="submit" class="base_button" value="登录" :key="6" @click.prevent="submit" />
+    </transition-group>
+  </form>
 </template>
 <script>
 import "animate.css";
@@ -29,8 +25,8 @@ export default {
   },
   methods: {
     submit() {
-     
-        console.log(JSON.stringify(this.userinfo));
+
+      console.log(JSON.stringify(this.userinfo));
       // } else {
       //   alert("没有确认同意用户协议");
       // }
@@ -48,11 +44,10 @@ export default {
 };
 </script>
 
-<style lang="less" >
+<style lang="less" scoped >
 .from {
   width: 7.5rem;
   border-radius: .32rem;
-
   background-color: #ffffff;
 }
 
@@ -78,7 +73,6 @@ export default {
   width: 6.54rem;
   height: 1.28rem;
   padding-left: .96rem;
-  background: none;
   outline: none;
   z-index: 1;
   border-radius: .32rem;

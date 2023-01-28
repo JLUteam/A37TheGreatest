@@ -1,0 +1,179 @@
+<template>
+    <div class="StateBar">
+        <div class="Status info">
+            <p>Status</p>
+            <div class="result">
+                <img src="@/assets/svg/Check.svg" alt="">
+                <p>{{ Status }}</p>
+            </div>
+        </div>
+        <div class="Category info">
+            <p>Category</p>
+            <div class="result">
+                <el-select v-model="value" filterable :placeholder="recode.bcategory === '' ? 请选择 : recode.bcategory"
+                    class="seclect">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label">
+                    </el-option>
+                </el-select>
+            </div>
+        </div>
+        <div class="Add_note info">
+            <p>Add note</p>
+            <div class="result">
+                <input type="text" v-model="Add_note" placeholder="备注">
+            </div>
+        </div>
+
+
+    </div>
+</template>
+<script>
+export default {
+    name: "StateBar",
+    data() {
+        return {
+            options: [{
+                value: '选项1',
+                label: '支付宝'
+            }, {
+                value: '选项2',
+                label: '微信'
+            }, {
+                value: '选项3',
+                label: '现金'
+            }, {
+                value: '选项4',
+                label: '银行卡'
+            }, {
+                value: '选项5',
+                label: '其他'
+            }],
+            value: this.recode.bcategory
+        }
+    },
+    props: {
+        recode: {
+            type: Object
+        }
+    },
+    computed: {
+        Status: {
+            get() {
+                return this.recode.isfinish ? 'Completed' : 'Uncompleted';
+            },
+            set(value) {
+                this.$store.commit('updateStatus', [this.recode.uid, value])
+
+            }
+        },
+
+        Add_note: {
+            get() {
+                return this.recode.note
+            },
+            set(value) {
+                console.log(123)
+                this.$store.commit('updatenote', [this.recode.uid, value])
+            }
+        }
+    },
+    watch: {
+        value: {
+            handler: function (value) {
+                this.$store.commit('updateCategory', [this.recode.uid, value])
+            }
+        },
+    }
+};
+</script>
+<style lang="less" scoped>
+.StateBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 6.54rem;
+    height: 3.04rem;
+    border-radius: 16px;
+    background: #f9fafb;
+    background-blend-mode: normal;
+    margin-bottom: .48rem;
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+        width: 5.58rem;
+        height: .48rem;
+       
+
+        p {
+            color: #6c727f;
+            font-family: "Manrope-Regular";
+            font-size: .28rem;
+            font-weight: 400;
+            line-height: .48rem;
+        }
+    }
+
+    .Status {
+        .result {
+            display: flex;
+            justify-content: space-around;
+            width: 2.08rem;
+            color: #121826;
+            img {
+                width: .4rem;
+                height: .4rem;
+            }
+
+            p {
+                color: #1b7a00;
+                font-family: "Manrope-Regular";
+                font-size: .28rem;
+                font-weight: 400;
+                line-height: .48rem;
+                text-align: right;
+            }
+        }
+    }
+
+    .Category {
+        .result {
+            /deep/ .el-input__inner {
+                border: none;
+                background: transparent;
+                text-align: right;
+                cursor: pointer;
+                color: #121826;
+                font-family: "Manrope-Regular";
+                font-size: .28rem;
+                font-weight: 400;
+                line-height: .48rem;
+            }
+
+            /deep/ .el-select-dropdown__item {
+                font-size: .24rem;
+            }
+        }
+    }
+
+    .Add_note {
+        .result {
+
+
+            input {
+                border: none;
+                outline: none;
+                text-align: right;
+                background-color: transparent;
+                color: #121826;
+                font-family: "Manrope-Regular";
+                font-size: .28rem;
+                font-weight: 400;
+                line-height: .48rem;
+
+            }
+        }
+    }
+}
+</style>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns="http://www.w3.org/2000/svg">
+      <g id="IconsHome">
+        <path d="M24 0L24 24L0 24L0 0L24 0Z" id="Vector" fill="none" fill-rule="evenodd" stroke="none" />
+        <path d="M14.24 2.77002C12.9815 1.75002 11.0153 1.74002 9.76668 2.76002L3.32712 8.01001C2.40297 8.76001 1.84258 10.26 2.03921 11.44L3.27797 18.98C3.56308 20.67 5.1066 22 6.78777 22L17.209 22C18.8705 22 20.4436 20.64 20.7287 18.97L21.9674 11.43C22.1444 10.26 21.584 8.76001 20.6795 8.01001L14.24 2.77002Z" id="👑-Edit-Color" fill="#928FFF" fill-rule="evenodd" stroke="none" />
+        <path d="M12 18C13.1046 18 14 17.1046 14 16C14 14.8954 13.1046 14 12 14C10.8954 14 10 14.8954 10 16C10 17.1046 10.8954 18 12 18Z" id="👑-Edit-Color" fill="#4A44C6" fill-rule="evenodd" stroke="none" />
+      </g>
+</svg>

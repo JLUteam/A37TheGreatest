@@ -1,7 +1,6 @@
 <template>
     <div class="AV_LOG_INFO">
-        <p>Use and Experience
-            the Powerful and Fast Payment Method
+        <p>使用和体验强大快捷的支付方式
         </p>
     </div>
 
@@ -31,5 +30,4 @@ export default {
         text-align: center;
     }
 }
-
 </style>

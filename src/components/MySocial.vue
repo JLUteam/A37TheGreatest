@@ -1,11 +1,13 @@
 <template>
   <transition appear name="animate__animated animate__bounce" enter-active-class="animate__backInUp">
     <div class="social">
-      <a id="google">
-        <img class='icon' src="../assets/img/Google.png" alt="Icon" />
+      <a class="wechat">
+        <img class='icon' src="../assets/img/微信.png" alt="Icon" />
+        <p>使用微信登录</p>
       </a>
-      <a id="Facebook">
-        <img class='icon' src="../assets/img/Facebook.png" alt="Icon" />
+      <a class="zhifubao">
+        <img class='icon' src="../assets/img/支付宝.png" alt="Icon" />
+        <p>使用支付宝登录</p>
       </a>
     </div>
   </transition>
@@ -29,34 +31,42 @@ export default {
   margin: .32rem .48rem .32rem;
   background-color: #ffffff;
 
-  #google {
+  .wechat {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     width: 3.12rem;
     height: 1.28rem;
     border-radius: .48rem;
     transition: 0.3s;
     cursor: pointer;
-    border: .03rem dashed #f4f4f6;
+    border: .03rem dashed #E9E9FF;
   }
 
-  #google:hover {
+  .wechat:hover {
     box-shadow: 0 .2rem .72rem rgba(0, 0, 0, 0.15);
   }
 
   .icon {
-    width: 3.12rem;
-    height: 1.28rem;
+    width: .48rem;
+    height: .48rem;
   }
 
-  #Facebook {
+  .zhifubao {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     width: 3.12rem;
     height: 1.28rem;
     border-radius: .48rem;
     transition: 0.3s;
     cursor: pointer;
-    border: .03rem dashed #f4f4f6;
+    border: .03rem dashed #E9E9FF;
   }
 
-  #Facebook:hover {
+  .zhifubao:hover {
     box-shadow: 0 .2rem .72rem rgba(0, 0, 0, 0.15);
   }
 }

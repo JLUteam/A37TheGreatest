@@ -2,14 +2,14 @@
   <transition appear name="animate__animated animate__bounce" enter-active-class="animate__backInUp">
 
     <div class="social">
-      <p class="tip">Or continue with social account</p>
-      <a id="google">
-        <img class='icon' src="../assets/svg/IconsGoogle.svg" alt="Icon" />
-        <p class="signup">Sign In with Google</p>
+      <p class="tip">用其他方式登录</p>
+      <a id="wechat">
+        <img class='icon' src="../assets/svg/微信.svg" alt="Icon" />
+        <p class="signup">微信账号登录</p>
       </a>
-      <a id="Facebook">
-        <img class="icon" src="../assets/svg/IconsFacebook.svg" alt="Icon" />
-        <p class="signup">Sign In with Facebook</p>
+      <a id="zhifubao">
+        <img class="icon" src="../assets/svg/支付宝.svg" alt="Icon" />
+        <p class="signup">支付宝账号登录</p>
       </a>
 
     </div>
@@ -52,7 +52,7 @@ export default {
     left: 1.28rem;
   }
 
-  #google {
+  #wechat {
     display: block;
     position: relative;
     width: 6.54rem;
@@ -63,7 +63,7 @@ export default {
     border: .03rem dashed #f4f4f6;
   }
 
-  #google:hover {
+  #wechat:hover {
     box-shadow: 0 .2rem .72rem rgba(0, 0, 0, 0.15);
   }
 
@@ -78,7 +78,7 @@ export default {
     line-height: .52rem;
   }
 
-  #Facebook {
+  #zhifubao {
     display: block;
     position: relative;
     width: 6.54rem;
@@ -89,7 +89,7 @@ export default {
     border: .03rem dashed #f4f4f6;
   }
 
-  #Facebook:hover {
+  #zhifubao:hover {
     box-shadow: 0 .2rem .72rem rgba(0, 0, 0, 0.15);
   }
 }

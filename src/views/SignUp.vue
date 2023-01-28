@@ -1,17 +1,26 @@
 <template>
     <div class="basic">
         <MyHeader>
-        <p class="tip1" :key="3">Getting Started</p>
-        <p class="tip2" :key="4">Create an account to continue!</p>
+            <template v-slot:tip1>
+               开始
+            </template>
+            <template v-slot:tip2>
+               创建属于您个人的账号!
+            </template>
         </MyHeader>
         <MyFrom />
         <MySocial />
-        <MySignIn> <p class="signin"> Already have an account?</p>
+        <MySignIn>
 
-            <router-link class="signin_a" :to="{
-                name:'SignIn'
-            }">  Sign in</router-link></MySignIn>
-      
+
+            <template v-slot:signin>
+            已经拥有账号
+            </template>
+            <template v-slot:Sign_Up>
+            登录
+            </template>
+        </MySignIn>
+
     </div>
 
 </template>

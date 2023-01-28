@@ -1,6 +1,6 @@
 <template>
     <div class="form__div">
-        <label class="form__title">birthday</label>
+        <label class="form__title">出生日期</label>
         <img class="logo" src="../assets/svg/cake-candles-solid.svg" alt="">
         <div class="birthday">
             <select v-model="birtydayinfo.year" @change="setYear">

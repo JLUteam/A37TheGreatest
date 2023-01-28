@@ -1,13 +1,13 @@
 <template>
     <div id="password" class="form__div">
-        <label for="password_input" id="title" class="form__title">password</label>
+        <label for="password_input" id="title" class="form__title">密码</label>
         <img class="logo" src="../assets/svg/IconsLock.svg" alt="IconsLock">
         <router-link :to="{
             name: 'Forgot_Password'
-        }" class="forgot">forgot</router-link>
+        }" class="forgot">找回</router-link>
         <img class="IconsEye" :src="currentImage_IconsEye" alt="IconsEye_Fasle" @click="togglePasswordVisibility">
         <input :type="passwordvisible ? 'text' : 'password'" v-model="password" class="form__input" id="password_input"
-            placeholder="Enter your password">
+            placeholder="请输入您的密码">
     </div>
 </template>
 <script>
@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .logo {
     position: absolute;
     left: .38rem;

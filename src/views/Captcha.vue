@@ -1,9 +1,9 @@
 <template>
   <div class="basic">
     <Title_Captcha>
-      <p class="tip1_Captcha" :key="2">Phone Verification</p>
+      <p class="tip1_Captcha" :key="2">电话验证</p>
       <p class="tip2_Captcha" :key="3">
-        We have sent code to your number:<br />(+86){{
+      我们已将代码发送到您的号码：<br />(+86){{
   $route.params.phoneNumber
         }}
       </p>

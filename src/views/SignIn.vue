@@ -1,17 +1,22 @@
 <template>
     <div class="basic">
         <MyHeader>
-        <p class="tip1" :key="3">Let's Sign You In</p>
-        <p class="tip2" :key="4">Welcome back, you've been missed!</p>
+            <template v-slot:tip1>
+                欢迎回来
+            </template>
+            <template v-slot:tip2>
+                让我们再度开始吧！
+            </template>
         </MyHeader>
         <MyFromSignIn />
-        <MySocialSignIn/>
+        <MySocialSignIn />
         <MySignIn>
-             <p class="signin">Dont's have an account?</p>
-
-            <router-link class="signin_a" :to="{
-                name:'SignUp'
-            }"> Sign Up</router-link>
+            <template v-slot:signin>
+                还没有创建账号
+            </template>
+            <template v-slot:Sign_Up>
+                登录
+            </template>
         </MySignIn>
     </div>
 </template>

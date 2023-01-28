@@ -4,6 +4,9 @@ import SignUp from "../views/SignUp"
 import Options from "../views/Options"
 import Captcha from "../views/Captcha"
 import Forgot_Password from "../views/Forgot_Password"
+import ConsumptionDetails from "@/views/ConsumptionDetails"
+import home from '@/views/home.vue'
+import Percent from '@/views/Percent.vue'
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -31,6 +34,23 @@ const router = new VueRouter({
             name: "Forgot_Password",
             path: "/Forgot_Password",
             component: Forgot_Password
+        },
+        {
+            name: "home",
+            path: "/home",
+            component: home,
+           
+        },
+         {
+            name: "Percent",
+            path: "/Percent",
+            component: Percent,
+           
+        },
+        {
+            name: "ConsumptionDetails",
+            path: "ConsumptionDetails",
+            component: ConsumptionDetails
         }
     ]
 });

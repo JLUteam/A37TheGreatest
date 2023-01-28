@@ -1,9 +1,9 @@
 <template>
     <div id="phonenumbe" class="form__div">
-        <label for="phonenumbe_input" class="form__title">Phone number</label>
+        <label for="phonenumbe_input" class="form__title">手机号码</label>
         <img class="logo" src="../assets/svg/cn.svg" alt="flag">
         <input type="text" class="form__input" id="phonenumbe_input" v-model="phonenumbe"
-            placeholder="Enter your Phone number">
+            placeholder="请输入您的手机号码">
     </div>
 </template>
 <script>

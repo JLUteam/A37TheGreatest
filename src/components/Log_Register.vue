@@ -3,7 +3,7 @@
     <input
       type="submit"
       class="base_button"
-      value="LogIn"
+      value="登录"
       @click.prevent="submit"
     />
     <router-link
@@ -11,7 +11,7 @@
       :to="{
         name: 'SignUp',
       }"
-      >Sign Up</router-link
+      >注册账号</router-link
     >
   </div>
 </template>

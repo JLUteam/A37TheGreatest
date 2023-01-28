@@ -2,15 +2,18 @@
   <div class="base">
 
     <router-view></router-view>
-    <!-- <Forgot_Password></Forgot_Password> -->
+
   </div>
 </template>
 
 <script>
+import ConsumptionDetails from './views/ConsumptionDetails.vue';
+
 export default {
   name: "App",
   components: {
-  },
+    ConsumptionDetails
+}
 };
 </script>
 <style>
@@ -19,14 +22,21 @@ export default {
   padding: 0;
   margin: 0;
 }
+
+ul {
+  list-style: none
+}
+
 body::-webkit-scrollbar {
   display: none;
 }
-.base{
+
+.base {
   width: 100%;
   height: 100vh;
   overflow: scroll;
 }
+
 a {
   text-decoration: none;
 }

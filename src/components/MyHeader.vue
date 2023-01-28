@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div class="title">
+    <div class="Header">
       <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
         <div class="item_1" :key="1"></div>
         <img class="fullLogo" src="../assets/svg/FullLogo.svg" alt="email" :key="2" />
-        <slot></slot>
+
+        <p class="tip1" :key="2">
+          <slot name='tip1'></slot>
+        </p>
+        <p class="tip2" :key="3">
+          <slot name="tip2"></slot>
+        </p>
+
       </transition-group>
       <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInRight">
         <div class="item_2" :key="1"></div>
@@ -26,8 +33,8 @@ export default {
 };
 </script>
 
-<style lang="less" >
-.title {
+<style lang="less" scoped >
+.Header {
   position: relative;
   width: 7.5rem;
   height: 3.52rem;

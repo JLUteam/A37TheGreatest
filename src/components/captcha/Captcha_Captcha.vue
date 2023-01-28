@@ -1,21 +1,15 @@
 <template id="app">
-<div class="captcha">
-  <input v-for="(c, index) in ct" :key="index"
-    type="number" v-model="ct[index]" ref="input" 
-    :style="{
-    backgroundColor: index <= cIndex ? 'rgba(146, 143, 255, 0.5)' : ''
-    }"
-    @input="e => {onInput(e.target.value, index)}" 
-    @keydown.delete="e=>{onKeydown(e.target.value, index)}"
-    @focus="onFocus"
-    :disabled="loading"
-    >
-</div>
-<!-- <p>{{msg}}</p> -->
+    <div class="captcha">
+        <input v-for="(c, index) in ct" :key="index" type="number" v-model="ct[index]" ref="input" :style="{
+            backgroundColor: index <= cIndex ? 'rgba(146, 143, 255, 0.5)' : ''
+        }" @input="e => {onInput(e.target.value, index)}" @keydown.delete="e=>{onKeydown(e.target.value, index)}"
+            @focus="onFocus" :disabled="loading">
+    </div>
+    <!-- <p>{{msg}}</p> -->
 </template>
 <script>
 export default {
-    name:'Captcha_Captcha',
+    name: 'Captcha_Captcha',
     data() {
         return {
             ct: ['', '', '', ''],
@@ -42,7 +36,7 @@ export default {
         },
         lastCode(val) {
             if (val) {
-                console.log('this.ctSize', this.ctSize)
+                // console.log('this.ctSize', this.ctSize)
                 this.$refs.input[this.ctSize - 1].blur();
                 this.sendCaptcha();
             }
@@ -73,7 +67,7 @@ export default {
             // 监听 focus 事件，将光标重定位到“第一个空白符的位置”。
             let index = this.ct.findIndex(item => item === '');
             index = (index + this.ctSize) % this.ctSize;
-            console.log(this.$refs.input)
+            // console.log(this.$refs.input)
             this.$refs.input[index].focus();
         },
         onKeydown(val, index) {
@@ -88,6 +82,7 @@ export default {
         sendCaptcha() {
             console.log();
             this.msg = `发送验证码到服务器：${this.ct.join('')}`;
+            // console.log(this.msg)
             // 此时无法操作 input。。
             this.loading = true;
             setTimeout(() => {
@@ -133,9 +128,10 @@ input {
     border-bottom: .02rem solid #eee;
     outline: none;
 }
-input :focus{
-     border:#928fff;
-     background: rgba(146, 143, 255, 0.1);
+
+input :focus {
+    border: #928fff;
+    background: rgba(146, 143, 255, 0.1);
 }
 
 input:last-of-type {
@@ -144,6 +140,11 @@ input:last-of-type {
 
 input:disabled {
     background-color: #fff;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 0;
 }
 
 .msg {

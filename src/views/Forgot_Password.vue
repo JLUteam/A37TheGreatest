@@ -1,24 +1,24 @@
 <template>
     <div class="basic">
         <Title_Captcha>
-            <p class="tip1_Captcha" :key="2">Forgot Password?</p>
-            <p class="tip2_Captcha" :key="3">Please select option to send link reset password</p>
+            <p class="tip1_Captcha" :key="2">找回密码</p>
+            <p class="tip2_Captcha" :key="3">请选择重置密码的方式</p>
         </Title_Captcha>
         <Forgot_Password_Line>
-            <p class="Tip1_Forget_Password">Send to your Email ✉️</p>
-            <p class="Tip2_Forget_Password">Password reset link has been sent to your email address</p>
+            <p class="Tip1_Forget_Password">发送到您的邮箱 ✉️</p>
+            <p class="Tip2_Forget_Password">密码重置链接已发送至您的邮箱</p>
         </Forgot_Password_Line>
         <Forgot_Password_Line>
-            <p class="Tip1_Forget_Password">Send to your Phone number 📲</p>
-            <p class="Tip2_Forget_Password">Password reset link has been sent to your phone number</p>
+            <p class="Tip1_Forget_Password">发送到您的电话号码 📲</p>
+            <p class="Tip2_Forget_Password">密码重置链接已发送至您的手机号码</p>
         </Forgot_Password_Line>
         <Forgot_Password_Button>
             <router-link class="base_Forgot_Password_Button_p" :to="{
                 name:'SignUp'
-            }">Sign up</router-link>
+            }">登录</router-link>
         </Forgot_Password_Button>
         <Forgot_Password_Button>
-            Resend code
+            重新发送验证码
         </Forgot_Password_Button>
     </div>
 </template>
