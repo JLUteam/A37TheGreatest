@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import MyShow from "../components/Show.vue";
-import FullLogo from "../components/FullLogo.vue";
-import AV_LOG_INFO from "../components/AV_LOG_INFO.vue";
-import Log_Register from "../components/Log_Register.vue";
+import MyShow from "../components/Option/Show.vue";
+import FullLogo from "../components/Option/FullLogo.vue";
+import AV_LOG_INFO from "../components/Option/AV_LOG_INFO.vue";
+import Log_Register from "../components/Option/Log_Register.vue";
 export default {
   name: "MyOptions",
   components: {

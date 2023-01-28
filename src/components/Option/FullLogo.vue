@@ -1,16 +1,17 @@
 <template>
-  <div class="shopping-l ">
-    <img src="../assets/img/Options.png" alt="">
+  <div class='FullLogo'>
+    <img class="FullLogo" src="@/assets/svg/FullLogo.svg" alt="">
   </div>
 </template>
 <script>
 export default {
-  name: "MyShow",
+  name: "FullLogo",
 };
 </script>
 
 <style lang="less" scoped>
-.shopping-l {
+.FullLogo {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,12 +19,8 @@ export default {
   margin-bottom: .32rem;
 
   img {
-    position: relative;
-    left: 0rem;
-    top: 0.7rem;
-    width: 7.512rem;
-    height: 7.512rem;
+    width: 2.46rem;
+    height: .64rem;
   }
-
 }
 </style>

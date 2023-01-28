@@ -2,11 +2,11 @@
   <transition appear name="animate__animated animate__bounce" enter-active-class="animate__backInUp">
     <div class="social">
       <a class="wechat">
-        <img class='icon' src="../assets/img/微信.png" alt="Icon" />
+        <img class='icon' src="@/assets/img/微信.png" alt="Icon" />
         <p>使用微信登录</p>
       </a>
       <a class="zhifubao">
-        <img class='icon' src="../assets/img/支付宝.png" alt="Icon" />
+        <img class='icon' src="@/assets/img/支付宝.png" alt="Icon" />
         <p>使用支付宝登录</p>
       </a>
     </div>

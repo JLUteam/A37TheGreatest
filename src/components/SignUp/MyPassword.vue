@@ -1,7 +1,7 @@
 <template>
     <div id="password" class="form__div">
         <label for="password_input" id="title" class="form__title">密码</label>
-        <img class="logo" src="../assets/svg/IconsLock.svg" alt="IconsLock">
+        <img class="logo" src="@/assets/svg/IconsLock.svg" alt="IconsLock">
         <router-link :to="{
             name: 'Forgot_Password'
         }" class="forgot">找回</router-link>
@@ -17,16 +17,16 @@ export default {
         return {
             password: '',
             passwordvisible: false,
-            currentImage_IconsEye: require('../assets/svg/IconsEye_False.svg'),
+            currentImage_IconsEye: require('@/assets/svg/IconsEye_False.svg'),
         }
     },
     methods: {
         togglePasswordVisibility() {
             this.passwordvisible = !this.passwordvisible;
-            if (this.currentImage_IconsEye === require('../assets/svg/IconsEye_False.svg')) {
-                this.currentImage_IconsEye = require('../assets/svg/IconsEye_True.svg')
+            if (this.currentImage_IconsEye === require('@/assets/svg/IconsEye_False.svg')) {
+                this.currentImage_IconsEye = require('@/assets/svg/IconsEye_True.svg')
             } else {
-                this.currentImage_IconsEye = require('../assets/svg/IconsEye_False.svg')
+                this.currentImage_IconsEye = require('@/assets/svg/IconsEye_False.svg')
             }
         }
 

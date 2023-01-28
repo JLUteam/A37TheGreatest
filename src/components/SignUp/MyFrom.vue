@@ -12,11 +12,11 @@
 </template>
 <script>
 import "animate.css";
-import MyUserName from "./MyUserName.vue";
-import MyPhoneNumber from "./MyPhoneNumber.vue";
-import MyPassword from "./MyPassword.vue";
-import MyTip from "./MyTip.vue";
-import MyBirthday from "./MyBirthday.vue";
+import MyUserName from "@/components/SignUp/MyUserName.vue";
+import MyPhoneNumber from "@/components/SignUp/MyPhoneNumber.vue";
+import MyPassword from "@/components/SignUp/MyPassword.vue";
+import MyTip from "@/components/SignUp/MyTip.vue";
+import MyBirthday from "@/components/SignUp/MyBirthday.vue";
 export default {
   name: "MyFrom",
   components: { MyUserName, MyPhoneNumber, MyPassword, MyTip, MyBirthday },
@@ -35,15 +35,16 @@ export default {
     submit() {
       if (this.userinfo.IsAgree === true) {
         console.log(JSON.stringify(this.userinfo));
+        this.$router.push({
+          name: "Captcha",
+          params: {
+            phoneNumber: this.userinfo.phonenumbe,
+          },
+        });
       } else {
         alert("没有确认同意用户协议");
       }
-      this.$router.push({
-        name: "Captcha",
-        params: {
-          phoneNumber: this.userinfo.phonenumbe,
-        },
-      });
+
     },
     UserName(UserName) {
       this.userinfo.username = UserName;

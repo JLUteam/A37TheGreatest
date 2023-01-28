@@ -3,7 +3,7 @@
     <div class="Header">
       <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
         <div class="item_1" :key="1"></div>
-        <img class="fullLogo" src="../assets/svg/FullLogo.svg" alt="email" :key="2" />
+        <img class="fullLogo" src="@/assets/svg/FullLogo.svg" alt="email" :key="2" />
 
         <p class="tip1" :key="2">
           <slot name='tip1'></slot>
@@ -20,7 +20,7 @@
           <router-link :to="{
             name: 'Options'
           }">
-            <img class="IconsClose" src="../assets/svg/IconsClose.svg" alt="">
+            <img class="IconsClose" src="@/assets/svg/IconsClose.svg" alt="">
           </router-link>
         </div>
       </transition-group>

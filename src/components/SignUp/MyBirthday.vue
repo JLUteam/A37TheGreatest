@@ -1,7 +1,7 @@
 <template>
     <div class="form__div">
         <label class="form__title">出生日期</label>
-        <img class="logo" src="../assets/svg/cake-candles-solid.svg" alt="">
+        <img class="logo" src="@/assets/svg/cake-candles-solid.svg" alt="">
         <div class="birthday">
             <select v-model="birtydayinfo.year" @change="setYear">
                 <option v-for="item in yearList" :key="item" :label="item" :value="item"></option>

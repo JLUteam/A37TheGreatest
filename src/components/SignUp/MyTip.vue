@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       isagree: false,
-      currentImage_Checkbox: require("../assets/svg/Checkbox_False.svg"),
+      currentImage_Checkbox: require("@/assets/svg/Checkbox_False.svg"),
       mood: "rectangle_false",
     };
   },
@@ -28,12 +28,12 @@ export default {
       this.isagree = !this.isagree;
       if (
         this.currentImage_Checkbox ===
-        require("../assets/svg/Checkbox_False.svg")
+        require("@/assets/svg/Checkbox_False.svg")
       ) {
-        this.currentImage_Checkbox = require("../assets/svg/Checkbox_true.svg");
+        this.currentImage_Checkbox = require("@/assets/svg/Checkbox_true.svg");
         this.mood = "  rectangle_true";
       } else {
-        this.currentImage_Checkbox = require("../assets/svg/Checkbox_False.svg");
+        this.currentImage_Checkbox = require("@/assets/svg/Checkbox_False.svg");
         this.mood = " rectangle_false";
       }
     },

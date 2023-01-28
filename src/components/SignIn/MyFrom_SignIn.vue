@@ -10,8 +10,8 @@
 </template>
 <script>
 import "animate.css";
-import MyUserName from "./MyUserName.vue";
-import MyPassword from "./MyPassword.vue";
+import MyUserName from "@/components/SignUp/MyUserName.vue";
+import MyPassword from "@/components/SignUp/MyPassword.vue";
 export default {
   name: "MyFromSignIn",
   components: { MyUserName, MyPassword },
