@@ -1,5 +1,9 @@
 <template>
     <div class="Category_Chart">
+        <div class="shoppingrecode">
+            <p class="number">$163.98</p>
+            <p class="time">You’ve spent $32.4 this week</p>
+        </div>
         <div class="chart" ref="myChart">
         </div>
         <el-tabs v-model="activeName" @tab-click="handleClick" class="select">
@@ -138,41 +142,18 @@ export default {
                                     x2: 0,
                                     y2: 1,
                                     colorStops: [{
-                                        offset: 0, color: '#8ee04e' // 0% 处的颜色
+                                        offset: 0, color: '#928fff' // 0% 处的颜色
                                     }, {
-                                        offset: 1, color: ' rgba(142,224,78,0)' // 100% 处的颜色
+                                        offset: 1, color: ' rgba(146,143,255,0)' // 100% 处的颜色
                                     }],
                                     global: false // 缺省为 false
                                 }
                             },
                             lineStyle: {
-                                color: '#8ee04e'
+                                color: '#928FFF'
                             },
 
                         },
-                        {
-                            data: [240, 432, 1201, 334, 290, 330, 320],
-                            type: 'line',
-                            // smooth: true,
-                            areaStyle: {
-                                color: {
-                                    type: 'linear',
-                                    x: 0,
-                                    y: 0,
-                                    x2: 0,
-                                    y2: 1,
-                                    colorStops: [{
-                                        offset: 0, color: '#ff6740' // 0% 处的颜色
-                                    }, {
-                                        offset: 1, color: ' rgba(255,103,64,0)' // 100% 处的颜色
-                                    }],
-                                    global: false // 缺省为 false
-                                }
-                            },
-                            lineStyle: {
-                                color: '#FF6740'
-                            }
-                        }
                     ]
                 }
             )
@@ -189,6 +170,33 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.shoppingrecode {
+    width: 6.54rem;
+    height: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    .number {
+        color: #121826;
+        font-family: Manrope;
+        font-size: .72rem;
+        font-weight: 700;
+        line-height: .96rem;
+        text-align: center;
+    }
+
+    .time {
+        color: #6c727f;
+        font-family: Manrope;
+        font-size: .28rem;
+        font-weight: 400;
+        line-height: .48rem;
+        text-align: center;
+    }
+}
+
 .Category_Chart {
     position: relative;
     display: flex;
@@ -202,7 +210,7 @@ export default {
     }
 
     .select {
-        margin-top: 0rem;
+        margin-top: -.8rem;
 
         /deep/ .el-tabs__nav {
             padding-left: .4rem;
