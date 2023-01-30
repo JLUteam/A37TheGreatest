@@ -17,7 +17,7 @@
                         <p class="merchantname">{{ recode.name }}</p>
                         <p class="ShoppingTime">{{ recode.ShoppingTime }}</p>
                     </div>
-                    <p class="consumption">{{ recode.consumption }}</p>
+                    <p class="consumption">{{ recode.consumption.toFixed(2)}}</p>
                 </div>
             </div>
         </div>

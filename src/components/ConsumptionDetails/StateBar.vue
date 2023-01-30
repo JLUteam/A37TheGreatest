@@ -34,20 +34,17 @@ export default {
         return {
             options: [{
                 value: '选项1',
-                label: '支付宝'
+                label: '能源'
             }, {
                 value: '选项2',
-                label: '微信'
+                label: '餐饮'
             }, {
                 value: '选项3',
-                label: '现金'
+                label: '娱乐'
             }, {
                 value: '选项4',
-                label: '银行卡'
-            }, {
-                value: '选项5',
                 label: '其他'
-            }],
+            },],
             value: this.recode.bcategory
         }
     },
@@ -104,7 +101,7 @@ export default {
         justify-content: space-between;
         width: 5.58rem;
         height: .48rem;
-       
+
 
         p {
             color: #6c727f;
@@ -121,6 +118,7 @@ export default {
             justify-content: space-around;
             width: 2.08rem;
             color: #121826;
+
             img {
                 width: .4rem;
                 height: .4rem;

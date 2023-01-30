@@ -39,7 +39,6 @@ const router = new VueRouter({
             name: "home",
             path: "/home",
             component: home,
-           
         },
          {
             name: "Percent",

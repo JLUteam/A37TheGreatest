@@ -26,9 +26,9 @@
 </template>
 <script>
 import MyHeader from '@/components/SignUp/MyHeader.vue'
-import MyFrom from '../components/SignUp/MyFrom.vue'
-import MySocial from '../components/SignUp/MySocial.vue';
-import MySignIn from '../components/SignUp/MySignIn.vue';
+import MyFrom from '@/components/SignUp/MyFrom.vue'
+import MySocial from '@/components/SignUp/MySocial.vue';
+import MySignIn from '@/components/SignUp/MySignIn.vue';
 export default {
     name: 'SignUp',
     components: {

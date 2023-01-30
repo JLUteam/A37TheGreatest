@@ -1,5 +1,7 @@
 <template>
     <div class="Category_Chart">
+        <div class="chart" ref="myChart">
+        </div>
         <el-tabs v-model="activeName" @tab-click="handleClick" class="select">
             <el-tab-pane label="一天" name="first"></el-tab-pane>
             <el-tab-pane label="一周" name="second"></el-tab-pane>
@@ -7,14 +9,12 @@
             <el-tab-pane label="一年" name="fourth"></el-tab-pane>
             <el-tab-pane label="全部" name="firth"></el-tab-pane>
         </el-tabs>
-        <div class="chart" ref="myChart">
-        </div>
     </div>
 </template>
 <script>
 
 export default {
-    name: 'Category_Chart',
+    name: 'Category_Transactions',
     data() {
         return {
             options: [{
@@ -34,7 +34,7 @@ export default {
                 label: '全部'
             }],
             value: '',
-            activeName: this.$store.state.click_time
+            activeName: 'second'
         }
     },
     mounted() {
@@ -185,12 +185,6 @@ export default {
             this.drawLine()
         }
 
-    }, watch: {
-        activeName: {
-            handler: function (value) {
-                this.$store.commit('updateactiveName', value)
-            }
-        },
     }
 }
 </script>
@@ -200,23 +194,23 @@ export default {
     display: flex;
     flex-direction: column;
     width: 6.54rem;
+    overflow: scroll;
 
     .chart {
-        margin-top: -.6rem;
         width: 6.54rem;
-        height: 6.7044rem;
+        height: 4.7044rem;
     }
 
     .select {
-        margin-top: .5rem;
+        margin-top: 0rem;
 
         /deep/ .el-tabs__nav {
-
             padding-left: .4rem;
         }
 
         /deep/ .el-tabs__active-bar {
             margin-left: .4rem;
+            background-color: #928FFF
         }
 
         /deep/ .el-tabs__item.is-active {
@@ -227,9 +221,7 @@ export default {
             padding: 0 .4rem;
         }
 
-        /deep/ .el-tabs__active-bar {
-            background-color: #928FFF
-        }
+
     }
 
 }

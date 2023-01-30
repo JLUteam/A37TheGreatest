@@ -1,23 +1,40 @@
 <template>
-    <div class="Category_Chart" >
-        <div class="chart" ref="myChart">
+    <div class="Category_Chart">
+        <div class="chart" ref="myChart" :auto-resize="'true'">
 
         </div>
     </div>
 </template>
 <script>
-
+import * as echarts from 'echarts';
 export default {
     name: 'Category_Chart',
     mounted() {
         this.drawLine();
     },
+    beforeDestroy() {
+        window.removeEventListener("resize", () => {
+            this.myChart.resize();
+        });
+    },
+
+    computed: {
+        Consumption() {
+            return {
+                'energy': this.sum('energy', 'Sep,2021'),
+                'food': this.sum('food', 'Sep,2021'),
+                'entertainment': this.sum('entertainment', 'Sep,2021'),
+                'other': this.sum('other', 'Sep,2021'),
+            }
+        }
+    },
     methods: {
         drawLine() {
             // 基于刚刚准备好的 DOM 容器，初始化 EChart 实例
             let myChart = this.$echarts.init(this.$refs.myChart)
+            this.myChart = myChart
             // 绘制图表
-            myChart.setOption({
+            let option = {
                 tooltip: {
                     trigger: 'item'
                 },
@@ -38,7 +55,7 @@ export default {
                     itemHeight: 12,
                     itemStyle: { color: 'rgb(146, 143, 255)' },
                     textStyle: { color: 'black' },
-                    top: '55%', //调整位置
+                    top: '65%', //调整位置
                     left: '33%',//调整位置
                     data: [{ name: '能源', icon: 'rect' }],
 
@@ -47,7 +64,7 @@ export default {
                     itemHeight: 12,
                     itemStyle: { color: 'rgb(142, 224, 78)' },
                     textStyle: { color: 'black' },
-                    top: '55%', //调整位置
+                    top: '65%', //调整位置
                     left: '55%',//调整位置
                     data: [{ name: '餐饮', icon: 'rect' }],
                 },
@@ -56,7 +73,7 @@ export default {
                     itemHeight: 12,
                     itemStyle: { color: 'rgb(255, 103, 64)' },
                     textStyle: { color: 'black' },
-                    top: '65%', //调整位置
+                    top: '75%', //调整位置
                     left: '33%',//调整位置
                     data: [{ name: '娱乐', icon: 'rect' }],
                 },
@@ -65,7 +82,7 @@ export default {
                     itemHeight: 12,
                     itemStyle: { color: 'rgb(202, 202, 245)' },
                     textStyle: { color: 'black' },
-                    top: '65%', //调整位置
+                    top: '75%', //调整位置
                     left: '53%',//调整位置
                     data: [{ name: '其他', icon: 'rect' }],
                 }],
@@ -74,13 +91,13 @@ export default {
                     {
                         name: 'Access From',
                         type: 'pie',
-                        radius: ['60%', '90%'],
-                        center: ['50%', '50%'],
+                        radius: ['50%', '70%'],
+                        center: ['50%', '60%'],
                         avoidLabelOverlap: false,
-
                         itemStyle: {
-                            borderRadius: 10,
-                            borderWidth: 20
+                            borderColor: '#fff',
+                            borderWidth: 10,
+                            borderRadius: 20,
                         },
                         label: {
                             show: false,
@@ -89,25 +106,40 @@ export default {
                         emphasis: {
                             label: {
                                 show: true,
-                                fontSize: 55,
+                                fontSize: 40,
                                 fontWeight: 'bold',
                                 formatter: '{d}%',
+                                padding: [10, 10]
                             }
                         },
                         labelLine: {
                             show: false
                         },
                         data: [
-                            { value: this.$store.state.Consumption.能源, name: '能源' },
-                            { value: this.$store.state.Consumption.餐饮, name: '餐饮' },
-                            { value: this.$store.state.Consumption.娱乐, name: '娱乐' },
-                            { value: this.$store.state.Consumption.其他, name: '其他' },
+                            { value: this.Consumption.energy, name: '能源' },
+                            { value: this.Consumption.food, name: '餐饮' },
+                            { value: this.Consumption.entertainment, name: '娱乐' },
+                            { value: this.Consumption.other, name: '其他' },
 
                         ]
                     },
                 ]
             }
-            )
+            myChart.setOption(option)
+
+            
+            window.addEventListener("resize", () => {
+                myChart.resize();
+
+            });
+
+        },
+        sum(name, time) {
+            let data = this.$store.state.recodes.filter(item => ((item.bcategory === name) & item.ShoppingTime.indexOf(time) != -1))
+
+            return data.reduce((total, item) => {
+                return total + -1 * item.consumption
+            }, 0)
         },
 
     }
@@ -119,7 +151,8 @@ export default {
     display: flex;
     flex-direction: column;
     width: 6.54rem;
-    height: 6.7044rem;
+    height: 7.7044rem;
+
     .percentage {
         position: relative;
         width: 5.7526rem;
@@ -139,7 +172,7 @@ export default {
         top: .4774rem;
         width: 6.54rem;
         height: 6.7044rem;
-        
+
     }
 }
 </style>

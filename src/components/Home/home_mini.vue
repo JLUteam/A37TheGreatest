@@ -1,20 +1,27 @@
 <template>
     <div :class="flag ? 'basic_dark' : 'basic'">
-        <Home_mini></Home_mini>
+        <Top></Top>
+        <Consumption></Consumption>
+        <Category_Chart></Category_Chart>
         <ButtomNav></ButtomNav>
+        <Transactions></Transactions>
     </div>
 </template>
 <script>
 import ButtomNav from '@/components/ButtomNav.vue';
-import Home_mini from '@/components/Home/home_mini.vue';
-
+import Category_Chart from '@/components/Home/Category_Chart.vue';
+import Consumption from '@/components/Home/Consumption.vue';
+import Top from '@/components/Home/Top.vue';
+import Transactions from '@/components/Home/Transactions.vue';
 export default {
-    name: 'home',
+    name: 'home_mini',
     components: {
-
-    ButtomNav,
-    Home_mini
-},
+        Top,
+        Consumption,
+        Category_Chart,
+        ButtomNav,
+        Transactions
+    },
     computed: {
         flag() {
             return this.$store.state.Transactions_pull;

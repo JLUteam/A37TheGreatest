@@ -1,20 +1,28 @@
 <template>
     <div class="buttom">
         <div class="nav">
+
             <div class="ButtomNav__menu">
                 <ul class="nav_list">
                     <li class="nav__item">
-                        <router-link class="nav__link" to="">
+                        <router-link class="nav__link" :to="{
+                            name: 'home'
+                        }">
                             <img :src=img.home class="item" alt="">
                         </router-link>
                     </li>
                     <li class="nav__item">
-                        <router-link class="nav__link" to="Percent">
+                        <router-link class="nav__link" :to="{
+                            name: 'Percent'
+                        }">
                             <img :src=img.Percent class="item" alt="">
                         </router-link>
                     </li>
+                    <li class="nav__item">
+
+                    </li>
                     <li class="nav__item_s">
-                        <div class="add" to="">
+                        <div :class="mood" @click="updatemood()">
                             <img src="@/assets/svg/add-bold.svg" class="item_s" alt="">
                         </div>
                     </li>
@@ -31,6 +39,21 @@
                 </ul>
             </div>
         </div>
+        <div class="addmethod" v-show="this.mood ==='add'? false:true ">
+
+            <div class="method">
+                <img src="@/assets/svg/文本.svg" class="icon" alt="">
+                <p>文本输入</p>
+            </div>
+            <div class="method">
+                <img src="@/assets/svg/照相机.svg" class="icon" alt="">
+                <p>相机输入</p>
+            </div>
+            <div class="method">
+                <img src="@/assets/svg/文本.svg" class="icon" alt="">
+                <p>相册输入</p>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -44,7 +67,8 @@ export default {
                 Notification: require('@/assets/svg/Notification.svg'),
                 user_Home: require('@/assets/svg/user_Home.svg')
 
-            }
+            },
+            mood: 'add'
         }
     },
     mounted() {
@@ -55,19 +79,24 @@ export default {
                 this.img.home = require('@/assets/svg/home' + '_active.svg');
                 break
             case 'Percent':
-                this.img.home = require('@/assets/svg/Percent' + '_active.svg');
+                this.img.Percent = require('@/assets/svg/Percent' + '_active.svg');
                 break;
             case 'Notification':
-                this.img.home = require('@/assets/svg/Notification' + '_active.svg');
+                this.img.Percent = require('@/assets/svg/Notification' + '_active.svg');
                 break;
             case 'user_Home':
-                this.img.home = require('@/assets/svg/user_Home' + '_active.svg');
+                this.img.user_Home = require('@/assets/svg/user_Home' + '_active.svg');
                 break;
             default:
                 break;
 
         }
 
+    },
+    methods: {
+        updatemood() {
+            this.mood = this.mood === 'add' ? 'add active' : 'add'
+        }
     }
 }
 </script>
@@ -104,10 +133,9 @@ export default {
                 gap: .80rem;
 
                 .nav__item {
-                    height: 2.1rem;
+                    height: 1.1rem;
                     display: flex;
                     align-items: center;
-                    // margin-left: .1rem;
 
                     .nav__link {
                         display: flex;
@@ -126,9 +154,12 @@ export default {
 
                 .nav__item_s {
                     width: 1.2rem;
-                    height: 2.1rem;
+                    height: 1.1rem;
                     display: flex;
                     align-items: flex-start;
+                    position: absolute;
+                    margin-bottom: 1.3rem;
+                    cursor: pointer;
 
                     .add {
                         display: flex;
@@ -148,10 +179,68 @@ export default {
 
                 }
 
+                .active {
+                    transform: rotate(-45deg);
+                }
+
+
+
 
             }
         }
 
     }
+
+
+}
+
+.addmethod {
+    position: fixed;
+    display: flex;
+    height: 4.8rem;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    bottom: 1.8rem;
+    padding-left: .48rem;
+    padding-right: .48rem;
+    z-index: 1;
+    border-radius: .64rem;
+    box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
+    background-color: #fff;
+
+    .method {
+        position: relative;
+        margin-bottom: 0.2rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 6.54rem;
+        height: 1.28rem;
+        border-radius: .32rem;
+        background: #f4f4f6;
+        background-blend-mode: normal;
+        border: .03rem dashed #e9e9ff;
+        transition: background-color 0.3s, border 0.3s;
+
+        .icon {
+            width: .64rem;
+            height: .64rem;
+
+            p {
+                color: #121826;
+                font-family: Manrope;
+                font-size: .32rem;
+                font-weight: 700;
+                line-height: .52rem;
+            }
+        }
+        &:hover {
+            background-color: #e9e9ff;
+        }
+    }
+
+
 }
 </style>

@@ -1,29 +1,34 @@
 <template>
-    <div :class="Flag ? 'Transactions_after' : 'Transactions'" @touchstart='touchstart' @touchmove='touchmove'>
-        <div class="TransactionsTitle">
-            <div class="line"></div>
-            <p>消费记录</p>
-            <p class="More" @mousedown="pull_up">查看更多</p>
-        </div>
-        <div class="search" v-show=Flag>
-
-            <input type="text" class="search_record" placeholder="Search transactions">
-        </div>
-        <div class="recodes_border">
-            <div class="recordsets">
-                <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.ShoppingTime">
-                    <img :src=recode.img class="merchantAvatar">
-                    <div class="middle">
-                        <p class="merchantname">{{ recode.name }}</p>
-                        <p class="ShoppingTime">{{ recode.ShoppingTime }}</p>
+    <div>
+        <div :class="Flag ? 'Transactions_after' : 'Transactions'" @touchstart='touchstart' @touchmove='touchmove'
+            v-show="Transactions_click">
+            <div class="TransactionsTitle">
+                <div class="line"></div>
+                <p>{{ bcategory + '消费记录'}}</p>
+                <p class="More" @mousedown="pull_up">查看更多</p>
+            </div>
+            <div class="Category" v-show='Flag'>
+                <Category_Transactions></Category_Transactions>
+            </div>
+            <div class="recodes_border">
+                <div class="recordsets">
+                    <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.ShoppingTime">
+                        <img :src=recode.img class="merchantAvatar">
+                        <div class="middle">
+                            <p class="merchantname">{{ recode.name }}</p>
+                            <p class="ShoppingTime">{{ recode.ShoppingTime }}</p>
+                        </div>
+                        <p class="consumption">{{ recode.consumption.toFixed(2) }}</p>
                     </div>
-                    <p class="consumption">{{ recode.consumption }}</p>
                 </div>
             </div>
+        </div>
+        <div v-if="!Transactions_click | Flag" class="temp">
         </div>
     </div>
 </template>
 <script>
+import Category_Transactions from './Category_Transactions.vue'
 export default {
     name: 'Transactions',
     data() {
@@ -32,12 +37,26 @@ export default {
         }
     },
     computed: {
-        recodes() {
-            return this.$store.state.recodes
+        recodes: {
+            get() {
+                return this.$store.state.recodes.filter(item => ((item.bcategory === this.precent_Transactions_bcategory)))
+            },
+            set() {
+                return this.$store.state.recodes.filter(item => ((item.bcategory === this.precent_Transactions_bcategory)))
+            }
         },
         Flag() {
             return this.$store.state.Transactions_pull
         },
+        Transactions_click() {
+            return this.$store.state.Transactions_click
+        },
+        bcategory() {
+            return '咖啡'
+        },
+        precent_Transactions_bcategory() {
+            return this.$store.state.precent_Transactions_bcategory
+        }
 
     },
     watch: {
@@ -79,6 +98,9 @@ export default {
             })
         }
     },
+    components: {
+        Category_Transactions
+    }
 }
 </script>
 <style lang="less" scoped>
@@ -87,9 +109,8 @@ export default {
     height: 6.38rem;
     margin-top: .4rem;
     padding-left: .1rem;
-
-
-    // background-color: #4a44c6;
+    justify-content: center;
+    align-items: center;
     .TransactionsTitle {
         width: 6.54rem;
         height: .56rem;
@@ -193,7 +214,6 @@ export default {
 }
 
 .Transactions_after {
-    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -202,7 +222,6 @@ export default {
     max-height: 88.5%;
     padding-left: .48rem;
     padding-right: .48rem;
-    // height: 10.98rem;
     margin-top: 0rem;
     z-index: 100;
     background-color: #ffffff;
@@ -210,7 +229,10 @@ export default {
     box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
     bottom: 0;
 
-
+    .Category {
+        width: 6.54rem;
+        height: 6.7044rem;
+    }
 
     // background-color: #4a44c6;
     .TransactionsTitle {
@@ -256,49 +278,7 @@ export default {
         }
     }
 
-    .search {
-        position: relative;
-        width: 6.54rem;
-        height: 1.28rem;
-        border-radius: .48rem;
-        padding-bottom: .2rem;
-        margin-top: 1rem;
-        background: #f4f4f6;
-        background-blend-mode: normal;
-        margin-bottom: .4rem;
-
-        .search_record {
-            width: 100%;
-            height: 1.28rem;
-            padding-left: .98rem;
-            outline: none;
-            border: 0 none;
-            background-blend-mode: normal;
-            color: #6c727f;
-            font-family: Manrope;
-            font-size: .32rem;
-            font-weight: 400;
-            line-height: .52rem;
-            background: transparent;
-
-        }
-
-    }
-
-    .search::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        width: .48rem;
-        height: .48rem;
-        left: .28rem;
-        top: .4rem;
-        background-image: url(@/assets/svg/search.svg);
-        background-size: contain;
-    }
-
     .recodes_border {
-        overflow: scroll;
 
         .recordsets {
             width: 6.54rem;
@@ -375,6 +355,11 @@ export default {
 
 
 
+}
+
+.temp {
+    width: 6.54rem;
+    height: 1.5rem;
 }
 
 @media screen and (min-width:750px) {

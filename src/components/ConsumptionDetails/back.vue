@@ -8,9 +8,7 @@ export default {
     name: "back",
     methods: {
         back() {
-            this.$router.push({
-                name: 'home'
-            })
+            this.$router.back(-1)
         }
     }
 };
