@@ -1,19 +1,17 @@
 <template>
   <div class="base">
-
     <router-view></router-view>
-
   </div>
 </template>
 
 <script>
-import ConsumptionDetails from './views/ConsumptionDetails.vue';
+import ConsumptionDetails from "./views/ConsumptionDetails.vue";
 
 export default {
   name: "App",
   components: {
-    ConsumptionDetails
-}
+    ConsumptionDetails,
+  },
 };
 </script>
 <style>
@@ -24,7 +22,7 @@ export default {
 }
 
 ul {
-  list-style: none
+  list-style: none;
 }
 
 body::-webkit-scrollbar {
