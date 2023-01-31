@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="Icon">
+    <g id="Chevron-Right">
+      <path d="M24 0L24 24L0 24L0 0L24 0Z" id="Vector" fill="none" fill-rule="evenodd" stroke="none" />
+      <path d="M13.8265 9.17157C15.3366 10.6816 15.3869 13.0986 13.9775 14.669L13.8265 14.8284L9.70711 18.7071C9.31658 19.0976 8.68342 19.0976 8.29289 18.7071C7.93241 18.3466 7.90468 17.7794 8.2097 17.3871L8.29289 17.2929L12.4123 13.4142C13.1523 12.6743 13.1912 11.4988 12.5292 10.713L12.4123 10.5858L8.29289 6.7071C7.90237 6.31658 7.90237 5.68341 8.29289 5.29289C8.65338 4.9324 9.22061 4.90467 9.6129 5.2097L9.70711 5.29289L13.8265 9.17157Z" id="👑-Edit-Color" fill="#D3D5DA" fill-rule="evenodd" stroke="none" />
+    </g>
+  </g>
+</svg>

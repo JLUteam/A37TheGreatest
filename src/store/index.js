@@ -56,7 +56,7 @@ const state = {
                 payment:'支付宝',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:02',
+                ShoppingTime: '2021-9-6 17:02:10',
                 consumption: -163.1
        },
        {        uid:'2',
@@ -69,7 +69,7 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:03',
+                ShoppingTime: '2021-9-6 17:03:10',
                 consumption: -163.98
        },
       {         uid:'3',
@@ -82,7 +82,7 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:04',
+                ShoppingTime: '2021-9-6 17:04:10',
                 consumption: -163.98
        },
       {         uid:'4',
@@ -95,7 +95,7 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:05',
+                ShoppingTime: '2021-9-6 17:05:10',
                 consumption: -163.98
        },
       {         uid:'5',
@@ -108,7 +108,7 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:06',
+                ShoppingTime: '2021-9-6 17:06:10',
                 consumption: -163.98
        },
        {        uid:'6',
@@ -121,8 +121,8 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:07',
-                consumption: -163.98
+                ShoppingTime: '2021-9-6 17:07:10',
+                consumption: -173.98
         },
      {        uid:'7',
                 isbpic: true,
@@ -134,8 +134,8 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:08',
-                consumption: -163.98
+                ShoppingTime: '2021-9-6 17:08:10',
+                consumption: -183.98
         },
      {        uid:'8',
                 isbpic: true,
@@ -147,8 +147,8 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:09',
-                consumption: -163.98
+                ShoppingTime: '2021-9-6 17:09:10',
+                consumption: -193.98
         },
      {        uid:'9',
                 isbpic: true,
@@ -160,8 +160,8 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:10',
-                consumption: -163.98
+                ShoppingTime: '2021-9-6 17:10:10',
+                consumption: -103.98
         },
      {        uid:'10',
                 isbpic: true,
@@ -173,9 +173,21 @@ const state = {
                 payment:'',
                 img: require('@/assets/img/Starbucks.png'),
                 name: 'Starbucks',
-                ShoppingTime: '6 Sep,2021 • 17:11',
-                consumption: -163.98
-       }],
+                ShoppingTime: '2021-9-6 17:11:10',
+                consumption: -143.98
+        }],
+    userinfo: {
+        uid: '',
+        iswx: false,
+        wxid:'',
+        iszfbid: false,
+        zfbid: '',
+        uname: 'kaite',
+        uphone: '123456789',
+        upassword: '',
+        upic: require('@/assets/img/avast.png'),
+        ucreate:''
+    },
     Transactions_pull: false,
     Transactions_click: false,
     precent_Transactions_bcategory: '',

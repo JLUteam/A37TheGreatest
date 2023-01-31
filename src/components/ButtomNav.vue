@@ -32,7 +32,7 @@
                         </router-link>
                     </li>
                     <li class="nav__item">
-                        <router-link class="nav__link" to="user_Home">
+                        <router-link class="nav__link" to="person">
                             <img :src=img.user_Home class="item" alt="">
                         </router-link>
                     </li>
@@ -65,7 +65,7 @@ export default {
                 home: require('@/assets/svg/home.svg'),
                 Percent: require('@/assets/svg/Percent.svg'),
                 Notification: require('@/assets/svg/Notification.svg'),
-                user_Home: require('@/assets/svg/user_Home.svg')
+                user_Home: require('@/assets/svg/person.svg')
 
             },
             mood: 'add'
@@ -84,8 +84,8 @@ export default {
             case 'Notification':
                 this.img.Percent = require('@/assets/svg/Notification' + '_active.svg');
                 break;
-            case 'user_Home':
-                this.img.user_Home = require('@/assets/svg/user_Home' + '_active.svg');
+            case 'person':
+                this.img.user_Home = require('@/assets/svg/person' + '_active.svg');
                 break;
             default:
                 break;

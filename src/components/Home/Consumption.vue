@@ -1,5 +1,5 @@
 <template>
-    <div class="Consumption" >
+    <div class="Consumption">
         <div class="item1"></div>
         <div class="item2"></div>
         <div class="item3"></div>
@@ -11,7 +11,7 @@
                 ${{ zhenshu }}.{{ xiaoshu }}
             </p>
             <div class="comparetoy">
-               对比昨天的消费
+                对比昨天的消费
             </div>
             <div class="percent">
                 <img src="@/assets/svg/Triangle.svg" class="triangle-up"></img>
@@ -30,14 +30,55 @@ export default {
         xiaoshu() {
             return this.$store.state.total.toFixed(2).split('.')[1]
         },
+
         present() {
+            // let present = (this.total(1) - this.total(2)) / this.total(2) * 100 有真实数据后用这个
             let present = (this.$store.state.total_yes - this.$store.state.total) / this.$store.state.total_yes * 100;
             return present.toFixed(0)
         }
     },
     methods: {
+        total(days) {
+            let date = new Date()
+            let temp1 = new Date(date);
+            let temp2 = new Date(date);
+            temp1.setDate(temp1.getDate() - days)
+            temp2.setDate(temp2.getDate() - (days + 1))
+            temp1 = this.formatDate(temp1)
+            temp2 = this.formatDate(temp2)
+            let arr = this.$store.state.recodes.filter(item => ((item.bcategory === name) & (this.getHour(item.ShoppingTime, temp2) >= 0 & this.getHour(item.ShoppingTime, temp1)<0)))
+            // console.log(arr)
+            return arr.reduce((total, item) => {
+                return total + -1 * item.consumption
+            }, 0)
+        },
+        getHour(s1, s2) {
+            s1 = new Date(s1.replace(/-/g, '/'));
+            s2 = new Date(s2.replace(/-/g, '/'));
+            var ms = Math.abs(s1.getTime() - s2.getTime());
+            return ms / 1000 / 60 / 60;
+        },
+        formatDate(time, format = 'YY-MM-DD hh:mm:ss') {
+            var date = new Date(time);
+            var year = date.getFullYear(),
+                month = date.getMonth() + 1,//月份是从0开始的
+                day = date.getDate(),
+                hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds();
+            var preArr = Array.apply(null, Array(10)).map(function (elem, index) {
+                return '0' + index;
+            });
+            var newTime = format.replace(/YY/g, year)
+                .replace(/MM/g, preArr[month] || month)
+                .replace(/DD/g, preArr[day] || day)
+                .replace(/hh/g, preArr[hour] || hour)
+                .replace(/mm/g, preArr[min] || min)
+                .replace(/ss/g, preArr[sec] || sec);
 
-    }, 
+            return newTime;
+        }
+    },
 }
 </script>
 <style lang="less" scoped>
@@ -118,7 +159,7 @@ export default {
         }
 
         .comparetoy {
-           
+
             display: flex;
             align-content: center;
             align-items: center;

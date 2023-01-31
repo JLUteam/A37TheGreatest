@@ -21,10 +21,10 @@ export default {
     computed: {
         Consumption() {
             return {
-                'energy': this.sum('energy', 'Sep,2021'),
-                'food': this.sum('food', 'Sep,2021'),
-                'entertainment': this.sum('entertainment', 'Sep,2021'),
-                'other': this.sum('other', 'Sep,2021'),
+                'energy': this.sum('energy', '2021'),
+                'food': this.sum('food', '2021'),
+                'entertainment': this.sum('entertainment', '2021'),
+                'other': this.sum('other', '2021'),
             }
         }
     },

@@ -4,7 +4,7 @@
             <img class="icon" src="@/assets/svg/Icon.svg" alt="">
             <p class="greet">{{ time }}</p>
         </div>
-        <p :class="flag ? 'Hello_dark' : 'Hello'">Hi, Kitsbase!</p>
+        <p :class="flag ? 'Hello_dark' : 'Hello'">{{ 'Hi,' +name +'!'}}</p>
     </div>
 </template>
 <script>
@@ -42,6 +42,9 @@ export default {
         },
         flag() {
             return this.$store.state.Transactions_pull;
+        },
+        name() {
+            return this.$store.state.userinfo.uname
         }
     }
 }

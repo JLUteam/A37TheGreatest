@@ -42,16 +42,23 @@ export default {
     computed: {
         Consumption() {
             return {
-                'energy': this.sum('energy', 'Sep,2021'),
-                'food': this.sum('food', 'Sep,2021'),
-                'entertainment': this.sum('entertainment', 'Sep,2021'),
-                'other': this.sum('other', 'Sep,2021'),
+                'energy': this.sum('energy', '2021-9'),
+                'food': this.sum('food', '2021-9'),
+                'entertainment': this.sum('entertainment', '2021-9'),
+                'other': this.sum('other', '2021-9'),
             }
         },
-        title_number() {
-            return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
-                return prev + current
-            })
+        title_number:{
+            get() {
+                return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
+                    return prev + current
+                })
+            },
+            set() {
+                return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
+                    return prev + current
+                })
+           }
         },
         title_time: {
             get() {
@@ -71,7 +78,6 @@ export default {
                 return time
             },
             set() {
-
                 let time = null
                 if (this.$store.state.click_time === 'first') {
                     time = '一天'

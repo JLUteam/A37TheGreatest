@@ -1,7 +1,7 @@
 <template>
     <div class="Category_Chart">
         <div class="shoppingrecode">
-            <p class="number">$163.98</p>
+            <p class="number">${{ selectedvalue }}</p>
             <p class="time">You’ve spent $32.4 this week</p>
         </div>
         <div class="chart" ref="myChart">
@@ -38,11 +38,14 @@ export default {
                 label: '全部'
             }],
             value: '',
-            activeName: 'second'
+            activeName: '',
+            selectedvalue: ''
         }
     },
     mounted() {
         this.drawLine();
+        // console.log(('123', this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'consumption'))
+        console.log(this.activevalue)
     },
     beforeDestroy() {
         const self = this;
@@ -52,22 +55,30 @@ export default {
     },
     methods: {
         drawLine() {
+            let date = new Date()
+            let temp = new Date(date);
             // 基于刚刚准备好的 DOM 容器，初始化 EChart 实例
             let myChart = this.$echarts.init(this.$refs.myChart)
             this.myChart = myChart
             let xAxis = null
             if (this.activeName === 'first') {
                 xAxis = Object.keys([...Array(24)])
+                temp.setDate(temp.getDate() - 1);
             } else if (this.activeName === 'second') {
                 xAxis = Object.keys([...Array(7)])
+                temp.setDate(temp.getDate() - 7);
             } else if (this.activeName === 'third') {
                 xAxis = Object.keys([...Array(30)])
+                temp.setDate(temp.getDate() - 30);
             }
             else if (this.activeName === 'fourth') {
                 xAxis = Object.keys([...Array(12)])
+                temp.setDate(temp.getDate() - 365);
             } else {
                 xAxis = Object.keys([...Array(10)])
             }
+            temp = this.formatDate(temp)
+            this.temp = temp
             // 绘制图表
             myChart.setOption(
                 {
@@ -131,7 +142,7 @@ export default {
 
                     series: [
                         {
-                            data: [820, 932, 901, 934, 1290, 1330, 1320],
+                            data: this.activevalue,
                             type: 'line',
                             // smooth: true,
                             areaStyle: {
@@ -160,43 +171,71 @@ export default {
             window.addEventListener("resize", () => {
                 myChart.resize();
             })
+            myChart.on('click', arg => {
+                this.selectedvalue = arg.value
+            })
+
         },
         handleClick(tab, event) {
-            console.log(tab, event);
             this.drawLine()
+        },
+        getdata(name, time) {
+            let arr = this.$store.state.recodes.filter(item => ((item.bcategory === name) & this.getHour(time, item.ShoppingTime) >= 0))
+            console.log(arr)
+            return arr
+
+        },
+        getHour(s1, s2) {
+            s1 = new Date(s1.replace(/-/g, '/'));
+            s2 = new Date(s2.replace(/-/g, '/'));
+            var ms = Math.abs(s1.getTime() - s2.getTime());
+            return ms / 1000 / 60 / 60;
+        },
+        formatDate(time, format = 'YY-MM-DD hh:mm:ss') {
+            var date = new Date(time);
+            var year = date.getFullYear(),
+                month = date.getMonth() + 1,//月份是从0开始的
+                day = date.getDate(),
+                hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds();
+            var preArr = Array.apply(null, Array(10)).map(function (elem, index) {
+                return '0' + index;
+            });
+            var newTime = format.replace(/YY/g, year)
+                .replace(/MM/g, preArr[month] || month)
+                .replace(/DD/g, preArr[day] || day)
+                .replace(/hh/g, preArr[hour] || hour)
+                .replace(/mm/g, preArr[min] || min)
+                .replace(/ss/g, preArr[sec] || sec);
+
+            return newTime;
+        },
+        getMappingValueArrayOfKey(array, keyName) {
+            if (Object.prototype.toString.call(array) == '[object Array]') {
+                return array.map((item, index) => {
+                    return item[keyName]
+                })
+            }
+            return 'null（参数一应为对象数组）';//不是数组
         }
 
+
+    },
+    computed: {
+        activevalue: {
+            get() {
+
+                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'consumption').map(item => -item)
+            },
+            set() {
+                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'consumption').map(item => -item)
+            }
+        }
     }
 }
 </script>
 <style lang="less" scoped>
-.shoppingrecode {
-    width: 6.54rem;
-    height: 1.6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-
-    .number {
-        color: #121826;
-        font-family: Manrope;
-        font-size: .72rem;
-        font-weight: 700;
-        line-height: .96rem;
-        text-align: center;
-    }
-
-    .time {
-        color: #6c727f;
-        font-family: Manrope;
-        font-size: .28rem;
-        font-weight: 400;
-        line-height: .48rem;
-        text-align: center;
-    }
-}
-
 .Category_Chart {
     position: relative;
     display: flex;
@@ -204,20 +243,47 @@ export default {
     width: 6.54rem;
     overflow: scroll;
 
+    .shoppingrecode {
+        width: 6.54rem;
+        height: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+
+        .number {
+            color: #121826;
+            font-family: Manrope;
+            font-size: .72rem;
+            font-weight: 700;
+            line-height: .96rem;
+            text-align: center;
+        }
+
+        .time {
+            color: #6c727f;
+            font-family: Manrope;
+            font-size: .28rem;
+            font-weight: 400;
+            line-height: .48rem;
+            text-align: center;
+        }
+    }
+
     .chart {
         width: 6.54rem;
-        height: 4.7044rem;
+        height: 4.5044rem;
     }
 
     .select {
-        margin-top: -.8rem;
+        margin-top: -.6rem;
 
         /deep/ .el-tabs__nav {
             padding-left: .4rem;
         }
 
         /deep/ .el-tabs__active-bar {
-            margin-left: .4rem;
+            margin-left: .45rem;
             background-color: #928FFF
         }
 
