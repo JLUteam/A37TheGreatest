@@ -2,43 +2,37 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 Vue.use(Vuex)
 const actions = {
-    
+
 }
 
 const mutations = {
     pull_up() {
-        state.Transactions_pull=true
+        state.Transactions_pull = true
     },
-     pull_down() {
-        state.Transactions_pull=false
+    pull_down() {
+        state.Transactions_pull = false
     },
-    updateStatus(context,[uid,value])
-    {
+    updateStatus(context, [uid, value]) {
         const Isrecodeid = (element) => element.uid == uid;
-        state.recodes[state.recodes.findIndex(Isrecodeid)].isfinish=value
+        state.recodes[state.recodes.findIndex(Isrecodeid)].isfinish = value
     },
-    updateCategory(context,[uid,value])
-    {
+    updateCategory(context, [uid, value]) {
         const Isrecodeid = (element) => element.uid == uid;
-        state.recodes[state.recodes.findIndex(Isrecodeid)].bcategory=value
+        state.recodes[state.recodes.findIndex(Isrecodeid)].bcategory = value
     },
-        updatenote(context,[uid,value])
-    {
+    updatenote(context, [uid, value]) {
         const Isrecodeid = (element) => element.uid == uid;
-        state.recodes[state.recodes.findIndex(Isrecodeid)].note=value
+        state.recodes[state.recodes.findIndex(Isrecodeid)].note = value
     },
-    updateTransactions_click()
-    {
-             state.Transactions_click=! state.Transactions_click
+    updateTransactions_click() {
+        state.Transactions_click = !state.Transactions_click
     },
-    updateprecent_Transactions_bcategoryk(context,truename)
-    {
-             state.precent_Transactions_bcategory=truename
+    updateprecent_Transactions_bcategoryk(context, truename) {
+        state.precent_Transactions_bcategory = truename
     },
-    updateactiveName(context,value)
-    {
+    updateactiveName(context, value) {
 
-        state.click_time=value
+        state.click_time = value
     }
 }
 
@@ -46,152 +40,161 @@ const state = {
     total: 15901.00,
     total_yes: 17667.78,
     recodes: [{
-                uid:'1',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'energy',
-                note: '',
-                payment:'支付宝',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:02:10',
-                consumption: -163.1
-       },
-       {        uid:'2',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'food',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:03:10',
-                consumption: -163.98
-       },
-      {         uid:'3',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'entertainment',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:04:10',
-                consumption: -163.98
-       },
-      {         uid:'4',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'other',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:05:10',
-                consumption: -163.98
-       },
-      {         uid:'5',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'entertainment',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:06:10',
-                consumption: -163.98
-       },
-       {        uid:'6',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'food',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:07:10',
-                consumption: -173.98
-        },
-     {        uid:'7',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'food',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:08:10',
-                consumption: -183.98
-        },
-     {        uid:'8',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'food',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:09:10',
-                consumption: -193.98
-        },
-     {        uid:'9',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'food',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:10:10',
-                consumption: -103.98
-        },
-     {        uid:'10',
-                isbpic: true,
-                isfinish: true,
-                isremind: false,
-                rtime: '',
-                bcategory: 'food',
-                note: '',
-                payment:'',
-                img: require('@/assets/img/Starbucks.png'),
-                name: 'Starbucks',
-                ShoppingTime: '2021-9-6 17:11:10',
-                consumption: -143.98
-        }],
+        uid: '1',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'energy',
+        note: '',
+        payment: '支付宝',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:02:10',
+        consumption: -163.1
+    },
+    {
+        uid: '2',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'food',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:03:10',
+        consumption: -163.98
+    },
+    {
+        uid: '3',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'entertainment',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:04:10',
+        consumption: -163.98
+    },
+    {
+        uid: '4',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'other',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:05:10',
+        consumption: -163.98
+    },
+    {
+        uid: '5',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'entertainment',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:06:10',
+        consumption: -163.98
+    },
+    {
+        uid: '6',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'food',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:07:10',
+        consumption: -173.98
+    },
+    {
+        uid: '7',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'food',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:08:10',
+        consumption: -183.98
+    },
+    {
+        uid: '8',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'food',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:09:10',
+        consumption: -193.98
+    },
+    {
+        uid: '9',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'food',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:10:10',
+        consumption: -103.98
+    },
+    {
+        uid: '10',
+        isbpic: true,
+        isfinish: true,
+        isremind: false,
+        rtime: '',
+        bcategory: 'food',
+        note: '',
+        payment: '',
+        img: require('@/assets/img/Starbucks.png'),
+        name: 'Starbucks',
+        ShoppingTime: '2021-9-6 17:11:10',
+        consumption: -143.98
+    }],
     userinfo: {
         uid: '',
         iswx: false,
-        wxid:'',
+        wxid: '',
         iszfbid: false,
         zfbid: '',
         uname: 'kaite',
         uphone: '123456789',
         upassword: '',
         upic: require('@/assets/img/avast.png'),
-        ucreate:''
+        ucreate: ''
     },
     Transactions_pull: false,
     Transactions_click: false,
     precent_Transactions_bcategory: '',
-    click_time:'second'
+    click_time: 'second'
 }
 
 const store = new Vuex.Store({
