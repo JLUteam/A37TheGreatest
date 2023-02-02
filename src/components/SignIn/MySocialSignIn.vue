@@ -4,11 +4,11 @@
     <div class="social">
       <p class="tip">用其他方式登录</p>
       <a id="wechat">
-        <img class='icon' src="@/assets/svg/微信.svg" alt="Icon" />
+        <img class='icon' src="@/assets/svg/wechat.svg" alt="Icon" />
         <p class="signup">微信账号登录</p>
       </a>
       <a id="zhifubao">
-        <img class="icon" src="@/assets/svg/支付宝.svg" alt="Icon" />
+        <img class="icon" src="@/assets/svg/alipay.svg" alt="Icon" />
         <p class="signup">支付宝账号登录</p>
       </a>
 

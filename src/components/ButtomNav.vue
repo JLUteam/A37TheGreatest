@@ -44,15 +44,15 @@
     </div>
     <div class="addmethod" v-show="this.mood === 'add' ? false : true">
       <div class="method">
-        <img src="@/assets/svg/文本.svg" class="icon" alt="" />
+        <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>文本输入</p>
       </div>
       <div class="method" @click="cameratakephoto">
-        <img src="@/assets/svg/照相机.svg" class="icon" alt="" />
+        <img src="@/assets/svg/camera.svg" class="icon" alt="" />
         <p>相机输入</p>
       </div>
       <div class="method" @click="phototakefromku">
-        <img src="@/assets/svg/文本.svg" class="icon" alt="" />
+        <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>相册输入</p>
       </div>
     </div>
