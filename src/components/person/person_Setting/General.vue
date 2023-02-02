@@ -76,7 +76,7 @@ export default {
     width: 6.54rem;
     height: 2.56rem;
     background-blend-mode: normal;
-    margin-top: .5rem;
+    margin-top: 1rem;
     margin-bottom: 1.5rem;
 
     .Setting_label {
@@ -130,7 +130,7 @@ export default {
 
     .title {
         position: absolute;
-        top: 8%;
+        top: 11%;
         left: 12%;
         height: .48rem;
         color: #6c727f;
