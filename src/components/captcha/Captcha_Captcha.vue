@@ -92,6 +92,9 @@ export default {
                     this.reset();
                 })
             }, 3000)
+            this.$router.push({ //跳去主页
+                name: 'home',
+            })
         },
 
         reset() {

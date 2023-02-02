@@ -33,6 +33,12 @@ const mutations = {
     updateactiveName(context, value) {
 
         state.click_time = value
+    },
+    updateuserinfo(contect, [username, password, phonenumber]) {
+        state.userinfo.uname = username;
+        state.userinfo.upassword = password;
+        state.userinfo.uphone=phonenumber
+
     }
 }
 

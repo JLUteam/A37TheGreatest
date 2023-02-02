@@ -1,13 +1,13 @@
 <template>
     <div class="Setting">
-        <div class="MyAccount">
+        <div class="MyAccount" @click="toMyAccount">
             <div class="Myimg">
                 <img src="@/assets/svg/person_active.svg" alt="">
             </div>
             <p>myAccount</p>
             <img src="@/assets/svg/next.svg" alt="" class="next">
         </div>
-        <div class="MySetting">
+        <div class="MySetting" @click="toSetting">
             <div class="Myimg">
                 <img src="@/assets/svg/setting.svg" alt="">
             </div>
@@ -25,6 +25,16 @@ export default {
     }
     ,
     methods: {
+        toMyAccount() {
+            this.$router.push({
+                name: 'person_MyAccount',
+            })
+        },
+        toSetting() {
+            this.$router.push({
+                name: 'person_Setting',
+            })
+        }
     },
     computed: {
 

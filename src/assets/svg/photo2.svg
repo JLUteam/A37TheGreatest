@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="Icon">
+    <g id="Camera">
+      <path d="M24 0L24 24L0 24L0 0L24 0Z" id="Vector" fill="none" fill-rule="evenodd" stroke="none" />
+      <path d="M2 8.34233C2 6.96573 2.93689 5.76578 4.27239 5.4319L6 5L7.40627 2.8906C7.7772 2.3342 8.40166 2 9.07037 2L14.9296 2C15.5983 2 16.2228 2.3342 16.5937 2.8906L18 5L19.7276 5.4319C21.0631 5.76578 22 6.96573 22 8.34233L22 19C22 20.6569 20.6569 22 19 22L5 22C3.34315 22 2 20.6569 2 19L2 8.34233Z" id="👑-Edit-Color" fill="#E9E9FF" fill-rule="evenodd" stroke="none" />
+      <path d="M18 10C18.5523 10 19 9.55228 19 9C19 8.44772 18.5523 8 18 8C17.4477 8 17 8.44772 17 9C17 9.55228 17.4477 10 18 10ZM12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" id="👑-Edit-Color" fill="#4A44C6" fill-rule="evenodd" stroke="none" />
+    </g>
+  </g>
+</svg>

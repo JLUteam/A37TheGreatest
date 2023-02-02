@@ -20,6 +20,8 @@
                         </div>
                         <p class="consumption">{{ recode.consumption.toFixed(2) }}</p>
                     </div>
+                    <div v-if="Flag" class="temp2">
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,6 +102,9 @@ export default {
     },
     components: {
         Category_Transactions
+    },
+    beforeDestroy() {
+        this.$store.commit('pull_down')
     }
 }
 </script>
@@ -111,9 +116,11 @@ export default {
     padding-left: .1rem;
     justify-content: center;
     align-items: center;
+
     .TransactionsTitle {
         width: 6.54rem;
         height: .56rem;
+        margin-bottom: .5rem;
 
         p {
             position: relative;
@@ -214,22 +221,23 @@ export default {
 }
 
 .Transactions_after {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    max-height: 88.5%;
-    padding-left: .48rem;
-    padding-right: .48rem;
-    margin-top: 0rem;
+    height: 100%;
+    // padding-left: .48rem;
+    // padding-right: .48rem;
+    // margin-top: 0rem;
     z-index: 100;
     background-color: #ffffff;
-    border-radius: .64rem;
-    box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
-    bottom: 0;
+    border-radius: .64rem .64rem 0 0;
+    // box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
+    top: 1rem;
 
     .Category {
+        position: absolute;
+        top: 15%;
         width: 6.54rem;
         height: 6.7044rem;
     }
@@ -240,10 +248,9 @@ export default {
         height: 2rem;
 
         .line {
-
             position: absolute;
             top: 4%;
-            left: 45%;
+            margin-left: 3rem;
             width: .96rem;
             height: .12rem;
             border-radius: .06rem;
@@ -252,11 +259,9 @@ export default {
         }
 
         p {
-            position: relative;
-            margin-top: .5rem;
-            position: relative;
-            top: 40%;
-            left: -92%;
+            position: absolute;
+            top: 8%;
+            // margin-left: -3rem;
             color: #121826;
             font-family: Manrope;
             font-size: .36rem;
@@ -279,6 +284,14 @@ export default {
     }
 
     .recodes_border {
+        position: absolute;
+        overflow: scroll;
+        top: 6rem;
+        // left: 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
         .recordsets {
             width: 6.54rem;
@@ -350,10 +363,12 @@ export default {
 
             }
 
+            .temp2 {
+                height: 1.5rem;
+            }
+
         }
     }
-
-
 
 }
 
@@ -362,21 +377,86 @@ export default {
     height: 1.5rem;
 }
 
-@media screen and (min-width:750px) {
+@media screen and (min-width:280px) {
     .Transactions_after {
-        max-height: 79%;
+        .recodes_border {
+            top: 60%;
+        }
     }
 }
 
-@media screen and (min-width:900px) {
+@media screen and (min-width:360px) {
     .Transactions_after {
-        max-height: 85%;
+        .recodes_border {
+            top: 58%;
+        }
+    }
+}
+
+@media screen and (min-width:375px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 65%;
+        }
+    }
+}
+
+@media screen and (min-width:390px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 55%;
+        }
+    }
+}
+
+@media screen and (min-width:414px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 55%;
+        }
+    }
+}
+
+
+
+
+@media screen and (min-width:768px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 75%;
+        }
+    }
+}
+
+@media screen and (min-width:820px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 69%;
+        }
+    }
+}
+
+@media screen and (min-width:912px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 60%;
+        }
+    }
+}
+
+@media screen and (min-width:540px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 80%;
+        }
     }
 }
 
 @media screen and (min-width:1024px) {
     .Transactions_after {
-        max-height: 78%;
+        .recodes_border {
+            top: 7.5rem;
+        }
     }
 }
 
