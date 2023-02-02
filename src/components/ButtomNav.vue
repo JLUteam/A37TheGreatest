@@ -98,25 +98,24 @@ export default {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
     cameratakephoto() {
-      this.camera(1);
+      this.camera(Vue.cordova.camera.PictureSourceType.CAMERA);
     },
     phototakefromku() {
-      this.camera(0);
+      this.camera(Vue.cordova.camera.PictureSourceType.PHOTOLIBRARY);
     },
-    camera(soureType) {
-      Vue.camera.getPicture(this.onSuccess, this.onFail, {
-        quality: 50,
-        destinationType: 1,
-        destinationType: Vue.cordova.camera.DestinationType.FILE_URI,
+    camera(sourceType) {
+      Vue.cordova.camera.getPicture(this.onSuccess, this.onFail, {
+        quality: 75,
+        destinationType: Vue.cordova.camera.DestinationType.DATA_URL,
+        sourceType: sourceType,
         allowEdit: true,
-        sourceType: soureType,
       });
     },
     onSuccess(imageURL) {
       alert("上传成功");
     },
     onFail(message) {
-      alert("上传失败");
+      alert("上传失败:" + message);
     },
   },
 };
