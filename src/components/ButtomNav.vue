@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="addmethod" v-show="this.mood === 'add' ? false : true">
-      <div class="method">
+      <div class="method" @click="tryit">
         <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>文本输入</p>
       </div>
@@ -59,6 +59,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import Vue from "vue";
 export default {
   name: "ButtomNav",
@@ -103,6 +104,26 @@ export default {
     phototakefromku() {
       this.camera(Vue.cordova.camera.PictureSourceType.PHOTOLIBRARY);
     },
+    tryit() {
+      axios({
+        method: "post",
+        url: "https://api.textin.com/robot/v1.0/api/receipt",
+        headers: {
+          "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+          "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+        },
+        data: {
+          body: "",
+        },
+      }).then(
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
+    },
     camera(sourceType) {
       Vue.cordova.camera.getPicture(this.onSuccess, this.onFail, {
         quality: 75,
@@ -117,6 +138,7 @@ export default {
     onFail(message) {
       alert("上传失败:" + message);
     },
+    //本地图片转二进制文件相关方法，仅测试使用
   },
 };
 </script>
