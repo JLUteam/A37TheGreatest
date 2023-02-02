@@ -1,30 +1,19 @@
 <template>
     <div class='basic'>
-        <Top></Top>
-        <User></User>
-        <Line_></Line_>
-        <Setting></Setting>
-        <Logout></Logout>
+        <person_mini></person_mini>
         <ButtomNav></ButtomNav>
     </div>
 </template>
 <script>
 
 import ButtomNav from '@/components/ButtomNav.vue';
-import Top from '@/components/person/Top.vue';
-import User from '@/components/person/User.vue';
-import Line_ from '@/components/person/Line_.vue';
-import Setting from '@/components/person/Setting.vue';
-import Logout from '@/components/person/Logout.vue';
+import person_mini from '@/components/person/person_mini.vue';
+
 export default {
     name: 'person',
     components: {
         ButtomNav,
-        User,
-        Top,
-        Line_,
-        Setting,
-        Logout
+        person_mini
     }
 }
 </script>

@@ -1,5 +1,5 @@
-import {  Select,Option, Tabs,TabPane,Tag, Radio,RadioGroup,RadioButton,} from 'element-ui';
-let plugins = [Select, Option, Tabs, TabPane, Tag,Radio,RadioGroup,RadioButton,]
+import {  Select,Option, Tabs,TabPane,Tag, Radio,RadioGroup,RadioButton,Switch,} from 'element-ui';
+let plugins = [Select, Option, Tabs, TabPane, Tag,Radio,RadioGroup,RadioButton,Switch,]
 export default  function getElementUi(app)
 {
     plugins.forEach((item) => {

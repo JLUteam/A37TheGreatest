@@ -8,6 +8,8 @@ import ConsumptionDetails from "@/views/ConsumptionDetails"
 import home from '@/views/home.vue'
 import Percent from '@/views/Percent.vue'
 import person from '@/views/person.vue'
+import person_MyAccount from '@/views/person_MyAccount.vue'
+import person_Setting from '@/views/person_Setting.vue'
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -55,8 +57,17 @@ const router = new VueRouter({
         {
             name: "person",
             path: "/person",
-            component: person
+            component: person,
+        }, 
+        {    name: "person_MyAccount",
+             path: "/person_MyAccount",
+             component: person_MyAccount
+        },
+        {    name: "person_Setting",
+             path: "/person_Setting",
+             component: person_Setting
         }
+        
     ]
 });
 

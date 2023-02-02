@@ -20,8 +20,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .Logout {
-    position: relative;
-    bottom: -6rem;
+    position: absolute;
+    top:78%;
     .Logout_button {
         width: 6.54rem;
         height: 1.28rem;

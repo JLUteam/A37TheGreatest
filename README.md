@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # a37_signup
 
 ## Project setup
@@ -22,3 +23,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# A37TheGreatest
+>>>>>>> 878db31 (Initial commit)
