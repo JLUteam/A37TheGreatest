@@ -1,55 +1,67 @@
 <template>
-    <div class="Another">
-        <div class="Date info">
-            <p>Date</p>
+    <div class="PayState">
+        <div class="payment info">
+            <p>payment</p>
             <div class="result">
-                <p>{{ Date_ }}</p>
+                <input type="text" v-model="payment" placeholder="备注" ref="payment_" @click="getpayment_">
             </div>
         </div>
-        <div class="Time info">
-            <p>Time</p>
+        <div class="Amount info">
+            <p>Amount</p>
             <div class="result">
-                <p>{{ Time_ }}</p>
+                <input type="text" v-model="Amount" placeholder="备注" ref="Amount_" @click="geAmount_">
             </div>
         </div>
-        <div class="Receipt info">
-            <p>Receipt</p>
-            <div class="result">
-                <img src="@/assets/svg/photo.svg" alt="">
-                <p>Completed</p>
-            </div>
-        </div>
-
 
 
     </div>
 </template>
 <script>
 export default {
-    name: "Another",
+    name: "PayState",
     props: {
         recode: {
             type: Object
         }
     },
-    computed: {
-        Date_() {
-            return this.recode.ShoppingTime.split(' ')[0]
-        },
-        Time_() {
-            return this.recode.ShoppingTime.split(' ')[1]
+    data() {
+        return {
+            Amount: '',
+            payment: ''
         }
+    },
+    methods: {
+        geAmount_() {
+            return this.Amount
+        },
+        getpayment_() {
+            return this.payment
+        },
     }
+
 };
 </script>
 <style lang="less" scoped>
-.Another {
+input {
+    border: none;
+    outline: none;
+    text-align: right;
+    background-color: transparent;
+    color: #121826;
+    font-family: "Manrope-Regular";
+    font-size: .28rem;
+    font-weight: 400;
+    line-height: .48rem;
+
+}
+
+.PayState {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 6.54rem;
-    height: 3.04rem;
+    height: 2.24rem;
     border-radius: 16px;
     background: #f9fafb;
     background-blend-mode: normal;
@@ -70,52 +82,28 @@ export default {
         }
     }
 
-    .Date {
+    .payment {
         .result {
 
             p {
-                color: #121826;
                 font-family: "Manrope-Regular";
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
-                // text-align: right;
-            }
-        }
-    }
-
-    .Time {
-        .result {
-            p {
                 color: #121826;
-                font-family: "Manrope-Regular";
-                font-size: .28rem;
-                font-weight: 400;
-                line-height: .48rem;
-                text-align: right;
             }
         }
     }
 
 
-    .Receipt {
+    .Amount {
         .result {
-            display: flex;
-            justify-content: space-around;
-            width: 2.08rem;
-
-            img {
-                width: .32rem;
-                height: .32rem;
-            }
-
             p {
                 color: #121826;
                 font-family: "Manrope-Regular";
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
-                text-align: right;
             }
         }
     }

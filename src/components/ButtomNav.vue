@@ -105,24 +105,28 @@ export default {
       this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
     },
     tryit() {
-      axios({
-        method: "post",
-        url: "https://api.textin.com/robot/v1.0/api/receipt",
-        headers: {
-          "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-          "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-        },
-        data: {
-          body: "",
-        },
-      }).then(
-        (response) => {
-          console.log(response.data);
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
+      this.$router.push({
+        name: 'WordInputSetting',
+      })
+      // axios({
+      //   method: "post",
+      //   url: "https://api.textin.com/robot/v1.0/api/receipt",
+      //   headers: {
+      //     "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+      //     "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+      //   },
+      //   data: {
+      //     body: "",
+      //   },
+      // }).then(
+      //   (response) => {
+      //     console.log(response.data);
+      //   },
+      //   (error) => {
+      //     console.log(error.message);
+      //   }
+      // );
+      
     },
     camera(sourceType) {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {

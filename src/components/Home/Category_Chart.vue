@@ -54,7 +54,7 @@ export default {
             itemStyle: { color: "rgb(146, 143, 255)" },
             textStyle: { color: "black" },
             top: "65%", //调整位置
-            left: "33%", //调整位置
+            left: "36%", //调整位置
             data: [{ name: "能源", icon: "rect" }],
           },
           {
@@ -63,7 +63,7 @@ export default {
             itemStyle: { color: "rgb(142, 224, 78)" },
             textStyle: { color: "black" },
             top: "65%", //调整位置
-            left: "55%", //调整位置
+            left: "58%", //调整位置
             data: [{ name: "餐饮", icon: "rect" }],
           },
           {
@@ -72,7 +72,7 @@ export default {
             itemStyle: { color: "rgb(255, 103, 64)" },
             textStyle: { color: "black" },
             top: "75%", //调整位置
-            left: "33%", //调整位置
+            left: "36%", //调整位置
             data: [{ name: "娱乐", icon: "rect" }],
           },
           {
@@ -81,7 +81,7 @@ export default {
             itemStyle: { color: "rgb(202, 202, 245)" },
             textStyle: { color: "black" },
             top: "75%", //调整位置
-            left: "53%", //调整位置
+            left: "58%", //调整位置
             data: [{ name: "其他", icon: "rect" }],
           },
         ],
@@ -91,7 +91,7 @@ export default {
             name: "Access From",
             type: "pie",
             radius: ["50%", "70%"],
-            center: ["50%", "60%"],
+            center: ["55%", "60%"],
             avoidLabelOverlap: false,
             itemStyle: {
               borderColor: "#fff",

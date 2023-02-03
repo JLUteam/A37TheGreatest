@@ -4,23 +4,24 @@
             <p>Status</p>
             <div class="result">
                 <img src="@/assets/svg/Check.svg" alt="">
-                <p>{{ Status }}</p>
+                <p>Completed</p>
             </div>
         </div>
         <div class="Category info">
             <p>Category</p>
-            <div class="result">
-                <el-select v-model="value" filterable :placeholder="recode.bcategory === '' ? 请选择 : recode.bcategory"
-                    class="seclect">
+            <div class="result" ref="bcategory_" @click="getbcategory_">
+                <el-select v-model="bcategory_" filterable :placeholder="bcategory === '设置' ? 请选择 : bcategory"
+                    v-if="bcategory != '设置'" class="seclect">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label">
                     </el-option>
+                    <input type="text" v-model="bcategory_" placeholder="备注" v-if="bcategory === '设置'" >
                 </el-select>
             </div>
         </div>
         <div class="Add_note info">
             <p>Add note</p>
             <div class="result">
-                <input type="text" v-model="Add_note" placeholder="备注">
+                <input type="text" v-model="Add_note" placeholder="备注" ref="note" @click="getAdd_note">
             </div>
         </div>
 
@@ -45,40 +46,21 @@ export default {
                 value: '选项4',
                 label: '其他'
             },],
-            value: this.recode.bcategory
+            Add_note: '',
+            bcategory_: '',
         }
     },
     props: {
         recode: {
-            type: Object
+            bcategory: String
         }
     },
-    computed: {
-        Status: {
-            get() {
-                return this.recode.isfinish ? 'Completed' : 'Uncompleted';
-            },
-            set(value) {
-                this.$store.commit('updateStatus', [this.recode.uid, value])
-
-            }
+    methods: {
+        getAdd_note() {
+            return this.Add_note
         },
-
-        Add_note: {
-            get() {
-                return this.recode.note
-            },
-            set(value) {
-                console.log(123)
-                this.$store.commit('updatenote', [this.recode.uid, value])
-            }
-        }
-    },
-    watch: {
-        value: {
-            handler: function (value) {
-                this.$store.commit('updateCategory', [this.recode.uid, value])
-            }
+        getbcategory_() {
+            return this.bcategory_
         },
     }
 };
@@ -95,6 +77,19 @@ export default {
     background: #f9fafb;
     background-blend-mode: normal;
     margin-bottom: .48rem;
+
+    input {
+        border: none;
+        outline: none;
+        text-align: right;
+        background-color: transparent;
+        color: #121826;
+        font-family: "Manrope-Regular";
+        font-size: .28rem;
+        font-weight: 400;
+        line-height: .48rem;
+
+    }
 
     .info {
         display: flex;
@@ -151,26 +146,6 @@ export default {
 
             /deep/ .el-select-dropdown__item {
                 font-size: .24rem;
-            }
-        }
-    }
-
-    .Add_note {
-        margin-top: .1rem;
-        .result {
-
-
-            input {
-                border: none;
-                outline: none;
-                text-align: right;
-                background-color: transparent;
-                color: #121826;
-                font-family: "Manrope-Regular";
-                font-size: .28rem;
-                font-weight: 400;
-                line-height: .48rem;
-
             }
         }
     }

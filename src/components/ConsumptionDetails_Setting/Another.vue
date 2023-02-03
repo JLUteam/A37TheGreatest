@@ -3,13 +3,13 @@
         <div class="Date info">
             <p>Date</p>
             <div class="result">
-                <p>{{ Date_ }}</p>
+                <input type="text" v-model="Date_" placeholder="备注" ref="Date_" @click="getDate_">
             </div>
         </div>
         <div class="Time info">
             <p>Time</p>
             <div class="result">
-                <p>{{ Time_ }}</p>
+                <input type="text" v-model="Time_" placeholder="备注" ref="Time_" @click="getTime_">
             </div>
         </div>
         <div class="Receipt info">
@@ -32,17 +32,36 @@ export default {
             type: Object
         }
     },
-    computed: {
-        Date_() {
-            return this.recode.ShoppingTime.split(' ')[0]
-        },
-        Time_() {
-            return this.recode.ShoppingTime.split(' ')[1]
+    data() {
+        return {
+            Date_: '',
+            Time_: ''
         }
-    }
+    },
+    methods: {
+        getDate_() {
+            return this.Date_
+        },
+        getTime_() {
+            return this.Time_
+        },
+    },
 };
 </script>
 <style lang="less" scoped>
+input {
+    border: none;
+    outline: none;
+    text-align: right;
+    background-color: transparent;
+    color: #121826;
+    font-family: "Manrope-Regular";
+    font-size: .28rem;
+    font-weight: 400;
+    line-height: .48rem;
+
+}
+
 .Another {
     display: flex;
     flex-direction: column;
