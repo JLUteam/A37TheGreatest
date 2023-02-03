@@ -99,10 +99,28 @@ export default {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
     cameratakephoto() {
-      this.camera(navigator.camera.PictureSourceType.CAMERA);
+      Vue.cordova.camera.getPicture(
+        (imageURI) => {
+          window.alert("Photo URI : " + imageURI);
+        },
+        (message) => {
+          window.alert("FAILED : " + message);
+        },
+        {
+          quality: 50,
+          // allowEdit: true,
+          destinationType: Vue.cordova.camera.DestinationType.FIRE_URI,
+        }
+      );
     },
     phototakefromku() {
-      this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
+      navigator.camera.getPicture(this.onSuccess, this.onFail, {
+        quality: 75,
+        destinationType: navigator.camera.DestinationType.FIRE_URI,
+        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+        allowEdit: true,
+        // saveToPhotoAlbum: true,
+      });
     },
     tryit() {
       axios({
@@ -124,18 +142,18 @@ export default {
         }
       );
     },
-    camera(sourceType) {
-      navigator.camera.getPicture(this.onSuccess, this.onFail, {
-        quality: 75,
-        destinationType: navigator.camera.DestinationType.DATA_URL,
-        encodingType: navigator.camera.EncodingType.JPEG,
-        sourceType: sourceType,
-        allowEdit: true,
-        // saveToPhotoAlbum: true,
-      });
-    },
+    // camera(sourceType) {
+    //   navigator.camera.getPicture(this.onSuccess, this.onFail, {
+    //     quality: 75,
+    //     destinationType: navigator.camera.DestinationType.DATA_URL,
+    //     encodingType: navigator.camera.EncodingType.JPEG,
+    //     sourceType: sourceType,
+    //     allowEdit: true,
+    //     // saveToPhotoAlbum: true,
+    //   });
+    // },
     onSuccess(imageURL) {
-      alert(imageURL);
+      alert("上传成功" + imageURL);
       // var file = dataURLtoFile(imageURL, "test.jpg");
       // alert("1");
       // var reader = new FileReader();
