@@ -99,10 +99,10 @@ export default {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
     cameratakephoto() {
-      this.camera(Vue.cordova.camera.PictureSourceType.CAMERA);
+      this.camera(navigator.camera.PictureSourceType.CAMERA);
     },
     phototakefromku() {
-      this.camera(Vue.cordova.camera.PictureSourceType.PHOTOLIBRARY);
+      this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
     },
     tryit() {
       axios({
@@ -125,15 +125,42 @@ export default {
       );
     },
     camera(sourceType) {
-      Vue.cordova.camera.getPicture(this.onSuccess, this.onFail, {
+      navigator.camera.getPicture(this.onSuccess, this.onFail, {
         quality: 75,
-        destinationType: Vue.cordova.camera.DestinationType.DATA_URL,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
+        encodingType: navigator.camera.EncodingType.JPEG,
         sourceType: sourceType,
         allowEdit: true,
+        // saveToPhotoAlbum: true,
       });
     },
     onSuccess(imageURL) {
-      alert("上传成功");
+      alert(imageURL);
+      // var file = dataURLtoFile(imageURL, "test.jpg");
+      // alert("1");
+      // var reader = new FileReader();
+      // reader.readAsArrayBuffer(file);
+      // reader.onload = function () {
+      //   axios({
+      //     method: "post",
+      //     url: "https://api.textin.com/robot/v1.0/api/receipt",
+      //     headers: {
+      //       "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+      //       "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+      //     },
+      //     data: {
+      //       body: new Uint8Array(reader, this.result),
+      //     },
+      //   }).then(
+      //     (response) => {
+      //       alert("2");
+      //       console.log(response.data);
+      //     },
+      //     (error) => {
+      //       console.log(error.message);
+      //     }
+      //   );
+      // };
     },
     onFail(message) {
       alert("上传失败:" + message);

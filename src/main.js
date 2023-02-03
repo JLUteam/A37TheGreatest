@@ -14,8 +14,10 @@ Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueCordova)
-new Vue({
-  render: h => h(App),
-  store,
-  router,
-}).$mount('#app')
+document.addEventListener('deviceready', function () {
+  new Vue({
+    render: h => h(App),
+    store,
+    router,
+  }).$mount('#app')
+}, false)
