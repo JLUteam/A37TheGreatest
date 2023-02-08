@@ -1,7 +1,7 @@
 <template>
-    <div class='basic'>
+    <div :class="flag ? 'basic_dark' : 'basic'">
         <Percent_mini></Percent_mini>
-         <ButtomNav></ButtomNav>
+        <ButtomNav></ButtomNav>
     </div>
 </template>
 <script>
@@ -28,6 +28,14 @@ export default {
     justify-content: center;
     align-items: center;
     /* background-color: #121826; */
+}
+
+.basic_dark {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #121826;
 }
 
 body {}

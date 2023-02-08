@@ -4,7 +4,6 @@
   </div>
 </template>
 <script>
-import * as echarts from "echarts";
 export default {
   name: "Category_Chart",
   mounted() {
@@ -15,14 +14,13 @@ export default {
       this.myChart.resize();
     });
   },
-
   computed: {
     Consumption() {
       return {
-        energy: this.sum("energy", "2021"),
-        food: this.sum("food", "2021"),
-        entertainment: this.sum("entertainment", "2021"),
-        other: this.sum("other", "2021"),
+        energy: this.sum('energy',this.today()),
+        food: this.sum("food", this.today()),
+        entertainment: this.sum("entertainment", this.today()),
+        other: this.sum("other", this.today()),
       };
     },
   },
@@ -46,6 +44,7 @@ export default {
             fontSize: 15,
           },
           top: "0%",
+          // left:'30%'
         },
         legend: [
           {
@@ -53,7 +52,7 @@ export default {
             itemHeight: 12,
             itemStyle: { color: "rgb(146, 143, 255)" },
             textStyle: { color: "black" },
-            top: "65%", //调整位置
+            top: "60%", //调整位置
             left: "36%", //调整位置
             data: [{ name: "能源", icon: "rect" }],
           },
@@ -62,7 +61,7 @@ export default {
             itemHeight: 12,
             itemStyle: { color: "rgb(142, 224, 78)" },
             textStyle: { color: "black" },
-            top: "65%", //调整位置
+            top: "60%", //调整位置
             left: "58%", //调整位置
             data: [{ name: "餐饮", icon: "rect" }],
           },
@@ -71,7 +70,7 @@ export default {
             itemHeight: 12,
             itemStyle: { color: "rgb(255, 103, 64)" },
             textStyle: { color: "black" },
-            top: "75%", //调整位置
+            top: "70%", //调整位置
             left: "36%", //调整位置
             data: [{ name: "娱乐", icon: "rect" }],
           },
@@ -80,7 +79,7 @@ export default {
             itemHeight: 12,
             itemStyle: { color: "rgb(202, 202, 245)" },
             textStyle: { color: "black" },
-            top: "75%", //调整位置
+            top: "70%", //调整位置
             left: "58%", //调整位置
             data: [{ name: "其他", icon: "rect" }],
           },
@@ -90,8 +89,8 @@ export default {
           {
             name: "Access From",
             type: "pie",
-            radius: ["50%", "70%"],
-            center: ["55%", "60%"],
+            radius: ["60%", "80%"],
+            center: ["55%", "55%"],
             avoidLabelOverlap: false,
             itemStyle: {
               borderColor: "#fff",
@@ -132,13 +131,21 @@ export default {
     sum(name, time) {
       let data = this.$store.state.recodes.filter(
         (item) =>
-          (item.bcategory === name) & (item.ShoppingTime.indexOf(time) != -1)
+          (item.bcategory === name) & (item.btime.indexOf(time) != -1)
       );
 
       return data.reduce((total, item) => {
-        return total + -1 * item.consumption;
+        return total + -1 * item.amount;
       }, 0);
     },
+    today() {
+      let date = new Date();
+      let year = date.getFullYear()
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      // console.log('' + year + '-' + month + '-' + day)
+      return '' + year + '-' + month + '-' + day
+    }
   },
 };
 </script>
@@ -149,7 +156,7 @@ export default {
   flex-direction: column;
   width: 6.54rem;
   height: 7.7044rem;
-
+  // 
   .percentage {
     position: relative;
     width: 5.7526rem;
@@ -169,6 +176,7 @@ export default {
     top: 0.4774rem;
     width: 6.54rem;
     height: 6.7044rem;
+    
   }
 }
 </style>

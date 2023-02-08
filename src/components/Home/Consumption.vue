@@ -23,35 +23,26 @@
 <script>
 export default {
     name: 'Consumption',
+    data() {
+        return {
+        }
+    },
     computed: {
         zhenshu() {
-            return this.$store.state.total.toFixed(2).split('.')[0]
+
+            return this.sum(this.today()).toFixed(2).split('.')[0]
         },
         xiaoshu() {
-            return this.$store.state.total.toFixed(2).split('.')[1]
+
+            return this.sum(this.today()).toFixed(2).split('.')[1]
         },
 
         present() {
-            // let present = (this.total(1) - this.total(2)) / this.total(2) * 100 有真实数据后用这个
-            let present = (this.$store.state.total_yes - this.$store.state.total) / this.$store.state.total_yes * 100;
+            let present = ((this.sum(this.today()) - this.sum(this.yesterday())) / this.sum(this.yesterday())) * 100
             return present.toFixed(0)
-        }
+        },
     },
     methods: {
-        total(days) {
-            let date = new Date()
-            let temp1 = new Date(date);
-            let temp2 = new Date(date);
-            temp1.setDate(temp1.getDate() - days)
-            temp2.setDate(temp2.getDate() - (days + 1))
-            temp1 = this.formatDate(temp1)
-            temp2 = this.formatDate(temp2)
-            let arr = this.$store.state.recodes.filter(item => ((item.bcategory === name) & (this.getHour(item.ShoppingTime, temp2) >= 0 & this.getHour(item.ShoppingTime, temp1)<0)))
-            // console.log(arr)
-            return arr.reduce((total, item) => {
-                return total + -1 * item.consumption
-            }, 0)
-        },
         getHour(s1, s2) {
             s1 = new Date(s1.replace(/-/g, '/'));
             s2 = new Date(s2.replace(/-/g, '/'));
@@ -77,6 +68,32 @@ export default {
                 .replace(/ss/g, preArr[sec] || sec);
 
             return newTime;
+        },
+        sum(time) {
+            let data = this.$store.state.recodes.filter(
+                (item) =>
+                    (item.btime.indexOf(time) != -1)
+            );
+
+            return data.reduce((total, item) => {
+                return total + -1 * item.amount;
+            }, 0);
+        },
+        yesterday() {
+            let date = new Date();
+            var oneDayTime = 24 * 60 * 60 * 1000;
+            const newDate = new Date(date.getTime() + -1 * oneDayTime);
+            let year = newDate.getFullYear()
+            let month = newDate.getMonth() + 1;
+            let day = newDate.getDate();
+            return '' + year + '-' + month + '-' + day
+        },
+        today() {
+            let date = new Date();
+            let year = date.getFullYear()
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            return '' + year + '-' + month + '-' + day
         }
     },
 }
@@ -177,7 +194,7 @@ export default {
             position: relative;
             left: 1.62rem;
             top: -.35rem;
-            width: 1.08rem;
+            width: 1.48rem;
             height: .4rem;
             border-radius: .2rem;
             background: #ffffff;
@@ -186,6 +203,7 @@ export default {
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+            margin-left: .2rem;
 
             .triangle-up {
                 width: .20rem;
@@ -193,7 +211,7 @@ export default {
             }
 
             p {
-
+                margin-right: .2rem;
                 width: .48rem;
                 height: .32rem;
                 color: #121826;

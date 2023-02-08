@@ -34,7 +34,7 @@ export default {
         payment: this.$refs.PayState.getpayment_(),
         img: require('@/assets/img/Starbucks.png'),//待完成
         name: this.$refs.Avatar.getname_(),
-        ShoppingTime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
+        btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
         consumption: this.$refs.PayState.geAmount_()
       }
       console.log(recode_new)

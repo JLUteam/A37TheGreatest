@@ -34,10 +34,10 @@ export default {
     },
     computed: {
         Date_() {
-            return this.recode.ShoppingTime.split(' ')[0]
+            return this.recode.btime.split(' ')[0]
         },
         Time_() {
-            return this.recode.ShoppingTime.split(' ')[1]
+            return this.recode.btime.split(' ')[1]
         }
     }
 };

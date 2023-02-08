@@ -1,7 +1,7 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :img="$route.query.recode.img" :name="$route.query.recode.name">
+    <Avatar :img="$route.query.recode.bpic" :name="$route.query.recode.bname">
     </Avatar>
     <StateBar :recode="$route.query.recode"></StateBar>
     <PayState :recode="$route.query.recode"></PayState>
