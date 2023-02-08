@@ -82,7 +82,7 @@ export default {
             else if (this.$store.state.click_time === 'fourth') {
 
                 time = []
-                for (let i = 0; i < month; i++) {
+                for (let i = 1; i <= month; i++) {
                     //''+year+ '- '+month+' - '+'6'+' '+'17'
                     let temp = '' + year + '-' + i
                     time.push(temp)
@@ -90,13 +90,13 @@ export default {
                 }
             } else {
                 time = []
-                for (let i = year - 10; i < year; i++) {
+                for (let i = year - 10; i <= year; i++) {
                     let temp = i
                     time.push(temp)
 
                 }
             }
-            // console.log('12345 '+time)
+        
             return time
         },
         total() {

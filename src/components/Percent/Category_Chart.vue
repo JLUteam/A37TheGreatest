@@ -7,16 +7,16 @@
             </el-radio-group>
         </div>
         <div class="title">
-            <p class="title_number">{{ (this.radio1 === '支出'? '-$':'') +title_number.toFixed(2) }}</p>
+            <p class="title_number">{{ (this.radio1 === '支出' ? '-$' : '$') + title_number.toFixed(2) }}</p>
             <p class="title_p">Category Chart</p>
             <p class="title_time">{{ '过去'+this.radio2 + '的花费' }}</p>
         </div>
         <div class="tags2">
             <el-radio-group v-model="radio2">
-                <el-radio-button label="一天"  ></el-radio-button>
-                <el-radio-button label="一周"  ></el-radio-button>
-                <el-radio-button label="一月" ></el-radio-button>
-                <el-radio-button label="一年"  ></el-radio-button>
+                <el-radio-button label="一天"></el-radio-button>
+                <el-radio-button label="一周"></el-radio-button>
+                <el-radio-button label="一月"></el-radio-button>
+                <el-radio-button label="一年"></el-radio-button>
             </el-radio-group>
         </div>
         <div class="chart" ref="myChart">
@@ -59,7 +59,7 @@ export default {
         title_number: {
             get() {
                 return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
-                    console.log('this=' + current + ' ' + prev)
+                    // console.log('this=' + current + ' ' + prev)
                     return prev + current
                 })
             },
@@ -99,8 +99,6 @@ export default {
                     temp = '' + year
                     time.push(temp)
                 }
-                // console.log('title_time' + time)
-                // this.drawLine()
                 return time
             },
             set() {
@@ -132,7 +130,7 @@ export default {
                     temp = '' + year
                     time.push(temp)
                 }
-                
+
                 return time
             }
         }
@@ -179,7 +177,6 @@ export default {
                                 fontSize: 18,
                                 fontWeight: 'bold',
                                 formatter: function (arg) {
-
                                     return '$' + arg.value
                                 },
                             }
@@ -190,16 +187,17 @@ export default {
                         data: [
                             { value: Math.round(this.Consumption.energy * 100) / 100, name: '能源', truename: 'energy' },
                             { value: Math.round(this.Consumption.food * 100) / 100, name: '餐饮', truename: 'food' },
-                            { value: Math.round(this.Consumption.entertainment * 100) / 100, name: '娱乐', truename: 'food' },
+                            { value: Math.round(this.Consumption.entertainment * 100) / 100, name: '娱乐', truename: 'entertainment' },
                             { value: Math.round(this.Consumption.other * 100) / 100, name: '其他', truename: 'other' },
 
                         ]
-                    }, 
+                    },
                 ]
             }
             )
             myChart.on('click', (arg) => {
                 if (!this.$store.state.Transactions_click) {
+
                     this.$store.commit('updateTransactions_click')
                 }
 
@@ -221,7 +219,7 @@ export default {
             let data = this.include_income(name, time)
             // console.log(data)
             return data.reduce((total, item) => {
-                return total + -1 * item.amount
+                return total +  item.amount
             }, 0)
         },
         include(name, time) {
@@ -235,22 +233,22 @@ export default {
         include_income(name, time) {
             let data = []
             for (let i = 0; i < time.length; i++) {
-                console.log('include ' + name + ' ' + time[i])
+                // console.log('include ' + name + ' ' + time[i])
                 data.push(... this.$store.state.income_statement.filter(item => ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)))
             }
-            console.log('546'+name+' 123 '+ time + '  '+data+' 987')
+            // console.log('546' + name + ' 123 ' + time + '  ' + data + ' 987')
             return data
         },
-       
+
     }, watch: {
         radio1(val) {
             this.drawLine()
-            console.log(val)
+           
             this.$store.commit('updateradio1', val)
         },
         radio2(val) {
             this.drawLine()
-            console.log(val)
+        
             this.$store.commit('updateradio2', val)
         }
     }

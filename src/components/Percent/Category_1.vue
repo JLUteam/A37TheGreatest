@@ -96,7 +96,7 @@ export default {
             else if (this.activeName === 'fourth') {
                 xAxis = Object.keys([...Array(12)])
                 yAxis = []
-                for (let i = 0; i < month; i++) {
+                for (let i = 1; i <= month; i++) {
                     let temp = this.sum('' + year + '-' + i)
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + i)
@@ -105,7 +105,7 @@ export default {
             } else {
                 xAxis = Object.keys([...Array(10)])
                 yAxis = []
-                for (let i = year-10; i < year; i++) {
+                for (let i = year-9; i <= year; i++) {
                     let temp = this.sum(i)
                     yAxis.push(temp)
                     let temp2 = this.sum_income(i)
@@ -155,7 +155,7 @@ export default {
                             }
                         },
                         formatter: function (arg) {
-                            console.log(arg)
+                           
                             return '$' + arg.data
                         },
                         textStyle: {
@@ -230,7 +230,6 @@ export default {
             })
         },
         handleClick(tab, event) {
-            console.log(tab, event);
             this.drawLine()
         },
         sum(time) {

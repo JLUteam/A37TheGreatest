@@ -33,6 +33,21 @@ const mutations = {
     updateactiveName(context, value) {
 
         state.click_time = value
+
+             if ( state.click_time === 'first') {
+                 state.radio2='一天'
+
+            } else if ( state.click_time === 'second') {
+                state.radio2='一周'
+            } else if ( state.click_time === 'third') {
+                state.radio2='一月'
+            }
+            else if ( state.click_time === 'fourth') {
+                state.radio2='一年'
+            } else {
+               state.radio2='全部'
+                }
+            
     },
     updateuserinfo(contect, [username, password, phonenumber]) {
         state.userinfo.uname = username;
@@ -222,9 +237,9 @@ const state = {
     Transactions_pull: false,
     Transactions_click: false,
     precent_Transactions_bcategory: '',
-    click_time: 'first',
+    click_time: 'second',
     radio1:'支出',
-    radio2: '一天',
+    radio2: '一周',
 
 }
 

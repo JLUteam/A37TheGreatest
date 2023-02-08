@@ -37,15 +37,13 @@ export default {
                 value: '选项5',
                 label: '全部'
             }],
-            value: '',
             activeName: '',
             selectedvalue: ''
         }
     },
     mounted() {
         this.drawLine();
-        // console.log(('123', this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'consumption'))
-        console.log(this.activevalue)
+
     },
     beforeDestroy() {
         const self = this;
@@ -55,13 +53,12 @@ export default {
     },
     methods: {
         drawLine() {
-            let date = new Date()
-            let temp = new Date(date);
-            // 基于刚刚准备好的 DOM 容器，初始化 EChart 实例
             let myChart = this.$echarts.init(this.$refs.myChart)
             this.myChart = myChart
-            let xAxis = null
-            let yAxis = null
+            let xAxis = []
+            let yAxis = []
+            let yAxis2 = []
+            const date = new Date();
             let year = date.getFullYear();
             let month = date.getMonth() + 1;
             let dayOfWeek = date.getUTCDay();
@@ -69,55 +66,58 @@ export default {
             let hour = date.getHours();
             if (this.activeName === 'first') {
                 xAxis = Object.keys([...Array(24)])
-                temp.setDate(temp.getDate() - 1);
-                yAxis = []
+
                 for (let i = 0; i <= hour; i++) {
-                    //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = this.sum('' + year + '- ' + month + ' - ' + day + ' ' + i)
+                    let temp = this.sum('' + year + '-' + month + '-' + day + ' ' + i + ':')
                     yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day + ' ' + i + ':')
+                    yAxis2.push(temp2)
+
                 }
+
             } else if (this.activeName === 'second') {
                 xAxis = Object.keys([...Array(7)])
-                yAxis = []
                 for (let i = 0; i <= dayOfWeek; i++) {
                     var oneDayTime = 24 * 60 * 60 * 1000;
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
                     month = newDate.getMonth() + 1;
                     day = newDate.getDate();
-                    let temp = this.sum('' + year + '- ' + month + ' - ' + day)
+                    let temp = this.sum('' + year + '-' + month + '-' + day)
                     yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
+                    yAxis2.push(temp2)
                 }
-                temp.setDate(temp.getDate() - 7);
             } else if (this.activeName === 'third') {
                 xAxis = Object.keys([...Array(30)])
                 yAxis = []
                 for (let i = 0; i <= day; i++) {
-                    let temp = this.sum('' + year + '- ' + month + ' - ' + day)
+                    let temp = this.sum('' + year + '-' + month + '-' + i)
                     yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + i)
+                    yAxis2.push(temp2)
                 }
-                temp.setDate(temp.getDate() - 30);
-
             }
             else if (this.activeName === 'fourth') {
                 xAxis = Object.keys([...Array(12)])
                 yAxis = []
-                for (let i = 0; i < month; i++) {
-                    //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = this.sum('' + year + '- ' + i)
+                for (let i = 1; i <= month; i++) {
+                    let temp = this.sum('' + year + '-' + i)
+                  
                     yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + i)
+                    yAxis2.push(temp2)
                 }
-                temp.setDate(temp.getDate() - 365);
             } else {
                 xAxis = Object.keys([...Array(10)])
                 yAxis = []
-                for (let i = year-10; i < year; i++) {
-                    //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = this.sum(''+i)
+                for (let i = year - 9; i <= year+1; i++) {
+                    let temp = this.sum(i)
                     yAxis.push(temp)
+                  
+                    let temp2 = this.sum_income(i)
+                    yAxis2.push(temp2)
                 }
             }
-            temp = this.formatDate(temp)
-            this.temp = temp
             // 绘制图表
             myChart.setOption(
                 {
@@ -161,7 +161,7 @@ export default {
                             }
                         },
                         formatter: function (arg) {
-                            console.log(arg)
+                           
                             return '$' + arg.data
                         },
                         textStyle: {
@@ -181,7 +181,7 @@ export default {
 
                     series: [
                         {
-                            data: this.activevalue,
+                            data: this.$store.state.radio1 === '支出' ? yAxis : yAxis2,
                             type: 'line',
                             // smooth: true,
                             areaStyle: {
@@ -215,40 +215,8 @@ export default {
             })
 
         },
-        handleClick(tab, event) {
+        handleClick() {
             this.drawLine()
-        },
-        getdata(name, time) {
-            let arr = this.$store.state.recodes.filter(item => ((item.bcategory === name) & this.getHour(time, item.btime) >= 0))
-            console.log(arr)
-            return arr
-
-        },
-        getHour(s1, s2) {
-            s1 = new Date(s1.replace(/-/g, '/'));
-            s2 = new Date(s2.replace(/-/g, '/'));
-            var ms = Math.abs(s1.getTime() - s2.getTime());
-            return ms / 1000 / 60 / 60;
-        },
-        formatDate(time, format = 'YY-MM-DD hh:mm:ss') {
-            var date = new Date(time);
-            var year = date.getFullYear(),
-                month = date.getMonth() + 1,//月份是从0开始的
-                day = date.getDate(),
-                hour = date.getHours(),
-                min = date.getMinutes(),
-                sec = date.getSeconds();
-            var preArr = Array.apply(null, Array(10)).map(function (elem, index) {
-                return '0' + index;
-            });
-            var newTime = format.replace(/YY/g, year)
-                .replace(/MM/g, preArr[month] || month)
-                .replace(/DD/g, preArr[day] || day)
-                .replace(/hh/g, preArr[hour] || hour)
-                .replace(/mm/g, preArr[min] || min)
-                .replace(/ss/g, preArr[sec] || sec);
-
-            return newTime;
         },
         getMappingValueArrayOfKey(array, keyName) {
             if (Object.prototype.toString.call(array) == '[object Array]') {
@@ -257,28 +225,31 @@ export default {
                 })
             }
             return 'null（参数一应为对象数组）';//不是数组
-        },
-        sum(time) {
-            let data = this.$store.state.recodes.filter(item => (item.btime.indexOf(time) != -1))
-
+        }, sum(time) {
+            let data = this.$store.state.recodes.filter(item => ((item.btime.indexOf(time) != -1) & item.bcategory === this.$store.state.precent_Transactions_bcategory))
             return data.reduce((total, item) => {
                 return total + -1 * item.amount
+            }, 0)
+        },
+        sum_income(time) {
+            let data = this.$store.state.income_statement.filter(item => ((item.btime.indexOf(time) != -1) & item.bcategory === this.$store.state.precent_Transactions_bcategory))
+
+            return data.reduce((total, item) => {
+                return total + item.amount
             }, 0)
         }
 
 
     },
-    computed: {
-        activevalue: {
-            get() {
-
-                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'amount').map(item => -item)
+    watch: {
+        activeName: {
+            handler: function (value) {
+                this.$store.commit('updateactiveName', value)
+                this.drawLine();
             },
-            set() {
-                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'amount').map(item => -item)
-            }
-        }
-    }
+            immediate: true
+        },
+    },
 }
 </script>
 <style lang="less" scoped>

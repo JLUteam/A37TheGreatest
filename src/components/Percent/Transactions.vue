@@ -145,7 +145,7 @@ export default {
 
                 time = []
                 for (let i = 0; i <= day; i++) {
-                    let temp = '' + year + '-' + month + '-' + day
+                    let temp = '' + year + '-' + month + '-' + i
                     time.push(temp)
 
                 }
@@ -167,7 +167,7 @@ export default {
 
                 }
             }
-            // console.log('12345 '+time)
+          
             return time
         }
     },
