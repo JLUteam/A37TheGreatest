@@ -38,32 +38,7 @@ export default {
         }
     },
     computed: {
-        //     Setting_label: {
-        //         get() {
-        //             return this.recode.isfinish ? 'Completed' : 'Uncompleted';
-        //         },
-        //         set(value) {
-        //             this.$store.commit('updateSetting_label', [this.recode.uid, value])
-
-        //         }
-        //     },
-
-        //     Add_note: {
-        //         get() {
-        //             return this.recode.note
-        //         },
-        //         set(value) {
-        //             console.log(123)
-        //             this.$store.commit('updatenote', [this.recode.uid, value])
-        //         }
-        //     }
-        // },
-        // watch: {
-        //     value: {
-        //         handler: function (value) {
-        //             this.$store.commit('updateCategory', [this.recode.uid, value])
-        //         }
-        //     },
+ 
     }
 };
 </script>

@@ -5,12 +5,10 @@
 </template>
 
 <script>
-import ConsumptionDetails from "./views/ConsumptionDetails.vue";
 
 export default {
   name: "App",
   components: {
-    ConsumptionDetails,
   },
 };
 </script>

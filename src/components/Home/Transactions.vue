@@ -11,13 +11,13 @@
         </div>
         <div class="recodes_border">
             <div class="recordsets">
-                <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.ShoppingTime">
-                    <img :src=recode.img class="merchantAvatar">
+                <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.btime">
+                    <img :src=recode.bpic class="merchantAvatar">
                     <div class="middle">
-                        <p class="merchantname">{{ recode.name }}</p>
-                        <p class="ShoppingTime">{{ recode.ShoppingTime }}</p>
+                        <p class="merchantname">{{ recode.bname }}</p>
+                        <p class="ShoppingTime">{{ recode.btime }}</p>
                     </div>
-                    <p class="consumption">{{ recode.consumption.toFixed(2) }}</p>
+                    <p class="consumption">{{ recode.amount.toFixed(2) }}</p>
                 </div>
                 <div class="temp" v-if="Flag"></div>
             </div>
@@ -36,7 +36,10 @@ export default {
     },
     computed: {
         recodes() {
-            return this.$store.state.recodes
+            return this.$store.state.recodes.filter(
+                (item) =>
+                    (item.btime.indexOf(this.today()) != -1)
+            )
         },
         Flag() {
             return this.$store.state.Transactions_pull
@@ -45,7 +48,10 @@ export default {
     },
     watch: {
         recodes: function () {
-            this.recodes = this.$store.state.recodes
+            this.$store.state.recodes.filter(
+                (item) =>
+                    (item.btime.indexOf(this.today()) != -1)
+            )
         },
         Flag: function () {
             this.Transactions_pull = this.$store.state.Transactions_pull
@@ -80,6 +86,15 @@ export default {
                     recode: recode
                 }
             })
+        },
+        today() {
+            let date = new Date();
+            let year = date.getFullYear()
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            // console.log('' + year + '-' + month + '-' + day)
+            return '' + year + '-' + month + '-' + day
+           
         }
     },
     beforeDestroy() {
@@ -91,15 +106,16 @@ export default {
 .Transactions {
     width: 6.54rem;
     height: 6.3rem;
-    margin-top: .4rem;
+    margin-top: .7rem;
     padding-left: .1rem;
-
+    // transition: width 2s, height 3s;
 
     // background-color: #4a44c6;
     .TransactionsTitle {
         width: 6.54rem;
         height: .56rem;
-        margin-bottom: .5rem;
+        margin-top: -1rem;
+        margin-bottom: .8rem;
 
         p {
             position: relative;
@@ -133,14 +149,14 @@ export default {
         justify-content: start;
         align-items: center;
         overflow: hidden;
-        height: 3.5rem;
+        height: 3.8rem;
         margin-bottom: .2rem;
 
         .record {
             width: 6.54rem;
             height: .96rem;
             border-color: #ffffff;
-            margin-bottom: .3rem;
+            margin-bottom: .4rem;
             display: flex;
             flex-direction: row;
             justify-self: center;
@@ -215,7 +231,7 @@ export default {
     border-radius: .64rem .64rem 0 0;
     // box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
     top: 2rem;
-
+    // transition: height .5s;
     .TransactionsTitle {
         background-color: #ffffff;
         height: 2rem;

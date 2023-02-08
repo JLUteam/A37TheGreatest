@@ -1,6 +1,6 @@
 <template>
-    <div class="Top">
-        <p>Statistic</p>
+    <div  :class="flag ? 'Top_dark' : 'Top'">
+        <p v-if="!flag">Statistic</p>
     </div>
 </template>
 <script>
