@@ -1,5 +1,5 @@
 <template>
-    <div class="Category_Chart">
+    <div class="Category_Chart" v-show="!flag">
         <el-tabs v-model="activeName" @tab-click="handleClick" class="select">
             <el-tab-pane label="一天" name="first"></el-tab-pane>
             <el-tab-pane label="一周" name="second"></el-tab-pane>
@@ -51,18 +51,66 @@ export default {
             // 基于刚刚准备好的 DOM 容器，初始化 EChart 实例
             let myChart = this.$echarts.init(this.$refs.myChart)
             this.myChart = myChart
-            let xAxis = null
+            let xAxis = []
+            let yAxis = []
+            let yAxis2 = []
+            const date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let dayOfWeek = date.getUTCDay();
+            let day = date.getDate();
+            let hour = date.getHours();
             if (this.activeName === 'first') {
                 xAxis = Object.keys([...Array(24)])
+               
+                for (let i = 0; i <= hour; i++) {
+                    let temp = this.sum('' + year + '-' + month + '-' + day + ' ' + i + ':')
+                    yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day + ' ' + i + ':')
+                    yAxis2.push(temp2)
+                 
+                }
+
             } else if (this.activeName === 'second') {
                 xAxis = Object.keys([...Array(7)])
+                for (let i = 0; i <= dayOfWeek; i++) {
+                    var oneDayTime = 24 * 60 * 60 * 1000;
+                    const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                    month = newDate.getMonth() + 1;
+                    day = newDate.getDate();
+                    let temp = this.sum('' + year + '-' + month + '-' + day )
+                    yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
+                    yAxis2.push(temp2)
+                }
             } else if (this.activeName === 'third') {
                 xAxis = Object.keys([...Array(30)])
+                yAxis = []
+                for (let i = 0; i <= day; i++) {
+                    let temp = this.sum('' + year + '-' + month + '-' + i)
+                    yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + i)
+                    yAxis2.push(temp2)
+                }
             }
             else if (this.activeName === 'fourth') {
                 xAxis = Object.keys([...Array(12)])
+                yAxis = []
+                for (let i = 0; i < month; i++) {
+                    let temp = this.sum('' + year + '-' + i)
+                    yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + i)
+                    yAxis2.push(temp2)
+                }
             } else {
                 xAxis = Object.keys([...Array(10)])
+                yAxis = []
+                for (let i = year-10; i < year; i++) {
+                    let temp = this.sum(i)
+                    yAxis.push(temp)
+                    let temp2 = this.sum_income(i)
+                    yAxis2.push(temp2)
+                }
             }
             // 绘制图表
             myChart.setOption(
@@ -127,31 +175,7 @@ export default {
 
                     series: [
                         {
-                            data: [820, 932, 901, 934, 1290, 1330, 1320],
-                            type: 'line',
-                            // smooth: true,
-                            areaStyle: {
-                                color: {
-                                    type: 'linear',
-                                    x: 0,
-                                    y: 0,
-                                    x2: 0,
-                                    y2: 1,
-                                    colorStops: [{
-                                        offset: 0, color: '#8ee04e' // 0% 处的颜色
-                                    }, {
-                                        offset: 1, color: ' rgba(142,224,78,0)' // 100% 处的颜色
-                                    }],
-                                    global: false // 缺省为 false
-                                }
-                            },
-                            lineStyle: {
-                                color: '#8ee04e'
-                            },
-
-                        },
-                        {
-                            data: [240, 432, 1201, 334, 290, 330, 320],
+                            data: yAxis,
                             type: 'line',
                             // smooth: true,
                             areaStyle: {
@@ -170,7 +194,32 @@ export default {
                                 }
                             },
                             lineStyle: {
-                                color: '#FF6740'
+                                color: '#ff6740'
+                            },
+
+                        },
+                        {
+                            data: yAxis2,
+                            type: 'line',
+                            // smooth: true,
+                            areaStyle: {
+                                color: {
+                                    type: 'linear',
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                        
+                                    colorStops: [{
+                                        offset: 0, color: '#8ee04e' // 0% 处的颜色
+                                    }, {
+                                        offset: 1, color: ' rgba(142,224,78,0)' // 100% 处的颜色
+                                    }],
+                                    global: false // 缺省为 false
+                                }
+                            },
+                            lineStyle: {
+                                color: '#8ee04e'
                             }
                         }
                     ]
@@ -183,6 +232,22 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
             this.drawLine()
+        },
+        sum(time) {
+            // console.log('edadg')
+            // console.log(time)
+            let data = this.$store.state.recodes.filter(item => (item.btime.indexOf(time) != -1))
+            // console.log(data)
+            return data.reduce((total, item) => {
+                return total + -1 * item.amount
+            }, 0)
+        },
+        sum_income(time) {
+            let data = this.$store.state.income_statement.filter(item => (item.btime.indexOf(time) != -1))
+
+            return data.reduce((total, item) => {
+                return total +  item.amount
+            }, 0)
         }
 
     }, watch: {
@@ -191,6 +256,11 @@ export default {
                 this.$store.commit('updateactiveName', value)
             }
         },
+    },
+    computed: {
+        flag() {
+            return this.$store.state.Transactions_pull;
+        }
     }
 }
 </script>

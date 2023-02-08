@@ -15,9 +15,14 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueCordova)
 // document.addEventListener('deviceready', function () {
-new Vue({
-  render: h => h(App),
-  store,
-  router,
-}).$mount('#app')
+//   new Vue({
+//     render: h => h(App),
+//     store,
+//     router,
+//   }).$mount('#app')
 // }, false)
+  new Vue({
+    render: h => h(App),
+    store,
+    router,
+  }).$mount('#app')

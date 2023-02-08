@@ -61,21 +61,60 @@ export default {
             let myChart = this.$echarts.init(this.$refs.myChart)
             this.myChart = myChart
             let xAxis = null
+            let yAxis = null
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let dayOfWeek = date.getUTCDay();
+            let day = date.getDate();
+            let hour = date.getHours();
             if (this.activeName === 'first') {
                 xAxis = Object.keys([...Array(24)])
                 temp.setDate(temp.getDate() - 1);
+                yAxis = []
+                for (let i = 0; i <= hour; i++) {
+                    //''+year+ '- '+month+' - '+'6'+' '+'17'
+                    let temp = this.sum('' + year + '- ' + month + ' - ' + day + ' ' + i)
+                    yAxis.push(temp)
+                }
             } else if (this.activeName === 'second') {
                 xAxis = Object.keys([...Array(7)])
+                yAxis = []
+                for (let i = 0; i <= dayOfWeek; i++) {
+                    var oneDayTime = 24 * 60 * 60 * 1000;
+                    const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                    month = newDate.getMonth() + 1;
+                    day = newDate.getDate();
+                    let temp = this.sum('' + year + '- ' + month + ' - ' + day)
+                    yAxis.push(temp)
+                }
                 temp.setDate(temp.getDate() - 7);
             } else if (this.activeName === 'third') {
                 xAxis = Object.keys([...Array(30)])
+                yAxis = []
+                for (let i = 0; i <= day; i++) {
+                    let temp = this.sum('' + year + '- ' + month + ' - ' + day)
+                    yAxis.push(temp)
+                }
                 temp.setDate(temp.getDate() - 30);
+
             }
             else if (this.activeName === 'fourth') {
                 xAxis = Object.keys([...Array(12)])
+                yAxis = []
+                for (let i = 0; i < month; i++) {
+                    //''+year+ '- '+month+' - '+'6'+' '+'17'
+                    let temp = this.sum('' + year + '- ' + i)
+                    yAxis.push(temp)
+                }
                 temp.setDate(temp.getDate() - 365);
             } else {
                 xAxis = Object.keys([...Array(10)])
+                yAxis = []
+                for (let i = year-10; i < year; i++) {
+                    //''+year+ '- '+month+' - '+'6'+' '+'17'
+                    let temp = this.sum(''+i)
+                    yAxis.push(temp)
+                }
             }
             temp = this.formatDate(temp)
             this.temp = temp
@@ -180,7 +219,7 @@ export default {
             this.drawLine()
         },
         getdata(name, time) {
-            let arr = this.$store.state.recodes.filter(item => ((item.bcategory === name) & this.getHour(time, item.ShoppingTime) >= 0))
+            let arr = this.$store.state.recodes.filter(item => ((item.bcategory === name) & this.getHour(time, item.btime) >= 0))
             console.log(arr)
             return arr
 
@@ -218,6 +257,13 @@ export default {
                 })
             }
             return 'null（参数一应为对象数组）';//不是数组
+        },
+        sum(time) {
+            let data = this.$store.state.recodes.filter(item => (item.btime.indexOf(time) != -1))
+
+            return data.reduce((total, item) => {
+                return total + -1 * item.amount
+            }, 0)
         }
 
 
@@ -226,10 +272,10 @@ export default {
         activevalue: {
             get() {
 
-                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'consumption').map(item => -item)
+                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'amount').map(item => -item)
             },
             set() {
-                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'consumption').map(item => -item)
+                return this.getMappingValueArrayOfKey(this.getdata(this.$store.state.precent_Transactions_bcategory, this.temp), 'amount').map(item => -item)
             }
         }
     }

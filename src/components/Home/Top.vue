@@ -1,10 +1,10 @@
 <template>
-    <div :class="Top" >
+    <div :class="Top">
         <div class="weather">
             <img class="icon" src="@/assets/svg/Icon.svg" alt="">
             <p class="greet">{{ time }}</p>
         </div>
-        <p :class="flag ? 'Hello_dark' : 'Hello'">{{ 'Hi,' +name +'!'}}</p>
+        <p :class="flag ? 'Hello_dark' : 'Hello'">{{ 'Hi,' +name + '!' }}</p>
     </div>
 </template>
 <script>
@@ -87,6 +87,7 @@ export default {
         font-size: .48rem;
         font-weight: 700;
         line-height: .68rem;
+        margin-top: .1rem;
     }
 
     .Hello_dark {
@@ -95,6 +96,7 @@ export default {
         font-size: .48rem;
         font-weight: 700;
         line-height: .68rem;
+        margin-top: .1rem;
     }
 
 }

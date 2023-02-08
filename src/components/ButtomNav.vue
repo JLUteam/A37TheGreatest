@@ -4,29 +4,23 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link
-              class="nav__link"
-              :to="{
-                name: 'home',
-              }"
-            >
+            <router-link class="nav__link" :to="{
+              name: 'home',
+            }">
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link
-              class="nav__link"
-              :to="{
-                name: 'Percent',
-              }"
-            >
+            <router-link class="nav__link" :to="{
+              name: 'Percent',
+            }">
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img src="@/assets/svg/add-bold.svg" class="item_s" alt="" />
+              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
             </div>
           </li>
           <li class="nav__item">
@@ -99,61 +93,47 @@ export default {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
     cameratakephoto() {
-      Vue.cordova.camera.getPicture(
-        (imageURI) => {
-          window.alert("Photo URI : " + imageURI);
-        },
-        (message) => {
-          window.alert("FAILED : " + message);
-        },
-        {
-          quality: 50,
-          // allowEdit: true,
-          destinationType: Vue.cordova.camera.DestinationType.FIRE_URI,
-        }
-      );
+      this.camera(navigator.camera.PictureSourceType.CAMERA);
     },
     phototakefromku() {
+      this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
+    },
+    tryit() {
+      this.$router.push({
+        name: 'WordInputSetting',
+      })
+      // axios({
+      //   method: "post",
+      //   url: "https://api.textin.com/robot/v1.0/api/receipt",
+      //   headers: {
+      //     "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+      //     "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+      //   },
+      //   data: {
+      //     body: "",
+      //   },
+      // }).then(
+      //   (response) => {
+      //     console.log(response.data);
+      //   },
+      //   (error) => {
+      //     console.log(error.message);
+      //   }
+      // );
+
+    },
+    camera(sourceType) {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
         quality: 75,
-        destinationType: navigator.camera.DestinationType.FIRE_URI,
-        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
+        encodingType: navigator.camera.EncodingType.JPEG,
+        sourceType: sourceType,
         allowEdit: true,
         // saveToPhotoAlbum: true,
       });
     },
-    tryit() {
-      axios({
-        method: "post",
-        url: "https://api.textin.com/robot/v1.0/api/receipt",
-        headers: {
-          "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-          "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-        },
-        data: {
-          body: "",
-        },
-      }).then(
-        (response) => {
-          console.log(response.data);
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
-    },
-    // camera(sourceType) {
-    //   navigator.camera.getPicture(this.onSuccess, this.onFail, {
-    //     quality: 75,
-    //     destinationType: navigator.camera.DestinationType.DATA_URL,
-    //     encodingType: navigator.camera.EncodingType.JPEG,
-    //     sourceType: sourceType,
-    //     allowEdit: true,
-    //     // saveToPhotoAlbum: true,
-    //   });
-    // },
     onSuccess(imageURL) {
-      alert("上传成功" + imageURL);
+      alert(imageURL);
       // var file = dataURLtoFile(imageURL, "test.jpg");
       // alert("1");
       // var reader = new FileReader();
@@ -243,7 +223,7 @@ export default {
           display: flex;
           align-items: flex-start;
           position: absolute;
-          margin-bottom: 1.3rem;
+          margin-bottom: 1rem;
           cursor: pointer;
 
           .add {
@@ -251,12 +231,12 @@ export default {
             flex-direction: column;
             align-items: center;
             row-gap: 0.08rem;
-
+            transition: transform .3s;
             .item_s {
               display: flex;
               align-self: flex-start;
-              width: 1.28rem;
-              height: 1.28rem;
+              width: 1rem;
+              height: 1rem;
               border-radius: 0.8186rem;
               background: #928fff;
             }
@@ -264,7 +244,8 @@ export default {
         }
 
         .active {
-          transform: rotate(-45deg);
+          transform: rotate(45deg);
+          transition: transform .3s;
         }
       }
     }
@@ -313,6 +294,7 @@ export default {
         line-height: 0.52rem;
       }
     }
+
     &:hover {
       background-color: #e9e9ff;
     }

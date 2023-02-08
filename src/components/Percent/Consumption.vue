@@ -1,21 +1,21 @@
 <template>
     <div class="summary ">
-        <div class="income">
+        <div class="income" v-show="!flag">
             <div class="img">
                 <img src="@/assets/svg/income.svg" alt="" class="icon">
             </div>
             <div class="data">
                 <p class="title">收入</p>
-                <p class="result">$5,280</p>
+                <p class="result">{{ this.total_income() }}</p>
             </div>
         </div>
-        <div class="Expendituretion">
+        <div class="Expendituretion" v-show="!flag">
             <div class="img">
                 <img src="@/assets/svg/expense.svg" alt="" class="icon">
             </div>
             <div class="data">
                 <p class="title">支出</p>
-                <p class="result">$5,280</p>
+                <p class="result">{{ this.total() }}</p>
             </div>
         </div>
     </div>
@@ -24,19 +24,96 @@
 export default {
     name: 'Consumption',
     computed: {
-        zhenshu() {
-            return this.$store.state.total.toFixed(2).split('.')[0]
-        },
-        xiaoshu() {
-            return this.$store.state.total.toFixed(2).split('.')[1]
-        },
-        present() {
-            let present = (this.$store.state.total_yes - this.$store.state.total) / this.$store.state.total_yes * 100;
-            return present.toFixed(0)
+        flag() {
+            return this.$store.state.Transactions_pull;
         }
     },
     methods: {
+        sum(time) {
+            let data = this.$store.state.recodes.filter(item => (item.btime.indexOf(time) != -1))
+            return data.reduce((total, item) => {
+                return total + -1 * item.amount
+            }, 0)
+        },
+        sum_income(time) {
+            let data = this.$store.state.income_statement.filter(item => (item.btime.indexOf(time) != -1))
 
+            return data.reduce((total, item) => {
+                return total + item.amount
+            }, 0)
+        },
+        time() {
+            let time = []
+            const date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let dayOfWeek = date.getUTCDay();
+            let day = date.getDate();
+            let hour = date.getHours();
+            if (this.$store.state.click_time === 'first') {
+                for (let i = 0; i <= hour; i++) {
+                    //''+year+ '- '+month+' - '+'6'+' '+'17'
+                    let temp = '' + year + '-' + month + '-' + day + ' ' + i+':'
+                    time.push(temp)
+
+                }
+
+            } else if (this.$store.state.click_time === 'second') {
+
+                time = []
+                for (let i = 0; i <= dayOfWeek; i++) {
+                    var oneDayTime = 24 * 60 * 60 * 1000;
+                    const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                    month = newDate.getMonth() + 1;
+                    day = newDate.getDate();
+                    let temp = '' + year + '-' + month + '-' + day
+                    time.push(temp)
+
+                }
+            } else if (this.$store.state.click_time === 'third') {
+
+                time = []
+                for (let i = 0; i <= day; i++) {
+                    let temp = '' + year + '-' + month + '-' + i
+                    time.push(temp)
+
+                }
+            }
+            else if (this.$store.state.click_time === 'fourth') {
+
+                time = []
+                for (let i = 0; i < month; i++) {
+                    //''+year+ '- '+month+' - '+'6'+' '+'17'
+                    let temp = '' + year + '-' + i
+                    time.push(temp)
+
+                }
+            } else {
+                time = []
+                for (let i = year - 10; i < year; i++) {
+                    let temp = i
+                    time.push(temp)
+
+                }
+            }
+            // console.log('12345 '+time)
+            return time
+        },
+        total() {
+            let sum =0
+            for (let i = 0; i < this.time().length;i++){
+                sum += this.sum(this.time()[i])
+            }
+            return sum
+        },
+        total_income()
+        {
+            let sum = 0
+            for (let i = 0; i < this.time().length; i++) {
+                sum += this.sum_income(this.time()[i])
+            }
+            return sum
+        }
     },
 }
 </script>

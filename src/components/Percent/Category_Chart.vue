@@ -7,10 +7,17 @@
             </el-radio-group>
         </div>
         <div class="title">
-            <p class="title_number">{{ '-$'+title_number }}</p>
+            <p class="title_number">{{ (this.radio1 === '支出'? '-$':'') +title_number.toFixed(2) }}</p>
             <p class="title_p">Category Chart</p>
-            <p class="title_time">{{ '过去'+title_time + '的花费' }}</p>
-
+            <p class="title_time">{{ '过去'+this.radio2 + '的花费' }}</p>
+        </div>
+        <div class="tags2">
+            <el-radio-group v-model="radio2">
+                <el-radio-button label="一天"  ></el-radio-button>
+                <el-radio-button label="一周"  ></el-radio-button>
+                <el-radio-button label="一月" ></el-radio-button>
+                <el-radio-button label="一年"  ></el-radio-button>
+            </el-radio-group>
         </div>
         <div class="chart" ref="myChart">
         </div>
@@ -23,7 +30,8 @@ export default {
     data() {
         return {
             radio1: '支出',
-
+            radio2: '一天',
+            time: ''
         }
     },
     mounted() {
@@ -42,15 +50,16 @@ export default {
     computed: {
         Consumption() {
             return {
-                'energy': this.sum('energy', '2021-9'),
-                'food': this.sum('food', '2021-9'),
-                'entertainment': this.sum('entertainment', '2021-9'),
-                'other': this.sum('other', '2021-9'),
+                'energy': this.radio1 === '支出' ? this.sum('energy', this.title_time) : this.sum_income('energy', this.title_time),
+                'food': this.radio1 === '支出' ? this.sum('food', this.title_time) : this.sum_income('food', this.title_time),
+                'entertainment': this.radio1 === '支出' ? this.sum('entertainment', this.title_time) : this.sum_income('entertainment', this.title_time),
+                'other': this.radio1 === '支出' ? this.sum('other', this.title_time) : this.sum_income('other', this.title_time),
             }
         },
-        title_number:{
+        title_number: {
             get() {
                 return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
+                    console.log('this=' + current + ' ' + prev)
                     return prev + current
                 })
             },
@@ -58,63 +67,75 @@ export default {
                 return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
                     return prev + current
                 })
-           }
+            }
         },
         title_time: {
             get() {
-                let time = null
-                if (this.$store.state.click_time === 'first') {
-                    time = '一天'
-                } else if (this.$store.state.click_time === 'second') {
-                    time = '一周'
-                } else if (this.$store.state.click_time === 'third') {
-                    time = '一月'
+                const date = new Date();
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
+                let day = date.getDate();
+                let temp = ''
+                let time = []
+                if (this.radio2 === '一天') {
+                    temp = '' + year + '-' + month + '-' + day
+                    time.push(temp)
+                } else if (this.radio2 === '一周') {
+                    for (let i = 1; i <= dayOfWeek; i++) {
+                        var oneDayTime = 24 * 60 * 60 * 1000;
+                        const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                        month = newDate.getMonth() + 1;
+                        day = newDate.getDate();
+                        temp = '' + year + '-' + month + '-' + day
+                        time.push(temp)
+                    }
+                } else if (this.radio2 === '一月') {
+                    temp = '' + year + '-' + month
+                    time.push(temp)
                 }
-                else if (this.$store.state.click_time === 'fourth') {
-                    time = '一年'
-                } else {
-                    time = '全部'
+                else if (this.radio2 === '一年') {
+
+                    temp = '' + year
+                    time.push(temp)
                 }
+                // console.log('title_time' + time)
+                // this.drawLine()
                 return time
             },
             set() {
-                let time = null
-                if (this.$store.state.click_time === 'first') {
-                    time = '一天'
-                } else if (this.$store.state.click_time === 'second') {
-                    time = '一周'
-                } else if (this.$store.state.click_time === 'third') {
-                    time = '一月'
+                const date = new Date();
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let dayOfWeek = date.getUTCDay();
+                let day = date.getDate();
+                let temp = ''
+                let time = []
+                if (this.radio2 === '一天') {
+                    temp = '' + year + ' - ' + month + ' - ' + day
+                    time.push(temp)
+                } else if (this.radio2 === '一周') {
+                    for (let i = 1; i <= dayOfWeek; i++) {
+                        var oneDayTime = 24 * 60 * 60 * 1000;
+                        const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                        month = newDate.getMonth() + 1;
+                        day = newDate.getDate();
+                        temp = '' + year + '- ' + month + ' - ' + day
+                        time.push(temp)
+                    }
+                } else if (this.radio2 === '一月') {
+                    temp = '' + year + ' - ' + month
+                    time.push(temp)
                 }
-                else if (this.$store.state.click_time === 'fourth') {
-                    time = '一年'
-                } else {
-                    time = '全部'
+                else if (this.radio2 === '一年') {
+
+                    temp = '' + year
+                    time.push(temp)
                 }
+                
                 return time
             }
-        },
-        // time_number()//用来计算数据日期
-        // {
-        //     let time = null
-        //     if (this.$store.state.click_time === 'first') {
-        //         time = '一天'
-        //     } else if (this.$store.state.click_time === 'second') {
-        //         time = '一周'
-        //     } else if (this.$store.state.click_time === 'third') {
-        //         time = '一月'
-        //     }
-        //     else if (this.$store.state.click_time === 'fourth') {
-        //         time = '一年'
-        //     } else {
-        //         time = '全部'
-        //     }
-        //     return time
-        // }
-
-
-
-        // this.$store.state.click_time
+        }
     },
     methods: {
         drawLine() {
@@ -145,7 +166,7 @@ export default {
                     {
                         name: 'Access From',
                         type: 'pie',
-                        radius: ['30%', '60%'],
+                        radius: ['40%', '70%'],
                         center: ['50%', '40%'],
                         avoidLabelOverlap: false,
                         label: {
@@ -155,7 +176,7 @@ export default {
                         emphasis: {
                             label: {
                                 show: true,
-                                fontSize: 25,
+                                fontSize: 18,
                                 fontWeight: 'bold',
                                 formatter: function (arg) {
 
@@ -167,13 +188,13 @@ export default {
                             show: false
                         },
                         data: [
-                            { value: this.Consumption.energy, name: '能源', truename: 'energy' },
-                            { value: this.Consumption.food, name: '餐饮', truename: 'food' },
-                            { value: this.Consumption.entertainment, name: '娱乐', truename: 'food' },
-                            { value: this.Consumption.other, name: '其他', truename: 'other' },
+                            { value: Math.round(this.Consumption.energy * 100) / 100, name: '能源', truename: 'energy' },
+                            { value: Math.round(this.Consumption.food * 100) / 100, name: '餐饮', truename: 'food' },
+                            { value: Math.round(this.Consumption.entertainment * 100) / 100, name: '娱乐', truename: 'food' },
+                            { value: Math.round(this.Consumption.other * 100) / 100, name: '其他', truename: 'other' },
 
                         ]
-                    },
+                    }, 
                 ]
             }
             )
@@ -190,12 +211,48 @@ export default {
 
         },
         sum(name, time) {
-            let data = this.$store.state.recodes.filter(item => ((item.bcategory === name) & item.ShoppingTime.indexOf(time) != -1))
-
+            let data = this.include(name, time)
+            // console.log(data)
             return data.reduce((total, item) => {
-                return total + -1 * item.consumption
+                return total + -1 * item.amount
             }, 0)
         },
+        sum_income(name, time) {
+            let data = this.include_income(name, time)
+            // console.log(data)
+            return data.reduce((total, item) => {
+                return total + -1 * item.amount
+            }, 0)
+        },
+        include(name, time) {
+            let data = []
+            for (let i = 0; i < time.length; i++) {
+                // console.log('include ' + name + ' ' + time[i])
+                data.push(... this.$store.state.recodes.filter(item => ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)))
+            }
+            return data
+        },
+        include_income(name, time) {
+            let data = []
+            for (let i = 0; i < time.length; i++) {
+                console.log('include ' + name + ' ' + time[i])
+                data.push(... this.$store.state.income_statement.filter(item => ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)))
+            }
+            console.log('546'+name+' 123 '+ time + '  '+data+' 987')
+            return data
+        },
+       
+    }, watch: {
+        radio1(val) {
+            this.drawLine()
+            console.log(val)
+            this.$store.commit('updateradio1', val)
+        },
+        radio2(val) {
+            this.drawLine()
+            console.log(val)
+            this.$store.commit('updateradio2', val)
+        }
     }
 }
 </script>
@@ -220,7 +277,7 @@ export default {
         font-family: Manrope;
         font-size: .28rem;
         font-weight: 700;
-      
+
         text-align: center;
         border-color: #fff;
         box-shadow: none;
@@ -229,6 +286,55 @@ export default {
 
     /deep/.el-radio-button__inner {
         width: 2.9856rem;
+        height: .64rem;
+        background-color: transparent;
+        border-radius: .16rem;
+        border: none;
+        background-blend-mode: normal;
+        color: #121826;
+        font-family: Manrope;
+        font-size: .28rem;
+        font-weight: 700;
+        text-align: center;
+        outline: none;
+        border-color: #fff;
+
+    }
+
+    /deep/ .el-radio-button:first-child .el-radio-button__inner {
+        border-left: none;
+    }
+}
+
+.tags2 {
+    width: 6.54rem;
+    height: 1.16rem;
+    border-radius: .32rem;
+    background: #e9e9ff;
+    background-blend-mode: normal;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    /deep/.el-radio-button__orig-radio:checked+.el-radio-button__inner {
+        // width: 2.9856rem;
+        // height: .64rem;
+        border-radius: .16rem;
+        background: #ffffff;
+        background-blend-mode: normal;
+        color: #4a44c6;
+        font-family: Manrope;
+        font-size: .28rem;
+        font-weight: 700;
+
+        text-align: center;
+        border-color: #fff;
+        box-shadow: none;
+        align-items: center;
+    }
+
+    /deep/.el-radio-button__inner {
+        // width: 2.9856rem;
         height: .64rem;
         background-color: transparent;
         border-radius: .16rem;

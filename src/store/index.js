@@ -39,12 +39,18 @@ const mutations = {
         state.userinfo.upassword = password;
         state.userinfo.uphone=phonenumber
 
-    }
+    },
+    updateradio2(contect, newvalue) {
+         state.radio2=newvalue
+    },
+    updateradio1(contect, newvalue) {
+         state.radio1=newvalue
+     }
 }
 
 const state = {
-    total: 15901.00,
-    total_yes: 17667.78,
+    total:'',
+    total_income:'',
     recodes: [{
         uid: '1',
         isbpic: true,
@@ -54,10 +60,10 @@ const state = {
         bcategory: 'energy',
         note: '',
         payment: '支付宝',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:02:10',
-        consumption: -163.1
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-2-7 17:02:10',
+        amount: -100
     },
     {
         uid: '2',
@@ -68,10 +74,10 @@ const state = {
         bcategory: 'food',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:03:10',
-        consumption: -163.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-2-6 17:03:10',
+        amount: -100
     },
     {
         uid: '3',
@@ -82,10 +88,10 @@ const state = {
         bcategory: 'entertainment',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:04:10',
-        consumption: -163.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-2-5 17:04:10',
+        amount: -100
     },
     {
         uid: '4',
@@ -96,10 +102,10 @@ const state = {
         bcategory: 'other',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:05:10',
-        consumption: -163.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-2-4 17:05:10',
+        amount: -100
     },
     {
         uid: '5',
@@ -110,10 +116,10 @@ const state = {
         bcategory: 'entertainment',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:06:10',
-        consumption: -163.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-1-7 17:06:10',
+        amount: -100
     },
     {
         uid: '6',
@@ -124,10 +130,10 @@ const state = {
         bcategory: 'food',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:07:10',
-        consumption: -173.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2022-12-7 17:07:10',
+        amount: -100
     },
     {
         uid: '7',
@@ -138,10 +144,10 @@ const state = {
         bcategory: 'food',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:08:10',
-        consumption: -183.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-2-7 17:08:10',
+        amount: -100
     },
     {
         uid: '8',
@@ -152,10 +158,10 @@ const state = {
         bcategory: 'food',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:09:10',
-        consumption: -193.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',        
+        btime: '2023-2-7 17:09:10',
+        amount: -100
     },
     {
         uid: '9',
@@ -166,10 +172,10 @@ const state = {
         bcategory: 'food',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:10:10',
-        consumption: -103.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-2-7 17:10:10',
+        amount: -100
     },
     {
         uid: '10',
@@ -180,11 +186,12 @@ const state = {
         bcategory: 'food',
         note: '',
         payment: '',
-        img: require('@/assets/img/Starbucks.png'),
-        name: 'Starbucks',
-        ShoppingTime: '2021-9-6 17:11:10',
-        consumption: -143.98
+        bpic: require('@/assets/img/Starbucks.png'),
+        bname: 'Starbucks',
+        btime: '2023-2-7 17:11:10',
+        amount: -100
     }],
+    
     userinfo: {
         uid: '',
         iswx: false,
@@ -197,10 +204,28 @@ const state = {
         upic: require('@/assets/img/avast.png'),
         ucreate: ''
     },
+    income_statement: [
+         {
+        uid: 1,
+        bname: 'Starbucks Coffee',
+        isbpic: true,
+       bpic: require('@/assets/img/Starbucks.png'),
+        bcategory: 'energy',
+        note: '',
+        payment: '支付宝',
+        amount: 100,
+        btime: '2023-2-7 17:02:10',
+        isreceipt: false,
+        receipt:''
+    }
+    ],
     Transactions_pull: false,
     Transactions_click: false,
     precent_Transactions_bcategory: '',
-    click_time: 'second'
+    click_time: 'first',
+    radio1:'支出',
+    radio2: '一天',
+
 }
 
 const store = new Vuex.Store({

@@ -12,13 +12,13 @@
             </div>
             <div class="recodes_border">
                 <div class="recordsets">
-                    <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.ShoppingTime">
-                        <img :src=recode.img class="merchantAvatar">
+                    <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.btime">
+                        <img :src=recode.bpic class="merchantAvatar">
                         <div class="middle">
-                            <p class="merchantname">{{ recode.name }}</p>
-                            <p class="ShoppingTime">{{ recode.ShoppingTime }}</p>
+                            <p class="merchantname">{{ recode.bname }}</p>
+                            <p class="ShoppingTime">{{ recode.btime }}</p>
                         </div>
-                        <p class="consumption">{{ recode.consumption.toFixed(2) }}</p>
+                        <p class="consumption">{{ recode.amount.toFixed(2) }}</p>
                     </div>
                     <div v-if="Flag" class="temp2">
                     </div>
@@ -35,16 +35,16 @@ export default {
     name: 'Transactions',
     data() {
         return {
-            Transactions_css: 'Transactions'
+            Transactions_css: 'Transactions',
         }
     },
     computed: {
         recodes: {
             get() {
-                return this.$store.state.recodes.filter(item => ((item.bcategory === this.precent_Transactions_bcategory)))
+                return this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
             },
             set() {
-                return this.$store.state.recodes.filter(item => ((item.bcategory === this.precent_Transactions_bcategory)))
+                return this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
             }
         },
         Flag() {
@@ -54,16 +54,15 @@ export default {
             return this.$store.state.Transactions_click
         },
         bcategory() {
-            return '咖啡'
+            return this.precent_Transactions_bcategory
         },
         precent_Transactions_bcategory() {
             return this.$store.state.precent_Transactions_bcategory
-        }
-
+        },
     },
     watch: {
         recodes: function () {
-            this.recodes = this.$store.state.recodes
+            return this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
         },
         Flag: function () {
             this.Transactions_pull = this.$store.state.Transactions_pull
@@ -98,8 +97,81 @@ export default {
                     recode: recode
                 }
             })
+        },
+        recodes_(time) {
+            let temp = []
+            for (let i = 0; i < time.length; i++)
+            {
+                temp.push(...this.$store.state.recodes.filter(item => ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)))
+            }
+            return temp
+        },
+        recodes_income(time) {
+            let temp = []
+            for (let i = 0; i < time.length; i++) {
+                temp.push(...this.$store.state.income_statement.filter(item => ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)))
+            }
+            return temp
+        },
+        time() {
+            let time = []
+            const date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let dayOfWeek = date.getUTCDay();
+            let day = date.getDate();
+            let hour = date.getHours();
+            if (this.$store.state.radio2 === '一天') {
+                for (let i = 0; i <= hour; i++) {
+                    //''+year+ '- '+month+' - '+'6'+' '+'17'
+                    let temp = '' + year + '-' + month + '-' + day + ' ' + i + ':'
+                    time.push(temp)
+
+                }
+
+            } else if (this.$store.state.radio2 === '一周') {
+
+                time = []
+                for (let i = 0; i <= dayOfWeek; i++) {
+                    var oneDayTime = 24 * 60 * 60 * 1000;
+                    const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                    month = newDate.getMonth() + 1;
+                    day = newDate.getDate();
+                    let temp = '' + year + '-' + month + '-' + day
+                    time.push(temp)
+
+                }
+            } else if (this.$store.state.radio2 === '一月') {
+
+                time = []
+                for (let i = 0; i <= day; i++) {
+                    let temp = '' + year + '-' + month + '-' + day
+                    time.push(temp)
+
+                }
+            }
+            else if (this.$store.state.radio2 === '一年') {
+
+                time = []
+                for (let i = 0; i < month; i++) {
+                    //''+year+ '- '+month+' - '+'6'+' '+'17'
+                    let temp = '' + year + '-' + i
+                    time.push(temp)
+
+                }
+            } else {
+                time = []
+                for (let i = year - 10; i < year; i++) {
+                    let temp = i
+                    time.push(temp)
+
+                }
+            }
+            // console.log('12345 '+time)
+            return time
         }
     },
+  
     components: {
         Category_Transactions
     },
@@ -113,7 +185,7 @@ export default {
     width: 6.54rem;
     height: 6.38rem;
     margin-top: .4rem;
-    padding-left: .1rem;
+    // padding-left: .1rem;
     justify-content: center;
     align-items: center;
 
@@ -226,10 +298,9 @@ export default {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    // padding-left: .48rem;
-    // padding-right: .48rem;
-    // margin-top: 0rem;
     z-index: 100;
+    padding-left: .5rem;
+    justify-content: center;
     background-color: #ffffff;
     border-radius: .64rem .64rem 0 0;
     // box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
@@ -373,7 +444,7 @@ export default {
 }
 
 .temp {
-    width: 6.54rem;
+    width: 7.5rem;
     height: 1.5rem;
 }
 
