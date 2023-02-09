@@ -12,16 +12,11 @@
             </div>
         </div>
 
-        <div class="word">
-            <p class="name">{{ this.$store.state.userinfo.uname }}</p>
-
-        </div>
-    </div>
     <div class="word">
-      <p class="name">{{ this.$store.state.userinfo.uname }}</p>
-      <!-- <p class="iphone">{{ this.$store.state.userinfo.uphone }}</p> -->
+        <p class="name">{{ this.$store.state.userinfo.uname }}</p>
     </div>
-  </div>
+    </div>
+
 </template>
 <script>
 export default {
@@ -77,18 +72,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   margin-right: 2.6rem;
-  .pie {
-    position: absolute;
-    left: 20%;
-    top: 16%;
-    width: 0.9rem;
-    height: 0.75rem;
-    border-radius: 0.75rem;
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 2.6rem;
+
 
     .pie {
         position: absolute;
@@ -122,12 +106,7 @@ export default {
 
           
         }
-    }
-
-    img {
-        width: 1.6rem;
-        height: 1.6rem;
-    }
+    
   }
   img {
     width: 1.6rem;
