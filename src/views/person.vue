@@ -17,7 +17,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
 .basic {
     display: flex;
     flex-direction: column;
@@ -32,4 +32,6 @@ body {}
     display: none;
 
 }
+
+
 </style>
