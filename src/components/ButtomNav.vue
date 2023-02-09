@@ -4,23 +4,33 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'home',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'home',
+              }"
+            >
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'Percent',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'Percent',
+              }"
+            >
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
+              <img
+                src="@/assets/svg/tx-fill-shizixing.svg"
+                class="item_s"
+                alt=""
+              />
             </div>
           </li>
           <li class="nav__item">
@@ -37,6 +47,7 @@
       </div>
     </div>
     <div class="addmethod" v-show="this.mood === 'add' ? false : true">
+      <input type="file" @change="uploadfile" id="test" />
       <div class="method" @click="tryit">
         <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>文本输入</p>
@@ -89,10 +100,79 @@ export default {
     }
   },
   methods: {
+    uploadfile() {
+      var file = document.getElementById("test").files[0];
+      var reader = new FileReader();
+      console.log(file);
+      reader.readAsArrayBuffer(file);
+      console.log(1);
+      reader.onload = function (e) {
+        console.log(2);
+        var fileData = this.result;
+        axios({
+          method: "post",
+          url: "https://api.textin.com/robot/v1.0/api/receipt",
+          headers: {
+            "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+            "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+            "Content-Type": "image/jpg",
+          },
+          data: {
+            body: fileData,
+          },
+        }).then(
+          (response) => {
+            window.alert(1);
+            console.log(response.data);
+          },
+          (error) => {
+            window.alert(error.message);
+          }
+        );
+      };
+    },
     updatemood() {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
     cameratakephoto() {
+      Vue.cordova.camera.getPicture(
+        (imageURI) => {
+          var file = new File(imageURI);
+          var reader = new FileReader();
+          reader.readAsArrayBuffer(file);
+          reader.onload = function (e) {
+            var fileData = this.result;
+            axios({
+              method: "post",
+              url: "https://api.textin.com/robot/v1.0/api/receipt",
+              headers: {
+                "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+                "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+              },
+              data: {
+                body: fileData,
+              },
+            }).then(
+              (response) => {
+                window.alert(response.data);
+              },
+              (error) => {
+                window.alert(error.message);
+              }
+            );
+          };
+          // window.alert("wenjain:" + file);
+        },
+        (message) => {
+          window.alert("FAILED : " + message);
+        },
+        {
+          quality: 50,
+          // allowEdit: true,
+          destinationType: Vue.cordova.camera.DestinationType.FIRE_URI,
+        }
+      );
+
       this.camera(navigator.camera.PictureSourceType.CAMERA);
     },
     phototakefromku() {
@@ -100,8 +180,8 @@ export default {
     },
     tryit() {
       this.$router.push({
-        name: 'WordInputSetting',
-      })
+        name: "WordInputSetting",
+      });
       // axios({
       //   method: "post",
       //   url: "https://api.textin.com/robot/v1.0/api/receipt",
@@ -120,7 +200,6 @@ export default {
       //     console.log(error.message);
       //   }
       // );
-
     },
     camera(sourceType) {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
@@ -231,7 +310,7 @@ export default {
             flex-direction: column;
             align-items: center;
             row-gap: 0.08rem;
-            transition: transform .3s;
+            transition: transform 0.3s;
             .item_s {
               display: flex;
               align-self: flex-start;
@@ -245,7 +324,7 @@ export default {
 
         .active {
           transform: rotate(45deg);
-          transition: transform .3s;
+          transition: transform 0.3s;
         }
       }
     }
