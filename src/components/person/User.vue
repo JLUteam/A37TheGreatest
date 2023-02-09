@@ -29,18 +29,19 @@ export default {
     ,
     methods: {
         open() {
-            this.$confirm('检测到未保存的内容，是否在离开页面前保存修改？', '确认信息', {
+            this.$confirm('', '选择上传方式', {
                 distinguishCancelAndClose: true,
-                confirmButtonText: '保存',
-                cancelButtonText: '放弃修改',
+                confirmButtonText: '拍照上传',
+                cancelButtonText: '图库上传',
                 center: true,
                 customClass: 'photo'
             })
                 .then(() => {
                     this.$message({
                         type: 'info',
-                        message: '保存修改'
+                        message: '拍照上传'
                     });
+                    // function('相机')
                 })
                 .catch(action => {
                     this.$message({
@@ -49,6 +50,7 @@ export default {
                             ? '放弃保存并离开页面'
                             : '停留在当前页面'
                     })
+                     // function('相册')
                 });
         }
 
