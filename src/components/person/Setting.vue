@@ -4,14 +4,14 @@
             <div class="Myimg">
                 <img src="@/assets/svg/person_active.svg" alt="">
             </div>
-            <p>myAccount</p>
+            <p>账户信息</p>
             <img src="@/assets/svg/next.svg" alt="" class="next">
         </div>
         <div class="MySetting" @click="toSetting">
             <div class="Myimg">
                 <img src="@/assets/svg/setting.svg" alt="">
             </div>
-            <p>Setting</p>
+            <p>设置</p>
             <img src="@/assets/svg/next.svg" alt="" class="next">
         </div>
     </div>

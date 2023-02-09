@@ -5,8 +5,8 @@
         </div>
         <div class="tags">
             <el-radio-group v-model="radio1">
-                <el-radio-button label="收入" @click.native="switchIncome()"></el-radio-button>
-                <el-radio-button label="支出" @click.native="switchOutcome()"></el-radio-button>
+                <el-radio-button label="支出" @click.native="switchIncome()"></el-radio-button>
+                <el-radio-button label="收入" @click.native="switchOutcome()"></el-radio-button>
             </el-radio-group>
         </div>
         <router-view></router-view>

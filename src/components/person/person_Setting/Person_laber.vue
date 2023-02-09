@@ -5,7 +5,7 @@
             <Security></Security>
         </div>
         <div class="save_Setting">
-            <button class="save_button" @click="updateuserinfo">save</button>
+            <button class="save_button" @click="updateuserinfo">保存</button>
         </div>
     </div>
 

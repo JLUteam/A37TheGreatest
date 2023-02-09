@@ -1,6 +1,6 @@
 <template>
     <div class="Top">
-        <p class="Profile">MyAccount</p>
+        <p class="Profile">账户信息</p>
         <back/>
     </div>
 </template>

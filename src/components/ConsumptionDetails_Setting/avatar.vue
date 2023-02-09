@@ -1,7 +1,7 @@
 <template>
     <div class="avatar">
         <div class="img" @click="photo()"></div>
-        <input type="text" v-model="Amount" placeholder="备注" ref="name_" @click="getname_">
+        <input type="text" v-model="Amount" placeholder="点此修改商户名" ref="name_" @click="getname_">
     </div>
 </template>
 <script>
@@ -30,13 +30,14 @@ export default {
 input {
     border: none;
     outline: none;
-    padding-left: 2.55rem;    // text-align: right;
+    padding-left: 2.55rem; // text-align: right;
     background-color: transparent;
     color: #121826;
     font-family: "Manrope-Regular";
     font-size: .28rem;
     font-weight: 400;
     line-height: .48rem;
+    margin-left: -1.5rem;
 
 }
 

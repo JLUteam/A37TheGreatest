@@ -1,22 +1,22 @@
 <template>
     <div class="Another">
         <div class="Date info">
-            <p>Date</p>
+            <p>支付日期</p>
             <div class="result">
-                <input type="text" v-model="Date_" placeholder="备注" ref="Date_" @click="getDate_">
+                <input type="text" v-model="Date_" placeholder="点此添加" ref="Date_" @click="getDate_">
             </div>
         </div>
         <div class="Time info">
-            <p>Time</p>
+            <p>支付时间</p>
             <div class="result">
-                <input type="text" v-model="Time_" placeholder="备注" ref="Time_" @click="getTime_">
+                <input type="text" v-model="Time_" placeholder="点此添加" ref="Time_" @click="getTime_">
             </div>
         </div>
         <div class="Receipt info">
-            <p>Receipt</p>
+            <p>收据图片</p>
             <div class="result">
                 <img src="@/assets/svg/photo.svg" alt="">
-                <p>Completed</p>
+                <p>点击添加</p>
             </div>
         </div>
 
@@ -126,6 +126,8 @@ input {
             img {
                 width: .32rem;
                 height: .32rem;
+                margin-top: .1rem;
+               
             }
 
             p {
@@ -134,7 +136,7 @@ input {
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
-                text-align: right;
+                margin-right: -.2rem;
             }
         }
     }

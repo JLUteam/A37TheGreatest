@@ -1,6 +1,6 @@
 <template>
     <div class="General">
-        <p class="title">General</p>
+        <p class="title">基本设置</p>
         <div class="Setting_label info">
             <p>语言</p>
             <div class="result">

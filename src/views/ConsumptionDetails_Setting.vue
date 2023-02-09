@@ -6,7 +6,7 @@
     <StateBar :bcategory="$route.query.bcategory" ref="StateBar"></StateBar>
     <PayState :bcategory="$route.query.bcategory" ref="PayState"></PayState>
     <Another :bcategory="$route.query.bcategory" ref="Another"></Another>
-    <button @click="uplode">save</button>
+    <button @click="uplode">保存</button>
   </div>
 </template>
 <script>

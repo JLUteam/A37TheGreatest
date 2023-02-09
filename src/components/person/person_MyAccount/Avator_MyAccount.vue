@@ -44,10 +44,10 @@ export default {
 
     .pie {
         position: absolute;
-        left: 50%;
-        top: 25%;
-        width: 1.5rem;
-        height: 1.5rem;
+        left: 57%;
+        top: 32%;
+        width: .9rem;
+        height: .75rem;
         border-radius: .75rem;
         background-color: #ffffff;
         display: flex;
@@ -56,8 +56,8 @@ export default {
         cursor: pointer;
 
         .smallpie {
-            width: 1rem;
-            height: 1rem;
+            width: .7rem;
+            height: .6rem;
             border-radius: .5rem;
             background: #928fff;
             border-radius: .425rem;
@@ -66,8 +66,8 @@ export default {
             align-items: center;
 
             img {
-                width: .8rem;
-                height: .8rem;
+                width: .5rem;
+                height: .4rem;
             }
         }
     }

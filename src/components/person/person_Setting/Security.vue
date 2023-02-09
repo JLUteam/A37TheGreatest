@@ -1,13 +1,13 @@
 <template>
     <div class="Security">
-        <p class="title">Security</p>
+        <p class="title">安全设置</p>
 
-        <div class="Setting_label info">
+        <!-- <div class="Setting_label info">
             <p>更改钱包密码</p>
             <div class="result">
                 <img src="@/assets/svg/rightgo.svg" alt=""></img>
             </div>
-        </div>
+        </div> -->
         <div class="Setting_label info">
             <p>隐私政策</p>
             <div class="result">

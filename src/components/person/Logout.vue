@@ -1,6 +1,6 @@
 <template>
     <div class="Logout">
-        <button class="Logout_button">Logout</button>
+        <button class="Logout_button">退出账号</button>
     </div>
 </template>
 <script>
