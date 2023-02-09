@@ -1,7 +1,7 @@
 <template>
     <div class="Top">
-        <p class="Profile">Profile</p>
-        <p class="editProfil">editProfil</p>
+        <p class="Profile">个人中心</p>
+        <!-- <p class="editProfil">编辑头像</p> -->
     </div>
 </template>
 <script>

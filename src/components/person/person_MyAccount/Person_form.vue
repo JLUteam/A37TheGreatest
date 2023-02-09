@@ -22,7 +22,7 @@
             <input type="text" class="input_form" v-model="phonenumber" placeholder="请重新输入您的手机号">
         </div>
         <div class="save">
-            <button class="save_button" @click="updateuserinfo">save</button>
+            <button class="save_button" @click="updateuserinfo">保存修改</button>
         </div>
     </div>
 </template>

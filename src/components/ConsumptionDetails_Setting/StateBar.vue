@@ -1,27 +1,27 @@
 <template>
     <div class="StateBar">
         <div class="Status info">
-            <p>Status</p>
+            <p>支付状态</p>
             <div class="result">
                 <img src="@/assets/svg/Check.svg" alt="">
-                <p>Completed</p>
+                <p>已支付</p>
             </div>
         </div>
         <div class="Category info">
-            <p>Category</p>
+            <p>支付类型</p>
             <div class="result" ref="bcategory_" @click="getbcategory_">
                 <el-select v-model="bcategory_" filterable :placeholder="bcategory === '设置' ? 请选择 : bcategory"
                     v-if="bcategory != '设置'" class="seclect">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label">
                     </el-option>
-                    <input type="text" v-model="bcategory_" placeholder="备注" v-if="bcategory === '设置'" >
+                    <input type="text" v-model="bcategory_" placeholder="点此添加" v-if="bcategory === '设置'">
                 </el-select>
             </div>
         </div>
         <div class="Add_note info">
-            <p>Add note</p>
+            <p>备注</p>
             <div class="result">
-                <input type="text" v-model="Add_note" placeholder="备注" ref="note" @click="getAdd_note">
+                <input type="text" v-model="Add_note" placeholder="点此添加" ref="note" @click="getAdd_note">
             </div>
         </div>
 
@@ -142,6 +142,7 @@ export default {
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
+                margin-top: -.1rem;
             }
 
             /deep/ .el-select-dropdown__item {

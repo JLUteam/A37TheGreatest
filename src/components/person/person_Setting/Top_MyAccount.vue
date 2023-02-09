@@ -1,6 +1,6 @@
 <template>
     <div class="Top">
-        <p class="Profile">Settings</p>
+        <p class="Profile">设置</p>
         <back />
     </div>
 </template>
