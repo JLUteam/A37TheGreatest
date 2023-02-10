@@ -1,13 +1,13 @@
 <template>
     <div class="Another">
         <div class="Date info">
-            <p>支付日期</p>
+            <p>{{ Ispay ? '支付日期' :' 收入日期' }}</p>
             <div class="result">
                 <input type="text" v-model="Date_" placeholder="点此添加" ref="Date_" @click="getDate_">
             </div>
         </div>
         <div class="Time info">
-            <p>支付时间</p>
+            <p>{{ Ispay ? '支付时间' :' 收入时间' }}</p>
             <div class="result">
                 <input type="text" v-model="Time_" placeholder="点此添加" ref="Time_" @click="getTime_">
             </div>
@@ -28,9 +28,8 @@
 export default {
     name: "Another",
     props: {
-        recode: {
-            type: Object
-        }
+            bcategory: String,
+            Ispay: Boolean
     },
     data() {
         return {

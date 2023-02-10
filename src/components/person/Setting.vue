@@ -1,10 +1,17 @@
 <template>
     <div class="Setting">
-        <div class="MyAccount" @click="toMyAccount">
+        <div class="MyAccount" @click="toMyAccount(false)">
             <div class="Myimg">
                 <img src="@/assets/svg/person_active.svg" alt="">
             </div>
-            <p>账户信息</p>
+            <p>查看账户信息</p>
+            <img src="@/assets/svg/next.svg" alt="" class="next">
+        </div>
+        <div class="MyAccount" @click="toMyAccount(true)">
+            <div class="Myimg">
+                <img src="@/assets/svg/person_active.svg" alt="">
+            </div>
+            <p>修改账户信息</p>
             <img src="@/assets/svg/next.svg" alt="" class="next">
         </div>
         <div class="MySetting" @click="toSetting">
@@ -25,9 +32,12 @@ export default {
     }
     ,
     methods: {
-        toMyAccount() {
+        toMyAccount(bcategory) {
             this.$router.push({
                 name: 'person_MyAccount',
+                query: {
+                    Ischange: bcategory,
+                }
             })
         },
         toSetting() {

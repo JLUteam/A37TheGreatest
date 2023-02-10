@@ -70,11 +70,13 @@ const router = new VueRouter({
         }, 
         {    name: "person_MyAccount",
              path: "/person_MyAccount",
-             component: person_MyAccount
+            component: person_MyAccount,
+
         },
         {    name: "person_Setting",
              path: "/person_Setting",
-             component: person_Setting
+            component: person_Setting,
+      
         },
         {
             name: 'WordInputSetting',

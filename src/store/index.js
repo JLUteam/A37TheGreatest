@@ -215,7 +215,7 @@ const state = {
         zfbid: '',
         uname: 'kaite',
         uphone: '123456789',
-        upassword: '',
+        upassword: '82650287',
         upic: require('@/assets/img/avast.png'),
         ucreate: ''
     },

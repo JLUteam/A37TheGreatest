@@ -1,13 +1,13 @@
 <template>
     <div class="PayState">
         <div class="payment info">
-            <p>支付方式</p>
+            <p>{{ Ispay ? '支付方式' :' 收入方式' }}</p>
             <div class="result">
                 <input type="text" v-model="payment" placeholder="点此添加" ref="payment_" @click="getpayment_">
             </div>
         </div>
         <div class="Amount info">
-            <p>支付金额</p>
+            <p>{{ Ispay ? '支付金额' :' 收入金额' }}</p>
             <div class="result">
                 <input type="text" v-model="Amount" placeholder="点此添加" ref="Amount_" @click="geAmount_">
             </div>
@@ -20,16 +20,18 @@
 export default {
     name: "PayState",
     props: {
-        recode: {
-            type: Object
-        }
+      
+            bcategory: String,
+            Ispay: Boolean
+        
     },
     data() {
         return {
             Amount: '',
             payment: ''
         }
-    },
+    }
+    ,
     methods: {
         geAmount_() {
             return this.Amount

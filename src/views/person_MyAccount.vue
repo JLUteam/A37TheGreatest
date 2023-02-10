@@ -1,9 +1,9 @@
 <template>
     <div class="basic">
-        <Top_MyAccount></Top_MyAccount>
-        <Avator_MyAccount></Avator_MyAccount>
+        <Top_MyAccount :Ischange="this.$route.query.Ischange"></Top_MyAccount>
+        <Avator_MyAccount :Ischange="this.$route.query.Ischange" ></Avator_MyAccount>
         <Line_></Line_>
-        <Person_form></Person_form>
+        <Person_form :Ischange="this.$route.query.Ischange"></Person_form>
     </div>
 </template>
 <script>
@@ -13,9 +13,6 @@ import Top_MyAccount from '@/components/person/person_MyAccount/Top_MyAccount.vu
 import Person_form from '@/components/person/person_MyAccount/Person_form.vue'
 export default {
     name: "person_Account",
-    components: {
-
-    },
     computed: {
 
     },
@@ -24,7 +21,11 @@ export default {
         Avator_MyAccount,
         Line_,
         Person_form
+    },
+    props: {
+        
     }
+
 };
 </script>
 <style scoped>
@@ -39,4 +40,5 @@ export default {
 ::-webkit-scrollbar {
     display: none;
 }
+
 </style>

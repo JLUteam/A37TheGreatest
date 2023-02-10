@@ -1,14 +1,14 @@
 <template>
     <div class="StateBar">
         <div class="Status info">
-            <p>支付状态</p>
+            <p>{{ Ispay ? '支付状态' :' 收入状态' }}</p>
             <div class="result">
                 <img src="@/assets/svg/Check.svg" alt="">
-                <p>已支付</p>
+                <p>已完成</p>
             </div>
         </div>
         <div class="Category info">
-            <p>支付类型</p>
+            <p>{{ Ispay ? '支付类型' :' 收入类型' }}</p>
             <div class="result" ref="bcategory_" @click="getbcategory_">
                 <el-select v-model="bcategory_" filterable :placeholder="bcategory === '设置' ? 请选择 : bcategory"
                     v-if="bcategory != '设置'" class="seclect">
@@ -47,13 +47,14 @@ export default {
                 label: '其他'
             },],
             Add_note: '',
-            bcategory_: '',
+            bcategory_: this.bcategory,
         }
     },
     props: {
-        recode: {
-            bcategory: String
-        }
+     
+            bcategory: String,
+            Ispay:Boolean
+        
     },
     methods: {
         getAdd_note() {

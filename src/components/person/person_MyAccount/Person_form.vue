@@ -5,21 +5,24 @@
             <div class="icon">
                 <img src="@/assets/svg/user.svg">
             </div>
-            <input type="text" class="input_form" v-model="username" placeholder="请设置您的用户名">
+            <p v-if="!Ischange">{{ this.$store.state.userinfo.uname }}</p>
+            <input v-if="Ischange" type="text" class="input_form" v-model="username" placeholder="请设置您的用户名">
         </div>
         <div class="div_form">
             <label for="username_input" class="title_form">密码</label>
             <div class="icon">
                 <img src="@/assets/svg/IconsLock.svg">
             </div>
-            <input type="text" class="input_form" v-model="password" placeholder="请设置您的密码">
+            <p v-if="!Ischange">{{ this.$store.state.userinfo.upassword }}</p>
+            <input v-if="Ischange" type="text" class="input_form" v-model="password" placeholder="请设置您的密码">
         </div>
         <div class="div_form">
             <label for="username_input" class="title_form">手机号</label>
             <div class="icon">
                 <img src="@/assets/svg/cn.svg">
             </div>
-            <input type="text" class="input_form" v-model="phonenumber" placeholder="请重新输入您的手机号">
+            <p v-if="!Ischange">{{ this.$store.state.userinfo.uphone }}</p>
+            <input v-if="Ischange" type="text" class="input_form" v-model="phonenumber" placeholder="请重新输入您的手机号">
         </div>
         <div class="save">
             <button class="save_button" @click="updateuserinfo">保存修改</button>
@@ -44,7 +47,14 @@ export default {
         updateuserinfo() {
             this.$store.commit('updateuserinfo', [this.username, this.password, this.phonenumber])
             console.log('success')
-        }
+        },
+
+    },
+    props: {
+        Ischange: Boolean
+    },
+    computed: {
+
     }
 }
 </script>
@@ -57,6 +67,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
+    overflow: scroll;
 
     .div_form {
         position: relative;
@@ -67,6 +78,25 @@ export default {
         justify-content: center;
         align-items: center;
         margin-left: 1rem;
+
+        p {
+            margin-right: 1rem;
+            padding-top: .4rem;
+          
+            width: 6.54rem;
+            height: 1.28rem;
+            padding-left: 1.26rem;
+            background: none;
+            outline: none;
+            z-index: 1;
+            border-radius: 0.32rem;
+            background: #f4f4f6;
+            background-blend-mode: normal;
+            border: none;
+            font-size: .28rem;
+            font-weight: 500;
+            line-height: .48rem;
+        }
 
         .title_form {
             margin-right: 6rem;

@@ -1,11 +1,11 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :bcategory="$route.query.bcategory" ref="Avatar">
+    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Avatar">
     </Avatar>
-    <StateBar :bcategory="$route.query.bcategory" ref="StateBar"></StateBar>
-    <PayState :bcategory="$route.query.bcategory" ref="PayState"></PayState>
-    <Another :bcategory="$route.query.bcategory" ref="Another"></Another>
+    <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
+    <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
+    <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
     <button @click="uplode">保存</button>
   </div>
 </template>
@@ -32,10 +32,10 @@ export default {
         bcategory: this.$refs.StateBar.getbcategory_(),
         note: this.$refs.StateBar.getAdd_note(),
         payment: this.$refs.PayState.getpayment_(),
-        img: require('@/assets/img/Starbucks.png'),//待完成
-        name: this.$refs.Avatar.getname_(),
+        bpic: require('@/assets/img/Starbucks.png'),//待完成
+        bname: this.$refs.Avatar.getname_(),
         btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
-        consumption: this.$refs.PayState.geAmount_()
+        amount: this.$refs.PayState.geAmount_()
       }
       console.log(recode_new)
     }

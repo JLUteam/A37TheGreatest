@@ -1,7 +1,7 @@
 <template>
     <div class="avatar">
         <div class="img" @click="photo()"></div>
-        <input type="text" v-model="Amount" placeholder="点此修改商户名" ref="name_" @click="getname_">
+        <input type="text" v-model="Amount" :placeholder="'点此修改' + placeholder_" ref="name_" @click="getname_">
     </div>
 </template>
 <script>
@@ -24,6 +24,19 @@ export default {
             name: ''
         }
     },
+    props: {
+       
+            bcategory: String,
+            Ispay: Boolean
+        
+    },
+    computed:
+    {
+        placeholder_() {
+            return this.Ispay ? '商户名' : '收入来源'
+        }
+    }
+
 };
 </script>
 <style lang="less" scoped>

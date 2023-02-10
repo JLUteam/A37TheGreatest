@@ -1,11 +1,10 @@
 <template>
     <div class="User">
         <img :src="img" alt="">
-        <div class="pie" @click="photo">
+        <div class="pie" >
             <div class="smallpie">
 
                 <el-button type="text" @click="open()">
-
                     <img src="@/assets/svg/photo2.svg" alt="">
                 </el-button>
 

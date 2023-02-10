@@ -2,41 +2,41 @@
     <div class="income ">
         <div class="line">
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/canyin.svg" @click='ToSettingRecode("餐饮")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/canyin.svg" @click='ToSettingRecode("餐饮",true)' alt="">
                 <p>餐饮</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/fushi.svg" @click='ToSettingRecode("服饰")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/fushi.svg" @click='ToSettingRecode("服饰", true)' alt="">
                 <p>服饰</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/gongjiao.svg" @click='ToSettingRecode("公交")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/gongjiao.svg" @click='ToSettingRecode("公交", true)' alt="">
                 <p>公交</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/gongzuo.svg" @click='ToSettingRecode("工作")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/gongzuo.svg" @click='ToSettingRecode("工作", true)' alt="">
                 <p>工作</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/shezhi.svg" @click='ToSettingRecode("设置")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/shezhi.svg" @click='ToSettingRecode("设置", true)' alt="">
                 <p>设置</p>
             </div>
         </div>
         <div class="line">
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/gouwu.svg" @click='ToSettingRecode("购物")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/gouwu.svg" @click='ToSettingRecode("购物", true)' alt="">
                 <p>购物</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/jujia.svg" @click='ToSettingRecode("居家")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/jujia.svg" @click='ToSettingRecode("居家", true)' alt="">
                 <p>居家</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/liwu.svg" @click='ToSettingRecode("礼物")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/liwu.svg" @click='ToSettingRecode("礼物", true)' alt="">
                 <p>礼物</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/lvhang.svg" @click='ToSettingRecode("旅行")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/lvhang.svg" @click='ToSettingRecode("旅行", true)' alt="">
                 <p>旅行</p>
             </div>
             <div class="tab" style="background-color: transparent;">
@@ -45,19 +45,19 @@
         </div>
         <div class="line">
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg" @click='ToSettingRecode("美容")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg" @click='ToSettingRecode("美容", true)' alt="">
                 <p>美容</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/riyongpin.svg" @click='ToSettingRecode("日用")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/riyongpin.svg" @click='ToSettingRecode("日用", true)' alt="">
                 <p>日用</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/shucai.svg" @click='ToSettingRecode("蔬菜")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/shucai.svg" @click='ToSettingRecode("蔬菜", true)' alt="">
                 <p>蔬菜</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/shuiguo.svg" @click='ToSettingRecode("水果")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/shuiguo.svg" @click='ToSettingRecode("水果", true)' alt="">
                 <p>水果</p>
             </div>
             <div class="tab" style="background-color: transparent;">
@@ -67,19 +67,19 @@
         </div>
         <div class="line">
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg" @click='ToSettingRecode("通讯")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg" @click='ToSettingRecode("通讯", true)' alt="">
                 <p>通讯</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/xuexi.svg" @click='ToSettingRecode("学习")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/xuexi.svg" @click='ToSettingRecode("学习", true)' alt="">
                 <p>学习</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/yule.svg" @click='ToSettingRecode("娱乐")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/yule.svg" @click='ToSettingRecode("娱乐", true)' alt="">
                 <p>娱乐</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/yundong.svg" @click='ToSettingRecode("运动")' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/yundong.svg" @click='ToSettingRecode("运动", true)' alt="">
                 <p>运动</p>
             </div>
             <div class="tab" style="background-color: transparent;">
@@ -96,11 +96,12 @@ export default {
     computed: {
     },
     methods: {
-        ToSettingRecode(bcategory_) {
+        ToSettingRecode(bcategory_, Ispay_) {
             this.$router.push({
                 name: 'ConsumptionDetails_Setting',
                 query: {
-                    bcategory: bcategory_
+                    bcategory: bcategory_,
+                    Ispay: Ispay_
                 }
             })
         }

@@ -35,7 +35,7 @@ export default {
     width: 2.4rem;
     height: 2.4rem;
     border-radius: 1.2rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 
     img {
         width: 120px;
@@ -44,8 +44,8 @@ export default {
 
     .pie {
         position: absolute;
-        left: 57%;
-        top: 32%;
+        margin-left:1.5rem ;
+        margin-top: -0.8rem;
         width: .9rem;
         height: .75rem;
         border-radius: .75rem;
@@ -73,5 +73,11 @@ export default {
     }
 
 
+}
+@media screen and (max-width: 380px) {
+
+    .icon {
+        margin-top: 0rem;
+    }
 }
 </style>

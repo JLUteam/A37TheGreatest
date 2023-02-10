@@ -5,7 +5,7 @@
     </div>
 </template>
 <script>
-import back from "@/components/ConsumptionDetails/back.vue"
+import back from "@/components//ConsumptionDetails/back.vue"
 export default {
     name: 'Top_MyAccount',
     data() {

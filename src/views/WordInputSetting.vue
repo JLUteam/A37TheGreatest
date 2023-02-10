@@ -9,7 +9,7 @@
                 <el-radio-button label="收入" @click.native="switchOutcome()"></el-radio-button>
             </el-radio-group>
         </div>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
     </div>
 </template>
 <script>
@@ -24,7 +24,6 @@ export default {
     },
     methods: {
         switchIncome() {
-            console.log('123')
             this.$router.push({
                 name: 'Income',
             })
