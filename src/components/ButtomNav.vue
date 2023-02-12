@@ -47,7 +47,6 @@
       </div>
     </div>
     <div class="addmethod" v-show="this.mood === 'add' ? false : true">
-      <!-- <input type="file" @change="uploadfile" id="test" /> -->
       <div class="method" @click="tryit">
         <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>文本输入</p>
@@ -135,40 +134,39 @@ export default {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
     cameratakephoto() {
-      Vue.cordova.camera.getPicture(
-        (imageURI) => {
-          window.alert("Success:" + imageURI);
-          // var file = new File(imageURI);
-          // var reader = new FileReader();
-          // reader.readAsArrayBuffer(file);
-          // reader.onload = function (e) {
-          //   var fileData = this.result;
-          //   axios({
-          //     method: "post",
-          //     url: "https://api.textin.com/robot/v1.0/api/receipt",
-          //     headers: {
-          //       "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-          //       "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-          //     },
-          //     data: fileData,
-          //   }).then(
-          //     (response) => {
-          //       window.alert(response.data);
-          //     },
-          //     (error) => {
-          //       window.alert(error.message);
-          //     }
-          //   );
-          // };
-          // window.alert("wenjain:" + file);
-        },
-        (message) => {
-          window.alert("FAILED : " + message);
-        },
+      navigator.camera.getPicture(
+        // (imageURI) => {
+        //   window.alert("Success:" + imageURI);
+        // var file = new File(imageURI);
+        // var reader = new FileReader();
+        // reader.readAsArrayBuffer(file);
+        // reader.onload = function (e) {
+        //   var fileData = this.result;
+        //   axios({
+        //     method: "post",
+        //     url: "https://api.textin.com/robot/v1.0/api/receipt",
+        //     headers: {
+        //       "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+        //       "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+        //     },
+        //     data: fileData,
+        //   }).then(
+        //     (response) => {
+        //       window.alert(response.data);
+        //     },
+        //     (error) => {
+        //       window.alert(error.message);
+        //     }
+        //   );
+        // };
+        // window.alert("wenjain:" + file);
+        // },
+        this.onSuccess,
+        this.onFail,
         {
           quality: 50,
           // allowEdit: true,
-          destinationType: Vue.cordova.camera.DestinationType.FIRE_URI,
+          destinationType: navigator.camera.DestinationType.FIRE_URI,
         }
       );
     },
@@ -179,24 +177,6 @@ export default {
       this.$router.push({
         name: "WordInputSetting",
       });
-      // axios({
-      //   method: "post",
-      //   url: "https://api.textin.com/robot/v1.0/api/receipt",
-      //   headers: {
-      //     "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-      //     "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-      //   },
-      //   data: {
-      //     body: "",
-      //   },
-      // }).then(
-      //   (response) => {
-      //     console.log(response.data);
-      //   },
-      //   (error) => {
-      //     console.log(error.message);
-      //   }
-      // );
     },
     camera(sourceType) {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
@@ -209,7 +189,13 @@ export default {
       });
     },
     onSuccess(imageURL) {
-      alert(imageURL);
+      this.$alert("", "上传成功", {
+        confirmButtonText: "确定",
+        showClose: false,
+        center: true,
+        type: "success",
+        customClass: "success",
+      });
       // var file = dataURLtoFile(imageURL, "test.jpg");
       // alert("1");
       // var reader = new FileReader();
@@ -237,12 +223,26 @@ export default {
       // };
     },
     onFail(message) {
-      alert("上传失败:" + message);
+      this.$alert("", "上传失败", {
+        confirmButtonText: "确定",
+        showClose: false,
+        center: true,
+        type: "warning",
+        customClass: "fail",
+      });
     },
     //本地图片转二进制文件相关方法，仅测试使用
   },
 };
 </script>
+<style>
+.fail {
+  width: 300px !important;
+}
+.success {
+  width: 300px !important;
+}
+</style>
 <style lang="less" scoped>
 .buttom {
   width: 100%;
