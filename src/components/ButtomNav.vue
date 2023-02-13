@@ -47,6 +47,7 @@
       </div>
     </div>
     <div class="addmethod" v-show="this.mood === 'add' ? false : true">
+      <input type="file" @change="uploadfile" id="test" />
       <div class="method" @click="tryit">
         <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>文本输入</p>
@@ -99,37 +100,37 @@ export default {
     }
   },
   methods: {
-    // uploadfile() {
-    //   var file = document.getElementById("test").files[0];
-    //   var reader = new FileReader();
-    //   console.log(file);
-    //   reader.readAsArrayBuffer(file);
-    //   console.log(1);
-    //   reader.onload = function (e) {
-    //     console.log(2);
-    //     var fileData = this.result;
-    //     axios({
-    //       method: "post",
-    //       url: "https://api.textin.com/robot/v1.0/api/receipt",
-    //       headers: {
-    //         "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-    //         "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-    //         // "Content-Type": "image/jpg",
-    //       },
-    //       // data: {
-    //       data: fileData,
-    //       // },
-    //     }).then(
-    //       (response) => {
-    //         window.alert(1);
-    //         console.log(response.data);
-    //       },
-    //       (error) => {
-    //         window.alert(error.message);
-    //       }
-    //     );
-    //   };
-    // },
+    uploadfile() {
+      var file = document.getElementById("test").files[0];
+      var reader = new FileReader();
+      console.log(file);
+      reader.readAsArrayBuffer(file);
+      console.log(1);
+      reader.onload = function (e) {
+        console.log(2);
+        var fileData = this.result;
+        axios({
+          method: "post",
+          url: "http://localhost:8080/avatar/upload?uid=0",
+          // headers: {
+          //   "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+          //   "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+          //   // "Content-Type": "image/jpg",
+          // },
+          // data: {
+          data: fileData,
+          // },
+        }).then(
+          (response) => {
+            // window.alert(1);
+            console.log(response.data);
+          },
+          (error) => {
+            window.alert(error.message);
+          }
+        );
+      };
+    },
     updatemood() {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
@@ -231,7 +232,6 @@ export default {
         customClass: "fail",
       });
     },
-    //本地图片转二进制文件相关方法，仅测试使用
   },
 };
 </script>
