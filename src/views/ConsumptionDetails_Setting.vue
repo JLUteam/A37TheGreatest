@@ -1,7 +1,7 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Avatar">
+    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay"   :img_="$route.query.img" ref="Avatar">
     </Avatar>
     <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
     <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
@@ -32,7 +32,7 @@ export default {
         bcategory: this.$refs.StateBar.getbcategory_(),
         note: this.$refs.StateBar.getAdd_note(),
         payment: this.$refs.PayState.getpayment_(),
-        bpic: require('@/assets/img/Starbucks.png'),//待完成
+        bpic: this.$refs.Avatar.getimg_(),//待完成
         bname: this.$refs.Avatar.getname_(),
         btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
         amount: this.$refs.PayState.geAmount_()

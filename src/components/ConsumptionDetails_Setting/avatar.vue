@@ -1,7 +1,7 @@
 <template>
     <div class="avatar">
         <div class="img" @click="photo()">
-            <!-- <img :src =  alt=""> -->
+            <img :src="img_">
         </div>
         <input type="text" v-model="Amount" :placeholder="'点此修改' + placeholder_" ref="name_" @click="getname_">
     </div>
@@ -22,14 +22,15 @@ export default {
     },
     data() {
         return {
-            img: '',
+            img: this.img_,
             name: ''
         }
     },
     props: {
 
         bcategory: String,
-        Ispay: Boolean
+        Ispay: Boolean,
+        img_: String
 
     },
     computed:
@@ -37,7 +38,7 @@ export default {
         placeholder_() {
             return this.Ispay ? '商户名' : '收入来源'
         }
-    }
+    },
 
 };
 </script>
@@ -70,6 +71,14 @@ input {
         height: 1.28rem;
         border-radius: .64rem;
         background-color: bisque;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 1rem;
+            height: 1rem;
+            
+        }
     }
 
     .p {
