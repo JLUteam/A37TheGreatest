@@ -1,6 +1,8 @@
 <template>
     <div class="avatar">
-        <div class="img" @click="photo()"></div>
+        <div class="img" @click="photo()">
+            <!-- <img :src =  alt=""> -->
+        </div>
         <input type="text" v-model="Amount" :placeholder="'点此修改' + placeholder_" ref="name_" @click="getname_">
     </div>
 </template>
@@ -25,10 +27,10 @@ export default {
         }
     },
     props: {
-       
-            bcategory: String,
-            Ispay: Boolean
-        
+
+        bcategory: String,
+        Ispay: Boolean
+
     },
     computed:
     {

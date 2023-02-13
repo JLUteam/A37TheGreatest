@@ -2,7 +2,7 @@
     <div class="income ">
         <div class="line">
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/canyin.svg" @click='ToSettingRecode("餐饮",true)' alt="">
+                <img src="@/assets/svg/icon_ycof0s6ppu/canyin.svg" @click='ToSettingRecode("餐饮",true,)' alt="">
                 <p>餐饮</p>
             </div>
             <div class="tab">
@@ -96,12 +96,13 @@ export default {
     computed: {
     },
     methods: {
-        ToSettingRecode(bcategory_, Ispay_) {
+        ToSettingRecode(bcategory_, Ispay_,img_) {
             this.$router.push({
                 name: 'ConsumptionDetails_Setting',
                 query: {
                     bcategory: bcategory_,
-                    Ispay: Ispay_
+                    Ispay: Ispay_,
+                    img: img_
                 }
             })
         }

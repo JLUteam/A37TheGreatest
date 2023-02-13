@@ -33,6 +33,7 @@ export default {
       let option = {
         tooltip: {
           trigger: "item",
+          show:false
         },
         backgroundColor: "transparent", //rgba设置透明度0.1,
         title: {
@@ -46,51 +47,21 @@ export default {
           top: "0%",
           // left:'30%'
         },
-        legend: [
-          {
-            itemWidth: 12,
-            itemHeight: 12,
-            itemStyle: { color: "rgb(146, 143, 255)" },
-            textStyle: { color: "black" },
-            top: "60%", //调整位置
-            left: "36%", //调整位置
-            data: [{ name: "能源", icon: "rect" }],
-          },
-          {
-            itemWidth: 12,
-            itemHeight: 12,
-            itemStyle: { color: "rgb(142, 224, 78)" },
-            textStyle: { color: "black" },
-            top: "60%", //调整位置
-            left: "58%", //调整位置
-            data: [{ name: "餐饮", icon: "rect" }],
-          },
-          {
-            itemWidth: 12,
-            itemHeight: 12,
-            itemStyle: { color: "rgb(255, 103, 64)" },
-            textStyle: { color: "black" },
-            top: "70%", //调整位置
-            left: "36%", //调整位置
-            data: [{ name: "娱乐", icon: "rect" }],
-          },
-          {
-            itemWidth: 12,
-            itemHeight: 12,
-            itemStyle: { color: "rgb(202, 202, 245)" },
-            textStyle: { color: "black" },
-            top: "70%", //调整位置
-            left: "58%", //调整位置
-            data: [{ name: "其他", icon: "rect" }],
-          },
-        ],
+           //rgba设置透明度0.1,
+        legend: {
+          show: 'true',
+          type: 'scroll',
+          top: '90%',
+          left: 'center',
+          icon: 'circle'
+        },
         color: ["#928FFF", "#8EE04E", "#FF6740", "#CACAF5"],
         series: [
           {
             name: "Access From",
             type: "pie",
-            radius: ["60%", "80%"],
-            center: ["55%", "55%"],
+            radius: ["50%", "70%"],
+            center: ["50%", "50%"],
             avoidLabelOverlap: false,
             itemStyle: {
               borderColor: "#fff",

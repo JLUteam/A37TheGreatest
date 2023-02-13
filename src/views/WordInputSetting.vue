@@ -39,9 +39,11 @@ export default {
             })
         }
     },
-    components: {
-
-    },
+    mounted() {
+        let name = this.$route.name;
+        if (name === 'WordInputSetting')
+        this.switchIncome()
+    }
 
 
 

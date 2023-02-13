@@ -95,7 +95,6 @@ export default {
                     time.push(temp)
                 }
                 else if (this.radio2 === '一年') {
-
                     temp = '' + year
                     time.push(temp)
                 }
@@ -143,6 +142,7 @@ export default {
             // 绘制图表
             myChart.setOption({
                 tooltip: {
+                    show:false,
                     trigger: 'item',
                     formatter: function (arg) {
 
