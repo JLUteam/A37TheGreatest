@@ -104,7 +104,7 @@ export default {
       var file = document.getElementById("test").files[0];
       var reader = new FileReader();
       console.log(file);
-      reader.readAsArrayBuffer(file);
+      reader.readAsDataURL(file);
       console.log(1);
       reader.onload = function (e) {
         console.log(2);
@@ -117,9 +117,9 @@ export default {
           //   "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
           //   // "Content-Type": "image/jpg",
           // },
-          // data: {
-          data: fileData,
-          // },
+          data: {
+            image: fileData,
+          },
         }).then(
           (response) => {
             // window.alert(1);
