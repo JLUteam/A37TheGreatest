@@ -5,7 +5,7 @@
       name="animate__animated animate__bounce"
       enter-active-class="animate__backInLeft"
     >
-      <MyUserName @UserName="UserName" :key="1" />
+      <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="1" />
       <!-- <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2"/> -->
       <MyPassword @Password="Password" :key="2" />
       <input
@@ -19,32 +19,67 @@
   </form>
 </template>
 <script>
+import axios from "axios";
 import "animate.css";
-import MyUserName from "@/components/SignUp/MyUserName.vue";
+import MyPhoneNumber from "@/components/SignUp/MyPhoneNumber.vue";
 import MyPassword from "@/components/SignUp/MyPassword.vue";
 export default {
   name: "MyFromSignIn",
-  components: { MyUserName, MyPassword },
+  components: { MyPhoneNumber, MyPassword },
   data() {
     return {
       userinfo: {
-        username: "",
+        phonenumber: "",
         password: "",
       },
     };
   },
   methods: {
     submit() {
-      console.log(JSON.stringify(this.userinfo));
-      this.$router.push({
-        name: "home",
-      });
+      var users = {
+        uphone: this.userinfo.phonenumber,
+        password: this.userinfo.password,
+      };
+      axios({
+        method: "post",
+        url: "http://localhost:8080/a37/login",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: users,
+      }).then(
+        (response) => {
+          console.log(response.data);
+          if (response.data.login === true) {
+            this.$router.push({
+              name: "home",
+            });
+          } else if (response.data.login === false) {
+            this.$alert("", "手机号或密码有误", {
+              confirmButtonText: "确定",
+              showClose: false,
+              center: true,
+              type: "warning",
+              customClass: "fail",
+            });
+          }
+        },
+        (error) => {
+          this.$alert("", "网络故障", {
+            confirmButtonText: "确定",
+            showClose: false,
+            center: true,
+            type: "warning",
+            customClass: "fail",
+          });
+        }
+      );
       // } else {
       //   alert("没有确认同意用户协议");
       // }
     },
-    UserName(UserName) {
-      this.userinfo.username = UserName;
+    PhoneNumber(PhoneNumber) {
+      this.userinfo.phonenumber = PhoneNumber;
     },
     Password(Password) {
       this.userinfo.password = Password;

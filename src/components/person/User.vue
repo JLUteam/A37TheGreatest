@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "User",
   data() {
@@ -87,27 +88,48 @@ export default {
     },
     onSuccess(imageURL) {
       var file = new File(imageURL);
-      alert(file);
       var reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsArrayBuffer(file);
       reader.onload = function (e) {
         var fileData = reader.result;
-        this.img = fileData;
+        axios({
+          method: "post",
+          url: "http://localhost:8080/avatar/get?uid=0",
+
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          data: {
+            image: fileData,
+          },
+        }).then(
+          (response) => {
+            console.log(response.data);
+          },
+          (error) => {
+            window.alert(error.message);
+          }
+        );
       };
     },
     onFail(message) {
-      //   this.$alert("", "上传失败", {
-      //     confirmButtonText: "确定",
-      //     showClose: false,
-      //     center: true,
-      //     type: "warning",
-      //   });
+      this.$alert("", "上传失败", {
+        confirmButtonText: "确定",
+        showClose: false,
+        center: true,
+        type: "warning",
+        customClass: "fail",
+      });
     },
   },
   computed: {},
 };
 </script>
 <style>
+.fail {
+  width: 300px !important;
+}
+
 .photo {
   width: 300px !important;
 }

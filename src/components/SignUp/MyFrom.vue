@@ -1,16 +1,27 @@
 <template>
   <form id="from" class="from">
-    <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
+    <transition-group
+      appear
+      name="animate__animated animate__bounce"
+      enter-active-class="animate__backInLeft"
+    >
       <MyUserName @UserName="UserName" :key="1" />
       <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2" />
       <MyBirthday @setBirthDay="setBirthDay" :key="3"></MyBirthday>
       <MyPassword @Password="Password" :key="4" />
       <MyTip @IsAgree="isAgree" :key="5" />
-      <input type="submit" class="base_button" value="注册登录" :key="6" @click.prevent="submit" />
+      <input
+        type="submit"
+        class="base_button"
+        value="注册登录"
+        :key="6"
+        @click.prevent="submit"
+      />
     </transition-group>
   </form>
 </template>
 <script>
+import axios from "axios";
 import "animate.css";
 import MyUserName from "@/components/SignUp/MyUserName.vue";
 import MyPhoneNumber from "@/components/SignUp/MyPhoneNumber.vue";
@@ -34,17 +45,50 @@ export default {
   methods: {
     submit() {
       if (this.userinfo.IsAgree === true) {
-        console.log(JSON.stringify(this.userinfo));
-        this.$router.push({
-          name: "Captcha",
-          params: {
-            phoneNumber: this.userinfo.phonenumbe,
-          },
-        });
-      } else {
-        alert("没有确认同意用户协议");
-      }
+        var users = {
+          iswx: Number(false),
+          iszfb: Number(false),
+          uname: this.userinfo.username,
+          uphone: this.userinfo.phonenumbe,
+          ubirth: this.userinfo.birthday,
+          password: this.userinfo.password,
+        };
 
+        axios({
+          method: "post",
+          url: "http://localhost:8080/a37/register",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          data: users,
+        }).then(
+          (response) => {
+            this.$router.push({
+              name: "Captcha",
+              params: {
+                phoneNumber: this.userinfo.phonenumbe,
+              },
+            });
+          },
+          (error) => {
+            this.$alert("", "网络故障", {
+              confirmButtonText: "确定",
+              showClose: false,
+              center: true,
+              type: "warning",
+              customClass: "fail",
+            });
+          }
+        );
+      } else {
+        this.$alert("", "请阅读并确认用户协议", {
+          confirmButtonText: "确定",
+          showClose: false,
+          center: true,
+          type: "warning",
+          customClass: "fail",
+        });
+      }
     },
     UserName(UserName) {
       this.userinfo.username = UserName;
@@ -77,10 +121,10 @@ export default {
 
 .logo {
   position: absolute;
-  left: .38rem;
+  left: 0.38rem;
   top: 1.08rem;
-  width: .48rem;
-  height: .48rem;
+  width: 0.48rem;
+  height: 0.48rem;
   z-index: 2;
 }
 
@@ -113,9 +157,9 @@ export default {
   background: #f4f4f6;
   background-blend-mode: normal;
   border: none;
-  font-size: .28rem;
+  font-size: 0.28rem;
   font-weight: 500;
-  line-height: .48rem;
+  line-height: 0.48rem;
 }
 
 .base_button {
