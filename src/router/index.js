@@ -14,6 +14,7 @@ import person_Setting from '@/views/person_Setting.vue'
 import WordInputSetting from '@/views/WordInputSetting.vue'
 import Income from '@/components/WordInputSetting/Income.vue'
 import Outcome from '@/components/WordInputSetting/Outcome.vue'
+import CaptchaInput from "@/components/captcha/Captcha_Captcha.vue"
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -35,7 +36,14 @@ const router = new VueRouter({
         {
             name: "Captcha",
             path: "/Captcha",
-            component: Captcha
+            component: Captcha,
+            children: [
+                {
+                    name: 'captchanput',
+                    path: '/CaptchaInput',
+                    component: CaptchaInput
+                }
+            ]
         },
         {
             name: "Forgot_Password",
@@ -47,18 +55,18 @@ const router = new VueRouter({
             path: "/home",
             component: home,
         },
-         {
+        {
             name: "Percent",
             path: "/Percent",
             component: Percent,
-           
+
         },
         {
             name: "ConsumptionDetails",
             path: "/ConsumptionDetails",
             component: ConsumptionDetails
         },
-         {
+        {
             name: "ConsumptionDetails_Setting",
             path: "/ConsumptionDetails_Setting",
             component: ConsumptionDetails_Setting
@@ -67,16 +75,18 @@ const router = new VueRouter({
             name: "person",
             path: "/person",
             component: person,
-        }, 
-        {    name: "person_MyAccount",
-             path: "/person_MyAccount",
+        },
+        {
+            name: "person_MyAccount",
+            path: "/person_MyAccount",
             component: person_MyAccount,
 
         },
-        {    name: "person_Setting",
-             path: "/person_Setting",
+        {
+            name: "person_Setting",
+            path: "/person_Setting",
             component: person_Setting,
-      
+
         },
         {
             name: 'WordInputSetting',
@@ -84,23 +94,23 @@ const router = new VueRouter({
             component: WordInputSetting,
             children: [
                 {
-                name: 'Income',
-                path: 'Income',
-                component: Income
+                    name: 'Income',
+                    path: 'Income',
+                    component: Income
                 },
-                 {
-                name: 'Outcome',
-                path: 'Outcome',
-                component: Outcome
-               }
+                {
+                    name: 'Outcome',
+                    path: 'Outcome',
+                    component: Outcome
+                }
             ]
         }
-        
+
     ]
 });
 const originalPush = VueRouter.prototype.push
 
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
+    return originalPush.call(this, location).catch(err => err)
 }
 export default router;

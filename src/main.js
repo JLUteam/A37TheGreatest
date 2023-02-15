@@ -16,17 +16,12 @@ Vue.use(VueRouter)
 Vue.use(VueCordova)
 Vue.component(MessageBox.name, MessageBox)
 Vue.prototype.$confirm = MessageBox.confirm
-Vue.prototype.$alert=MessageBox.alert
-// Vue.prototype.$alter = MessageBox.alter
-// document.addEventListener('deviceready', function () {
-//   new Vue({
-//     render: h => h(App),
-//     store,
-//     router,
-//   }).$mount('#app')
-// }, false)
-  new Vue({
-    render: h => h(App),
-    store,
-    router,
-  }).$mount('#app')
+Vue.prototype.$alert = MessageBox.alert
+new Vue({
+  render: h => h(App),
+  store,
+  router,
+  beforeCreate() {
+    Vue.prototype.$bus = this	//安装全局事件总线
+  }
+}).$mount('#app')

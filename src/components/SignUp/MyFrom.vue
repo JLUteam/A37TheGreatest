@@ -45,33 +45,31 @@ export default {
   methods: {
     submit() {
       if (this.userinfo.IsAgree === true) {
-        var users = {
-          iswx: Number(false),
-          iszfb: Number(false),
-          uname: this.userinfo.username,
-          uphone: this.userinfo.phonenumbe,
-          ubirth: this.userinfo.birthday,
-          password: this.userinfo.password,
-        };
-
         axios({
           method: "post",
-          url: "http://localhost:8080/a37/register",
+          url: "http://localhost:8080/a37/verifycode/request",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          data: users,
+          data: { phone: this.userinfo.phonenumbe },
         }).then(
           (response) => {
+            console.log(response.data.code[0]);
             this.$router.push({
               name: "Captcha",
               params: {
-                phoneNumber: this.userinfo.phonenumbe,
+                iswx: Number(false),
+                iszfb: Number(false),
+                uname: this.userinfo.username,
+                uphone: this.userinfo.phonenumbe,
+                ubirth: this.userinfo.birthday,
+                password: this.userinfo.password,
+                check: response.data.code[0],
               },
             });
           },
           (error) => {
-            this.$alert("", "网络故障", {
+            this.$alert("", "网络故障,请检查网络后重试", {
               confirmButtonText: "确定",
               showClose: false,
               center: true,
