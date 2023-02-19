@@ -101,6 +101,8 @@ export default {
     top: 1.12rem;
     width: .64rem;
     height: .64rem;
+    background-color: #bf2b7a;
+    border-radius: .1rem;
   }
 
   .logoname {
@@ -109,8 +111,8 @@ export default {
     top: 1.1rem;
     color: #121826;
     font-family: Manrope;
-    font-size: .44rem;
-    font-weight: 700;
+    font-size: .30rem;
+    font-weight: 500;
     line-height: .64rem;
   }
 

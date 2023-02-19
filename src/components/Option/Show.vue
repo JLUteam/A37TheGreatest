@@ -1,6 +1,8 @@
 <template>
   <div class="shopping-l ">
-    <img src="@/assets/img/Options.png" alt="">
+    <div class="bla">
+
+    </div>
   </div>
 </template>
 <script>
@@ -17,12 +19,13 @@ export default {
   flex-direction: column;
   margin-bottom: .32rem;
 
-  img {
+  .bla {
     position: relative;
     left: 0rem;
     top: 0.7rem;
-    width: 7.512rem;
-    height: 7.512rem;
+    width: 5.512rem;
+    height: 5.512rem;
+    background-color: #ffffff;
   }
 
 }

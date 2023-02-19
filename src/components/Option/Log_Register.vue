@@ -25,7 +25,8 @@ export default {
   align-items: center;
   flex-direction: column;
   background-color: #ffffff;
-  margin-bottom: 0.32rem;
+  margin-top: 1.5rem;
+  margin-right: .4rem;
 }
 
 .log-register__submit {

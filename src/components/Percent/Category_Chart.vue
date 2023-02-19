@@ -8,8 +8,8 @@
         </div>
         <div class="title">
             <p class="title_number">{{ (this.radio1 === '支出' ? '-$' : '$') + title_number.toFixed(2) }}</p>
-            <p class="title_p">Category Chart</p>
-            <p class="title_time">{{ '过去'+this.radio2 + '的花费' }}</p>
+            <!-- <p class="title_p">Category Chart</p> -->
+            <p class="title_time">{{ '过去' + this.radio2 + '的' + (this.radio1 === '支出' ? '支出' : '收入') }}</p>
         </div>
         <div class="tags2">
             <el-radio-group v-model="radio2">
@@ -142,7 +142,7 @@ export default {
             // 绘制图表
             myChart.setOption({
                 tooltip: {
-                    show:false,
+                    show: false,
                     trigger: 'item',
                     formatter: function (arg) {
 
@@ -219,7 +219,7 @@ export default {
             let data = this.include_income(name, time)
             // console.log(data)
             return data.reduce((total, item) => {
-                return total +  item.amount
+                return total + item.amount
             }, 0)
         },
         include(name, time) {
@@ -243,12 +243,12 @@ export default {
     }, watch: {
         radio1(val) {
             this.drawLine()
-           
+
             this.$store.commit('updateradio1', val)
         },
         radio2(val) {
             this.drawLine()
-        
+
             this.$store.commit('updateradio2', val)
         }
     }
@@ -357,28 +357,28 @@ export default {
     width: 6.54rem;
     height: 1.12rem;
 
-    .title_p {
-        color: #121826;
+    // .title_p {
+    //     color: #121826;
+    //     font-family: Manrope;
+    //     font-size: .36rem;
+    //     font-weight: 700;
+    //     line-height: .56rem;
+    // }
+
+    .title_time {
+        color: #6c727f;
         font-family: Manrope;
         font-size: .36rem;
         font-weight: 700;
         line-height: .56rem;
     }
 
-    .title_time {
-        color: #6c727f;
-        font-family: Manrope;
-        font-size: .28rem;
-        font-weight: 400;
-        line-height: .48rem;
-    }
-
     .title_number {
         color: #4a44c6;
         font-family: Manrope;
-        font-size: .32rem;
+        font-size: .36rem;
         font-weight: 700;
-        line-height: .52rem;
+        line-height: .56rem;
         float: right;
     }
 }
