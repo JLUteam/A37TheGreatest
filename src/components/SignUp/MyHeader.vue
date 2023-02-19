@@ -3,12 +3,12 @@
     <div class="Header">
       <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
         <div class="item_1" :key="1"></div>
-        <img class="fullLogo" src="@/assets/svg/FullLogo.svg" alt="email" :key="2" />
-
-        <p class="tip1" :key="2">
+        <img class="fullLogo" src="@/assets/img/suixinji.png" :key="2" />
+        <p class="logoname" :key="3">随心记</p>
+        <p class="tip1" :key="4">
           <slot name='tip1'></slot>
         </p>
-        <p class="tip2" :key="3">
+        <p class="tip2" :key="5">
           <slot name="tip2"></slot>
         </p>
 
@@ -99,8 +99,19 @@ export default {
     position: absolute;
     left: .48rem;
     top: 1.12rem;
-    width: 1.84rem;
-    height: .48rem;
+    width: .64rem;
+    height: .64rem;
+  }
+
+  .logoname {
+    position: absolute;
+    left: 1.3rem;
+    top: 1.1rem;
+    color: #121826;
+    font-family: Manrope;
+    font-size: .44rem;
+    font-weight: 700;
+    line-height: .64rem;
   }
 
   .tip1 {

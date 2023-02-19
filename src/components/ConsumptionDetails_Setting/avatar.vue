@@ -70,14 +70,15 @@ input {
         width: 1.28rem;
         height: 1.28rem;
         border-radius: .64rem;
-        background-color: bisque;
+        background-color:#f4f4f6;
         display: flex;
         justify-content: center;
         align-items: center;
-        img{
+
+        img {
             width: 1rem;
             height: 1rem;
-            
+
         }
     }
 
