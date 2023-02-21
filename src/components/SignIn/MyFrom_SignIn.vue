@@ -65,7 +65,7 @@ export default {
           }
         },
         (error) => {
-          this.$alert("", "网络故障", {
+          this.$alert(error, "网络故障", {
             confirmButtonText: "确定",
             showClose: false,
             center: true,

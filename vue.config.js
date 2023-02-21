@@ -4,7 +4,8 @@ module.exports = defineConfig({
   lintOnSave: false,
   //开启代理服务器
   devServer: {
-    proxy: "http://1.13.2.149:8080 "
+    host: '0.0.0.0',
+    proxy: "https://mineralsteins.icu:8080 "
   }
 })
 
