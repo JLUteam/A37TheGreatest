@@ -42,7 +42,7 @@ export default {
       };
       axios({
         method: "post",
-        url: "/api/a37/login",
+        url: "https://mineralsteins.icu:8080/a37/login",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
