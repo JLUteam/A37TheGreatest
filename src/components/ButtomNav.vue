@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="addmethod" v-show="this.mood === 'add' ? false : true">
-      <input type="file" @change="uploadfile" id="test" />
+      <!-- <input type="file" @change="uploadfile" id="test" /> -->
       <div class="method" @click="tryit">
         <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>文本输入</p>

@@ -40,6 +40,7 @@ export default {
         uphone: this.userinfo.phonenumber,
         password: this.userinfo.password,
       };
+      var df = this;
       axios({
         method: "post",
         url: "https://mineralsteins.icu:8080/a37/login",
@@ -51,6 +52,28 @@ export default {
         (response) => {
           console.log(response.data);
           if (response.data.login === true) {
+            df.$store.commit("updateuserinfosignin", response.data);
+            console.log(df.$store.state.userinfo);
+            var getdetails = {
+              uid: df.$store.state.userinfo.uid,
+              start: df.$store.state.userinfo.ucreate + " 0:0:0",
+            };
+            console.log(getdetails);
+            axios({
+              method: "post",
+              url: "https://mineralsteins.icu:8080/a37/consumption/query",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              data: getdetails,
+            }).then(
+              (response) => {
+                console.log(response.data);
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
             this.$router.push({
               name: "home",
             });

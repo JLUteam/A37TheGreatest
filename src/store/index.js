@@ -34,38 +34,61 @@ const mutations = {
 
         state.click_time = value
 
-             if ( state.click_time === 'first') {
-                 state.radio2='一天'
+        if (state.click_time === 'first') {
+            state.radio2 = '一天'
 
-            } else if ( state.click_time === 'second') {
-                state.radio2='一周'
-            } else if ( state.click_time === 'third') {
-                state.radio2='一月'
-            }
-            else if ( state.click_time === 'fourth') {
-                state.radio2='一年'
-            } else {
-               state.radio2='全部'
-                }
-            
+        } else if (state.click_time === 'second') {
+            state.radio2 = '一周'
+        } else if (state.click_time === 'third') {
+            state.radio2 = '一月'
+        }
+        else if (state.click_time === 'fourth') {
+            state.radio2 = '一年'
+        } else {
+            state.radio2 = '全部'
+        }
+
     },
-    updateuserinfo(contect, [username, password, phonenumber]) {
-        state.userinfo.uname = username;
-        state.userinfo.upassword = password;
-        state.userinfo.uphone=phonenumber
+    // updateuserinfo(contect, [username, password, phonenumber]) {
+    //     state.userinfo.uname = username;
+    //     state.userinfo.upassword = password;
+    //     state.userinfo.uphone = phonenumber
+
+    // },
+
+    updateuserinfosignin(contect, item) {
+        state.userinfo.uid = item.uid;
+        if (item.iswx === 0) {
+            state.userinfo.iswx = false;
+        } else {
+            state.userinfo.iswx = true;
+            state.userinfo.wxid = item.wxid;
+        }
+        if (item.iszfb === 0) {
+            state.userinfo.iszfb = false;
+        } else {
+            state.userinfo.iszfb = true;
+            state.userinfo.zfbid = item.zfbid;
+        }
+        state.userinfo.uname = item.uname;
+        state.userinfo.uphone = item.uphone;
+        if (item.upic != "not found") {
+            state.userinfo.upic = item.upic
+        }
+        state.userinfo.ucreate = item.ucreate
 
     },
     updateradio2(contect, newvalue) {
-         state.radio2=newvalue
+        state.radio2 = newvalue
     },
     updateradio1(contect, newvalue) {
-         state.radio1=newvalue
-     }
+        state.radio1 = newvalue
+    }
 }
 
 const state = {
-    total:'',
-    total_income:'',
+    total: '',
+    total_income: '',
     recodes: [{
         uid: '1',
         isbpic: true,
@@ -174,7 +197,7 @@ const state = {
         note: '',
         payment: '',
         bpic: require('@/assets/img/Starbucks.png'),
-        bname: 'Starbucks',        
+        bname: 'Starbucks',
         btime: '2023-2-7 17:09:10',
         amount: -100
     },
@@ -206,39 +229,38 @@ const state = {
         btime: '2023-2-7 17:11:10',
         amount: -100
     }],
-    
+
     userinfo: {
         uid: '',
         iswx: false,
         wxid: '',
-        iszfbid: false,
+        iszfb: false,
         zfbid: '',
-        uname: 'kaite',
-        uphone: '123456789',
-        upassword: '82650287',
+        uname: '',
+        uphone: '',
         upic: require('@/assets/img/avast.png'),
         ucreate: ''
     },
     income_statement: [
-         {
-        uid: 1,
-        bname: 'Starbucks Coffee',
-        isbpic: true,
-       bpic: require('@/assets/img/Starbucks.png'),
-        bcategory: 'energy',
-        note: '',
-        payment: '支付宝',
-        amount: 100,
-        btime: '2023-2-7 17:02:10',
-        isreceipt: false,
-        receipt:''
-    }
+        {
+            uid: 1,
+            bname: 'Starbucks Coffee',
+            isbpic: true,
+            bpic: require('@/assets/img/Starbucks.png'),
+            bcategory: 'energy',
+            note: '',
+            payment: '支付宝',
+            amount: 100,
+            btime: '2023-2-7 17:02:10',
+            isreceipt: false,
+            receipt: ''
+        }
     ],
     Transactions_pull: false,
     Transactions_click: false,
     precent_Transactions_bcategory: '',
     click_time: 'second',
-    radio1:'支出',
+    radio1: '支出',
     radio2: '一周',
 
 }

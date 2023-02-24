@@ -47,7 +47,7 @@ export default {
       if (this.userinfo.IsAgree === true) {
         axios({
           method: "post",
-          url: "http://localhost:8080/a37/verifycode/request",
+          url: "https://mineralsteins.icu:8080/a37/verifycode/request",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },

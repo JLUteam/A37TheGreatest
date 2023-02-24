@@ -118,7 +118,7 @@ export default {
         console.log(userinfo);
         axios({
           method: "post",
-          url: "http://localhost:8080/a37/register",
+          url: "https://mineralsteins.icu:8080/a37/register",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
