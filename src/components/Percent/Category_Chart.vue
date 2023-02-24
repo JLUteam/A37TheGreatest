@@ -212,7 +212,7 @@ export default {
             let data = this.include(name, time)
             // console.log(data)
             return data.reduce((total, item) => {
-                return total + -1 * item.amount
+                return total + 1 * item.amount
             }, 0)
         },
         sum_income(name, time) {

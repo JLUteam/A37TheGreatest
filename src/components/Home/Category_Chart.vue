@@ -106,7 +106,7 @@ export default {
       );
 
       return data.reduce((total, item) => {
-        return total + -1 * item.amount;
+        return total + 1 * item.amount;
       }, 0);
     },
     today() {

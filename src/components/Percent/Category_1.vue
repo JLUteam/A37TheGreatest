@@ -56,19 +56,18 @@ export default {
             let yAxis2 = []
             const date = new Date();
             let year = date.getFullYear();
-            let month = date.getMonth() + 1;
+            let month = (date.getMonth() + 1).toString().padStart(2, "0");
             let dayOfWeek = date.getUTCDay();
-            let day = date.getDate();
-            let hour = date.getHours();
+            let day = date.getDate().toString().padStart(2, "0");
+            let hour = date.getHours().toString().padStart(2, "0");
             if (this.activeName === 'first') {
                 xAxis = Object.keys([...Array(24)])
-               
                 for (let i = 0; i <= hour; i++) {
-                    let temp = this.sum('' + year + '-' + month + '-' + day + ' ' + i + ':')
+                    let temp = this.sum('' + year + '-' + month + '-' + day + 'T' + i + ':')
                     yAxis.push(temp)
-                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day + ' ' + i + ':')
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day + 'T' + i + ':')
                     yAxis2.push(temp2)
-                 
+
                 }
 
             } else if (this.activeName === 'second') {
@@ -76,9 +75,10 @@ export default {
                 for (let i = 0; i <= dayOfWeek; i++) {
                     var oneDayTime = 24 * 60 * 60 * 1000;
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
-                    month = newDate.getMonth() + 1;
-                    day = newDate.getDate();
-                    let temp = this.sum('' + year + '-' + month + '-' + day )
+                    month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                    day = newDate.getDate().toString().padStart(2, "0");
+                    let temp = this.sum('' + year + '-' + month + '-' + day)
+                    // console.log('!!!' + temp)
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
                     yAxis2.push(temp2)
@@ -105,7 +105,7 @@ export default {
             } else {
                 xAxis = Object.keys([...Array(10)])
                 yAxis = []
-                for (let i = year-9; i <= year; i++) {
+                for (let i = year - 9; i <= year; i++) {
                     let temp = this.sum(i)
                     yAxis.push(temp)
                     let temp2 = this.sum_income(i)
@@ -155,7 +155,7 @@ export default {
                             }
                         },
                         formatter: function (arg) {
-                           
+
                             return '$' + arg.data
                         },
                         textStyle: {
@@ -209,7 +209,7 @@ export default {
                                     y: 0,
                                     x2: 0,
                                     y2: 1,
-                        
+
                                     colorStops: [{
                                         offset: 0, color: '#8ee04e' // 0% 处的颜色
                                     }, {
@@ -233,19 +233,22 @@ export default {
             this.drawLine()
         },
         sum(time) {
-            // console.log('edadg')
-            // console.log(time)
-            let data = this.$store.state.recodes.filter(item => (item.btime.indexOf(time) != -1))
-            // console.log(data)
+
+            let data = this.$store.state.recodes.filter(item => {
+                console.log(item.btime)
+                console.log(time)
+                return item.btime.indexOf(time) != -1
+            })
+
             return data.reduce((total, item) => {
-                return total + -1 * item.amount
+                return total + 1 * item.amount
             }, 0)
         },
         sum_income(time) {
             let data = this.$store.state.income_statement.filter(item => (item.btime.indexOf(time) != -1))
 
             return data.reduce((total, item) => {
-                return total +  item.amount
+                return total + item.amount
             }, 0)
         }
 

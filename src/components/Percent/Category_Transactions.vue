@@ -228,7 +228,7 @@ export default {
         }, sum(time) {
             let data = this.$store.state.recodes.filter(item => ((item.btime.indexOf(time) != -1) & item.bcategory === this.$store.state.precent_Transactions_bcategory))
             return data.reduce((total, item) => {
-                return total + -1 * item.amount
+                return total + 1 * item.amount
             }, 0)
         },
         sum_income(time) {

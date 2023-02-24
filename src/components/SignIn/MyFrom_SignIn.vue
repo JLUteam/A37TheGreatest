@@ -1,20 +1,10 @@
 <template>
   <form id="from" class="from">
-    <transition-group
-      appear
-      name="animate__animated animate__bounce"
-      enter-active-class="animate__backInLeft"
-    >
+    <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
       <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="1" />
       <!-- <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2"/> -->
       <MyPassword @Password="Password" :key="2" />
-      <input
-        type="submit"
-        class="base_button"
-        value="登录"
-        :key="6"
-        @click.prevent="submit"
-      />
+      <input type="submit" class="base_button" value="登录" :key="6" @click.prevent="submit" />
     </transition-group>
   </form>
 </template>
@@ -68,7 +58,9 @@ export default {
               data: getdetails,
             }).then(
               (response) => {
-                console.log(response.data);
+                console.log((response.data.data))
+                df.$store.state.recodes = response.data.data
+                console.log((df.$store.state.recodes))
               },
               (error) => {
                 console.log(error);
