@@ -87,9 +87,9 @@ export default {
                 xAxis = Object.keys([...Array(30)])
                 yAxis = []
                 for (let i = 0; i <= day; i++) {
-                    let temp = this.sum('' + year + '-' + month + '-' + i)
+                    let temp = this.sum('' + year + '-' + month + '-' + i.toString().padStart(2, "0"))
                     yAxis.push(temp)
-                    let temp2 = this.sum_income('' + year + '-' + month + '-' + i)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + i.toString().padStart(2, "0"))
                     yAxis2.push(temp2)
                 }
             }
@@ -97,9 +97,9 @@ export default {
                 xAxis = Object.keys([...Array(12)])
                 yAxis = []
                 for (let i = 1; i <= month; i++) {
-                    let temp = this.sum('' + year + '-' + i)
+                    let temp = this.sum('' + year + '-' + i.toString().padStart(2, "0"))
                     yAxis.push(temp)
-                    let temp2 = this.sum_income('' + year + '-' + i)
+                    let temp2 = this.sum_income('' + year + '-' + i.toString().padStart(2, "0"))
                     yAxis2.push(temp2)
                 }
             } else {
@@ -235,8 +235,6 @@ export default {
         sum(time) {
 
             let data = this.$store.state.recodes.filter(item => {
-                console.log(item.btime)
-                console.log(time)
                 return item.btime.indexOf(time) != -1
             })
 

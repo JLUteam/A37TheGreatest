@@ -50,10 +50,10 @@ export default {
     computed: {
         Consumption() {
             return {
-                'energy': this.radio1 === '支出' ? this.sum('energy', this.title_time) : this.sum_income('energy', this.title_time),
-                'food': this.radio1 === '支出' ? this.sum('food', this.title_time) : this.sum_income('food', this.title_time),
-                'entertainment': this.radio1 === '支出' ? this.sum('entertainment', this.title_time) : this.sum_income('entertainment', this.title_time),
-                'other': this.radio1 === '支出' ? this.sum('other', this.title_time) : this.sum_income('other', this.title_time),
+                'energy': this.radio1 === '支出' ? this.sum('能源', this.title_time) : this.sum_income('energy', this.title_time),
+                'food': this.radio1 === '支出' ? this.sum('餐饮', this.title_time) : this.sum_income('food', this.title_time),
+                'entertainment': this.radio1 === '支出' ? this.sum('娱乐', this.title_time) : this.sum_income('entertainment', this.title_time),
+                'other': this.radio1 === '支出' ? this.sum('学习', this.title_time) : this.sum_income('other', this.title_time),
             }
         },
         title_number: {
@@ -73,9 +73,9 @@ export default {
             get() {
                 const date = new Date();
                 let year = date.getFullYear();
-                let month = date.getMonth() + 1;
+                let month = (date.getMonth() + 1).toString().padStart(2, "0");
                 let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
-                let day = date.getDate();
+                let day = date.getDate().toString().padStart(2, "0");
                 let temp = ''
                 let time = []
                 if (this.radio2 === '一天') {
@@ -85,8 +85,8 @@ export default {
                     for (let i = 1; i <= dayOfWeek; i++) {
                         var oneDayTime = 24 * 60 * 60 * 1000;
                         const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
-                        month = newDate.getMonth() + 1;
-                        day = newDate.getDate();
+                        month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                        day = newDate.getDate().toString().padStart(2, "0");
                         temp = '' + year + '-' + month + '-' + day
                         time.push(temp)
                     }
@@ -103,9 +103,9 @@ export default {
             set() {
                 const date = new Date();
                 let year = date.getFullYear();
-                let month = date.getMonth() + 1;
+                let month =( date.getMonth() + 1).toString().padStart(2, "0");
                 let dayOfWeek = date.getUTCDay();
-                let day = date.getDate();
+                let day = date.getDate().toString().padStart(2, "0");
                 let temp = ''
                 let time = []
                 if (this.radio2 === '一天') {
@@ -115,8 +115,8 @@ export default {
                     for (let i = 1; i <= dayOfWeek; i++) {
                         var oneDayTime = 24 * 60 * 60 * 1000;
                         const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
-                        month = newDate.getMonth() + 1;
-                        day = newDate.getDate();
+                        month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                        day = newDate.getDate().toString().padStart(2, "0");
                         temp = '' + year + '- ' + month + ' - ' + day
                         time.push(temp)
                     }
@@ -210,14 +210,12 @@ export default {
         },
         sum(name, time) {
             let data = this.include(name, time)
-            // console.log(data)
             return data.reduce((total, item) => {
                 return total + 1 * item.amount
             }, 0)
         },
         sum_income(name, time) {
             let data = this.include_income(name, time)
-            // console.log(data)
             return data.reduce((total, item) => {
                 return total + item.amount
             }, 0)
@@ -226,8 +224,11 @@ export default {
             let data = []
             for (let i = 0; i < time.length; i++) {
                 // console.log('include ' + name + ' ' + time[i])
-                data.push(... this.$store.state.recodes.filter(item => ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)))
+                data.push(... this.$store.state.recodes.filter(item => {
+                   return ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)
+                }))
             }
+            console.log(data)
             return data
         },
         include_income(name, time) {

@@ -46,9 +46,9 @@ export default {
             let time = []
             const date = new Date();
             let year = date.getFullYear();
-            let month = date.getMonth() + 1;
+            let month = (date.getMonth() + 1).toString().padStart(2, "0");
             let dayOfWeek = date.getUTCDay();
-            let day = date.getDate();
+            let day = date.getDate().toString().padStart(2, "0");
             let hour = date.getHours();
             if (this.$store.state.click_time === 'first') {
                 for (let i = 0; i <= hour; i++) {
@@ -64,8 +64,8 @@ export default {
                 for (let i = 0; i <= dayOfWeek; i++) {
                     var oneDayTime = 24 * 60 * 60 * 1000;
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
-                    month = newDate.getMonth() + 1;
-                    day = newDate.getDate();
+                    month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                    day = newDate.getDate().toString().padStart(2, "0");
                     let temp = '' + year + '-' + month + '-' + day
                     time.push(temp)
 
@@ -74,7 +74,7 @@ export default {
 
                 time = []
                 for (let i = 0; i <= day; i++) {
-                    let temp = '' + year + '-' + month + '-' + i
+                    let temp = '' + year + '-' + month + '-' + i.toString().padStart(2, "0")
                     time.push(temp)
 
                 }
@@ -84,7 +84,7 @@ export default {
                 time = []
                 for (let i = 1; i <= month; i++) {
                     //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = '' + year + '-' + i
+                    let temp = '' + year + '-' + i.toString().padStart(2, "0")
                     time.push(temp)
 
                 }
