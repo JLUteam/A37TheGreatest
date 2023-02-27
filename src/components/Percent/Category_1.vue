@@ -57,7 +57,7 @@ export default {
             const date = new Date();
             let year = date.getFullYear();
             let month = (date.getMonth() + 1).toString().padStart(2, "0");
-            let dayOfWeek = date.getUTCDay();
+            let dayOfWeek = date.getUTCDay()===0?7: date.getUTCDay();
             let day = date.getDate().toString().padStart(2, "0");
             let hour = date.getHours().toString().padStart(2, "0");
             if (this.activeName === 'first') {
@@ -77,8 +77,9 @@ export default {
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
                     month = (newDate.getMonth() + 1).toString().padStart(2, "0");
                     day = newDate.getDate().toString().padStart(2, "0");
+                    console.log('' + year + '-' + month + '-' + day)
                     let temp = this.sum('' + year + '-' + month + '-' + day)
-                    // console.log('!!!' + temp)
+                    console.log('!!!' + temp)
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
                     yAxis2.push(temp2)

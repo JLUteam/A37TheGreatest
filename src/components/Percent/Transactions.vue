@@ -4,7 +4,7 @@
             v-show="Transactions_click">
             <div class="TransactionsTitle">
                 <div class="line"></div>
-                <p>{{ bcategory + '消费记录'}}</p>
+                <p>{{ bcategory + '消费记录' }}</p>
                 <p class="More" @mousedown="pull_up">查看更多</p>
             </div>
             <div class="Category" v-show='Flag'>
@@ -99,16 +99,23 @@ export default {
             })
         },
         recodes_(time) {
+            // console.log(time)
             let temp = []
-            for (let i = 0; i < time.length; i++)
-            {
-                temp.push(...this.$store.state.recodes.filter(item => ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)))
+            for (let i = 0; i < time.length; i++) {
+                // console.log(this.$store.state.recodes)
+                temp.push(...this.$store.state.recodes.filter(item => {
+
+                    console.log(item.bcategory + '789' + this.precent_Transactions_bcategory + ' 0' + time[i] + ' 1 ' + item.btime)
+                    return ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)
+                }))
             }
+            console.log('875' + temp)
             return temp
         },
         recodes_income(time) {
             let temp = []
             for (let i = 0; i < time.length; i++) {
+
                 temp.push(...this.$store.state.income_statement.filter(item => ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)))
             }
             return temp
@@ -117,10 +124,10 @@ export default {
             let time = []
             const date = new Date();
             let year = date.getFullYear();
-            let month = date.getMonth() + 1;
-            let dayOfWeek = date.getUTCDay();
-            let day = date.getDate();
-            let hour = date.getHours();
+            let month = (date.getMonth() + 1).toString().padStart(2, "0");
+            let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
+            let day = date.getDate().toString().padStart(2, "0");
+            let hour = date.getHours().toString().padStart(2, "0");
             if (this.$store.state.radio2 === '一天') {
                 for (let i = 0; i <= hour; i++) {
                     //''+year+ '- '+month+' - '+'6'+' '+'17'
@@ -132,11 +139,11 @@ export default {
             } else if (this.$store.state.radio2 === '一周') {
 
                 time = []
-                for (let i = 0; i <= dayOfWeek; i++) {
+                for (let i = 1; i <= dayOfWeek; i++) {
                     var oneDayTime = 24 * 60 * 60 * 1000;
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
-                    month = newDate.getMonth() + 1;
-                    day = newDate.getDate();
+                    month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                    day = newDate.getDate().toString().padStart(2, "0");
                     let temp = '' + year + '-' + month + '-' + day
                     time.push(temp)
 
@@ -167,11 +174,11 @@ export default {
 
                 }
             }
-          
+
             return time
         }
     },
-  
+
     components: {
         Category_Transactions
     },

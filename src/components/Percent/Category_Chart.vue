@@ -58,7 +58,9 @@ export default {
         },
         title_number: {
             get() {
+                console.log(Object.values(this.Consumption))
                 return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
+                    console.log()
                     // console.log('this=' + current + ' ' + prev)
                     return prev + current
                 })
@@ -103,8 +105,8 @@ export default {
             set() {
                 const date = new Date();
                 let year = date.getFullYear();
-                let month =( date.getMonth() + 1).toString().padStart(2, "0");
-                let dayOfWeek = date.getUTCDay();
+                let month = (date.getMonth() + 1).toString().padStart(2, "0");
+                let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
                 let day = date.getDate().toString().padStart(2, "0");
                 let temp = ''
                 let time = []
@@ -185,10 +187,10 @@ export default {
                             show: false
                         },
                         data: [
-                            { value: Math.round(this.Consumption.energy * 100) / 100, name: '能源', truename: 'energy' },
-                            { value: Math.round(this.Consumption.food * 100) / 100, name: '餐饮', truename: 'food' },
-                            { value: Math.round(this.Consumption.entertainment * 100) / 100, name: '娱乐', truename: 'entertainment' },
-                            { value: Math.round(this.Consumption.other * 100) / 100, name: '其他', truename: 'other' },
+                            { value: Math.round(this.Consumption.energy * 100) / 100, name: '能源', truename: '能源' },
+                            { value: Math.round(this.Consumption.food * 100) / 100, name: '餐饮', truename: '餐饮' },
+                            { value: Math.round(this.Consumption.entertainment * 100) / 100, name: '娱乐', truename: '娱乐' },
+                            { value: Math.round(this.Consumption.other * 100) / 100, name: '其他', truename: '其他' },
 
                         ]
                     },
@@ -210,6 +212,8 @@ export default {
         },
         sum(name, time) {
             let data = this.include(name, time)
+
+            console.log(data)
             return data.reduce((total, item) => {
                 return total + 1 * item.amount
             }, 0)
@@ -225,7 +229,7 @@ export default {
             for (let i = 0; i < time.length; i++) {
                 // console.log('include ' + name + ' ' + time[i])
                 data.push(... this.$store.state.recodes.filter(item => {
-                   return ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)
+                    return ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)
                 }))
             }
             console.log(data)

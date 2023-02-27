@@ -61,7 +61,7 @@ export default {
             const date = new Date();
             let year = date.getFullYear();
             let month = date.getMonth() + 1;
-            let dayOfWeek = date.getUTCDay();
+            let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
             let day = date.getDate();
             let hour = date.getHours();
             if (this.activeName === 'first') {
@@ -102,7 +102,7 @@ export default {
                 yAxis = []
                 for (let i = 1; i <= month; i++) {
                     let temp = this.sum('' + year + '-' + i)
-                  
+
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + i)
                     yAxis2.push(temp2)
@@ -110,10 +110,10 @@ export default {
             } else {
                 xAxis = Object.keys([...Array(10)])
                 yAxis = []
-                for (let i = year - 9; i <= year+1; i++) {
+                for (let i = year - 9; i <= year + 1; i++) {
                     let temp = this.sum(i)
                     yAxis.push(temp)
-                  
+
                     let temp2 = this.sum_income(i)
                     yAxis2.push(temp2)
                 }
@@ -161,7 +161,7 @@ export default {
                             }
                         },
                         formatter: function (arg) {
-                           
+
                             return '$' + arg.data
                         },
                         textStyle: {

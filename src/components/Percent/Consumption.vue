@@ -47,13 +47,13 @@ export default {
             const date = new Date();
             let year = date.getFullYear();
             let month = (date.getMonth() + 1).toString().padStart(2, "0");
-            let dayOfWeek = date.getUTCDay();
+            let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
             let day = date.getDate().toString().padStart(2, "0");
             let hour = date.getHours();
             if (this.$store.state.click_time === 'first') {
                 for (let i = 0; i <= hour; i++) {
                     //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = '' + year + '-' + month + '-' + day + ' ' + i+':'
+                    let temp = '' + year + '-' + month + '-' + day + ' ' + i + ':'
                     time.push(temp)
 
                 }
@@ -96,18 +96,17 @@ export default {
 
                 }
             }
-        
+
             return time
         },
         total() {
-            let sum =0
-            for (let i = 0; i < this.time().length;i++){
+            let sum = 0
+            for (let i = 0; i < this.time().length; i++) {
                 sum += this.sum(this.time()[i])
             }
             return sum
         },
-        total_income()
-        {
+        total_income() {
             let sum = 0
             for (let i = 0; i < this.time().length; i++) {
                 sum += this.sum_income(this.time()[i])
