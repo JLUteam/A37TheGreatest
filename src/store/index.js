@@ -103,18 +103,110 @@ const state = {
         ucreate: ''
     },
     income_statement: [
-        {
-            bname: 'Starbucks Coffee',
-            isbpic: true,
-            bpic: require('@/assets/img/Starbucks.png'),
-            bcategory: 'energy',
-            note: '',
-            payment: '支付宝',
-            amount: 100,
-            btime: '2023-2-7 17:02:10',
-            isreceipt: false,
-            receipt: ''
-        }
+        // {
+        //     bname: 'Starbucks Coffee',
+        //     isbpic: true,
+        //     bpic: require('@/assets/img/Starbucks.png'),
+        //     bcategory: 'energy',
+        //     note: '',
+        //     payment: '支付宝',
+        //     amount: 100,
+        //     btime: '2023-2-7 17:02:10',
+        //     isreceipt: false,
+        //     receipt: ''
+        // }
+        
+    {
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+        "bname": "KFC",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "兼职",
+        "note": "打工",
+        "payment": "银行卡",
+        "amount": 178.0,
+        "btime": "2023-02-05 00:00:00",
+        "isreceipt": false,
+        "receipt": null
+    },
+    {
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+        "bname": "KFC",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "兼职",
+        "note": "打工",
+        "payment": "银行卡",
+        "amount": 178.0,
+        "btime": "2023-02-12 00:00:00",
+        "isreceipt": false,
+        "receipt": null
+    },
+    {
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+        "bname": "KFC",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "兼职",
+        "note": "打工",
+        "payment": "银行卡",
+        "amount": 178.0,
+        "btime": "2023-02-19 00:00:00",
+        "isreceipt": false,
+        "receipt": null
+    },
+    {
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+        "bname": "KFC",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "兼职",
+        "note": "打工",
+        "payment": "银行卡",
+        "amount": 178.0,
+        "btime": "2023-02-26 00:00:00",
+        "isreceipt": false,
+        "receipt": null
+    },
+    {
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+        "bname": "KFC",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "兼职",
+        "note": "打工",
+        "payment": "银行卡",
+        "amount": 178.0,
+        "btime": "2023-03-04 00:00:00",
+        "isreceipt": false,
+        "receipt": null
+    },
+    {
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+        "bname": "KFC",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "兼职",
+        "note": "打工",
+        "payment": "银行卡",
+        "amount": 178.0,
+        "btime": "2023-03-05 00:00:00",
+        "isreceipt": false,
+        "receipt": null
+    },
+    {
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+        "bname": "支付宝",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "理财",
+        "note": "买基金",
+        "payment": "支付宝",
+        "amount": 200.0,
+        "btime": "2023-03-27 00:00:00",
+        "isreceipt": false,
+        "receipt": null
+    }
     ],
     Transactions_pull: false,
     Transactions_click: false,
@@ -122,6 +214,39 @@ const state = {
     click_time: 'second',
     radio1: '支出',
     radio2: '一周',
+    outcomelist: [
+        '餐饮',
+        '购物',
+        '美容',
+        '通讯',
+        '服饰',
+        '居家',
+        '日用',
+        '学习',
+        '公交',
+        '礼物',
+        '蔬菜',
+        '娱乐',
+        '工作',
+        '旅行',
+        '水果',
+        '运动',
+        '其他'
+    ]
+    ,
+    incomelist: [
+        '兼职',
+        '礼金',
+        '设置',
+        '退货',
+        '金融',
+        '银行',
+        '工资',
+        '投资',
+        '其他'
+
+    ]
+
 
 }
 

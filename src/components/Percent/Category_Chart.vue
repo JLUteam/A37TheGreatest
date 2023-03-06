@@ -49,12 +49,18 @@ export default {
     },
     computed: {
         Consumption() {
-            return {
-                'energy': this.radio1 === '支出' ? this.sum('能源', this.title_time) : this.sum_income('energy', this.title_time),
-                'food': this.radio1 === '支出' ? this.sum('餐饮', this.title_time) : this.sum_income('food', this.title_time),
-                'entertainment': this.radio1 === '支出' ? this.sum('娱乐', this.title_time) : this.sum_income('entertainment', this.title_time),
-                'other': this.radio1 === '支出' ? this.sum('学习', this.title_time) : this.sum_income('other', this.title_time),
+            let array_incomeoroutcome = [...this.radio1 === '支出' ? this.$store.state.outcomelist : this.$store.state.incomelist]
+            let consumption = {}
+            console.log(array_incomeoroutcome)
+            for (let i = 0; i < array_incomeoroutcome.length; i++) {
+                let key = array_incomeoroutcome[i];
+                console.log(key)
+                let value = this.radio1 === '支出' ? this.sum(key, this.title_time) : this.sum_income(key, this.title_time);
+                consumption[key] = value;
             }
+
+            console.log( consumption)
+            return consumption
         },
         title_number: {
             get() {
@@ -246,7 +252,7 @@ export default {
             let data = []
             for (let i = 0; i < time.length; i++) {
                 // console.log('include ' + name + ' ' + time[i])
-                data.push(... this.$store.state.recodes.filter(item => {
+                data.push(... this.$store.state.income_statement.filter(item => {
                     return ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)
                 }))
             }
