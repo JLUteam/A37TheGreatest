@@ -236,12 +236,21 @@ export default {
             return data
         },
         include_income(name, time) {
+            // let data = []
+            // for (let i = 0; i < time.length; i++) {
+            //     // console.log('include ' + name + ' ' + time[i])
+            //     data.push(... this.$store.state.income_statement.filter(item => ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)))
+            // }
+            // // console.log('546' + name + ' 123 ' + time + '  ' + data + ' 987')
+            // return data
             let data = []
             for (let i = 0; i < time.length; i++) {
                 // console.log('include ' + name + ' ' + time[i])
-                data.push(... this.$store.state.income_statement.filter(item => ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)))
+                data.push(... this.$store.state.recodes.filter(item => {
+                    return ((item.bcategory === name) & item.btime.indexOf(time[i]) != -1)
+                }))
             }
-            // console.log('546' + name + ' 123 ' + time + '  ' + data + ' 987')
+            console.log(data)
             return data
         },
 

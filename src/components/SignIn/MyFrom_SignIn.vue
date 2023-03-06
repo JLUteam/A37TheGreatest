@@ -49,9 +49,10 @@ export default {
               start: df.$store.state.userinfo.ucreate + " 0:0:0",
             };
             console.log(getdetails);
+            //获取支出
             axios({
               method: "post",
-              url: "https://mineralsteins.icu:8080/a37/consumption/query",
+              url: "http://mineralsteins.icu:8081/a37/ins/",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
               },
@@ -66,6 +67,25 @@ export default {
                 console.log(error);
               }
             );
+            //获取收取
+            axios({
+              method: "post",
+              url: "http://mineralsteins.icu:8081/a37/ins/",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              data: getdetails,
+            }).then(
+              (response) => {
+                console.log((response.data.data))
+                //这儿补处理收入的代码
+                df.$store.state.income_statement = response.data.data
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+
             this.$router.push({
               name: "home",
             });

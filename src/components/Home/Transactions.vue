@@ -24,7 +24,6 @@
         </div>
 
     </div>
-
 </template>
 <script>
 export default {
@@ -94,7 +93,7 @@ export default {
             let day = date.getDate();
             // console.log('' + year + '-' + month + '-' + day)
             return '' + year + '-' + month + '-' + day
-           
+
         }
     },
     beforeDestroy() {
@@ -231,6 +230,7 @@ export default {
     border-radius: .64rem .64rem 0 0;
     // box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
     top: 2rem;
+
     // transition: height .5s;
     .TransactionsTitle {
         background-color: #ffffff;
