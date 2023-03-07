@@ -54,20 +54,19 @@ export default {
             console.log(array_incomeoroutcome)
             for (let i = 0; i < array_incomeoroutcome.length; i++) {
                 let key = array_incomeoroutcome[i];
-                console.log(key)
                 let value = this.radio1 === '支出' ? this.sum(key, this.title_time) : this.sum_income(key, this.title_time);
                 consumption[key] = value;
             }
-
-            console.log( consumption)
+            console.log('123+\n')
+            console.log(consumption)
             return consumption
         },
         title_number: {
             get() {
                 console.log(Object.values(this.Consumption))
-                return Object.values(this.Consumption).reduce((prev, current, index, arr) => {
-                    console.log()
-                    // console.log('this=' + current + ' ' + prev)
+                return Object.values(this.Consumption).reduce((prev, current) => {
+                    
+                    console.log('this=' + current + ' ' + prev)
                     return prev + current
                 })
             },
@@ -145,6 +144,17 @@ export default {
     methods: {
         drawLine() {
             // 基于刚刚准备好的 DOM 容器，初始化 EChart 实例
+            let list_come = this.radio1 === '支出' ? this.$store.state.outcomelist : this.$store.state.incomelist;
+            let data_ = [];
+            console.log(321)
+            list_come = ([...list_come])
+            list_come.forEach(element => {
+                data_.push({
+                    value: Math.round(this.Consumption[element] * 100) / 100,
+                    name: element,
+                    truename: element
+                })
+            });
             let myChart = this.$echarts.init(this.$refs.myChart)
             this.myChart = myChart
             // 绘制图表
@@ -167,7 +177,6 @@ export default {
                     left: 'center',
                     icon: 'circle'
                 },
-                // color: ['#928FFF', '#8EE04E', '#FF6740', '#CACAF5'],
                 series: [
                     {
                         name: 'Access From',
@@ -192,13 +201,7 @@ export default {
                         labelLine: {
                             show: false
                         },
-                        data: [
-                            { value: Math.round(this.Consumption.energy * 100) / 100, name: '能源', truename: '能源' },
-                            { value: Math.round(this.Consumption.food * 100) / 100, name: '餐饮', truename: '餐饮' },
-                            { value: Math.round(this.Consumption.entertainment * 100) / 100, name: '娱乐', truename: '娱乐' },
-                            { value: Math.round(this.Consumption.other * 100) / 100, name: '其他', truename: '其他' },
-
-                        ]
+                        data: data_
                     },
                 ]
             }

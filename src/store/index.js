@@ -189,7 +189,7 @@ const state = {
         "bcategory": "兼职",
         "note": "打工",
         "payment": "银行卡",
-        "amount": 178.0,
+        "amount": 179.0,
         "btime": "2023-03-05 00:00:00",
         "isreceipt": false,
         "receipt": null

@@ -61,7 +61,10 @@ export default {
             let day = date.getDate().toString().padStart(2, "0");
             let hour = date.getHours().toString().padStart(2, "0");
             if (this.activeName === 'first') {
-                xAxis = Object.keys([...Array(24)])
+                xAxis = [];
+                for (let i = 1; i <= 24; i++) {
+                    xAxis.push(i);
+                }
                 for (let i = 0; i <= hour; i++) {
                     let temp = this.sum('' + year + '-' + month + '-' + day + 'T' + i + ':')
                     yAxis.push(temp)
@@ -71,7 +74,10 @@ export default {
                 }
 
             } else if (this.activeName === 'second') {
-                xAxis = Object.keys([...Array(7)])
+                xAxis = [];
+                for (let i = 0; i <= 6; i++) {
+                    xAxis.push(i);
+                }
                 for (let i = 0; i <= dayOfWeek; i++) {
                     var oneDayTime = 24 * 60 * 60 * 1000;
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
@@ -85,7 +91,10 @@ export default {
                     yAxis2.push(temp2)
                 }
             } else if (this.activeName === 'third') {
-                xAxis = Object.keys([...Array(30)])
+                xAxis = [];
+                for (let i = 1; i <= 31; i++) {
+                    xAxis.push(i);
+                }
                 yAxis = []
                 for (let i = 0; i <= day; i++) {
                     let temp = this.sum('' + year + '-' + month + '-' + i.toString().padStart(2, "0"))
@@ -95,7 +104,10 @@ export default {
                 }
             }
             else if (this.activeName === 'fourth') {
-                xAxis = Object.keys([...Array(12)])
+                xAxis = [];
+                for (let i = 1; i <= 12; i++) {
+                    xAxis.push(i);
+                }
                 yAxis = []
                 for (let i = 1; i <= month; i++) {
                     let temp = this.sum('' + year + '-' + i.toString().padStart(2, "0"))
@@ -104,7 +116,10 @@ export default {
                     yAxis2.push(temp2)
                 }
             } else {
-                xAxis = Object.keys([...Array(10)])
+                xAxis = [];
+                for (let i = 1; i <= 10; i++) {
+                    xAxis.push(i);
+                }
                 yAxis = []
                 for (let i = year - 9; i <= year; i++) {
                     let temp = this.sum(i)
