@@ -4,7 +4,7 @@
             <p>{{ Ispay ? '支付日期' : ' 收入日期' }}</p>
             <div class="result">
                 <!-- <input type="text" v-model="Date_" placeholder="点此添加" ref="Date_" @click="getDate_">-->
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+                <el-date-picker v-model="value1" type="date" placeholder="选择日期" :editable="false">
                 </el-date-picker>
             </div>
         </div>
@@ -13,7 +13,7 @@
             <div class="result_time">
                 <el-time-picker v-model="value2" :picker-options="{
                     selectableRange: '0:0:00 - 23:59:59'
-                }" placeholder="任意时间点">
+                }" placeholder="任意时间点" :editable="false">
                 </el-time-picker>
             </div>
         </div>
@@ -66,12 +66,12 @@ export default {
                 }]
             },
             value1: '',
-            value2: new Date(2023, 3, 9, 8, 30),
+            value2: '',
         }
     },
     methods: {
         getDate_() {
-            return this.value1.getFullYear()+"-"+(this.value1.getMonth()+1).toString().padStart(2, "0") +"-"+this.value1.getDate().toString().padStart(2, "0")
+            return this.value1.getFullYear() + "-" + (this.value1.getMonth() + 1).toString().padStart(2, "0") + "-" + this.value1.getDate().toString().padStart(2, "0")
         },
         getTime_() {
             return this.value2.getHours().toString().padStart(2, "0") + ":" + this.value2.getMinutes().toString().padStart(2, "0") + ":" + this.value2.getSeconds().toString().padStart(2, "0")
@@ -79,6 +79,20 @@ export default {
     },
 };
 </script>
+<style>
+.el-picker-panel {
+    left: 0.6rem !important;
+
+}
+
+.el-time-panel {
+    left: 2.8rem !important;
+}
+
+/* .el-input__inner {
+    pointer-events: none;
+} */
+</style>
 <style lang="less" scoped>
 input {
     border: none;
@@ -131,18 +145,24 @@ input {
                 line-height: .48rem;
                 // text-align: right;
             }
-          /deep/.el-date-editor.el-input{
-            width: 2.1rem;
-          }
-          /deep/.el-input__inner{
-            height: 0.4rem;
-            border: none;
-            background-color: transparent;
-            margin-left: 0.5rem;
-          }
-          /deep/.el-icon-date:before{
-            content: '';
-          }
+
+            /deep/.el-date-editor.el-input {
+                width: 3rem;
+                margin-left: .5rem;
+                font-size: 0.28rem;
+            }
+
+            /deep/.el-input__inner {
+                height: 0.4rem;
+                border: none;
+                background-color: transparent;
+                margin-left: 0.5rem;
+            }
+
+            /deep/.el-icon-date:before {
+                content: '';
+            }
+
         }
     }
 
@@ -166,13 +186,17 @@ input {
             }
 
             /deep/.el-date-editor.el-input {
-                width: 2.1rem;
+                width: 3rem;
+                margin-left: .5rem;
+                font-size: 0.28rem;
             }
 
             /deep/.el-icon-time:before {
                 content: '';
 
             }
+
+
         }
     }
 
