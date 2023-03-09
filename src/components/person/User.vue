@@ -147,7 +147,7 @@ export default {
   .pie {
     position: absolute;
     margin-top: 0.7rem;
-    margin-left: -0.6rem;
+    margin-left: -1.6rem;
     width: 0.9rem;
     height: 0.75rem;
     border-radius: 0.75rem;

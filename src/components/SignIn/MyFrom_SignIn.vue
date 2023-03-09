@@ -52,11 +52,10 @@ export default {
         (response) => {
           console.log(response.data);
           if (response.data.login === true) {
-            if (response.data.upic === null) {
-              response.data.upic = require("@/assets/img/avast.png");
+            if (response.data.upic == null)
+            {
+              response.data.upic = require('@/assets/img/avast.png')
             }
-            console.log(123);
-            console.log(response.data);
 
             df.$store.commit("updateuserinfosignin", response.data);
             console.log(df.$store.state.userinfo);

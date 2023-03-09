@@ -41,7 +41,8 @@ export default {
     computed: {
         recodes: {
             get() {
-                return this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
+                let recodes = this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
+                return recodes
             },
             set() {
                 return this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
@@ -91,6 +92,7 @@ export default {
             }
         },
         ShowDetail(recode) {
+
             this.$router.push({
                 name: 'ConsumptionDetails',
                 query: {
@@ -109,7 +111,40 @@ export default {
                     return ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)
                 }))
             }
-            // console.log('875' + temp)
+
+            for (let i = 0; i < temp.length; i++) {
+
+                switch (temp[i].bcategory) {
+                    case '餐饮':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/canyin.svg')
+                        break;
+                    case '服饰':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/fushi.svg')
+                        break;
+                    case '公交':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongjiao.svg')
+                        break;
+                    case '工作':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongzuo.svg')
+                        break;
+                    case '购物':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gouwu.svg')
+                        break;
+                    case '居家':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/jujia.svg')
+                        break;
+                    case '礼物':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/liwu.svg')
+                        break;
+                    case '旅行':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg')
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+
             return temp
         },
         recodes_income(time) {
@@ -118,6 +153,38 @@ export default {
 
                 temp.push(...this.$store.state.income_statement.filter(item => ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)))
             }
+            for (let i = 0; i < temp.length; i++) {
+
+                switch (temp[i].bcategory) {
+                    case '兼职':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/jianzhi.svg')
+                        break;
+                    case '礼金':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/lijin.svg')
+                        break;
+                    case '其他':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/shezhi.svg')
+                        break;
+                    case '退货':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/tuihuo.svg')
+                        break;
+                    case '金融':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/weibiaoti5.svg')
+                        break;
+                    case '银行':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yinhangka.svg')
+                        break;
+                    case '工资':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yuangonggongzi.svg')
+                        break;
+                    case '投资':
+                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/zizhuguanli1.svg')
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             return temp
         },
         time() {
