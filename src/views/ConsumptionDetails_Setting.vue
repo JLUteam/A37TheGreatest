@@ -1,11 +1,28 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay"   :img_="$route.query.img" ref="Avatar">
+    <Avatar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      :img_="$route.query.img"
+      ref="Avatar"
+    >
     </Avatar>
-    <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
-    <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
-    <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
+    <StateBar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="StateBar"
+    ></StateBar>
+    <PayState
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="PayState"
+    ></PayState>
+    <Another
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="Another"
+    ></Another>
     <button @click="uplode">保存</button>
   </div>
 </template>
@@ -15,30 +32,48 @@ import Back from "@/components/ConsumptionDetails_Setting/back.vue";
 import StateBar from "@/components/ConsumptionDetails_Setting/StateBar.vue";
 import PayState from "@/components/ConsumptionDetails_Setting/PayState.vue";
 import Another from "@/components/ConsumptionDetails_Setting/Another.vue";
+import axios from "axios";
 
 export default {
   name: "ConsumptionDetails_Setting",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
     // console.log(this.$route.query);
-  }, methods: {
+  },
+  methods: {
     uplode() {
+      //支出
+
       let recode_new = {
-        uid: '1',//随机生成
+        uid: this.$store.state.userinfo.uid, //随机生成
+        bname: this.$refs.Avatar.getname_(),
         isbpic: true,
-        isfinish: true,
-        isremind: false,
-        rtime: '',
+        bpic: this.$refs.Avatar.getimg_(),
+        //暂时忽略if,ir,rt
         bcategory: this.$refs.StateBar.getbcategory_(),
         note: this.$refs.StateBar.getAdd_note(),
         payment: this.$refs.PayState.getpayment_(),
-        bpic: this.$refs.Avatar.getimg_(),//待完成
-        bname: this.$refs.Avatar.getname_(),
-        btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
-        amount: this.$refs.PayState.geAmount_()
-      }
-      console.log(recode_new)
-    }
+        amount: this.$refs.PayState.geAmount_(),
+        btime:
+          this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
+      };
+      console.log(recode_new);
+      axios({
+        method: "post",
+        url: "", //待加
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: recode_new,
+      }).then(
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script >

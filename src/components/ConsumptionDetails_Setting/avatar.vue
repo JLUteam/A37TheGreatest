@@ -1,96 +1,94 @@
 <template>
-    <div class="avatar">
-        <div class="img" @click="photo()">
-            <img :src="img_">
-        </div>
-        <input type="text" v-model="Amount" :placeholder="'点此修改' + placeholder_" ref="name_" @click="getname_">
+  <div class="avatar">
+    <div class="img" @click="photo()">
+      <img :src="img_" />
     </div>
+    <input
+      type="text"
+      v-model="name"
+      :placeholder="'点此修改' + placeholder_"
+      ref="name_"
+      @click="getname_"
+    />
+  </div>
 </template>
 <script>
 export default {
-    name: "avatar",
-    methods: {
-        photo() {
-
-        },
-        getimg_() {
-            return this.img
-        },
-        getname_() {
-            return this.name_
-        },
+  name: "avatar",
+  methods: {
+    photo() {},
+    getimg_() {
+      return this.img;
     },
-    data() {
-        return {
-            img: this.img_,
-            name: ''
-        }
+    getname_() {
+      return this.name;
     },
-    props: {
-
-        bcategory: String,
-        Ispay: Boolean,
-        img_: String
-
+  },
+  data() {
+    return {
+      img: this.img_,
+      name: "",
+    };
+  },
+  props: {
+    bcategory: String,
+    Ispay: Boolean,
+    img_: String,
+  },
+  computed: {
+    placeholder_() {
+      return this.Ispay ? "商户名" : "收入来源";
     },
-    computed:
-    {
-        placeholder_() {
-            return this.Ispay ? '商户名' : '收入来源'
-        }
-    },
-
+  },
 };
 </script>
 <style lang="less" scoped>
 input {
-    border: none;
-    outline: none;
-    padding-left: 2.55rem; // text-align: right;
-    background-color: transparent;
-    color: #121826;
-    font-family: "Manrope-Regular";
-    font-size: .28rem;
-    font-weight: 400;
-    line-height: .48rem;
-    margin-left: -1.5rem;
-
+  border: none;
+  outline: none;
+  padding-left: 2.55rem; // text-align: right;
+  background-color: transparent;
+  color: #121826;
+  font-family: "Manrope-Regular";
+  font-size: 0.28rem;
+  font-weight: 400;
+  line-height: 0.48rem;
+  margin-left: -1.5rem;
 }
 
 .avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin-top: 2rem;
+  width: 6.54rem;
+  height: 1.96rem;
+
+  .img {
+    width: 1.28rem;
+    height: 1.28rem;
+    border-radius: 0.64rem;
+    background-color: #f4f4f6;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+
+    img {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  .p {
     width: 6.54rem;
-    height: 1.96rem;
-
-    .img {
-        width: 1.28rem;
-        height: 1.28rem;
-        border-radius: .64rem;
-        background-color:#f4f4f6;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            width: 1rem;
-            height: 1rem;
-
-        }
-    }
-
-    .p {
-        width: 6.54rem;
-        height: .52rem;
-        color: #121826;
-        font-family: "Manrope-Bold";
-        font-size: .32rem;
-        font-weight: 400;
-        line-height: .52rem;
-        text-align: center;
-    }
+    height: 0.52rem;
+    color: #121826;
+    font-family: "Manrope-Bold";
+    font-size: 0.32rem;
+    font-weight: 400;
+    line-height: 0.52rem;
+    text-align: center;
+  }
 }
 </style>
