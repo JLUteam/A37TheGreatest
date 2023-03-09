@@ -40,7 +40,7 @@
           </li>
           <li class="nav__item">
             <router-link class="nav__link" to="person">
-              <img :src="img.user_Home" class="item" alt="" />
+              <img :src="img.user_Home" class="item" />
             </router-link>
           </li>
         </ul>

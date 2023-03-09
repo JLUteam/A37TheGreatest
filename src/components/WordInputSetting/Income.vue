@@ -18,8 +18,8 @@
                 <p>工作</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_ycof0s6ppu/shezhi.svg" @click='ToSettingRecode("设置", true, "shezhi")' alt="">
-                <p>设置</p>
+                <img src="@/assets/svg/icon_ycof0s6ppu/shezhi.svg" @click='ToSettingRecode("", true, "shezhi")' alt="">
+                <p>其他</p>
             </div>
         </div>
         <div class="line">

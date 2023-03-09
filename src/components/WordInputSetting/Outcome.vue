@@ -12,9 +12,9 @@
                 <p>礼金</p>
             </div>
             <div class="tab">
-                <img src="@/assets/svg/icon_0p9q85sdf0hp/shezhi.svg" @click='ToSettingRecode("设置", false, "shezhi")'
+                <img src="@/assets/svg/icon_0p9q85sdf0hp/shezhi.svg" @click='ToSettingRecode("", false, "shezhi")'
                     alt="">
-                <p>设置</p>
+                <p>其他</p>
             </div>
         </div>
         <div class="line">

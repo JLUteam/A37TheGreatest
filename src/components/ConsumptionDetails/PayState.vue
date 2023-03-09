@@ -1,13 +1,13 @@
 <template>
     <div class="PayState">
         <div class="payment info">
-            <p>payment</p>
+            <p>{{ Ispay_ ? '支付方式' : ' 收入方式' }}</p>
             <div class="result">
                 <p>{{ payment }}</p>
             </div>
         </div>
         <div class="Amount info">
-            <p>Amount</p>
+            <p>{{ Ispay_ ? '支付金额' : ' 收入金额' }}</p>
             <div class="result">
                 <p>{{ Amount }}</p>
             </div>
@@ -29,7 +29,10 @@ export default {
             return this.recode.payment
         },
         Amount() {
-            return this.recode.consumption
+            return this.recode.amount
+        },
+        Ispay_() {
+            return this.$store.state.radio1 === '支出'
         }
     }
 

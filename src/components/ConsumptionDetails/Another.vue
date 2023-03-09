@@ -1,22 +1,22 @@
 <template>
     <div class="Another">
         <div class="Date info">
-            <p>Date</p>
+            <p>{{ Ispay_ ? '支付日期' : ' 收入日期' }}</p>
             <div class="result">
                 <p>{{ Date_ }}</p>
             </div>
         </div>
         <div class="Time info">
-            <p>Time</p>
+            <p>{{ Ispay_ ? '支付时间' : ' 收入时间' }}</p>
             <div class="result">
                 <p>{{ Time_ }}</p>
             </div>
         </div>
         <div class="Receipt info">
-            <p>Receipt</p>
+            <p>收据图片</p>
             <div class="result">
                 <img src="@/assets/svg/photo.svg" alt="">
-                <p>Completed</p>
+                <p>点击添加</p>
             </div>
         </div>
 
@@ -38,6 +38,9 @@ export default {
         },
         Time_() {
             return this.recode.btime.split(' ')[1]
+        },
+        Ispay_() {
+            return this.$store.state.radio1 === '支出'
         }
     }
 };

@@ -105,11 +105,11 @@ export default {
                 // console.log(this.$store.state.recodes)
                 temp.push(...this.$store.state.recodes.filter(item => {
 
-                    console.log(item.bcategory + '789' + this.precent_Transactions_bcategory + ' 0' + time[i] + ' 1 ' + item.btime)
+                    // console.log(item.bcategory + '789' + this.precent_Transactions_bcategory + ' 0' + time[i] + ' 1 ' + item.btime)
                     return ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)
                 }))
             }
-            console.log('875' + temp)
+            // console.log('875' + temp)
             return temp
         },
         recodes_income(time) {

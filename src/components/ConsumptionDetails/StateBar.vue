@@ -1,20 +1,21 @@
 <template>
     <div class="StateBar">
         <div class="Status info">
-            <p>Status</p>
+            <p>{{ Ispay_ ? '支付状态' : ' 收入状态' }}</p>
             <div class="result">
                 <img src="@/assets/svg/Check.svg" alt="">
                 <p>{{ Status }}</p>
             </div>
         </div>
         <div class="Category info">
-            <p>Category</p>
+            <p>{{ Ispay_ ? '支付类型' : ' 收入类型' }}</p>
             <div class="result">
-                <el-select v-model="value" filterable :placeholder="recode.bcategory === '' ? 请选择 : recode.bcategory"
+                <!-- <el-select v-model="value" filterable :placeholder="recode.bcategory === '' ? 请选择 : recode.bcategory"
                     class="seclect">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label">
                     </el-option>
-                </el-select>
+                </el-select> -->
+                 <p>{{ recode.bcategory }}</p>
             </div>
         </div>
         <div class="Add_note info">
@@ -56,11 +57,11 @@ export default {
     computed: {
         Status: {
             get() {
-                return this.recode.isfinish ? 'Completed' : 'Uncompleted';
+                // return this.recode.isfinish ? 'Completed' : 'Uncompleted';
+                return  '已完成';
             },
             set(value) {
                 this.$store.commit('updateStatus', [this.recode.uid, value])
-
             }
         },
 
@@ -72,6 +73,9 @@ export default {
                 console.log(123)
                 this.$store.commit('updatenote', [this.recode.uid, value])
             }
+        },
+        Ispay_() {
+            return this.$store.state.radio1 === '支出'
         }
     },
     watch: {
@@ -157,6 +161,7 @@ export default {
 
     .Add_note {
         margin-top: .1rem;
+
         .result {
 
 

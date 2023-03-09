@@ -181,8 +181,8 @@ export default {
                     {
                         name: 'Access From',
                         type: 'pie',
-                        radius: ['40%', '70%'],
-                        center: ['50%', '40%'],
+                        radius: ['50%', '70%'],
+                        center: ['46%', '40%'],
                         avoidLabelOverlap: false,
                         label: {
                             show: false,

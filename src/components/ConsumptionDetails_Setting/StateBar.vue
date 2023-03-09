@@ -1,21 +1,24 @@
 <template>
     <div class="StateBar">
         <div class="Status info">
-            <p>{{ Ispay ? '支付状态' :' 收入状态' }}</p>
+            <p>{{ Ispay ? '支付状态' : ' 收入状态' }}</p>
             <div class="result">
                 <img src="@/assets/svg/Check.svg" alt="">
                 <p>已完成</p>
             </div>
         </div>
         <div class="Category info">
-            <p>{{ Ispay ? '支付类型' :' 收入类型' }}</p>
-            <div class="result" ref="bcategory_" @click="getbcategory_">
-                <el-select v-model="bcategory_" filterable :placeholder="bcategory === '设置' ? 请选择 : bcategory"
+            <p>{{ Ispay ? '支付类型' : ' 收入类型' }}</p>
+            <div class="result" ref="bcategory_">
+                <!-- <el-select v-model="bcategory_" filterable :placeholder="bcategory === '设置' ? 请选择 : bcategory"
                     v-if="bcategory != '设置'" class="seclect">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label">
                     </el-option>
                     <input type="text" v-model="bcategory_" placeholder="点此添加" v-if="bcategory === '设置'">
-                </el-select>
+                </el-select> -->
+                <input type="text" v-model="bcategory_" placeholder="点此添加" v-if="bcategory === ''">
+                <p v-if="bcategory != ''">{{ bcategory }}</p>
+
             </div>
         </div>
         <div class="Add_note info">
@@ -51,10 +54,9 @@ export default {
         }
     },
     props: {
-     
-            bcategory: String,
-            Ispay:Boolean
-        
+        bcategory: String,
+        Ispay: Boolean
+
     },
     methods: {
         getAdd_note() {
