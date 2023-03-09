@@ -92,24 +92,24 @@ export default {
       reader.readAsArrayBuffer(file);
       reader.onload = function (e) {
         var fileData = reader.result;
-        axios({
-          method: "post",
-          url: "http://localhost:8080/avatar/get?uid=0",
+        // axios({
+        //   method: "post",
+        //   url: "http://localhost:8080/avatar/get?uid=0",
 
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          data: {
-            image: fileData,
-          },
-        }).then(
-          (response) => {
-            console.log(response.data);
-          },
-          (error) => {
-            window.alert(error.message);
-          }
-        );
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        //   data: {
+        //     image: fileData,
+        //   },
+        // }).then(
+        //   (response) => {
+        //     console.log(response.data);
+        //   },
+        //   (error) => {
+        //     window.alert(error.message);
+        //   }
+        // );
       };
     },
     onFail(message) {
