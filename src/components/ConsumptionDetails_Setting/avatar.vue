@@ -3,7 +3,7 @@
         <div class="img" @click="photo()">
             <img :src="img_">
         </div>
-        <input type="text" v-model="Amount" :placeholder="'点此修改' + placeholder_" ref="name_" @click="getname_">
+        <input type="text" v-model="name" :placeholder="'点此修改' + placeholder_" ref="name_" @click="getname_">
     </div>
 </template>
 <script>
@@ -17,7 +17,7 @@ export default {
             return this.img
         },
         getname_() {
-            return this.name_
+            return this.name
         },
     },
     data() {
@@ -70,7 +70,7 @@ input {
         width: 1.28rem;
         height: 1.28rem;
         border-radius: .64rem;
-        background-color:#f4f4f6;
+        background-color: #f4f4f6;
         display: flex;
         justify-content: center;
         align-items: center;

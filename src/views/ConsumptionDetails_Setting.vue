@@ -1,7 +1,7 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay"   :img_="$route.query.img" ref="Avatar">
+    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" :img_="$route.query.img" ref="Avatar">
     </Avatar>
     <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
     <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
@@ -23,20 +23,41 @@ export default {
     // console.log(this.$route.query);
   }, methods: {
     uplode() {
-      let recode_new = {
-        uid: '1',//随机生成
-        isbpic: true,
-        isfinish: true,
-        isremind: false,
-        rtime: '',
-        bcategory: this.$refs.StateBar.getbcategory_(),
-        note: this.$refs.StateBar.getAdd_note(),
-        payment: this.$refs.PayState.getpayment_(),
-        bpic: this.$refs.Avatar.getimg_(),//待完成
-        bname: this.$refs.Avatar.getname_(),
-        btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
-        amount: this.$refs.PayState.geAmount_()
+      let Ispay = this.$route.query.Ispay
+      let recode_new
+      if (Ispay) {
+         recode_new = {
+          uid: this.$store.state.userinfo.uid,
+          bname: this.$refs.Avatar.getname_(),
+          isbpic: true,
+          bpic: this.$refs.Avatar.getimg_(),
+          isfinish: true,
+          isremind: false,
+          rtime: '',
+          bcategory: this.$refs.StateBar.getbcategory_(),
+          note: this.$refs.StateBar.getAdd_note(),
+          payment: this.$refs.PayState.getpayment_(),
+          btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
+          amount: this.$refs.PayState.geAmount_(),
+          "isreceipt": false,
+          "receipt": null
+        }
+      } else {
+         recode_new = {
+          usr: this.$store.state.userinfo.uid,
+          bname: this.$refs.Avatar.getname_(),
+          ispic: true,
+          bpic: this.$refs.Avatar.getimg_(),
+          bcategory: this.$refs.StateBar.getbcategory_(),
+          note: this.$refs.StateBar.getAdd_note(),
+          payment: this.$refs.PayState.getpayment_(),
+          amount: this.$refs.PayState.geAmount_(),
+          btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
+          "isreceipt": false,
+          "receipt": null
+        }
       }
+
       console.log(recode_new)
     }
   },
