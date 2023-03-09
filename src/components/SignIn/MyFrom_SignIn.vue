@@ -51,23 +51,25 @@ export default {
       }).then(
         (response) => {
           console.log(response.data);
+          console.log("----------------------");
           if (response.data.login === true) {
-            if (response.data.upic == null)
-            {
-              response.data.upic = require('@/assets/img/avast.png')
+            if (response.data.upic == null) {
+              response.data.upic = require("@/assets/img/avast.png");
             }
 
             df.$store.commit("updateuserinfosignin", response.data);
-            console.log(df.$store.state.userinfo);
+            // console.log(df.$store.state.userinfo);
             var getdetails = {
               uid: df.$store.state.userinfo.uid,
-              start: df.$store.state.userinfo.ucreate + " 0:0:0",
+              // start: df.$store.state.userinfo.ucreate + " 00:00:00",
+              start: "2000-02-05 00:00:00",
             };
             console.log(getdetails);
+            console.log("获得支出");
             //获取支出
             axios({
               method: "post",
-              url: "http://mineralsteins.icu:8081/a37/ins/",
+              url: "http://mineralsteins.icu:8081/a37/outs-query",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
               },
@@ -82,10 +84,11 @@ export default {
                 console.log(error);
               }
             );
+            console.log("获取收入");
             //获取收取
             axios({
               method: "post",
-              url: "http://mineralsteins.icu:8081/a37/ins/",
+              url: "http://mineralsteins.icu:8081/a37/ins-query",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
               },

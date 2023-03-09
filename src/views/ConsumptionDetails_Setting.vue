@@ -1,11 +1,28 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" :img_="$route.query.img" ref="Avatar">
+    <Avatar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      :img_="$route.query.img"
+      ref="Avatar"
+    >
     </Avatar>
-    <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
-    <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
-    <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
+    <StateBar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="StateBar"
+    ></StateBar>
+    <PayState
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="PayState"
+    ></PayState>
+    <Another
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="Another"
+    ></Another>
     <button @click="uplode">保存</button>
   </div>
 </template>
@@ -15,13 +32,15 @@ import Back from "@/components/ConsumptionDetails_Setting/back.vue";
 import StateBar from "@/components/ConsumptionDetails_Setting/StateBar.vue";
 import PayState from "@/components/ConsumptionDetails_Setting/PayState.vue";
 import Another from "@/components/ConsumptionDetails_Setting/Another.vue";
+import axios from "axios";
 
 export default {
   name: "ConsumptionDetails_Setting",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
     // console.log(this.$route.query);
-  }, methods: {
+  },
+  methods: {
     uplode() {
       let Ispay = this.$route.query.Ispay
       let recode_new
@@ -57,11 +76,26 @@ export default {
           "receipt": null
         }
       }
-
-      console.log(recode_new)
+         console.log(recode_new);
+      axios({
+        method: "post",
+        url: "", //待加
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: recode_new,
+      }).then(
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
-  },
-};
+
+    },
+  };
 </script >
 <style lang="less" scoped>
 .basic {
