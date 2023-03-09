@@ -47,19 +47,19 @@ export default {
       if (this.userinfo.IsAgree === true) {
         axios({
           method: "post",
-          url: "https://mineralsteins.icu:8080/a37/verifycode/request",
+          url: "https://mineralsteins.icu:8080/a37/verifycode",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          data: { phone: this.userinfo.phonenumbe },
+          data: { uphone: this.userinfo.phonenumbe },
         }).then(
           (response) => {
             console.log(response.data.code[0]);
             this.$router.push({
               name: "Captcha",
               params: {
-                iswx: Number(false),
-                iszfb: Number(false),
+                iswx: false,
+                iszfb: false,
                 uname: this.userinfo.username,
                 uphone: this.userinfo.phonenumbe,
                 ubirth: this.userinfo.birthday,
