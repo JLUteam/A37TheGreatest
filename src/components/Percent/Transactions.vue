@@ -139,6 +139,33 @@ export default {
                     case '旅行':
                         temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg')
                         break;
+                    case '学习':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/xuexi.svg')
+                        break;
+                    case '美容':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg')
+                        break;
+                    case '日用':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/riyongpin.svg')
+                        break;
+                    case '蔬菜':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shucai.svg')
+                        break;
+                    case '水果':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shuiguo.svg')
+                        break;
+                    case '通讯':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg')
+                        break;
+                    case '娱乐':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yule.svg')
+                        break;
+                    case '运动':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yundong.svg')
+                        break;
+                    case '其他':
+                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
+                        break;
                     default:
                         break;
                 }
