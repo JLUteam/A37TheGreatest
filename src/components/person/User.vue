@@ -59,90 +59,63 @@ export default {
         });
     },
     //拍照
-    callTakePicture() {
+    cameratakephoto() {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
         quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL,
+        // allowEdit: true,
+        encodingType: navigator.camera.EncodingType.JPEG,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
       });
     },
-    addLocalPicture() {
+    phototakefromku() {
+      this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
+    },
+    camera(sourceType) {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
-        quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        quality: 75,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
+        encodingType: navigator.camera.EncodingType.JPEG,
+        sourceType: sourceType,
+        allowEdit: true,
+        // saveToPhotoAlbum: true,
       });
     },
-    onSuccess(image_data) {
-      alert("Success,dataurl:", image_data);
+    onSuccess(imageURL) {
+      // alert("data:image/jpeg;base64," + imageURL);
+      var str = "data:image/jpeg;base64," + imageURL;
+      this.img = str;
+      // axios({
+      //   method: "post",
+      //   url: "http://mineralsteins.icu:8081/a37/string-get",
+      //   headers: {
+      //     "Content-Type": "application/x-www-form-urlencoded",
+      //   },
+      //   data: { data: str },
+      // }).then(
+      //   (response) => {
+      //     console.log(response.data);
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   }
+      // );
+      this.$alert("", "上传成功", {
+        confirmButtonText: "确定",
+        showClose: false,
+        center: true,
+        type: "success",
+        customClass: "success",
+      });
     },
     onFail(message) {
-      alert("Failed because:" + message);
+      this.$alert("", "上传失败", {
+        confirmButtonText: "确定",
+        showClose: false,
+        center: true,
+        type: "warning",
+        customClass: "fail",
+      });
     },
-    // cameratakephoto() {
-    //   navigator.camera.getPicture(
-    //     (imageURI) => {
-    //       window.alert("Success:" + imageURI);
-    //       this.onSuccess(imageURI);
-    //     },
-    //     (message) => {
-    //       window.alert("FAILED : " + message);
-    //     },
-    //     {
-    //       quality: 50,
-    //       //   allowEdit: true,
-    //       destinationType: navigator.camera.DestinationType.DATA_URL,
-    //     }
-    //   );
-    // },
-    // phototakefromku() {
-    //   this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
-    // },
-    // camera(sourceType) {
-    //   navigator.camera.getPicture(this.onSuccess, this.onFail, {
-    //     quality: 75,
-    //     destinationType: navigator.camera.DestinationType.DATA_URL,
-    //     encodingType: navigator.camera.EncodingType.JPEG,
-    //     sourceType: sourceType,
-    //     allowEdit: true,
-    //     // saveToPhotoAlbum: true,
-    //   });
-    // },
-    // onSuccess(imageURL) {
-    //   this.$store.state.userinfo.upic = "data:image/jpeg;base64," + imageURL;
-    //   // var file = new File(imageURL);
-    //   // var reader = new FileReader();
-    //   // reader.readAsArrayBuffer(file);
-    //   // reader.onload = function (e) {
-    //   //   var fileData = reader.result;
-    //   // axios({
-    //   //   method: "post",
-    //   //   url: "http://localhost:8080/avatar/get?uid=0",
-
-    //   //   headers: {
-    //   //     "Content-Type": "multipart/form-data",
-    //   //   },
-    //   //   data: {
-    //   //     image: fileData,
-    //   //   },
-    //   // }).then(
-    //   //   (response) => {
-    //   //     console.log(response.data);
-    //   //   },
-    //   //   (error) => {
-    //   //     window.alert(error.message);
-    //   //   }
-    //   // );
-    //   // };
-    // },
-    // onFail(message) {
-    //   this.$alert("", "上传失败", {
-    //     confirmButtonText: "确定",
-    //     showClose: false,
-    //     center: true,
-    //     type: "warning",
-    //     customClass: "fail",
-    //   });
-    // },
   },
   computed: {},
 };

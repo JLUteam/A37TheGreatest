@@ -47,13 +47,13 @@ export default {
       let recode_new;
       if (Ispay) {
         recode_new = {
-          uid: this.$store.state.userinfo.uid,
+          usr: this.$store.state.userinfo.uid,
           bname: this.$refs.Avatar.getname_(),
-          isbpic: true,
-          bpic: this.$refs.Avatar.getimg_(),
+          isbpic: false,
+          bpic: null,
           isfinish: true,
           isremind: false,
-          rtime: "",
+          rtime: null,
           bcategory: this.$refs.StateBar.getbcategory_(),
           note: this.$refs.StateBar.getAdd_note(),
           payment: this.$refs.PayState.getpayment_(),
@@ -63,26 +63,66 @@ export default {
           isreceipt: false,
           receipt: null,
         };
+        console.log(recode_new);
+        axios({
+          method: "post",
+          url: "https://mineralsteins.icu:8080/a37/outs/", //待加
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          data: recode_new,
+        }).then(
+          (response) => {
+            console.log(response.data);
+            this.$alert("", "上传成功", {
+              confirmButtonText: "确定",
+              showClose: false,
+              center: true,
+              type: "success",
+              customClass: "success",
+              beforeClose: (action, instance, done) => {
+                if (action === "confirm") {
+                  this.$router.push({
+                    name: "Percent",
+                  });
+                  done();
+                }
+              },
+            });
+          },
+          (error) => {
+            console.log(error);
+            this.$alert(error, "上传失败", {
+              confirmButtonText: "确定",
+              showClose: false,
+              center: true,
+              type: "warning",
+              customClass: "fail",
+            });
+          }
+        );
       } else {
         //收入
         recode_new = {
           usr: this.$store.state.userinfo.uid,
           bname: this.$refs.Avatar.getname_(),
-          ispic: true,
-          bpic: this.$refs.Avatar.getimg_(),
+          ispic: false,
+          // bpic: this.$refs.Avatar.getimg_(),
+          bpic: null,
           bcategory: this.$refs.StateBar.getbcategory_(),
           note: this.$refs.StateBar.getAdd_note(),
           payment: this.$refs.PayState.getpayment_(),
           amount: this.$refs.PayState.geAmount_(),
-          btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
-          "isreceipt": false,
-          "receipt": null  
-        }
+          btime:
+            this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
+          isreceipt: false,
+          receipt: null,
+        };
       }
       console.log(recode_new);
       axios({
         method: "post",
-        url: "", //待加
+        url: "https://mineralsteins.icu:8080/a37/ins/", //待加
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -90,9 +130,32 @@ export default {
       }).then(
         (response) => {
           console.log(response.data);
+          this.$alert("", "上传成功", {
+            confirmButtonText: "确定",
+            showClose: false,
+            center: true,
+            type: "success",
+            customClass: "success",
+            beforeClose: (action, instance, done) => {
+              if (action === "confirm") {
+                this.$router.push({
+                  name: "Percent",
+                });
+                done();
+              }
+            },
+          });
         },
         (error) => {
           console.log(error);
+          console.log(error);
+          this.$alert(error, "上传失败", {
+            confirmButtonText: "确定",
+            showClose: false,
+            center: true,
+            type: "warning",
+            customClass: "fail",
+          });
         }
       );
     },

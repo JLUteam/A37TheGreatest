@@ -69,7 +69,7 @@ export default {
             //获取支出
             axios({
               method: "post",
-              url: "http://mineralsteins.icu:8081/a37/outs-query",
+              url: "https://mineralsteins.icu:8080/a37/outs-query",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
               },
@@ -88,7 +88,7 @@ export default {
             //获取收取
             axios({
               method: "post",
-              url: "http://mineralsteins.icu:8081/a37/ins-query",
+              url: "https://mineralsteins.icu:8080/a37/ins-query",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
               },
