@@ -95,6 +95,9 @@ export default {
           console.log(error);
         }
       );
+        this.$store.commit("pushrecodes", recode_new);
+
+
     },
   },
 };
