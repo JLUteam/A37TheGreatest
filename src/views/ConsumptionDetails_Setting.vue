@@ -73,7 +73,7 @@ export default {
           amount: this.$refs.PayState.geAmount_(),
           btime: this.$refs.Another.getDate_() + ' ' + this.$refs.Another.getTime_(),
           "isreceipt": false,
-          "receipt": null
+          "receipt": null  
         }
       }
          console.log(recode_new);
