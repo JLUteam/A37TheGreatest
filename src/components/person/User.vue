@@ -58,69 +58,91 @@ export default {
           });
         });
     },
-    cameratakephoto() {
-      navigator.camera.getPicture(
-        (imageURI) => {
-          window.alert("Success:" + imageURI);
-        },
-        (message) => {
-          window.alert("FAILED : " + message);
-        },
-        {
-          quality: 50,
-          //   allowEdit: true,
-          destinationType: navigator.camera.DestinationType.FIRE_URI,
-        }
-      );
-    },
-    phototakefromku() {
-      this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
-    },
-    camera(sourceType) {
+    //拍照
+    callTakePicture() {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
-        quality: 75,
-        destinationType: navigator.camera.DestinationType.FIRE_URI,
-        encodingType: navigator.camera.EncodingType.JPEG,
-        sourceType: sourceType,
-        allowEdit: true,
-        // saveToPhotoAlbum: true,
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
       });
     },
-    onSuccess(imageURL) {
-      var file = new File(imageURL);
-      var reader = new FileReader();
-      reader.readAsArrayBuffer(file);
-      reader.onload = function (e) {
-        var fileData = reader.result;
-        // axios({
-        //   method: "post",
-        //   url: "http://localhost:8080/avatar/get?uid=0",
-
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        //   data: {
-        //     image: fileData,
-        //   },
-        // }).then(
-        //   (response) => {
-        //     console.log(response.data);
-        //   },
-        //   (error) => {
-        //     window.alert(error.message);
-        //   }
-        // );
-      };
+    addLocalPicture() {
+      navigator.camera.getPicture(this.onSuccess, this.onFail, {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      });
+    },
+    onSuccess(image_data) {
+      alert("Success,dataurl:", image_data);
     },
     onFail(message) {
-      this.$alert("", "上传失败", {
-        confirmButtonText: "确定",
-        showClose: false,
-        center: true,
-        type: "warning",
-        customClass: "fail",
-      });
+      alert("Failed because:" + message);
     },
+    // cameratakephoto() {
+    //   navigator.camera.getPicture(
+    //     (imageURI) => {
+    //       window.alert("Success:" + imageURI);
+    //       this.onSuccess(imageURI);
+    //     },
+    //     (message) => {
+    //       window.alert("FAILED : " + message);
+    //     },
+    //     {
+    //       quality: 50,
+    //       //   allowEdit: true,
+    //       destinationType: navigator.camera.DestinationType.DATA_URL,
+    //     }
+    //   );
+    // },
+    // phototakefromku() {
+    //   this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
+    // },
+    // camera(sourceType) {
+    //   navigator.camera.getPicture(this.onSuccess, this.onFail, {
+    //     quality: 75,
+    //     destinationType: navigator.camera.DestinationType.DATA_URL,
+    //     encodingType: navigator.camera.EncodingType.JPEG,
+    //     sourceType: sourceType,
+    //     allowEdit: true,
+    //     // saveToPhotoAlbum: true,
+    //   });
+    // },
+    // onSuccess(imageURL) {
+    //   this.$store.state.userinfo.upic = "data:image/jpeg;base64," + imageURL;
+    //   // var file = new File(imageURL);
+    //   // var reader = new FileReader();
+    //   // reader.readAsArrayBuffer(file);
+    //   // reader.onload = function (e) {
+    //   //   var fileData = reader.result;
+    //   // axios({
+    //   //   method: "post",
+    //   //   url: "http://localhost:8080/avatar/get?uid=0",
+
+    //   //   headers: {
+    //   //     "Content-Type": "multipart/form-data",
+    //   //   },
+    //   //   data: {
+    //   //     image: fileData,
+    //   //   },
+    //   // }).then(
+    //   //   (response) => {
+    //   //     console.log(response.data);
+    //   //   },
+    //   //   (error) => {
+    //   //     window.alert(error.message);
+    //   //   }
+    //   // );
+    //   // };
+    // },
+    // onFail(message) {
+    //   this.$alert("", "上传失败", {
+    //     confirmButtonText: "确定",
+    //     showClose: false,
+    //     center: true,
+    //     type: "warning",
+    //     customClass: "fail",
+    //   });
+    // },
   },
   computed: {},
 };
