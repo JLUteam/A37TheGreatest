@@ -6,7 +6,7 @@
     <input
       type="text"
       v-model="name"
-      :placeholder="'点此修改' + placeholder_"
+      :placeholder="placeholder_"
       ref="name_"
       @click="getname_"
     />
@@ -46,14 +46,15 @@ export default {
 input {
   border: none;
   outline: none;
-  padding-left: 2.55rem; // text-align: right;
+  padding-left: 2.3rem; // text-align: right;
   background-color: transparent;
   color: #121826;
   font-family: "Manrope-Regular";
   font-size: 0.28rem;
   font-weight: 400;
   line-height: 0.48rem;
-  margin-left: -1.5rem;
+  // margin-left: -1.5rem;
+  
 }
 
 .avatar {
