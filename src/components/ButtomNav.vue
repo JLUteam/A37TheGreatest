@@ -103,11 +103,8 @@ export default {
     uploadfile() {
       var file = document.getElementById("test").files[0];
       var reader = new FileReader();
-      console.log(file);
       reader.readAsArrayBuffer(file);
-      console.log(1);
       reader.onload = function (e) {
-        console.log(2);
         var fileData = this.result;
         axios({
           method: "post",

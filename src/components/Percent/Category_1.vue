@@ -39,6 +39,7 @@ export default {
     },
     mounted() {
         this.drawLine();
+        this.$store.commit('updateradio2', '一天')
     },
     beforeDestroy() {
         const self = this;
@@ -112,6 +113,7 @@ export default {
                 for (let i = 1; i <= month; i++) {
                     let temp = this.sum('' + year + '-' + i.toString().padStart(2, "0"))
                     yAxis.push(temp)
+                    console.log(temp)
                     let temp2 = this.sum_income('' + year + '-' + i.toString().padStart(2, "0"))
                     yAxis2.push(temp2)
                 }
@@ -245,7 +247,7 @@ export default {
                 myChart.resize();
             })
         },
-        handleClick(tab, event) {
+        handleClick() {
             this.drawLine()
         },
         sum(time) {
@@ -255,21 +257,17 @@ export default {
             })
 
             return data.reduce((total, item) => {
-                return total + item.amount
+                return total + parseFloat(item.amount)
             }, 0)
         },
         sum_income(time) {
-            // let data = this.$store.state.income_statement.filter(item => (item.btime.indexOf(time) != -1))
 
-            // return data.reduce((total, item) => {
-            //     return total + item.amount
-            // }, 0)
             let data = this.$store.state.income_statement.filter(item => {
                 return item.btime.indexOf(time) != -1
             })
 
             return data.reduce((total, item) => {
-                return total + item.amount
+                return total + parseFloat(item.amount)
             }, 0)
         }
 
@@ -277,7 +275,8 @@ export default {
         activeName: {
             handler: function (value) {
                 this.$store.commit('updateactiveName', value)
-            }
+            },
+            immediate: true
         },
     },
     computed: {

@@ -29,54 +29,30 @@ export default {
     },
     computed: {
         zhenshu() {
-
-            return this.sum(this.today()).toFixed(2).split('.')[0]
+            return (this.sum(this.today())).toFixed(2).split('.')[0]
         },
         xiaoshu() {
 
-            return this.sum(this.today()).toFixed(2).split('.')[1]
+            return (this.sum(this.today())).toFixed(2).split('.')[1]
         },
 
         present() {
             let present = ((this.sum(this.today()) - this.sum(this.yesterday())) / this.sum(this.yesterday())) * 100
+            if(present===Infinity){
+              return  '昨日无消费'
+            }
             return present.toFixed(0)
         },
     },
     methods: {
-        getHour(s1, s2) {
-            s1 = new Date(s1.replace(/-/g, '/'));
-            s2 = new Date(s2.replace(/-/g, '/'));
-            var ms = Math.abs(s1.getTime() - s2.getTime());
-            return ms / 1000 / 60 / 60;
-        },
-        formatDate(time, format = 'YY-MM-DD hh:mm:ss') {
-            var date = new Date(time);
-            var year = date.getFullYear(),
-                month = date.getMonth() + 1,//月份是从0开始的
-                day = date.getDate(),
-                hour = date.getHours(),
-                min = date.getMinutes(),
-                sec = date.getSeconds();
-            var preArr = Array.apply(null, Array(10)).map(function (elem, index) {
-                return '0' + index;
-            });
-            var newTime = format.replace(/YY/g, year)
-                .replace(/MM/g, preArr[month] || month)
-                .replace(/DD/g, preArr[day] || day)
-                .replace(/hh/g, preArr[hour] || hour)
-                .replace(/mm/g, preArr[min] || min)
-                .replace(/ss/g, preArr[sec] || sec);
-
-            return newTime;
-        },
         sum(time) {
             let data = this.$store.state.recodes.filter(
-                (item) =>
-                    (item.btime.indexOf(time) != -1)
+                (item) => (item.btime.indexOf(time) != -1)
             );
-
+            console.log('1259')
+            console.log(data)
             return data.reduce((total, item) => {
-                return total + 1 * item.amount;
+                return total + parseFloat(item.amount);
             }, 0);
         },
         yesterday() {
@@ -84,16 +60,16 @@ export default {
             var oneDayTime = 24 * 60 * 60 * 1000;
             const newDate = new Date(date.getTime() + -1 * oneDayTime);
             let year = newDate.getFullYear()
-            let month = newDate.getMonth() + 1;
-            let day = newDate.getDate();
-            return '' + year + '-' + month + '-' + day
+            let month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+            let day = newDate.getDate().toString().padStart(2, "0");
+            return ('' + year + '-' + month + '-' + day)
         },
         today() {
             let date = new Date();
             let year = date.getFullYear()
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-            return '' + year + '-' + month + '-' + day
+            let month = (date.getMonth() + 1).toString().padStart(2, "0");
+            let day = date.getDate().toString().padStart(2, "0");
+            return ('' + year + '-' + month + '-' + day)
         }
     },
 }
@@ -194,7 +170,7 @@ export default {
             position: relative;
             left: 1.62rem;
             top: -.35rem;
-            width: 1.48rem;
+          width: 2rem;
             height: .4rem;
             border-radius: .2rem;
             background: #ffffff;
@@ -211,8 +187,8 @@ export default {
             }
 
             p {
+              padding-left: .1rem;
                 margin-right: .2rem;
-                width: .48rem;
                 height: .32rem;
                 color: #121826;
                 font-family: Manrope;

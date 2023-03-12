@@ -18,7 +18,7 @@
                             <p class="merchantname">{{ recode.bname }}</p>
                             <p class="ShoppingTime">{{ recode.btime }}</p>
                         </div>
-                        <p class="consumption">{{ recode.amount.toFixed(2) }}</p>
+                        <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
                     </div>
                     <div v-if="Flag" class="temp2">
                     </div>
@@ -101,73 +101,73 @@ export default {
             })
         },
         recodes_(time) {
-            // console.log(time)
             let temp = []
             for (let i = 0; i < time.length; i++) {
                 // console.log(this.$store.state.recodes)
                 temp.push(...this.$store.state.recodes.filter(item => {
 
-                    // console.log(item.bcategory + '789' + this.precent_Transactions_bcategory + ' 0' + time[i] + ' 1 ' + item.btime)
                     return ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)
                 }))
             }
 
             for (let i = 0; i < temp.length; i++) {
 
-                switch (temp[i].bcategory) {
-                    case '餐饮':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/canyin.svg')
-                        break;
-                    case '服饰':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/fushi.svg')
-                        break;
-                    case '公交':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongjiao.svg')
-                        break;
-                    case '工作':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongzuo.svg')
-                        break;
-                    case '购物':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gouwu.svg')
-                        break;
-                    case '居家':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/jujia.svg')
-                        break;
-                    case '礼物':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/liwu.svg')
-                        break;
-                    case '旅行':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg')
-                        break;
-                    case '学习':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/xuexi.svg')
-                        break;
-                    case '美容':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg')
-                        break;
-                    case '日用':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/riyongpin.svg')
-                        break;
-                    case '蔬菜':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shucai.svg')
-                        break;
-                    case '水果':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shuiguo.svg')
-                        break;
-                    case '通讯':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg')
-                        break;
-                    case '娱乐':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yule.svg')
-                        break;
-                    case '运动':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yundong.svg')
-                        break;
-                    case '其他':
-                        temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
-                        break;
-                    default:
-                        break;
+                if (temp[i].bpic == null) {
+                    switch (temp[i].bcategory) {
+                        case '餐饮':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/canyin.svg')
+                            break;
+                        case '服饰':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/fushi.svg')
+                            break;
+                        case '公交':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongjiao.svg')
+                            break;
+                        case '工作':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongzuo.svg')
+                            break;
+                        case '购物':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gouwu.svg')
+                            break;
+                        case '居家':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/jujia.svg')
+                            break;
+                        case '礼物':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/liwu.svg')
+                            break;
+                        case '旅行':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg')
+                            break;
+                        case '学习':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/xuexi.svg')
+                            break;
+                        case '美容':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg')
+                            break;
+                        case '日用':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/riyongpin.svg')
+                            break;
+                        case '蔬菜':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shucai.svg')
+                            break;
+                        case '水果':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shuiguo.svg')
+                            break;
+                        case '通讯':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg')
+                            break;
+                        case '娱乐':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yule.svg')
+                            break;
+                        case '运动':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yundong.svg')
+                            break;
+                        case '其他':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 
@@ -179,37 +179,40 @@ export default {
             for (let i = 0; i < time.length; i++) {
 
                 temp.push(...this.$store.state.income_statement.filter(item => ((item.bcategory === this.precent_Transactions_bcategory) & item.btime.indexOf(time[i]) != -1)))
+                console.log(temp)
             }
             for (let i = 0; i < temp.length; i++) {
-
-                switch (temp[i].bcategory) {
-                    case '兼职':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/jianzhi.svg')
-                        break;
-                    case '礼金':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/lijin.svg')
-                        break;
-                    case '其他':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/shezhi.svg')
-                        break;
-                    case '退货':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/tuihuo.svg')
-                        break;
-                    case '金融':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/weibiaoti5.svg')
-                        break;
-                    case '银行':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yinhangka.svg')
-                        break;
-                    case '工资':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yuangonggongzi.svg')
-                        break;
-                    case '投资':
-                        temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/zizhuguanli1.svg')
-                        break;
-                    default:
-                        break;
+                if (temp[i].bpic == null) {
+                    switch (temp[i].bcategory) {
+                        case '兼职':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/jianzhi.svg')
+                            break;
+                        case '礼金':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/lijin.svg')
+                            break;
+                        case '其他':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/shezhi.svg')
+                            break;
+                        case '退货':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/tuihuo.svg')
+                            break;
+                        case '金融':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/weibiaoti5.svg')
+                            break;
+                        case '银行':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yinhangka.svg')
+                            break;
+                        case '工资':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yuangonggongzi.svg')
+                            break;
+                        case '投资':
+                            temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/zizhuguanli1.svg')
+                            break;
+                        default:
+                            break;
+                    }
                 }
+
             }
 
             return temp
@@ -225,7 +228,7 @@ export default {
             if (this.$store.state.radio2 === '一天') {
                 for (let i = 0; i <= hour; i++) {
                     //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = '' + year + '-' + month + '-' + day + ' ' + i + ':'
+                    let temp = '' + year + '-' + month + '-' + day + ' ' + i.toString().padStart(2, "0") + ':'
                     time.push(temp)
 
                 }
@@ -245,18 +248,17 @@ export default {
             } else if (this.$store.state.radio2 === '一月') {
 
                 time = []
-                for (let i = 0; i <= day; i++) {
-                    let temp = '' + year + '-' + month + '-' + i
+                for (let i = 1; i <= day; i++) {
+                    let temp = '' + year + '-' + month + '-' + i.toString().padStart(2, "0")
                     time.push(temp)
-
                 }
             }
             else if (this.$store.state.radio2 === '一年') {
 
                 time = []
-                for (let i = 0; i < month; i++) {
+                for (let i = 1; i <= month; i++) {
                     //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = '' + year + '-' + i
+                    let temp = '' + year + '-' + i.toString().padStart(2, "0")
                     time.push(temp)
 
                 }
@@ -268,7 +270,7 @@ export default {
 
                 }
             }
-
+            console.log(time)
             return time
         }
     },

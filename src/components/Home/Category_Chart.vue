@@ -16,13 +16,37 @@ export default {
   },
   computed: {
     Consumption() {
-      return {
-        energy: this.sum('energy',this.today()),
-        food: this.sum("food", this.today()),
-        entertainment: this.sum("entertainment", this.today()),
-        other: this.sum("other", this.today()),
-      };
+      let array_incomeoroutcome = [... this.$store.state.outcomelist]
+      let consumption = {}
+      for (let i = 0; i < array_incomeoroutcome.length; i++) {
+        let key = array_incomeoroutcome[i];
+        let value = this.sum(key, this.today);
+        consumption[key] = value;
+      }
+      return consumption
     },
+    data_() {
+      // ],
+      let ans = [];
+      let array_incomeoroutcome = [... this.$store.state.outcomelist]
+
+      for (let i = 0; i < array_incomeoroutcome.length; i++) {
+        let consumption = {}
+        let key = array_incomeoroutcome[i];
+        consumption.value = this.Consumption[key];
+        consumption.name = key;
+        ans.push(consumption)
+      }
+      console.log(ans)
+      return ans
+    },
+    today() {
+      let date = new Date();
+      let year = date.getFullYear()
+      let month = (date.getMonth() + 1).toString().padStart(2, "0");
+      let day = date.getDate().toString().padStart(2, "0");
+      return ('' + year + '-' + month + '-' + day)
+    }
   },
   methods: {
     drawLine() {
@@ -33,7 +57,7 @@ export default {
       let option = {
         tooltip: {
           trigger: "item",
-          show:false
+          show: false
         },
         backgroundColor: "transparent", //rgba设置透明度0.1,
         title: {
@@ -47,7 +71,7 @@ export default {
           top: "0%",
           // left:'30%'
         },
-           //rgba设置透明度0.1,
+        //rgba设置透明度0.1,
         legend: {
           show: 'true',
           type: 'scroll',
@@ -55,7 +79,6 @@ export default {
           left: 'center',
           icon: 'circle'
         },
-        color: ["#928FFF", "#8EE04E", "#FF6740", "#CACAF5"],
         series: [
           {
             name: "Access From",
@@ -84,12 +107,7 @@ export default {
             labelLine: {
               show: false,
             },
-            data: [
-              { value: this.Consumption.energy, name: "能源" },
-              { value: this.Consumption.food, name: "餐饮" },
-              { value: this.Consumption.entertainment, name: "娱乐" },
-              { value: this.Consumption.other, name: "其他" },
-            ],
+            data: this.data_,
           },
         ],
       };
@@ -101,22 +119,16 @@ export default {
     },
     sum(name, time) {
       let data = this.$store.state.recodes.filter(
-        (item) =>
-          (item.bcategory === name) & (item.btime.indexOf(time) != -1)
+        (item) => {
+          return item.bcategory == name && item.btime.indexOf(time) != -1
+        }
       );
 
       return data.reduce((total, item) => {
         return total + 1 * item.amount;
       }, 0);
     },
-    today() {
-      let date = new Date();
-      let year = date.getFullYear()
-      let month = date.getMonth() + 1;
-      let day = date.getDate();
-      // console.log('' + year + '-' + month + '-' + day)
-      return '' + year + '-' + month + '-' + day
-    }
+
   },
 };
 </script>
@@ -127,6 +139,7 @@ export default {
   flex-direction: column;
   width: 6.54rem;
   height: 7.7044rem;
+
   // 
   .percentage {
     position: relative;
@@ -147,7 +160,7 @@ export default {
     top: 0.4774rem;
     width: 6.54rem;
     height: 6.7044rem;
-    
+
   }
 }
 </style>

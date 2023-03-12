@@ -82,11 +82,13 @@ export default {
 <style>
 .el-picker-panel {
     left: 0.6rem !important;
+    padding-left: .3rem !important;
 
 }
 
 .el-time-panel {
     left: 2.8rem !important;
+    padding-left: 1.2rem !important;
 }
 
 /* .el-input__inner {
@@ -150,13 +152,14 @@ input {
                 width: 3rem;
                 margin-left: .5rem;
                 font-size: 0.28rem;
+                margin-right: .2rem;
             }
 
             /deep/.el-input__inner {
                 height: 0.4rem;
                 border: none;
                 background-color: transparent;
-                margin-left: 0.5rem;
+                margin-left: 1.3rem;
             }
 
             /deep/.el-icon-date:before {
@@ -182,7 +185,8 @@ input {
                 height: 0.4rem;
                 border: none;
                 background-color: transparent;
-                margin-left: 0.5rem;
+                margin-left: 1.3rem;
+                padding-left: .35rem;
             }
 
             /deep/.el-date-editor.el-input {

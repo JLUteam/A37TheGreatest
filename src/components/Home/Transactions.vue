@@ -17,7 +17,7 @@
                         <p class="merchantname">{{ recode.bname }}</p>
                         <p class="ShoppingTime">{{ recode.btime }}</p>
                     </div>
-                    <p class="consumption">{{ recode.amount.toFixed(2) }}</p>
+                    <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
                 </div>
                 <div class="temp" v-if="Flag"></div>
             </div>
@@ -35,10 +35,73 @@ export default {
     },
     computed: {
         recodes() {
-            return this.$store.state.recodes.filter(
-                (item) =>
-                    (item.btime.indexOf(this.today()) != -1)
+            let temp = this.$store.state.recodes.filter(
+                (item) => (item.btime.indexOf(this.today()) != -1)
             )
+
+            for (let i = 0; i < temp.length; i++) {
+                console.log(temp[i])
+                if (temp[i].bpic == null) {
+                    switch (temp[i].bcategory) {
+                        case '餐饮':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/canyin.svg')
+                            break;
+                        case '服饰':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/fushi.svg')
+                            break;
+                        case '公交':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongjiao.svg')
+                            break;
+                        case '工作':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongzuo.svg')
+                            break;
+                        case '购物':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gouwu.svg')
+                            break;
+                        case '居家':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/jujia.svg')
+                            break;
+                        case '礼物':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/liwu.svg')
+                            break;
+                        case '旅行':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg')
+                            break;
+                        case '学习':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/xuexi.svg')
+                            break;
+                        case '美容':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg')
+                            break;
+                        case '日用':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/riyongpin.svg')
+                            break;
+                        case '蔬菜':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shucai.svg')
+                            break;
+                        case '水果':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shuiguo.svg')
+                            break;
+                        case '通讯':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg')
+                            break;
+                        case '娱乐':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yule.svg')
+                            break;
+                        case '运动':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yundong.svg')
+                            break;
+                        case '其他':
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            }
+
+            return temp
         },
         Flag() {
             return this.$store.state.Transactions_pull
@@ -87,13 +150,11 @@ export default {
             })
         },
         today() {
-            let date = new Date();
+            let date = new Date()
             let year = date.getFullYear()
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-            // console.log('' + year + '-' + month + '-' + day)
-            return '' + year + '-' + month + '-' + day
-
+            let month = (date.getMonth() + 1).toString().padStart(2, "0");
+            let day = date.getDate().toString().padStart(2, "0");
+            return ('' + year + '-' + month + '-' + day)
         }
     },
     beforeDestroy() {

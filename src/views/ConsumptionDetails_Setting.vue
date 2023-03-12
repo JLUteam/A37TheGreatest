@@ -1,28 +1,11 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      :img_="$route.query.img"
-      ref="Avatar"
-    >
+    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" :img_="$route.query.img" ref="Avatar">
     </Avatar>
-    <StateBar
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      ref="StateBar"
-    ></StateBar>
-    <PayState
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      ref="PayState"
-    ></PayState>
-    <Another
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      ref="Another"
-    ></Another>
+    <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
+    <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
+    <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
     <button @click="uplode">保存</button>
   </div>
 </template>
@@ -44,34 +27,97 @@ export default {
     uplode() {
       //支出
       let Ispay = this.$route.query.Ispay;
+      var lock = false;
       let recode_new;
-      if (Ispay) {
-        recode_new = {
-          usr: this.$store.state.userinfo.uid,
-          bname: this.$refs.Avatar.getname_(),
-          isbpic: false,
-          bpic: null,
-          isfinish: true,
-          isremind: false,
-          rtime: null,
-          bcategory: this.$refs.StateBar.getbcategory_(),
-          note: this.$refs.StateBar.getAdd_note(),
-          payment: this.$refs.PayState.getpayment_(),
-          btime:
-            this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
-          amount: this.$refs.PayState.geAmount_(),
-          isreceipt: false,
-          receipt: null,
-        };
+      if (!lock) {
+        lock = true;
+        if (Ispay) {
+          recode_new = {
+            usr: this.$store.state.userinfo.uid,
+            bname: this.$refs.Avatar.getname_(),
+            isbpic: false,
+            bpic: null,
+            isfinish: true,
+            isremind: false,
+            rtime: null,
+            bcategory: this.$refs.StateBar.getbcategory_(),
+            note: this.$refs.StateBar.getAdd_note(),
+            payment: this.$refs.PayState.getpayment_(),
+            btime:
+              this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
+            amount: this.$refs.PayState.geAmount_(),
+            isreceipt: false,
+            receipt: null,
+          };
+          console.log(recode_new);
+          axios({
+            method: "post",
+            url: "https://mineralsteins.icu:8080/a37/outs/", //待加
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            data: recode_new,
+          }).then(
+            (response) => {
+              console.log(response.data);
+              this.$alert("", "上传成功", {
+                confirmButtonText: "确定",
+                showClose: false,
+                center: true,
+                type: "success",
+                customClass: "success",
+                beforeClose: (action, instance, done) => {
+                  if (action === "confirm") {
+                    this.$router.push({
+                      name: "Percent",
+                    });
+                    done();
+                  }
+                },
+              });
+              this.$store.commit('pushrecodes', response.data);
+              lock = false;
+            },
+            (error) => {
+              console.log(error);
+              this.$alert(error, "上传失败", {
+                confirmButtonText: "确定",
+                showClose: false,
+                center: true,
+                type: "warning",
+                customClass: "fail",
+              });
+              lock = false;
+            }
+
+          );
+        } else {
+          //收入
+          recode_new = {
+            usr: this.$store.state.userinfo.uid,
+            bname: this.$refs.Avatar.getname_(),
+            ispic: false,
+            // bpic: this.$refs.Avatar.getimg_(),
+            bpic: null,
+            bcategory: this.$refs.StateBar.getbcategory_(),
+            note: this.$refs.StateBar.getAdd_note(),
+            payment: this.$refs.PayState.getpayment_(),
+            amount: this.$refs.PayState.geAmount_().toSring(),
+            btime: this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
+            isreceipt: false,
+            receipt: null,
+          };
+        }
         console.log(recode_new);
         axios({
           method: "post",
-          url: "https://mineralsteins.icu:8080/a37/outs/", //待加
+          url: "https://mineralsteins.icu:8080/a37/ins/", //待加
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           data: recode_new,
-        }).then(
+        }
+        ).then(
           (response) => {
             console.log(response.data);
             this.$alert("", "上传成功", {
@@ -89,8 +135,11 @@ export default {
                 }
               },
             });
+            this.$store.commit('pushincome_statement', response.data);
+            lock = false;
           },
           (error) => {
+            console.log(error);
             console.log(error);
             this.$alert(error, "上传失败", {
               confirmButtonText: "确定",
@@ -99,67 +148,12 @@ export default {
               type: "warning",
               customClass: "fail",
             });
+            lock = false;
           }
         );
-      } else {
-        //收入
-        recode_new = {
-          usr: this.$store.state.userinfo.uid,
-          bname: this.$refs.Avatar.getname_(),
-          ispic: false,
-          // bpic: this.$refs.Avatar.getimg_(),
-          bpic: null,
-          bcategory: this.$refs.StateBar.getbcategory_(),
-          note: this.$refs.StateBar.getAdd_note(),
-          payment: this.$refs.PayState.getpayment_(),
-          amount: this.$refs.PayState.geAmount_(),
-          btime:
-            this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
-          isreceipt: false,
-          receipt: null,
-        };
-      }
-      console.log(recode_new);
-      axios({
-        method: "post",
-        url: "https://mineralsteins.icu:8080/a37/ins/", //待加
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        data: recode_new,
-      }).then(
-        (response) => {
-          console.log(response.data);
-          this.$alert("", "上传成功", {
-            confirmButtonText: "确定",
-            showClose: false,
-            center: true,
-            type: "success",
-            customClass: "success",
-            beforeClose: (action, instance, done) => {
-              if (action === "confirm") {
-                this.$router.push({
-                  name: "Percent",
-                });
-                done();
-              }
-            },
-          });
-        },
-        (error) => {
-          console.log(error);
-          console.log(error);
-          this.$alert(error, "上传失败", {
-            confirmButtonText: "确定",
-            showClose: false,
-            center: true,
-            type: "warning",
-            customClass: "fail",
-          });
-        }
-      );
         this.$store.commit("pushrecodes", recode_new);
 
+      }
 
     },
   },

@@ -32,14 +32,14 @@ export default {
         sum(time) {
             let data = this.$store.state.recodes.filter(item => (item.btime.indexOf(time) != -1))
             return data.reduce((total, item) => {
-                return total + 1 * item.amount
+                return total + parseFloat(item.amount)
             }, 0)
         },
         sum_income(time) {
             let data = this.$store.state.income_statement.filter(item => (item.btime.indexOf(time) != -1))
 
             return data.reduce((total, item) => {
-                return total + item.amount
+                return total + parseFloat(item.amount)
             }, 0)
         },
         time() {

@@ -57,15 +57,14 @@ export default {
                 let value = this.radio1 === '支出' ? this.sum(key, this.title_time) : this.sum_income(key, this.title_time);
                 consumption[key] = value;
             }
-            console.log('123+\n')
-            console.log(consumption)
+
             return consumption
         },
         title_number: {
             get() {
                 console.log(Object.values(this.Consumption))
                 return Object.values(this.Consumption).reduce((prev, current) => {
-                    
+
                     console.log('this=' + current + ' ' + prev)
                     return prev + current
                 })
@@ -211,7 +210,6 @@ export default {
 
                     this.$store.commit('updateTransactions_click')
                 }
-
                 this.$store.commit('updateprecent_Transactions_bcategoryk', arg.data.truename);
                 this.title_number = this.Consumption[arg.data.truename]
             }
@@ -224,13 +222,13 @@ export default {
 
             console.log(data)
             return data.reduce((total, item) => {
-                return total + 1 * item.amount
+                return total + 1 * parseFloat(item.amount)
             }, 0)
         },
         sum_income(name, time) {
             let data = this.include_income(name, time)
             return data.reduce((total, item) => {
-                return total + item.amount
+                return total + parseFloat(item.amount)
             }, 0)
         },
         include(name, time) {

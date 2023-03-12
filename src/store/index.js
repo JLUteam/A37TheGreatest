@@ -44,21 +44,18 @@ const mutations = {
         }
         else if (state.click_time === 'fourth') {
             state.radio2 = '一年'
-        } else {
+        } else if(state.click_time != 0){
             state.radio2 = '全部'
         }
 
     },
       pushrecodes(context, recode_new) {
-        const Isrecodeid = (element) => element.uid == uid;
         state.recodes.push(recode_new)
     },
-    // updateuserinfo(contect, [username, password, phonenumber]) {
-    //     state.userinfo.uname = username;
-    //     state.userinfo.upassword = password;
-    //     state.userinfo.uphone = phonenumber
+        pushincome_statement(context, recode_new) {
+        state.income_statement.push(recode_new)
+    },
 
-    // },
 
     updateuserinfosignin(contect, item) {
         state.userinfo.uid = item.uid;
@@ -93,7 +90,19 @@ const mutations = {
 const state = {
     total: '',
     total_income: '',
-    recodes: [],
+    recodes: [{
+        "btime": "2023-03-12 21:59:29",
+        "bname": "TEst",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "餐饮",
+        "note": "123",
+        "payment": "test",
+        "amount": 123,
+        "isreceipt": false,
+        "receipt": null,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+    }],
 
     userinfo: {
         uid: '',
@@ -103,22 +112,10 @@ const state = {
         zfbid: '',
         uname: '',
         uphone: '',
-        upic: require('@/assets/img/avast.png'),
+        upic: require('@/assets/img/wechat.png'),
         ucreate: ''
     },
     income_statement: [
-        // {
-        //     bname: 'Starbucks Coffee',
-        //     isbpic: true,
-        //     bpic: require('@/assets/img/Starbucks.png'),
-        //     bcategory: 'energy',
-        //     note: '',
-        //     payment: '支付宝',
-        //     amount: 100,
-        //     btime: '2023-2-7 17:02:10',
-        //     isreceipt: false,
-        //     receipt: ''
-        // }
         
     {
         "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
@@ -217,7 +214,7 @@ const state = {
     precent_Transactions_bcategory: '',
     click_time: 'second',
     radio1: '支出',
-    radio2: '一周',
+    radio2: '一天',
     outcomelist: [
         '餐饮',
         '购物',
