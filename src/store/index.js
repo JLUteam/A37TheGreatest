@@ -49,6 +49,10 @@ const mutations = {
         }
 
     },
+      pushrecodes(context, recode_new) {
+        const Isrecodeid = (element) => element.uid == uid;
+        state.recodes.push(recode_new)
+    },
     // updateuserinfo(contect, [username, password, phonenumber]) {
     //     state.userinfo.uname = username;
     //     state.userinfo.upassword = password;

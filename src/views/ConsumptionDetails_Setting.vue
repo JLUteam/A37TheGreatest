@@ -158,6 +158,9 @@ export default {
           });
         }
       );
+        this.$store.commit("pushrecodes", recode_new);
+
+
     },
   },
 };
