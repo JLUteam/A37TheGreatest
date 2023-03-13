@@ -8,7 +8,7 @@
                 <p class="More" @mousedown="pull_up">查看更多</p>
             </div>
             <div class="Category" v-show='Flag'>
-                <Category_Transactions></Category_Transactions>
+                <Category_Transactions ref="Category_Transactions"></Category_Transactions>
             </div>
             <div class="recodes_border">
                 <div class="recordsets">
@@ -67,6 +67,7 @@ export default {
         },
         Flag: function () {
             this.Transactions_pull = this.$store.state.Transactions_pull
+            this.$refs.Category_Transactions.drawLine()
         }
     },
     methods: {
