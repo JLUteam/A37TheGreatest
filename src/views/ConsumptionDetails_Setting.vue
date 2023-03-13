@@ -176,14 +176,13 @@ export default {
     },
     throttle(wait) {
       let timer = false;
-        if (!timer) {
-          console.log(timer)
-          timer = setTimeout(() => {
-            this.uplode();
-            timer = true;
-          }, wait);
-        }
-      };
+      if (!timer) {
+        console.log(timer);
+        timer = setTimeout(() => {
+          this.uplode();
+          timer = true;
+        }, wait);
+      }
     },
   },
 };
