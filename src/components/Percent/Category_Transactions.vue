@@ -2,7 +2,7 @@
     <div class="Category_Chart">
         <div class="shoppingrecode">
             <p class="number">${{ selectedvalue }}</p>
-            <p class="time">You’ve spent $32.4 this week</p>
+            <!-- <p class="time">You’ve spent $32.4 this week</p> -->
         </div>
         <div class="chart" ref="myChart">
         </div>
@@ -42,7 +42,7 @@ export default {
         }
     },
     mounted() {
-        this.drawLine();
+        this.drawLine()
 
     },
     beforeDestroy() {
@@ -71,9 +71,9 @@ export default {
                 }
 
                 for (let i = 1; i <= hour; i++) {
-                    let temp = this.sum('' + year + '-' + month + '-' + day + 'T' + i + ':')
+                    let temp = this.sum('' + year + '-' + month + '-' + day + ' ' + i + ':')
                     yAxis.push(temp)
-                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day + 'T' + i + ':')
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day + ' ' + i + ':')
                     yAxis2.push(temp2)
 
 
@@ -89,9 +89,9 @@ export default {
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
                     month = (newDate.getMonth() + 1).toString().padStart(2, "0");
                     day = newDate.getDate().toString().padStart(2, "0");
-                    // console.log('' + year + '-' + month + '-' + day)
+                    //  console.log('' + year + '-' + month + '-' + day)
                     let temp = this.sum('' + year + '-' + month + '-' + day)
-                    // console.log('!!!' + temp)
+                    //  console.log('!!!'+i + '' + year + '-' + month + '-' + day)
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
                     yAxis2.push(temp2)
