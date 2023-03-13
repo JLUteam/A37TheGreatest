@@ -1,28 +1,11 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      :img_="$route.query.img"
-      ref="Avatar"
-    >
+    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" :img_="$route.query.img" ref="Avatar">
     </Avatar>
-    <StateBar
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      ref="StateBar"
-    ></StateBar>
-    <PayState
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      ref="PayState"
-    ></PayState>
-    <Another
-      :bcategory="$route.query.bcategory"
-      :Ispay="$route.query.Ispay"
-      ref="Another"
-    ></Another>
+    <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
+    <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
+    <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
     <button @click="throttle(uplode, 1000)">保存</button>
   </div>
 </template>
@@ -128,50 +111,51 @@ export default {
             isreceipt: false,
             receipt: null,
           };
+
+          console.log(recode_new);
+          axios({
+            method: "post",
+            url: "https://mineralsteins.icu:8080/a37/ins/", //待加
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            data: recode_new,
+          }).then(
+            (response) => {
+              console.log(response.data);
+              this.$alert("", "上传成功", {
+                confirmButtonText: "确定",
+                showClose: false,
+                center: true,
+                type: "success",
+                customClass: "success",
+                beforeClose: (action, instance, done) => {
+                  if (action === "confirm") {
+                    this.$router.push({
+                      name: "Percent",
+                    });
+                    done();
+                  }
+                },
+              });
+              this.$store.commit("pushincome_statement", response.data);
+              lock = false;
+            },
+            (error) => {
+              console.log(error);
+              console.log(error);
+              this.$alert(error, "上传失败", {
+                confirmButtonText: "确定",
+                showClose: false,
+                center: true,
+                type: "warning",
+                customClass: "fail",
+              });
+              lock = false;
+            }
+          );
+          this.$store.commit("pushrecodes", recode_new);
         }
-        console.log(recode_new);
-        axios({
-          method: "post",
-          url: "https://mineralsteins.icu:8080/a37/ins/", //待加
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          data: recode_new,
-        }).then(
-          (response) => {
-            console.log(response.data);
-            this.$alert("", "上传成功", {
-              confirmButtonText: "确定",
-              showClose: false,
-              center: true,
-              type: "success",
-              customClass: "success",
-              beforeClose: (action, instance, done) => {
-                if (action === "confirm") {
-                  this.$router.push({
-                    name: "Percent",
-                  });
-                  done();
-                }
-              },
-            });
-            this.$store.commit("pushincome_statement", response.data);
-            lock = false;
-          },
-          (error) => {
-            console.log(error);
-            console.log(error);
-            this.$alert(error, "上传失败", {
-              confirmButtonText: "确定",
-              showClose: false,
-              center: true,
-              type: "warning",
-              customClass: "fail",
-            });
-            lock = false;
-          }
-        );
-        this.$store.commit("pushrecodes", recode_new);
       }
     },
     throttle(wait) {

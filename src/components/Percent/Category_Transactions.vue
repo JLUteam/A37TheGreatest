@@ -38,10 +38,11 @@ export default {
                 label: '全部'
             }],
             activeName: this.$store.state.click_time,
-            selectedvalue: ''
+
         }
     },
     mounted() {
+        // this.$store.commit('updateactiveName', '一周')
         this.drawLine()
 
     },
@@ -79,7 +80,7 @@ export default {
 
                 }
 
-            } else if (this.activeName === 'second' || this.activeName === '0') {
+            } else if (this.activeName === 'second') {
                 xAxis = [];
                 for (let i = 1; i <= 7; i++) {
                     xAxis.push(i);
@@ -125,7 +126,7 @@ export default {
                     console.log(567)
                     console.log(yAxis2)
                 }
-            } else {
+            } else if (this.activeName === 'firth') {
                 xAxis = [];
                 for (let i = 1; i <= 10; i++) {
                     xAxis.push(i);
@@ -140,6 +141,23 @@ export default {
                 }
                 console.log(789)
                 console.log(yAxis2)
+            } else {
+                xAxis = [];
+                for (let i = 1; i <= 7; i++) {
+                    xAxis.push(i);
+                }
+                for (let i = 1; i <= dayOfWeek; i++) {
+                    var oneDayTime = 24 * 60 * 60 * 1000;
+                    const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                    month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                    day = newDate.getDate().toString().padStart(2, "0");
+                    //  console.log('' + year + '-' + month + '-' + day)
+                    let temp = this.sum('' + year + '-' + month + '-' + day)
+                    //  console.log('!!!'+i + '' + year + '-' + month + '-' + day)
+                    yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
+                    yAxis2.push(temp2)
+                }
             }
             // 绘制图表
             myChart.setOption(
@@ -240,6 +258,7 @@ export default {
         },
         handleClick() {
             this.drawLine()
+            this.selectedvalue = this.now();
         },
         getMappingValueArrayOfKey(array, keyName) {
             if (Object.prototype.toString.call(array) == '[object Array]') {
@@ -261,10 +280,49 @@ export default {
             return data.reduce((total, item) => {
                 return total + parseFloat(item.amount)
             }, 0)
+        },
+        now() {
+            console.log(this.$store.state.radio2)
+            const date = new Date();
+            let year = date.getFullYear();
+            let month = (date.getMonth() + 1).toString().padStart(2, "0");
+            let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
+            let day = date.getDate().toString().padStart(2, "0");
+            if (this.$store.state.radio2 === '一天') {
+                return (this.$store.state.radio1 === '支出' ? this.sum('' + year + '-' + month + '-' + day) : this.sum_income('' + year + '-' + month + '-' + day)).toFixed(2)
+            } else if (this.$store.state.radio2 === '一周') {
+                let yAxis = [];
+                let yAxis2 = [];
+                for (let i = 1; i <= dayOfWeek; i++) {
+                    var oneDayTime = 24 * 60 * 60 * 1000;
+                    const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
+                    month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                    day = newDate.getDate().toString().padStart(2, "0");
+                    let temp = this.sum('' + year + '-' + month + '-' + day)
+                    yAxis.push(temp)
+                    let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
+                    yAxis2.push(temp2)
+                }
+                let ans = this.$store.state.radio1 === '支出' ? yAxis : yAxis2
+                console.log('ans= ')
+                console.log(ans)
+                return (ans.reduce((total, item) => {
+                    return total + 1 * parseFloat(item)
+                }, 0)).toFixed(2)
+            } else if (this.$store.state.radio2 === '一月') {
+                return this.$store.state.radio1 === '支出' ? this.sum('' + year + '-' + month) : this.sum_income('' + year + '-' + month)
+            }
+            else if (this.$store.state.radio2 === '一年') {
+
+                return (this.$store.state.radio1 === '支出' ? this.sum('' + year) : this.sum_income('' + year)).toFixed(2)
+
+            } else {
+                return (this.$store.state.radio1 === '支出' ? this.sum('') : this.sum_income('')).toFixed(2)
+
+            }
         }
-
-
-    },
+    }
+    ,
     watch: {
         activeName: {
             handler: function (value) {
@@ -274,6 +332,11 @@ export default {
             immediate: true
         },
     },
+    computed: {
+        selectedvalue() {
+            return this.now()
+        }
+    }
 }
 </script>
 <style lang="less" scoped>
