@@ -84,21 +84,21 @@ export default {
       // alert("data:image/jpeg;base64," + imageURL);
       var str = "data:image/jpeg;base64," + imageURL;
       this.img = str;
-      // axios({
-      //   method: "post",
-      //   url: "http://mineralsteins.icu:8081/a37/string-get",
-      //   headers: {
-      //     "Content-Type": "application/x-www-form-urlencoded",
-      //   },
-      //   data: { data: str },
-      // }).then(
-      //   (response) => {
-      //     console.log(response.data);
-      //   },
-      //   (error) => {
-      //     console.log(error);
-      //   }
-      // );
+      axios({
+        method: "post",
+        url: "http://mineralsteins.icu:8081/a37/string-get",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: { data: str },
+      }).then(
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
       this.$alert("", "上传成功", {
         confirmButtonText: "确定",
         showClose: false,
@@ -172,7 +172,7 @@ export default {
   img {
     width: 1.6rem;
     height: 1.6rem;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
   }
 
   .word {

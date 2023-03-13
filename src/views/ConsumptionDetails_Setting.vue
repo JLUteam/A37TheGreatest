@@ -1,11 +1,28 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" :img_="$route.query.img" ref="Avatar">
+    <Avatar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      :img_="$route.query.img"
+      ref="Avatar"
+    >
     </Avatar>
-    <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
-    <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
-    <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
+    <StateBar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="StateBar"
+    ></StateBar>
+    <PayState
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="PayState"
+    ></PayState>
+    <Another
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="Another"
+    ></Another>
     <button @click="throttle(uplode, 1000)">保存</button>
   </div>
 </template>
@@ -44,7 +61,9 @@ export default {
             note: this.$refs.StateBar.getAdd_note(),
             payment: this.$refs.PayState.getpayment_(),
             btime:
-              this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
+              this.$refs.Another.getDate_() +
+              " " +
+              this.$refs.Another.getTime_(),
             amount: this.$refs.PayState.geAmount_(),
             isreceipt: false,
             receipt: null,
@@ -75,7 +94,7 @@ export default {
                   }
                 },
               });
-              this.$store.commit('pushrecodes', response.data);
+              this.$store.commit("pushrecodes", response.data);
               lock = false;
             },
             (error) => {
@@ -89,7 +108,6 @@ export default {
               });
               lock = false;
             }
-
           );
         } else {
           //收入
@@ -103,7 +121,10 @@ export default {
             note: this.$refs.StateBar.getAdd_note(),
             payment: this.$refs.PayState.getpayment_(),
             amount: this.$refs.PayState.geAmount_().toSring(),
-            btime: this.$refs.Another.getDate_() + " " + this.$refs.Another.getTime_(),
+            btime:
+              this.$refs.Another.getDate_() +
+              " " +
+              this.$refs.Another.getTime_(),
             isreceipt: false,
             receipt: null,
           };
@@ -116,8 +137,7 @@ export default {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           data: recode_new,
-        }
-        ).then(
+        }).then(
           (response) => {
             console.log(response.data);
             this.$alert("", "上传成功", {
@@ -135,7 +155,7 @@ export default {
                 }
               },
             });
-            this.$store.commit('pushincome_statement', response.data);
+            this.$store.commit("pushincome_statement", response.data);
             lock = false;
           },
           (error) => {
@@ -152,9 +172,7 @@ export default {
           }
         );
         this.$store.commit("pushrecodes", recode_new);
-
       }
-
     },
     throttle(fn, wait) {
       let timer = null;
@@ -166,7 +184,7 @@ export default {
           }, wait);
         }
       };
-    }
+    },
   },
 };
 </script >
