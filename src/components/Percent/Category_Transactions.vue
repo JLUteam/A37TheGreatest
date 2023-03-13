@@ -37,7 +37,7 @@ export default {
                 value: '选项5',
                 label: '全部'
             }],
-            activeName: '',
+            activeName: this.$store.state.click_time,
             selectedvalue: ''
         }
     },
@@ -70,7 +70,7 @@ export default {
                     xAxis.push(i);
                 }
 
-                for (let i = 0; i <= hour; i++) {
+                for (let i = 1; i <= hour; i++) {
                     let temp = this.sum('' + year + '-' + month + '-' + day + 'T' + i + ':')
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + day + 'T' + i + ':')
@@ -79,19 +79,19 @@ export default {
 
                 }
 
-            } else if (this.activeName === 'second') {
+            } else if (this.activeName === 'second' || this.activeName === '0') {
                 xAxis = [];
-                for (let i = 0; i <= 6; i++) {
+                for (let i = 1; i <= 7; i++) {
                     xAxis.push(i);
                 }
-                for (let i = 0; i <= dayOfWeek; i++) {
+                for (let i = 1; i <= dayOfWeek; i++) {
                     var oneDayTime = 24 * 60 * 60 * 1000;
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
                     month = (newDate.getMonth() + 1).toString().padStart(2, "0");
                     day = newDate.getDate().toString().padStart(2, "0");
-                    console.log('' + year + '-' + month + '-' + day)
+                    // console.log('' + year + '-' + month + '-' + day)
                     let temp = this.sum('' + year + '-' + month + '-' + day)
-                    console.log('!!!' + temp)
+                    // console.log('!!!' + temp)
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
                     yAxis2.push(temp2)
@@ -102,7 +102,7 @@ export default {
                     xAxis.push(i);
                 }
                 yAxis = []
-                for (let i = 0; i <= day; i++) {
+                for (let i = 1; i <= parseInt(day); i++) {
                     let temp = this.sum('' + year + '-' + month + '-' + i.toString().padStart(2, "0"))
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + i.toString().padStart(2, "0"))

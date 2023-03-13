@@ -6,7 +6,7 @@
     <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
     <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
     <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
-    <button @click="throttle(uplode, 1000)">保存</button>
+    <button @click=" throttle(1000)">保存</button>
   </div>
 </template>
 <script>
@@ -156,16 +156,15 @@ export default {
       }
 
     },
-    throttle(fn, wait) {
-      let timer = null;
-      return function () {
+    throttle(wait) {
+      let timer = false;
         if (!timer) {
+          console.log(timer)
           timer = setTimeout(() => {
-            fn.apply(this, arguments);
-            timer = null;
+            this.uplode();
+            timer = true;
           }, wait);
         }
-      };
     }
   },
 };

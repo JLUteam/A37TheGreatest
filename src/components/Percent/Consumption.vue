@@ -52,8 +52,7 @@ export default {
             let hour = date.getHours();
             if (this.$store.state.click_time === 'first') {
                 for (let i = 0; i <= hour; i++) {
-                    //''+year+ '- '+month+' - '+'6'+' '+'17'
-                    let temp = '' + year + '-' + month + '-' + day + ' ' + i + ':'
+                               let temp = '' + year + '-' + month + '-' + day + ' ' + i + ':'
                     time.push(temp)
 
                 }

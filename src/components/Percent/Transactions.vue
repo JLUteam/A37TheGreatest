@@ -72,6 +72,7 @@ export default {
     methods: {
         pull_up() {
             this.$store.commit('pull_up')
+            this.$store.commit('updateactiveName','一周')
         },
         touchstart(e) {
             if (this.Flag) {

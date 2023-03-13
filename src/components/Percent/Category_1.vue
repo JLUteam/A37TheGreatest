@@ -76,10 +76,10 @@ export default {
 
             } else if (this.activeName === 'second') {
                 xAxis = [];
-                for (let i = 0; i <= 6; i++) {
+                for (let i = 1; i <= 7; i++) {
                     xAxis.push(i);
                 }
-                for (let i = 0; i <= dayOfWeek; i++) {
+                for (let i = 1; i <= dayOfWeek; i++) {
                     var oneDayTime = 24 * 60 * 60 * 1000;
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
                     month = (newDate.getMonth() + 1).toString().padStart(2, "0");
@@ -97,7 +97,7 @@ export default {
                     xAxis.push(i);
                 }
                 yAxis = []
-                for (let i = 0; i <= day; i++) {
+                for (let i = 1; i <= day; i++) {
                     let temp = this.sum('' + year + '-' + month + '-' + i.toString().padStart(2, "0"))
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + i.toString().padStart(2, "0"))
