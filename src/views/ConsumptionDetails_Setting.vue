@@ -174,13 +174,13 @@ export default {
         this.$store.commit("pushrecodes", recode_new);
       }
     },
-    throttle(fn, wait) {
-      let timer = null;
-      return function () {
+    throttle(wait) {
+      let timer = false;
         if (!timer) {
+          console.log(timer)
           timer = setTimeout(() => {
-            fn.apply(this, arguments);
-            timer = null;
+            this.uplode();
+            timer = true;
           }, wait);
         }
       };
