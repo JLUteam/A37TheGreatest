@@ -68,15 +68,12 @@ export default {
       });
     },
     phototakefromku() {
-      this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
-    },
-    camera(sourceType) {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
-        quality: 75,
+        quality: 50,
         destinationType: navigator.camera.DestinationType.DATA_URL,
         encodingType: navigator.camera.EncodingType.JPEG,
-        sourceType: sourceType,
-        allowEdit: true,
+        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+        // allowEdit: true,
         // saveToPhotoAlbum: true,
       });
     },
@@ -84,6 +81,7 @@ export default {
       // alert("data:image/jpeg;base64," + imageURL);
       var str = "data:image/jpeg;base64," + imageURL;
       this.img = str;
+      this.$store.state.userinfo.upic = str;
       axios({
         method: "post",
         url: "http://mineralsteins.icu:8081/a37/string-get",
