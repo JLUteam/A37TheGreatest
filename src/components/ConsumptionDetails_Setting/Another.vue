@@ -21,7 +21,11 @@
             <p>收据图片</p>
             <div class="result">
                 <img src="@/assets/svg/photo.svg" alt="">
-                <p>点击添加</p>
+                <p v-show="!this.isreceipt" @click="addreceipt()">点击添加</p>
+                <p v-show="this.isreceipt" @click="showImage = true">查看</p>
+            </div>
+            <div v-if="showImage" class="image-container" @click="showImage = false">
+                <img :src="this.recode_receipt" class="image" />
             </div>
         </div>
 
@@ -34,7 +38,8 @@ export default {
     name: "Another",
     props: {
         bcategory: String,
-        Ispay: Boolean
+        Ispay: Boolean,
+
     },
     data() {
         return {
@@ -67,6 +72,9 @@ export default {
             },
             value1: '',
             value2: '',
+            recode_receipt: null,
+            isreceipt: false,
+            showImage: false
         }
     },
     methods: {
@@ -76,10 +84,91 @@ export default {
         getTime_() {
             return this.value2.getHours().toString().padStart(2, "0") + ":" + this.value2.getMinutes().toString().padStart(2, "0") + ":" + this.value2.getSeconds().toString().padStart(2, "0")
         },
-    },
-    computed: {
-      
+        addreceipt() {
+            // const recode = this.$store.state.recodes.find(recode => (recode.usr === this.recode.usr && (recode.bcategory === this.recode.bcategory)&&(recode.btime === this.recode.btime)&&(recode.amount === this.recode.amount)&&(recode.bname === this.recode.bname)));
+
+            console.log("添加收据");
+            //   console.log(recode);
+
+            this.$confirm("", "选择上传方式", {
+                distinguishCancelAndClose: true,
+                confirmButtonText: "图库上传",
+                cancelButtonText: "拍照上传",
+                center: true,
+                customClass: "photo",
+                beforeClose: (action, instance, done) => {
+                    if (action === "confirm") {
+                        this.phototakefromku();
+                        done();
+                    } else if (action === "close") {
+                        done();
+                    } else {
+                        this.cameratakephoto();
+                        done();
+                    }
+                },
+            })
+                .then(() => {
+                    this.$message({
+                        type: "info",
+                        message: "拍照上传",
+                    });
+                })
+                .catch((action) => {
+                    this.$message({
+                        type: "info",
+                        message:
+                            action === "cancel" ? "放弃保存并离开页面" : "停留在当前页面",
+                    });
+                });
+
+            //更新数据库
+        },
+        cameratakephoto() {
+            navigator.camera.getPicture(this.onSuccess, this.onFail, {
+                quality: 50,
+                // allowEdit: true,
+                encodingType: navigator.camera.EncodingType.JPEG,
+                destinationType: navigator.camera.DestinationType.DATA_URL,
+            });
+        },
+        phototakefromku() {
+            navigator.camera.getPicture(this.onSuccess, this.onFail, {
+                quality: 50,
+                destinationType: navigator.camera.DestinationType.DATA_URL,
+                encodingType: navigator.camera.EncodingType.JPEG,
+                sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                // allowEdit: true,
+                // saveToPhotoAlbum: true,
+            });
+        },
+        onSuccess(imageURL) {
+            // alert("data:image/jpeg;base64," + imageURL);
+            var str = "data:image/jpeg;base64," + imageURL;
+            this.recode_receipt = str;
+            this.isreceipt = true;
+
+        },
+        onFail(message) {
+            this.$alert("", "上传失败", {
+                confirmButtonText: "确定",
+                showClose: false,
+                center: true,
+                type: "warning",
+                customClass: "fail",
+            });
+        },
+        getreceipt() {
+            return this.recode_receipt
+        },
+        getisreceipt() {
+            return this.isreceipt
+        },
     }
+,
+computed: {
+
+}
 };
 </script>
 <style>
@@ -229,6 +318,26 @@ input {
                 line-height: .48rem;
                 margin-right: -.2rem;
             }
+        }
+    }
+
+    .image-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .image {
+            max-width: 90%;
+            max-height: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
     }
 }

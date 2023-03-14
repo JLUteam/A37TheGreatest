@@ -128,7 +128,7 @@ export default {
                 }
             } else if (this.activeName === 'firth') {
                 xAxis = [];
-                for (let i = 1; i <= 10; i++) {
+                for (let i = year - 9; i <= year; i++) {
                     xAxis.push(i);
                 }
                 yAxis = []

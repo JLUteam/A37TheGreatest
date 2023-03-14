@@ -21,7 +21,7 @@
       </div>
     </div>
     <div v-if="showImage" class="image-container" @click="showImage = false">
-      <img :src="this.recode.receipt" class="image" />
+      <img :src="this.recode__.receipt" class="image" />
     </div>
   </div>
 </template>
@@ -30,7 +30,8 @@ export default {
   name: "Another",
   data() {
     return {
-      showImage: false,
+        showImage: false,
+         recode__:this.recode
     };
   },
   props: {
@@ -49,7 +50,7 @@ export default {
       return this.$store.state.radio1 === "支出";
     },
     isreceipt() {
-      return this.recode.isreceipt;
+      return this.recode__.isreceipt;
     },
   },
   methods: {
@@ -115,7 +116,7 @@ export default {
       // alert("data:image/jpeg;base64," + imageURL);
       var str = "data:image/jpeg;base64," + imageURL;
       const recode_compare = require("lodash");
-      const recode =
+      const recode_ =
         this.$store.state.radio1 == "支出"
           ? this.$store.state.recodes.find((recode) =>
               recode_compare.isEqual(recode, this.recode)
@@ -123,9 +124,11 @@ export default {
           : this.$store.state.income_statement.find((recode) =>
               recode_compare.isEqual(recode, this.recode)
             );
+
       var photo = str; //添加照片数据
-      recode.receipt = photo;
-      recode.isreceipt = true;
+        recode_.receipt = photo;
+        recode_.isreceipt = true;
+        this.recode__ =recode_;
     },
     onFail(message) {
       this.$alert("", "上传失败", {
