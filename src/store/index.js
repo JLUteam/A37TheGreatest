@@ -44,7 +44,7 @@ const mutations = {
         }
         else if (state.click_time === 'fourth') {
             state.radio2 = '一年'
-        } else if(state.click_time != 0){
+        } else if(state.click_time == ' 全部'){
             state.radio2 = '全部'
         }
 
@@ -90,7 +90,8 @@ const mutations = {
 const state = {
     total: '',
     total_income: '',
-    recodes: [{
+    recodes: [
+        {
         "btime": "2023-03-13 21:59:29",
         "bname": "TEst",
         "ispic": false,
@@ -99,10 +100,11 @@ const state = {
         "note": "123",
         "payment": "test",
         "amount": 123,
-        "isreceipt": false,
-        "receipt": null,
+        "isreceipt": true,
+        "receipt": require("@/assets/Test_img/ticket_receipt_acg_0.jpg"),
         "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-    }],
+        }
+    ],
 
     userinfo: {
         uid: '',

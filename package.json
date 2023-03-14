@@ -14,6 +14,7 @@
     "echarts": "^4.9.0",
     "element-ui": "^2.15.12",
     "fs": "^0.0.1-security",
+    "lodash": "^4.17.21",
     "v-charts": "^1.19.0",
     "vue": "^2.6.14",
     "vue-cordova": "^0.1.2",

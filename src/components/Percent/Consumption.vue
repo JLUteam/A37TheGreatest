@@ -6,7 +6,7 @@
             </div>
             <div class="data">
                 <p class="title">收入</p>
-                <p class="result">{{ this.total_income() }}</p>
+                <p class="result">{{ this.total_income().toFixed(2) }}</p>
             </div>
         </div>
         <div class="Expendituretion" v-show="!flag">
@@ -15,7 +15,7 @@
             </div>
             <div class="data">
                 <p class="title">支出</p>
-                <p class="result">{{ this.total() }}</p>
+                <p class="result">{{ this.total().toFixed(2) }}</p>
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@ export default {
             let hour = date.getHours();
             if (this.$store.state.click_time === 'first') {
                 for (let i = 0; i <= hour; i++) {
-                               let temp = '' + year + '-' + month + '-' + day + ' ' + i + ':'
+                    let temp = '' + year + '-' + month + '-' + day + ' ' + i + ':'
                     time.push(temp)
 
                 }

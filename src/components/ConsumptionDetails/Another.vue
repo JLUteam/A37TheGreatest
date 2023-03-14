@@ -16,17 +16,23 @@
             <p>收据图片</p>
             <div class="result">
                 <img src="@/assets/svg/photo.svg" alt="">
-                <p>点击添加</p>
+                <p v-show="!isreceipt" @click="addreceipt()">点击添加</p>
+                <p v-show="isreceipt" @click="showImage = true">查看</p>
             </div>
         </div>
-
-
-
+        <div v-if="showImage" class="image-container" @click="showImage = false">
+            <img :src="this.recode.receipt" class="image" />
+        </div>
     </div>
 </template>
 <script>
 export default {
     name: "Another",
+    data() {
+        return {
+            showImage: false
+        };
+    },
     props: {
         recode: {
             type: Object
@@ -41,6 +47,24 @@ export default {
         },
         Ispay_() {
             return this.$store.state.radio1 === '支出'
+        },
+        isreceipt() {
+            return this.recode.isreceipt;
+        },
+
+    },
+    methods: {
+        addreceipt() {
+            // const recode = this.$store.state.recodes.find(recode => (recode.usr === this.recode.usr && (recode.bcategory === this.recode.bcategory)&&(recode.btime === this.recode.btime)&&(recode.amount === this.recode.amount)&&(recode.bname === this.recode.bname)));
+            const recode_compare = require('lodash')
+            const recode = this.$store.state.radio1 == '支出' ? this.$store.state.recodes.find(recode => (recode_compare.isEqual(recode, this.recode))) : this.$store.state.income_statement.find(recode => (recode_compare.isEqual(recode, this.recode)));
+            console.log("添加收据")
+            console.log(recode)
+            var photo = null;//添加照片数据
+            recode.receipt=photo
+            recode.isreceipt = true;
+            //更新数据库
+
         }
     }
 };
@@ -119,8 +143,31 @@ export default {
                 font-weight: 400;
                 line-height: .48rem;
                 text-align: right;
+                cursor: pointer;
             }
         }
     }
+
+    .image-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .image {
+            max-width: 90%;
+            max-height: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+
 }
 </style>
