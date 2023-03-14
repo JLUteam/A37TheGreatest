@@ -91,19 +91,19 @@ const state = {
     total: '',
     total_income: '',
     recodes: [
-        // {
-        // "btime": "2023-03-13 21:59:29",
-        // "bname": "TEst",
-        // "ispic": false,
-        // "bpic": null,
-        // "bcategory": "餐饮",
-        // "note": "123",
-        // "payment": "test",
-        // "amount": 123,
-        // "isreceipt": false,
-        // "receipt": null,
-        // "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-        // }
+        {
+        "btime": "2023-03-13 21:59:29",
+        "bname": "TEst",
+        "ispic": false,
+        "bpic": null,
+        "bcategory": "餐饮",
+        "note": "123",
+        "payment": "test",
+        "amount": 123,
+        "isreceipt": true,
+        "receipt": require("@/assets/Test_img/ticket_receipt_acg_0.jpg"),
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        }
     ],
 
     userinfo: {

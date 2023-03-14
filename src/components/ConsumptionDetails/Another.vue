@@ -16,17 +16,23 @@
             <p>收据图片</p>
             <div class="result">
                 <img src="@/assets/svg/photo.svg" alt="">
-                <p>点击添加</p>
+                <p v-show="!isreceipt" @click="addreceipt()">点击添加</p>
+                <p v-show="isreceipt" @click="showImage = true">查看</p>
             </div>
         </div>
-
-
-
+        <div v-if="showImage" class="image-container" @click="showImage = false">
+            <img :src="this.recode.receipt" class="image" />
+        </div>
     </div>
 </template>
 <script>
 export default {
     name: "Another",
+    data() {
+        return {
+            showImage: false
+        };
+    },
     props: {
         recode: {
             type: Object
@@ -41,6 +47,15 @@ export default {
         },
         Ispay_() {
             return this.$store.state.radio1 === '支出'
+        },
+        isreceipt() {
+            return this.recode.isreceipt;
+        },
+
+    },
+    methods: {
+        addreceipt() {
+
         }
     }
 };
@@ -122,5 +137,27 @@ export default {
             }
         }
     }
+
+    .image-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .image {
+            max-width: 90%;
+            max-height: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+
 }
 </style>

@@ -77,6 +77,9 @@ export default {
             return this.value2.getHours().toString().padStart(2, "0") + ":" + this.value2.getMinutes().toString().padStart(2, "0") + ":" + this.value2.getSeconds().toString().padStart(2, "0")
         },
     },
+    computed: {
+      
+    }
 };
 </script>
 <style>
