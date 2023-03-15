@@ -1,22 +1,12 @@
 <template>
   <form id="from" class="from">
-    <transition-group
-      appear
-      name="animate__animated animate__bounce"
-      enter-active-class="animate__backInLeft"
-    >
+    <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
       <MyUserName @UserName="UserName" :key="1" />
       <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2" />
-      <MyBirthday @setBirthDay="setBirthDay" :key="3"></MyBirthday>
+      <MyBirthday @setBirthDay="setBirthDay" :key="3" ref="Birthday"></MyBirthday>
       <MyPassword @Password="Password" :key="4" />
       <MyTip @IsAgree="isAgree" :key="5" />
-      <input
-        type="submit"
-        class="base_button"
-        value="注册登录"
-        :key="6"
-        @click.prevent="submit"
-      />
+      <input type="submit" class="base_button" value="注册登录" :key="6" @click.prevent="submit" />
     </transition-group>
   </form>
 </template>
@@ -44,6 +34,8 @@ export default {
   },
   methods: {
     submit() {
+
+      console.log(this.getBirthDay());
       if (this.userinfo.IsAgree === true) {
         axios({
           method: "post",
@@ -55,6 +47,15 @@ export default {
         }).then(
           (response) => {
             console.log(response.data.code[0]);
+            console.log({
+              iswx: false,
+              iszfb: false,
+              uname: this.userinfo.username,
+              uphone: this.userinfo.phonenumbe,
+              ubirth: this.getBirthDay(),
+              password: this.userinfo.password,
+              check: response.data.code[0],
+            })
             this.$router.push({
               name: "Captcha",
               params: {
@@ -62,7 +63,7 @@ export default {
                 iszfb: false,
                 uname: this.userinfo.username,
                 uphone: this.userinfo.phonenumbe,
-                ubirth: this.userinfo.birthday,
+                ubirth: this.getBirthDay(),
                 password: this.userinfo.password,
                 check: response.data.code[0],
               },
@@ -100,10 +101,18 @@ export default {
     isAgree(t) {
       this.userinfo.IsAgree = t;
     },
-    setBirthDay(birtydayInfo) {
-      this.birtydayInfo = birtydayInfo;
-      let { year = "1900", month = "1", day = "1" } = this.birtydayInfo;
-      this.userinfo.birthday = `${year}-${month}-${day}`;
+    getBirthDay() {
+      let date = this.$refs.Birthday.getBirthDay();
+      let year = date.getFullYear();
+      let month = (date.getMonth() + 1).toString().padStart(2, "0");
+      let day = date.getDate().toString().padStart(2, "0");
+      this.userinfo.birthday = {
+        year: year,
+        month: month,
+        day: day
+      };
+      console.log(this.userinfo.birthday);
+      return this.userinfo.birthday
     },
   },
 };
