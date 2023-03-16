@@ -15,6 +15,7 @@ import WordInputSetting from '@/views/WordInputSetting.vue'
 import Income from '@/components/WordInputSetting/Income.vue'
 import Outcome from '@/components/WordInputSetting/Outcome.vue'
 import CaptchaInput from "@/components/captcha/Captcha_Captcha.vue"
+import needs from "@/views/needs.vue"
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -104,6 +105,11 @@ const router = new VueRouter({
                     component: Outcome
                 }
             ]
+        },
+        {
+               name: "needs",
+            path: "/needs",
+            component: needs,
         }
 
     ]

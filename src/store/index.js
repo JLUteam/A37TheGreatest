@@ -84,6 +84,15 @@ const mutations = {
     },
     updateradio1(contect, newvalue) {
         state.radio1 = newvalue
+    },
+    addrecode_needs(contect, newvalue) { 
+        state.recodes_needs.push(newvalue)
+    },
+    jian_needs(contect, recode) {
+        const index = state.recodes_needs.indexOf(recode);
+        if (index > -1) {
+        state.recodes_needs.splice(index, 1);
+}
     }
 }
 
@@ -248,7 +257,45 @@ const state = {
         '投资',
         '其他'
 
-    ]
+    ],
+        recodes_needs: [
+        {
+        "btime": "2023-03-13 21:59:29",
+        "amount": 340,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-02-12 21:59:29",
+        "amount": -123,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-02-13 18:59:29",
+        "amount": -175,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-03-13 12:59:29",
+        "amount": 256,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-03-10 21:59:29",
+        "amount": -156,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+             {
+        "btime": "2023-03-15 21:59:27",
+        "amount": -156,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+              {
+        "btime": "2023-03-15 21:59:28",
+        "amount": -156,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        }
+    ],
+        activeName_needs: 'first',
 
 
 }

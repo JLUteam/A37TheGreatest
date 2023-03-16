@@ -1,5 +1,9 @@
-import {  Select,Option, Tabs,TabPane,Tag, Radio,RadioGroup,RadioButton,Switch,TimePicker,DatePicker } from 'element-ui';
-let plugins = [Select, Option, Tabs, TabPane, Tag, Radio, RadioGroup, RadioButton, Switch,TimePicker,DatePicker]
+import { Button, Select,Option, Tabs,TabPane,Tag, Radio,RadioGroup,RadioButton,Switch,TimePicker,DatePicker ,Dialog ,Form,
+  FormItem, Input,
+  InputNumber,} from 'element-ui';
+let plugins = [Button,Select, Option, Tabs, TabPane, Tag, Radio, RadioGroup, RadioButton, Switch,TimePicker,DatePicker,Dialog,Form,
+  FormItem, Input,
+  InputNumber,]
 
 export default  function getElementUi(app)
 {
