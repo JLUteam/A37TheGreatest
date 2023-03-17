@@ -20,88 +20,63 @@ export default {
     return {
       imgsArr: [
         {
-          src: require("@/assets/waterfall_img/cat1.png"),
+          src: require("@/assets/waterfall_img/family.jpg"),
           href: "https://www.baidu.com",
-          info: "我是第一张图片",
+          info: "家庭账本",
           headerText: "测试",
         },
         {
-          src: require("@/assets/waterfall_img/cat2.jpg"),
+          src: require("@/assets/waterfall_img/eat2.jpg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "餐饮店铺账本",
           headerText: "测试",
         },
         {
-          src: require("@/assets/waterfall_img/cat3.png"),
+          src: require("@/assets/waterfall_img/student.jpg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "大学生活账本",
         },
         {
-          src: require("@/assets/waterfall_img/cat4.jpg"),
+          src: require("@/assets/waterfall_img/marry.jpeg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "婚姻账本",
         },
 
         {
-          src: require("@/assets/waterfall_img/cat5.jpg"),
+          src: require("@/assets/waterfall_img/cat7.jpg"),
 
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "宠物账本",
         },
         {
-          src: require("@/assets/waterfall_img/cat6.png"),
+          src: require("@/assets/waterfall_img/study.jpeg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "儿童教育账本",
         },
         {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
+          src: require("@/assets/waterfall_img/jurney.jpg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "旅游账本",
         },
         {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
+          src: require("@/assets/waterfall_img/star.jpg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "追星账本",
         },
         {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
+          src: require("@/assets/waterfall_img/shouban.jpg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "手办账本",
         },
         {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
+          src: require("@/assets/waterfall_img/spirt.jpeg"),
           href: "https://www.baidu.com",
-          info: "一些图片描述文字",
+          info: "健身账本",
         },
         {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
-          href: "https://www.baidu.com",
-          info: "一些图片描述文字",
-        },
-        {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
-          href: "https://www.baidu.com",
-          info: "一些图片描述文字",
-        },
-        {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
+          src: "white",
           href: "https://www.baidu.com",
           info: "",
-        },
-        {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
-          href: "https://www.baidu.com",
-          info: "",
-        },
-        {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
-          href: "https://www.baidu.com",
-          info: "一些图片描述文字",
-        },
-        {
-          src: require("@/assets/waterfall_img/cat7.jpg"),
-          href: "https://www.baidu.com",
-          info: "一些图片描述文字",
         },
       ],
       imgsArr_c: [], // 渲染的图片
