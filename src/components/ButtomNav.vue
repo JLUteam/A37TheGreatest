@@ -25,13 +25,15 @@
           </li>
           <li class="nav__item">
             <router-link class="nav__link" :to="{
-                      name: 'needs',
-                  }">
+              name: 'needs',
+            }">
               <img :src="img.Notification" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" to="person">
+            <router-link class="nav__link" :to="{
+              name: 'person',
+            }">
               <img :src="img.user_Home" class="item" />
             </router-link>
           </li>
