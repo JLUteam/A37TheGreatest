@@ -7,7 +7,10 @@
 export default {
   name: "Category_Chart",
   mounted() {
-    this.drawLine();
+   setTimeout(() => {
+    this.drawLine()
+   }, 300);
+   
   },
   beforeDestroy() {
     window.removeEventListener("resize", () => {
@@ -26,7 +29,6 @@ export default {
       return consumption
     },
     data_() {
-      // ],
       let ans = [];
       let array_incomeoroutcome = [... this.$store.state.outcomelist]
 
@@ -37,7 +39,6 @@ export default {
         consumption.name = key;
         ans.push(consumption)
       }
-      console.log(ans)
       return ans
     },
     today() {
@@ -111,6 +112,8 @@ export default {
           },
         ],
       };
+      console.log("cbsahccjbsaj")
+      console.log(this.data_)
       myChart.setOption(option);
 
       window.addEventListener("resize", () => {
