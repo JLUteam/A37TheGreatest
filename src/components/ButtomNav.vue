@@ -134,41 +134,12 @@ export default {
       this.mood = this.mood === "add" ? "add active" : "add";
     },
     cameratakephoto() {
-      navigator.camera.getPicture(
-        // (imageURI) => {
-        //   window.alert("Success:" + imageURI);
-        // var file = new File(imageURI);
-        // var reader = new FileReader();
-        // reader.readAsArrayBuffer(file);
-        // reader.onload = function (e) {
-        //   var fileData = this.result;
-        //   axios({
-        //     method: "post",
-        //     url: "https://api.textin.com/robot/v1.0/api/receipt",
-        //     headers: {
-        //       "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-        //       "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-        //     },
-        //     data: fileData,
-        //   }).then(
-        //     (response) => {
-        //       window.alert(response.data);
-        //     },
-        //     (error) => {
-        //       window.alert(error.message);
-        //     }
-        //   );
-        // };
-        // window.alert("wenjain:" + file);
-        // },
-        this.onSuccess,
-        this.onFail,
-        {
-          quality: 50,
-          // allowEdit: true,
-          destinationType: navigator.camera.DestinationType.FIRE_URI,
-        }
-      );
+      navigator.camera.getPicture(this.onSuccess, this.onFail, {
+        quality: 50,
+        // allowEdit: true,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
+        encodingType: navigator.camera.EncodingType.JPEG,
+      });
     },
     phototakefromku() {
       this.camera(navigator.camera.PictureSourceType.PHOTOLIBRARY);
@@ -181,46 +152,45 @@ export default {
     camera(sourceType) {
       navigator.camera.getPicture(this.onSuccess, this.onFail, {
         quality: 75,
-        destinationType: navigator.camera.DestinationType.FIRE_URI,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
         encodingType: navigator.camera.EncodingType.JPEG,
         sourceType: sourceType,
-        allowEdit: true,
+        // allowEdit: true,
         // saveToPhotoAlbum: true,
       });
     },
     onSuccess(imageURL) {
-      this.$alert("", "上传成功", {
+      this.$alert("请稍等...", "上传成功", {
         confirmButtonText: "确定",
         showClose: false,
         center: true,
         type: "success",
         customClass: "success",
       });
-      // var file = dataURLtoFile(imageURL, "test.jpg");
-      // alert("1");
-      // var reader = new FileReader();
-      // reader.readAsArrayBuffer(file);
-      // reader.onload = function () {
-      //   axios({
-      //     method: "post",
-      //     url: "https://api.textin.com/robot/v1.0/api/receipt",
-      //     headers: {
-      //       "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-      //       "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-      //     },
-      //     data: {
-      //       body: new Uint8Array(reader, this.result),
-      //     },
-      //   }).then(
-      //     (response) => {
-      //       alert("2");
-      //       console.log(response.data);
-      //     },
-      //     (error) => {
-      //       console.log(error.message);
-      //     }
-      //   );
-      // };
+      var str = "data:image/jpeg;base64," + imageURL;
+      var pblob = this.dataURLtoBlob(str);
+      var reader = new FileReader();
+      reader.readAsArrayBuffer(pblob);
+      reader.onload = function () {
+        console.log(this.result);
+        axios({
+          method: "post",
+          url: "https://api.textin.com/robot/v1.0/api/receipt",
+          headers: {
+            "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+            "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+            "Content-Type": "application/octet-stream",
+          },
+          data: this.result,
+        }).then(
+          (response) => {
+            console.log(response.data);
+          },
+          (error) => {
+            console.log(error.message);
+          }
+        );
+      };
     },
     onFail(message) {
       this.$alert("", "上传失败", {
@@ -229,6 +199,19 @@ export default {
         center: true,
         type: "warning",
         customClass: "fail",
+      });
+    },
+    dataURLtoBlob(baseurl) {
+      let arr = baseurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], {
+        type: mime,
       });
     },
   },
