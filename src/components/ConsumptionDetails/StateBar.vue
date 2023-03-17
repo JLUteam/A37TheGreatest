@@ -10,12 +10,10 @@
         <div class="Category info">
             <p>{{ Ispay_ ? '支付类型' : ' 收入类型' }}</p>
             <div class="result">
-                <!-- <el-select v-model="value" filterable :placeholder="recode.bcategory === '' ? 请选择 : recode.bcategory"
-                    class="seclect">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label">
+                <el-select v-model="value" placeholder="请选择">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
-                </el-select> -->
-                 <p>{{ recode.bcategory }}</p>
+                </el-select>
             </div>
         </div>
         <div class="Add_note info">
@@ -33,20 +31,8 @@ export default {
     name: "StateBar",
     data() {
         return {
-            options: [{
-                value: '选项1',
-                label: '能源'
-            }, {
-                value: '选项2',
-                label: '餐饮'
-            }, {
-                value: '选项3',
-                label: '娱乐'
-            }, {
-                value: '选项4',
-                label: '其他'
-            },],
-            value: this.recode.bcategory
+            value: this.recode.bcategory,
+
         }
     },
     props: {
@@ -57,21 +43,34 @@ export default {
     computed: {
         Status: {
             get() {
-                // return this.recode.isfinish ? 'Completed' : 'Uncompleted';
-                return  '已完成';
+                return '已完成';
             },
             set(value) {
                 this.$store.commit('updateStatus', [this.recode.uid, value])
             }
+        },
+        options() {
+            let ans = []
+            let values = this.Ispay_ ? this.$store.state.outcomelist : this.$store.state.incomelist
+            for (let i = 0; i < values.length; i++) {
+                let obj = {
+                    label: values[i],
+                    value: values[i]
+                }
+                ans.push(obj)
+            }
+            return ans;
         },
 
         Add_note: {
             get() {
                 return this.recode.note
             },
-            set(value) {
-                console.log(123)
-                this.$store.commit('updatenote', [this.recode.uid, value])
+            set(value, oldval) {
+                // console.log(123)
+                this.$parent.getchange(['bcategory', value, oldval])
+                // this.$store.commit('updatenote', [this.recode.uid, value])
+
             }
         },
         Ispay_() {
@@ -80,8 +79,9 @@ export default {
     },
     watch: {
         value: {
-            handler: function (value) {
-                this.$store.commit('updateCategory', [this.recode.uid, value])
+            handler: function (value, oldval) {
+                this.$parent.getchange(['bcategory', value, oldval])
+                // this.$store.commit('updateCategory', [this.recode.uid, value])
             }
         },
     }
@@ -155,6 +155,35 @@ export default {
 
             /deep/ .el-select-dropdown__item {
                 font-size: .24rem;
+            }
+
+            /deep/ .el-input__inner,
+            .el-select-dropdown__item.is-disabled:hover {
+                background-color: transparent;
+                border: none !important;
+
+            }
+
+            /deep/.el-icon-arrow-up:before {
+                content: "";
+            }
+
+
+
+            /deep/ .el-input__inner {
+                cursor: pointer;
+                // width: 2rem !important;
+                margin-left: 1rem;
+                margin-right: -3.3rem;
+                font-size: .28rem;
+                font-weight: 400;
+                line-height: .48rem;
+                color: #121826;
+
+            }
+
+            /deep/.el-select .el-input__inner {
+                padding-right: 1rem !important;
             }
         }
     }

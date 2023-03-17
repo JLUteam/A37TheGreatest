@@ -15,8 +15,6 @@
                 <input type="text" v-model="Amount" placeholder="点此添加" ref="Amount_" @click="geAmount_">
             </div>
         </div>
-
-
     </div>
 </template>
 <script>
@@ -159,6 +157,7 @@ input {
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
+                padding-right: .5rem;
                 color: #121826;
 
             }

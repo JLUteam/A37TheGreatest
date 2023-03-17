@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import _ from 'lodash';
 Vue.use(Vuex)
 const actions ={
     searchIncome({ commit, state }, keyword) {
@@ -137,8 +138,38 @@ const mutations = {
             amount: null,
             confirmed: false,
             pic: require('@/assets/svg/yinlian.svg'),
-            id: state.cards.length+1
+            id: state.cards.length + 1
         })
+    },
+    delete_intsorouts(contect, recode) {
+        console.log('delete_intsorouts')
+        const temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
+        // console.log(temp)
+        let index = -1;
+        for (let i = 0; i < temp.length; i++){
+            var isEqual = _.isEqual(recode, temp[i]);
+            if (isEqual) {
+                index = i;
+                break
+            }
+        }
+        if (index > -1) {
+            temp.splice(index, 1);
+           
+        }
+        // console.log(temp)
+    },
+    updatarecode_insorouts(contect, recode) {
+        console.log('updatarecode_insorouts')
+        const temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
+        for (var i = 0; i < temp.length; i++) {
+            if (temp[i][recode[0][0]] === recode[0][2]) {
+                // 找到对象后修改数值
+                // console.log(( [recode[0]]))
+               temp[i][recode[0][0]] = recode[0][1];
+                break;
+            }
+        }
     }
 }
 

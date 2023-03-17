@@ -1,16 +1,40 @@
 <template>
     <div class="avatar">
         <img :src=img alt="">
-        <p>{{name}}</p>
+        <input type="text" v-model="name_" ref="name_" />
     </div>
 </template>
 <script>
 export default {
     name: "avatar",
-    props: ['img','name' ]
+    data() {
+        return {
+            name_: this.name
+        }
+    },
+    watch: {
+        name_: function (val, oldval) {
+            this.$parent.getchange(['bname', val, oldval]);
+        }
+    },
+    props: ['img', 'name']
 };
 </script>
 <style lang="less" scoped>
+input {
+    border: none;
+    outline: none;
+    padding-left: 2.3rem; // text-align: right;
+    background-color: transparent;
+    color: #121826;
+    font-family: "Manrope-Regular";
+    font-size: 0.28rem;
+    font-weight: 400;
+    line-height: 0.48rem;
+    // margin-left: -1.5rem;
+
+}
+
 .avatar {
     display: flex;
     flex-direction: column;
