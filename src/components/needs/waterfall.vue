@@ -8,7 +8,7 @@
     </div>
 </template>
 <script>
-import { isMobile } from 'C:/Users/17129/Desktop/A37TheGreatest/public/js/util.js'
+import { isMobile } from '@/assets/js/util.js'
 export default {
     name: 'waterfall',
     data() {
