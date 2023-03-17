@@ -73,6 +73,11 @@ export default {
           href: "https://www.baidu.com",
           info: "健身账本",
         },
+        {
+          src: "white",
+          href: "https://www.baidu.com",
+          info: "",
+        },
       ],
       imgsArr_c: [], // 渲染的图片
       imgCol: 5, // 图片列数
