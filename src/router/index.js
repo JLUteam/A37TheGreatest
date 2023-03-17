@@ -19,6 +19,7 @@ import needs from "@/views/needs.vue"
 import waterfall from "@/components/needs/waterfall.vue"
 import search from "@/components/needs/search.vue";
 import qingjingzhuangbeng from '@/components/needs/qingjingzhuangbeng.vue'
+import caiwujiankang from '@/components/needs/caiwujiankang.vue'
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -127,6 +128,10 @@ const router = new VueRouter({
                     name: 'search',
                     path: 'search',
                     component: search,
+                }, {
+                    name: 'caiwujiankang',
+                    path: 'caiwujiankang',
+                    component:caiwujiankang
                 }
             ]
         }

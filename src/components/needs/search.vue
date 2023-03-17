@@ -25,10 +25,10 @@
             </div>
         </div>
         <el-divider></el-divider>
-        <div class="tip">
+        <div class="tip2">
             <p class="mingxi">未选: </p>
         </div>
-        <div class="recodes_border">
+        <div class="recodes_border2">
             <div class="recordsets">
                 <div class="record" v-for='recode in recodes.reverse()' :key="recode.btime">
                     <img :src=recode.bpic class="merchantAvatar">
@@ -42,6 +42,9 @@
                 <div class="temp2">
                 </div>
             </div>
+        </div>
+        <div class="save">
+            <button class="save_button">分享已选账目</button>
         </div>
     </div>
 </template>
@@ -63,7 +66,7 @@ export default {
         },
         jian(recode) {
             this.$store.commit('jian_selectedItems', recode);
-
+            this.$store.commit('add_SearchResult', recode);
         }
     },
     computed: {
@@ -178,7 +181,7 @@ export default {
         justify-content: center;
         align-items: center;
         overflow: scroll;
-        height: 4rem;
+        height: 3.5rem;
 
         .recordsets {
             width: 6.54rem;
@@ -214,7 +217,120 @@ export default {
                 }
 
                 .middle {
+                    height: 1.3rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-content: center;
+
+
+                    .merchantname {
+
+                        width: 2rem;
+                        height: .52rem;
+                        color: #121826;
+                        font-family: Manrope;
+                        font-size: .32rem;
+                        font-weight: 700;
+                        line-height: .26rem;
+                        margin-left: .5rem;
+                        // margin-top: -.2rem;
+                        margin-bottom: .4rem;
+                    }
+
+                    .ShoppingTime {
+
+                        display: inline-block;
+                        margin-top: -.5rem;
+                        height: .32rem;
+                        color: #6c727f;
+                        font-family: Manrope;
+                        font-size: .24rem;
+                        font-weight: 400;
+                        line-height: .32rem;
+                        margin-left: .5rem;
+                    }
+                }
+
+                .consumption {
+                    position: relative;
+                    color: #932205;
+                    font-family: Manrope;
+                    font-size: .32rem;
+                    font-weight: 700;
+                    line-height: .52rem;
+                    text-align: right;
+                    margin-top: .2rem;
+                    margin-left: -2rem;
+                }
+
+            }
+
+
+
+
+        }
+    }
+
+    .tip2 {
+        display: flex;
+        justify-content: start;
+        align-self: center;
+        margin-top: -.3rem;
+        margin-bottom: .3rem;
+
+        .mingxi {
+            font-size: .28rem;
+            font-weight: 500;
+
+            margin-right: 5.6rem;
+        }
+    }
+
+    .recodes_border2 {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: scroll;
+        height: 3.5rem;
+
+        .recordsets {
+            width: 6.54rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // margin-bottom: .2rem;
+            height: 4rem;
+            // margin-top: 6.5rem;
+
+            .record {
+                width: 6.54rem;
+                height: .96rem;
+                border-color: #ffffff;
+                margin-bottom: .3rem;
+                display: flex;
+                cursor: pointer;
+
+
+
+                .jian {
+                    margin-left: 1.95rem;
+                    width: .48rem;
+                    height: .48rem;
+                    margin-top: .2rem;
+                    cursor: pointer;
+                }
+
+                .merchantAvatar {
+                    width: .96rem;
                     height: .96rem;
+                    border-radius: .48rem;
+                }
+
+                .middle {
+                    height: 1.3rem;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -270,5 +386,35 @@ export default {
     }
 
 
+
+    // .temp2{
+    //     height: .5rem;
+    // }
+    .save {
+        cursor: pointer;
+
+        .save_button {
+            width: 6.54rem;
+            height: 1.28rem;
+            border-radius: .48rem;
+            background: #fff;
+            border: .1rem solid #f4f4f6;
+            color: #4A44C6;
+            font-family: Manrope;
+            font-size: .32rem;
+            font-weight: 700;
+            line-height: .52rem;
+            text-align: center;
+            transition: background .3s;
+            background: #e9e9ff;
+            border: .1rem solid #e9e9ff;
+            opacity: 0.7;
+            transition: opacity 0.1s;
+        }
+
+        .save_button:hover {
+            opacity: 1;
+        }
+    }
 }
 </style>

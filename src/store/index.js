@@ -55,15 +55,15 @@ const mutations = {
         }
         else if (state.click_time === 'fourth') {
             state.radio2 = '一年'
-        } else if(state.click_time == ' 全部'){
+        } else if (state.click_time == ' 全部') {
             state.radio2 = '全部'
         }
 
     },
-      pushrecodes(context, recode_new) {
+    pushrecodes(context, recode_new) {
         state.recodes.push(recode_new)
     },
-        pushincome_statement(context, recode_new) {
+    pushincome_statement(context, recode_new) {
         state.income_statement.push(recode_new)
     },
 
@@ -96,21 +96,21 @@ const mutations = {
     updateradio1(contect, newvalue) {
         state.radio1 = newvalue
     },
-    addrecode_needs(contect, newvalue) { 
+    addrecode_needs(contect, newvalue) {
         state.recodes_needs.push(newvalue)
     },
     jian_needs(contect, recode) {
         const index = state.recodes_needs.indexOf(recode);
         if (index > -1) {
-        state.recodes_needs.splice(index, 1);
+            state.recodes_needs.splice(index, 1);
         }
     },
     setSearchResult(state, result) {
        
-      state.searchResult = result;
+        state.searchResult = result;
     },
-        add_SearchResult(contect, result) {
-         state.searchResult.push(result);
+    add_SearchResult(contect, result) {
+        state.searchResult.push(result);
      
     },
     jian_searchResult(contect, result) {
@@ -118,9 +118,9 @@ const mutations = {
         const index = state.searchResult.indexOf(result);
        
         if (index > -1) {
-        state.searchResult.splice(index, 1);
+            state.searchResult.splice(index, 1);
         }
-          console.log(state.searchResult)
+        console.log(state.searchResult)
     },
     add_selectedItems(contect, result) {
         state.selectedItems.push(result);
@@ -128,10 +128,18 @@ const mutations = {
     jian_selectedItems(contect, result) {
         const index = state.selectedItems.indexOf(result);
         if (index > -1) {
-        state.selectedItems.splice(index, 1);
+            state.selectedItems.splice(index, 1);
         }
+    },
+    addcard(contect) {
+        state.cards.push({
+            name: '',
+            amount: null,
+            confirmed: false,
+            pic: require('@/assets/svg/yinlian.svg'),
+            id: state.cards.length+1
+        })
     }
-
 }
 
 const getters = {
@@ -140,7 +148,10 @@ const getters = {
     },
       getselectedItems(state) {
       return state.selectedItems;
-    }
+    },
+    getcards(state) {
+          return state.cards
+      }
 }
 
 const state = {
@@ -345,6 +356,29 @@ const state = {
     activeName_needs: 'first',
     selectedItems: [],
     searchResult: [],
+    cards: [
+        {
+        name: '支付宝',
+        amount: null,
+        confirmed:false ,
+        pic: require('@/assets/svg/zhifubao.svg'),
+        id:1
+        },
+        {
+        name: '微信',
+        amount: null,
+        confirmed:false ,
+        pic: require('@/assets/svg/wechat1.svg'),
+        id:2
+        },
+         {
+        name: '',
+        amount: null,
+        confirmed:false ,
+        pic:require('@/assets/svg/yinlian.svg'), 
+        id:2
+        }
+    ]
 
 
 }

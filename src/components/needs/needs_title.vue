@@ -3,9 +3,9 @@
         <h2 class="title">个性需求</h2>
         <div class="item"></div>
         <div class="need_nav">
-            <el-radio-group v-model="value" size="medium">
-                <el-radio-button label="情景账本"></el-radio-button>
-                <el-radio-button label="账务分享"></el-radio-button>
+            <el-radio-group v-model="value" size="medium" @change="handleChange">
+                <el-radio-button label="情景账本" @click="towaterfall()"></el-radio-button>
+                <el-radio-button label="账务分享" @click="toshare()"></el-radio-button>
                 <el-radio-button label="财务健康"></el-radio-button>
             </el-radio-group>
         </div>
@@ -22,9 +22,42 @@ export default {
     components: {
 
     },
-    computed: {
-
-    },
+    methods: {
+        towaterfall() {
+            this.$router.push({
+                name: 'needs',
+            })
+        },
+        toshare() {
+            this.$router.push({
+                name: 'search',
+            })
+        },
+        tocaiwu() {
+            this.$router.push({
+                name: 'caiwujiankang',
+            })
+        },
+        handleChange(val) {
+            switch (val) {
+                case '情景账本': {
+                    this.towaterfall()
+                    break
+                }
+                case '账务分享': {
+                    this.toshare()
+                    break
+                }
+                case '财务健康': {
+                    this.tocaiwu()
+                    break
+                }
+                default: {
+                    break
+                }
+            }
+        }
+    }
 };
 </script>
 <style lang="less" scoped>
@@ -51,11 +84,11 @@ export default {
 
     .item {
         // position:unset;
-       margin-left: 6.5rem;
-       margin-top: -0.8rem;
+        margin-left: 6.5rem;
+        margin-top: -0.8rem;
         width: 1.46rem;
         height: .64rem;
-        border-radius: .54rem 0 0 .54rem ;
+        border-radius: .54rem 0 0 .54rem;
         background: #a8a5ff;
         background-blend-mode: normal;
 
