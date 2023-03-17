@@ -3,7 +3,7 @@
     <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
       <MyUserName @UserName="UserName" :key="1" />
       <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2" />
-      <MyBirthday @setBirthDay="setBirthDay" :key="3" ref="Birthday"></MyBirthday>
+      <MyBirthday  :key="3" ref="Birthday"></MyBirthday>
       <MyPassword @Password="Password" :key="4" />
       <MyTip @IsAgree="isAgree" :key="5" />
       <input type="submit" class="base_button" value="注册登录" :key="6" @click.prevent="submit" />

@@ -1,9 +1,20 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 Vue.use(Vuex)
-const actions = {
-
-}
+const actions ={
+    searchIncome({ commit, state }, keyword) {
+        console.log('searchIncome')
+        const result1 = state.income_statement.filter(item => {
+        let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
+        return allinfo.indexOf(keyword) > -1
+        })
+        const resul2 = state.recodes.filter(item => {
+        let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
+        return allinfo.indexOf(keyword) > -1
+      })
+      commit('setSearchResult', result1.concat(resul2));
+    }
+  }
 
 const mutations = {
     pull_up() {
@@ -44,15 +55,15 @@ const mutations = {
         }
         else if (state.click_time === 'fourth') {
             state.radio2 = '一年'
-        } else if(state.click_time == ' 全部'){
+        } else if (state.click_time == ' 全部') {
             state.radio2 = '全部'
         }
 
     },
-      pushrecodes(context, recode_new) {
+    pushrecodes(context, recode_new) {
         state.recodes.push(recode_new)
     },
-        pushincome_statement(context, recode_new) {
+    pushincome_statement(context, recode_new) {
         state.income_statement.push(recode_new)
     },
 
@@ -84,7 +95,63 @@ const mutations = {
     },
     updateradio1(contect, newvalue) {
         state.radio1 = newvalue
+    },
+    addrecode_needs(contect, newvalue) {
+        state.recodes_needs.push(newvalue)
+    },
+    jian_needs(contect, recode) {
+        const index = state.recodes_needs.indexOf(recode);
+        if (index > -1) {
+            state.recodes_needs.splice(index, 1);
+        }
+    },
+    setSearchResult(state, result) {
+       
+        state.searchResult = result;
+    },
+    add_SearchResult(contect, result) {
+        state.searchResult.push(result);
+     
+    },
+    jian_searchResult(contect, result) {
+        console.log(state.searchResult)
+        const index = state.searchResult.indexOf(result);
+       
+        if (index > -1) {
+            state.searchResult.splice(index, 1);
+        }
+        console.log(state.searchResult)
+    },
+    add_selectedItems(contect, result) {
+        state.selectedItems.push(result);
+    },
+    jian_selectedItems(contect, result) {
+        const index = state.selectedItems.indexOf(result);
+        if (index > -1) {
+            state.selectedItems.splice(index, 1);
+        }
+    },
+    addcard(contect) {
+        state.cards.push({
+            name: '',
+            amount: null,
+            confirmed: false,
+            pic: require('@/assets/svg/yinlian.svg'),
+            id: state.cards.length+1
+        })
     }
+}
+
+const getters = {
+       searchResult(state) {
+      return state.searchResult;
+    },
+      getselectedItems(state) {
+      return state.selectedItems;
+    },
+    getcards(state) {
+          return state.cards
+      }
 }
 
 const state = {
@@ -248,6 +315,69 @@ const state = {
         '投资',
         '其他'
 
+    ],
+    recodes_needs: [
+        {
+        "btime": "2023-03-13 21:59:29",
+        "amount": 340,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-02-12 21:59:29",
+        "amount": -123,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-02-13 18:59:29",
+        "amount": -175,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-03-13 12:59:29",
+        "amount": 256,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+            {
+        "btime": "2023-03-10 21:59:29",
+        "amount": -156,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+             {
+        "btime": "2023-03-15 21:59:27",
+        "amount": -156,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            },
+              {
+        "btime": "2023-03-15 21:59:28",
+        "amount": -156,
+        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        }
+    ],
+    activeName_needs: 'first',
+    selectedItems: [],
+    searchResult: [],
+    cards: [
+        {
+        name: '支付宝',
+        amount: null,
+        confirmed:false ,
+        pic: require('@/assets/svg/zhifubao.svg'),
+        id:1
+        },
+        {
+        name: '微信',
+        amount: null,
+        confirmed:false ,
+        pic: require('@/assets/svg/wechat1.svg'),
+        id:2
+        },
+         {
+        name: '',
+        amount: null,
+        confirmed:false ,
+        pic:require('@/assets/svg/yinlian.svg'), 
+        id:2
+        }
     ]
 
 
@@ -257,6 +387,7 @@ const store = new Vuex.Store({
     actions,
     mutations,
     state,
+    getters
 })
 
 export default store

@@ -4,37 +4,29 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link
-              class="nav__link"
-              :to="{
-                name: 'home',
-              }"
-            >
+            <router-link class="nav__link" :to="{
+              name: 'home',
+            }">
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link
-              class="nav__link"
-              :to="{
-                name: 'Percent',
-              }"
-            >
+            <router-link class="nav__link" :to="{
+              name: 'Percent',
+            }">
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img
-                src="@/assets/svg/tx-fill-shizixing.svg"
-                class="item_s"
-                alt=""
-              />
+              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
             </div>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" to="Notification">
+            <router-link class="nav__link" :to="{
+                      name: 'needs',
+                  }">
               <img :src="img.Notification" class="item" alt="" />
             </router-link>
           </li>
@@ -89,8 +81,8 @@ export default {
       case "Percent":
         this.img.Percent = require("@/assets/svg/Percent" + "_active.svg");
         break;
-      case "Notification":
-        this.img.Percent = require("@/assets/svg/Notification" + "_active.svg");
+      case "needs":
+        this.img.Notification = require("@/assets/svg/Notification" + "_active.svg");
         break;
       case "person":
         this.img.user_Home = require("@/assets/svg/person" + "_active.svg");
@@ -221,6 +213,7 @@ export default {
 .fail {
   width: 300px !important;
 }
+
 .success {
   width: 300px !important;
 }
@@ -290,6 +283,7 @@ export default {
             align-items: center;
             row-gap: 0.08rem;
             transition: transform 0.3s;
+
             .item_s {
               display: flex;
               align-self: flex-start;
