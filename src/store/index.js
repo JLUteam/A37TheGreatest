@@ -1,9 +1,20 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 Vue.use(Vuex)
-const actions = {
-
-}
+const actions ={
+    searchIncome({ commit, state }, keyword) {
+        console.log('searchIncome')
+        const result1 = state.income_statement.filter(item => {
+        let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
+        return allinfo.indexOf(keyword) > -1
+        })
+        const resul2 = state.recodes.filter(item => {
+        let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
+        return allinfo.indexOf(keyword) > -1
+      })
+      commit('setSearchResult', result1.concat(resul2));
+    }
+  }
 
 const mutations = {
     pull_up() {
@@ -92,7 +103,43 @@ const mutations = {
         const index = state.recodes_needs.indexOf(recode);
         if (index > -1) {
         state.recodes_needs.splice(index, 1);
+        }
+    },
+    setSearchResult(state, result) {
+       
+      state.searchResult = result;
+    },
+        add_SearchResult(contect, result) {
+         state.searchResult.push(result);
+     
+    },
+    jian_searchResult(contect, result) {
+        console.log(state.searchResult)
+        const index = state.searchResult.indexOf(result);
+       
+        if (index > -1) {
+        state.searchResult.splice(index, 1);
+        }
+          console.log(state.searchResult)
+    },
+    add_selectedItems(contect, result) {
+        state.selectedItems.push(result);
+    },
+    jian_selectedItems(contect, result) {
+        const index = state.selectedItems.indexOf(result);
+        if (index > -1) {
+        state.selectedItems.splice(index, 1);
+        }
+    }
+
 }
+
+const getters = {
+       searchResult(state) {
+      return state.searchResult;
+    },
+      getselectedItems(state) {
+      return state.selectedItems;
     }
 }
 
@@ -258,7 +305,7 @@ const state = {
         '其他'
 
     ],
-        recodes_needs: [
+    recodes_needs: [
         {
         "btime": "2023-03-13 21:59:29",
         "amount": 340,
@@ -295,7 +342,9 @@ const state = {
         "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
         }
     ],
-        activeName_needs: 'first',
+    activeName_needs: 'first',
+    selectedItems: [],
+    searchResult: [],
 
 
 }
@@ -304,6 +353,7 @@ const store = new Vuex.Store({
     actions,
     mutations,
     state,
+    getters
 })
 
 export default store

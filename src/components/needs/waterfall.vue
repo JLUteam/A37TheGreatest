@@ -2,7 +2,7 @@
     <div id="waterfall" ref="waterfall">
         <div class="img-box default-card-animation" v-for="(item, index) in imgsArr_c" :key="index"
             :style="{ width: imgWidth + 'px', height: item._height + 'px' }" ref="imgBox">
-            <img :data-src="item.src" />
+            <img :data-src="item.src" @click="tozhuangbeng()">
             <P class="info">{{ item.info }}</P>
         </div>
     </div>
@@ -98,9 +98,9 @@ export default {
                     href: "https://www.baidu.com",
                     info: "一些图片描述文字",
                 },
-               
-                
-               
+
+
+
 
             ],
             imgsArr_c: [], // 渲染的图片
@@ -226,7 +226,7 @@ export default {
         },
         // 滚动触底事件
         scrollFn() {
-           
+
             let minHeight = Math.min.apply(null, this.colsHeightArr);
             // 滚动条滚动的高度
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -249,10 +249,10 @@ export default {
                 top = Number.parseFloat(top.slice(0, top.length - 2));
                 // 图片已到达可视范围，则加载
                 // if (scrollTop + this.viewHeight > top) {
-                    //  console.log("scroll8")
-                    imgEl.src = imgEl.getAttribute("data-src")
-                    imgEl.style.opacity = 1;
-                    imgEl.style.transform = "scale(1)";
+                //  console.log("scroll8")
+                imgEl.src = imgEl.getAttribute("data-src")
+                imgEl.style.opacity = 1;
+                imgEl.style.transform = "scale(1)";
                 // }
             })
         },
@@ -276,7 +276,14 @@ export default {
                     canRun = true;
                 }, time)
             }
-        }
+        },
+        tozhuangbeng() {
+            this.$router.push({
+                name: 'qingjingzhuangbeng',
+
+            })
+        },
+
     },
     mounted() {
         this.viewHeight = (document.documentElement.clientHeight == 0) ? document.body.clientHeight : document.documentElement.clientHeight;
@@ -293,6 +300,7 @@ export default {
     position: relative;
     margin-left: .2rem;
     margin-top: .5rem;
+
     // overflow: scroll;
     // margin-bottom: 1rem;
     @keyframes show-card {

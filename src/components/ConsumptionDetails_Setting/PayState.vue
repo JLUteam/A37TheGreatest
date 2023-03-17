@@ -31,7 +31,7 @@ export default {
     data() {
         return {
             Amount: '',
-            payment: '',
+            payment: '支付宝',
             options: [{
                 value: '选项1',
                 label: '现金'
@@ -149,7 +149,7 @@ input {
                 content: "";
             }
 
-           
+
 
             /deep/ .el-input__inner {
                 cursor: pointer;
@@ -160,7 +160,7 @@ input {
                 font-weight: 400;
                 line-height: .48rem;
                 color: #121826;
-               
+
             }
         }
     }

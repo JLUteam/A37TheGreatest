@@ -16,6 +16,9 @@ import Income from '@/components/WordInputSetting/Income.vue'
 import Outcome from '@/components/WordInputSetting/Outcome.vue'
 import CaptchaInput from "@/components/captcha/Captcha_Captcha.vue"
 import needs from "@/views/needs.vue"
+import waterfall from "@/components/needs/waterfall.vue"
+import search from "@/components/needs/search.vue";
+import qingjingzhuangbeng from '@/components/needs/qingjingzhuangbeng.vue'
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -110,6 +113,22 @@ const router = new VueRouter({
                name: "needs",
             path: "/needs",
             component: needs,
+            children: [
+                 {
+                    name: 'needs',
+                    path: '',
+                    component: waterfall,
+                },
+                {
+                    name: 'qingjingzhuangbeng',
+                    path: 'qingjingzhuangbeng',
+                    component: qingjingzhuangbeng,
+                },{
+                    name: 'search',
+                    path: 'search',
+                    component: search,
+                }
+            ]
         }
 
     ]
