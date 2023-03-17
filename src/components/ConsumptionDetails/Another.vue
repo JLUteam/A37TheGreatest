@@ -30,8 +30,8 @@ export default {
   name: "Another",
   data() {
     return {
-        showImage: false,
-         recode__:this.recode
+      showImage: false,
+      recode__: this.recode,
     };
   },
   props: {
@@ -126,9 +126,9 @@ export default {
             );
 
       var photo = str; //添加照片数据
-        recode_.receipt = photo;
-        recode_.isreceipt = true;
-        this.recode__ =recode_;
+      recode_.receipt = photo;
+      recode_.isreceipt = true;
+      this.recode__ = recode_;
     },
     onFail(message) {
       this.$alert("", "上传失败", {
