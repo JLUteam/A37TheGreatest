@@ -296,7 +296,7 @@ export default {
     padding-left: 0;
 
     .info {
-      margin-left: 0.3rem;
+      text-align: center;
       margin-bottom: 0.1rem;
       font-family: "Gill Sans", sans-serif;
       font-size: 0.35rem;

@@ -6,7 +6,7 @@
     <StateBar :recode="$route.query.recode"></StateBar>
     <PayState :recode="$route.query.recode"></PayState>
     <Another :recode="$route.query.recode"></Another>
-    <button @click="this.delete_">删除</button>
+    <button @click="this.delete_">{{ deleteorsave }}</button>
   </div>
 </template>
 <script>
@@ -20,18 +20,34 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
-    console.log(this.$route.query);
+    this.deleteorsave = '删除'
+  },
+  data() {
+    return {
+      deleteorsave: '删除'
+    }
   },
   methods: {
     getchange(type, val) {
       this.$store.commit('updatarecode_insorouts', [type, val])
     },
     delete_() {
-      console.log('delete_')
-      this.$store.commit('delete_intsorouts', this.$route.query.recode)
+      if (this.deleteorsave == '删除') {
+        this.$store.commit('delete_intsorouts', this.$route.query.recode)
+      }
+      else {
+        console.log('保存')
+        this.$store.commit('save_insorouts')
+      }
+
       this.$router.back(-1)
     },
-  }
+    isupdate() {
+      this.deleteorsave = '保存'
+    }
+  },
+
+
 };
 </script>
 <style lang='less' scoped>

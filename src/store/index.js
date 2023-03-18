@@ -162,16 +162,35 @@ const mutations = {
         // console.log(temp)
     },
     updatarecode_insorouts(contect, recode) {
-        console.log('updatarecode_insorouts')
-        const temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
+        let temp= [...state.radio1 === '支出' ? state.recodes : state.income_statement];
         for (var i = 0; i < temp.length; i++) {
-            if (temp[i][recode[0][0]] === recode[0][2]) {
+            if ( temp[i][recode[0][0]] === recode[0][2]) {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
                 temp[i][recode[0][0]] = recode[0][1];
+<<<<<<< Updated upstream
+=======
+                state.temp_insorouts=temp
+                
+>>>>>>> Stashed changes
                 break;
             }
         }
+    },
+    save_insorouts(contect) {
+        let temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
+        // console.log(temp)
+        for (var i = 0; i < temp.length; i++){
+        // console.log( state.temp_insorouts)
+           for (var key in temp[i]) {
+              if(temp[i][key] != state.temp_insorouts[i][key]){
+                  console.log(key)//输出不相等的属性名
+                  console.log(temp[i][key])//输出改后的属性值
+              }
+          }
+        }
+        console.log('修改了')
+        temp = state.temp_insorouts;
     }
 }
 
@@ -212,8 +231,8 @@ const state = {
         wxid: '',
         iszfb: false,
         zfbid: '',
-        uname: '',
-        uphone: '',
+        uname: '张凯锋',
+        uphone: '13758162383',
         upic: require('@/assets/img/wechat.png'),
         ucreate: ''
     },
@@ -411,7 +430,8 @@ const state = {
             pic: require('@/assets/svg/yinlian.svg'),
             id: 2
         }
-    ]
+    ],
+    temp_insorouts:[],
 
 
 }

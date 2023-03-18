@@ -15,6 +15,7 @@ export default {
     watch: {
         name_: function (val, oldval) {
             this.$parent.getchange(['bname', val, oldval]);
+            this.$parent.isupdate()
         }
     },
     props: ['img', 'name']

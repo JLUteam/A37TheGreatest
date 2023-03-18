@@ -69,6 +69,7 @@ export default {
             set(value, oldval) {
                 // console.log(123)
                 this.$parent.getchange(['bcategory', value, oldval])
+                this.$parent.isupdate()
                 // this.$store.commit('updatenote', [this.recode.uid, value])
 
             }
@@ -81,6 +82,7 @@ export default {
         value: {
             handler: function (value, oldval) {
                 this.$parent.getchange(['bcategory', value, oldval])
+                this.$parent.isupdate()
                 // this.$store.commit('updateCategory', [this.recode.uid, value])
             }
         },

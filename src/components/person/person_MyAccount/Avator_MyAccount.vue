@@ -1,11 +1,11 @@
 <template>
     <div class="icon">
         <img :src="img" alt="">
-        <div class="pie" @click="photo">
+        <!-- <div class="pie" @click="photo">
             <div class="smallpie">
                 <img src="@/assets/svg/photo2.svg" alt="">
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
