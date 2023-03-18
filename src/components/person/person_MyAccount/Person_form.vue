@@ -51,36 +51,6 @@
 <script>
 import axios from "axios";
 export default {
-<<<<<<< Updated upstream
-  name: "Person_form",
-  data() {
-    return {
-      username: "",
-      password: "",
-      phonenumber: "",
-    };
-  },
-  watch: {
-    username() { },
-  },
-  methods: {
-    updateuserinfo() {
-      this.$store.commit("updateuserinfo", [this.username, this.phonenumber]);
-      var update = {
-        uname: this.username,
-        password: this.password,
-        uphone: this.phonenumber,
-      };
-      var updateurl =
-        "https://mineralsteins.icu:8080/a37/usr/" +
-        this.$store.state.userinfo.uid +
-        "/";
-      axios({
-        method: "patch",
-        url: updateurl,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-=======
     name: "Person_form",
     data() {
         return {
@@ -96,7 +66,6 @@ export default {
         updateuserinfo() {
             this.$store.commit('updateuserinfo', [this.username, this.password, this.phonenumber])
             console.log('success')
->>>>>>> Stashed changes
         },
         data: update,
       }).then(
