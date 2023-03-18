@@ -168,11 +168,8 @@ const mutations = {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
                 temp[i][recode[0][0]] = recode[0][1];
-<<<<<<< Updated upstream
-=======
                 state.temp_insorouts=temp
                 
->>>>>>> Stashed changes
                 break;
             }
         }
