@@ -1,10 +1,20 @@
 <template>
   <form id="from" class="from">
-    <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
+    <transition-group
+      appear
+      name="animate__animated animate__bounce"
+      enter-active-class="animate__backInLeft"
+    >
       <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="1" />
       <!-- <MyPhoneNumber @PhoneNumber="PhoneNumber" :key="2"/> -->
       <MyPassword @Password="Password" :key="2" />
-      <input type="submit" class="base_button" value="登录" :key="6" @click.prevent="submit" />
+      <input
+        type="submit"
+        class="base_button"
+        value="登录"
+        :key="6"
+        @click.prevent="submit"
+      />
     </transition-group>
   </form>
 </template>
@@ -40,14 +50,15 @@ export default {
         data: users,
       }).then(
         (response) => {
-          console.log("123456789")
+          console.log("123456789");
           console.log(response.data);
           console.log("----------------------");
           if (response.data.login === true) {
             if (response.data.upic == null) {
               response.data.upic = require("@/assets/img/avast.png");
             }
-
+            response.data.upic =
+              "https://mineralsteins.icu:8080/" + response.data.upic;
             df.$store.commit("updateuserinfosignin", response.data);
             // console.log(df.$store.state.userinfo);
             var getdetails = {
@@ -67,13 +78,13 @@ export default {
               data: getdetails,
             }).then(
               (response) => {
-                console.log('987654321')
+                console.log("987654321");
                 console.log(response.data.data);
                 df.$store.state.recodes = response.data.data;
                 console.log(df.$store.state.recodes);
               },
               (error) => {
-                console.log('失败了')
+                console.log("失败了");
                 console.log(error);
               }
             );

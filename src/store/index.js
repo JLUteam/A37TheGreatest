@@ -2,20 +2,20 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 import _ from 'lodash';
 Vue.use(Vuex)
-const actions ={
+const actions = {
     searchIncome({ commit, state }, keyword) {
         console.log('searchIncome')
         const result1 = state.income_statement.filter(item => {
-        let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
-        return allinfo.indexOf(keyword) > -1
+            let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
+            return allinfo.indexOf(keyword) > -1
         })
         const resul2 = state.recodes.filter(item => {
-        let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
-        return allinfo.indexOf(keyword) > -1
-      })
-      commit('setSearchResult', result1.concat(resul2));
+            let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
+            return allinfo.indexOf(keyword) > -1
+        })
+        commit('setSearchResult', result1.concat(resul2));
     }
-  }
+}
 
 const mutations = {
     pull_up() {
@@ -67,8 +67,10 @@ const mutations = {
     pushincome_statement(context, recode_new) {
         state.income_statement.push(recode_new)
     },
-
-
+    updateuserinfo(context, item) {
+        state.userinfo.uname = item[0]
+        state.userinfo.uphone = item[1]
+    },
     updateuserinfosignin(contect, item) {
         state.userinfo.uid = item.uid;
         if (item.iswx === 0) {
@@ -107,17 +109,17 @@ const mutations = {
         }
     },
     setSearchResult(state, result) {
-       
+
         state.searchResult = result;
     },
     add_SearchResult(contect, result) {
         state.searchResult.push(result);
-     
+
     },
     jian_searchResult(contect, result) {
         console.log(state.searchResult)
         const index = state.searchResult.indexOf(result);
-       
+
         if (index > -1) {
             state.searchResult.splice(index, 1);
         }
@@ -146,7 +148,7 @@ const mutations = {
         const temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
         // console.log(temp)
         let index = -1;
-        for (let i = 0; i < temp.length; i++){
+        for (let i = 0; i < temp.length; i++) {
             var isEqual = _.isEqual(recode, temp[i]);
             if (isEqual) {
                 index = i;
@@ -155,7 +157,7 @@ const mutations = {
         }
         if (index > -1) {
             temp.splice(index, 1);
-           
+
         }
         // console.log(temp)
     },
@@ -166,7 +168,7 @@ const mutations = {
             if (temp[i][recode[0][0]] === recode[0][2]) {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
-               temp[i][recode[0][0]] = recode[0][1];
+                temp[i][recode[0][0]] = recode[0][1];
                 break;
             }
         }
@@ -174,15 +176,15 @@ const mutations = {
 }
 
 const getters = {
-       searchResult(state) {
-      return state.searchResult;
+    searchResult(state) {
+        return state.searchResult;
     },
-      getselectedItems(state) {
-      return state.selectedItems;
+    getselectedItems(state) {
+        return state.selectedItems;
     },
     getcards(state) {
-          return state.cards
-      }
+        return state.cards
+    }
 }
 
 const state = {
@@ -190,17 +192,17 @@ const state = {
     total_income: '',
     recodes: [
         {
-        "btime": "2023-03-13 21:59:29",
-        "bname": "TEst",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "餐饮",
-        "note": "123",
-        "payment": "test",
-        "amount": 123,
-        "isreceipt": true,
-        "receipt": require("@/assets/Test_img/ticket_receipt_acg_0.jpg"),
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            "btime": "2023-03-13 21:59:29",
+            "bname": "TEst",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "餐饮",
+            "note": "123",
+            "payment": "test",
+            "amount": 123,
+            "isreceipt": true,
+            "receipt": require("@/assets/Test_img/ticket_receipt_acg_0.jpg"),
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
         }
     ],
 
@@ -216,98 +218,98 @@ const state = {
         ucreate: ''
     },
     income_statement: [
-        
-    {
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        "bname": "KFC",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "兼职",
-        "note": "打工",
-        "payment": "银行卡",
-        "amount": 178.0,
-        "btime": "2023-02-05 00:00:00",
-        "isreceipt": false,
-        "receipt": null
-    },
-    {
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        "bname": "KFC",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "兼职",
-        "note": "打工",
-        "payment": "银行卡",
-        "amount": 178.0,
-        "btime": "2023-02-12 00:00:00",
-        "isreceipt": false,
-        "receipt": null
-    },
-    {
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        "bname": "KFC",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "兼职",
-        "note": "打工",
-        "payment": "银行卡",
-        "amount": 178.0,
-        "btime": "2023-02-19 00:00:00",
-        "isreceipt": false,
-        "receipt": null
-    },
-    {
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        "bname": "KFC",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "兼职",
-        "note": "打工",
-        "payment": "银行卡",
-        "amount": 178.0,
-        "btime": "2023-02-26 00:00:00",
-        "isreceipt": false,
-        "receipt": null
-    },
-    {
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        "bname": "KFC",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "兼职",
-        "note": "打工",
-        "payment": "银行卡",
-        "amount": 178.0,
-        "btime": "2023-03-04 00:00:00",
-        "isreceipt": false,
-        "receipt": null
-    },
-    {
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        "bname": "KFC",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "兼职",
-        "note": "打工",
-        "payment": "银行卡",
-        "amount": 179.0,
-        "btime": "2023-03-05 00:00:00",
-        "isreceipt": false,
-        "receipt": null
-    },
-    {
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        "bname": "支付宝",
-        "ispic": false,
-        "bpic": null,
-        "bcategory": "理财",
-        "note": "买基金",
-        "payment": "支付宝",
-        "amount": 200.0,
-        "btime": "2023-03-27 00:00:00",
-        "isreceipt": false,
-        "receipt": null
-    }
+
+        {
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "bname": "KFC",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "兼职",
+            "note": "打工",
+            "payment": "银行卡",
+            "amount": 178.0,
+            "btime": "2023-02-05 00:00:00",
+            "isreceipt": false,
+            "receipt": null
+        },
+        {
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "bname": "KFC",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "兼职",
+            "note": "打工",
+            "payment": "银行卡",
+            "amount": 178.0,
+            "btime": "2023-02-12 00:00:00",
+            "isreceipt": false,
+            "receipt": null
+        },
+        {
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "bname": "KFC",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "兼职",
+            "note": "打工",
+            "payment": "银行卡",
+            "amount": 178.0,
+            "btime": "2023-02-19 00:00:00",
+            "isreceipt": false,
+            "receipt": null
+        },
+        {
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "bname": "KFC",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "兼职",
+            "note": "打工",
+            "payment": "银行卡",
+            "amount": 178.0,
+            "btime": "2023-02-26 00:00:00",
+            "isreceipt": false,
+            "receipt": null
+        },
+        {
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "bname": "KFC",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "兼职",
+            "note": "打工",
+            "payment": "银行卡",
+            "amount": 178.0,
+            "btime": "2023-03-04 00:00:00",
+            "isreceipt": false,
+            "receipt": null
+        },
+        {
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "bname": "KFC",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "兼职",
+            "note": "打工",
+            "payment": "银行卡",
+            "amount": 179.0,
+            "btime": "2023-03-05 00:00:00",
+            "isreceipt": false,
+            "receipt": null
+        },
+        {
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "bname": "支付宝",
+            "ispic": false,
+            "bpic": null,
+            "bcategory": "理财",
+            "note": "买基金",
+            "payment": "支付宝",
+            "amount": 200.0,
+            "btime": "2023-03-27 00:00:00",
+            "isreceipt": false,
+            "receipt": null
+        }
     ],
     Transactions_pull: false,
     Transactions_click: false,
@@ -349,39 +351,39 @@ const state = {
     ],
     recodes_needs: [
         {
-        "btime": "2023-03-13 21:59:29",
-        "amount": 340,
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            },
-            {
-        "btime": "2023-02-12 21:59:29",
-        "amount": -123,
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            },
-            {
-        "btime": "2023-02-13 18:59:29",
-        "amount": -175,
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            },
-            {
-        "btime": "2023-03-13 12:59:29",
-        "amount": 256,
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            },
-            {
-        "btime": "2023-03-10 21:59:29",
-        "amount": -156,
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            },
-             {
-        "btime": "2023-03-15 21:59:27",
-        "amount": -156,
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            },
-              {
-        "btime": "2023-03-15 21:59:28",
-        "amount": -156,
-        "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            "btime": "2023-03-13 21:59:29",
+            "amount": 340,
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        },
+        {
+            "btime": "2023-02-12 21:59:29",
+            "amount": -123,
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        },
+        {
+            "btime": "2023-02-13 18:59:29",
+            "amount": -175,
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        },
+        {
+            "btime": "2023-03-13 12:59:29",
+            "amount": 256,
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        },
+        {
+            "btime": "2023-03-10 21:59:29",
+            "amount": -156,
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        },
+        {
+            "btime": "2023-03-15 21:59:27",
+            "amount": -156,
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+        },
+        {
+            "btime": "2023-03-15 21:59:28",
+            "amount": -156,
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
         }
     ],
     activeName_needs: 'first',
@@ -389,25 +391,25 @@ const state = {
     searchResult: [],
     cards: [
         {
-        name: '支付宝',
-        amount: null,
-        confirmed:false ,
-        pic: require('@/assets/svg/zhifubao.svg'),
-        id:1
+            name: '支付宝',
+            amount: null,
+            confirmed: false,
+            pic: require('@/assets/svg/zhifubao.svg'),
+            id: 1
         },
         {
-        name: '微信',
-        amount: null,
-        confirmed:false ,
-        pic: require('@/assets/svg/wechat1.svg'),
-        id:2
+            name: '微信',
+            amount: null,
+            confirmed: false,
+            pic: require('@/assets/svg/wechat1.svg'),
+            id: 2
         },
-         {
-        name: '',
-        amount: null,
-        confirmed:false ,
-        pic:require('@/assets/svg/yinlian.svg'), 
-        id:2
+        {
+            name: '',
+            amount: null,
+            confirmed: false,
+            pic: require('@/assets/svg/yinlian.svg'),
+            id: 2
         }
     ]
 
