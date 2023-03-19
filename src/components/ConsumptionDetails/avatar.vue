@@ -1,6 +1,6 @@
 <template>
     <div class="avatar">
-        <img :src=img alt="">
+        <img :src=recode.bpic alt="">
         <input type="text" v-model="name_" ref="name_" />
     </div>
 </template>
@@ -9,16 +9,20 @@ export default {
     name: "avatar",
     data() {
         return {
-            name_: this.name
+            name_: this.recode.bname
         }
     },
     watch: {
         name_: function (val, oldval) {
-            this.$parent.getchange(['bname', val, oldval]);
+            this.$parent.getchange(['bname', val, oldval, recode]);
             this.$parent.isupdate()
         }
     },
-    props: ['img', 'name']
+    props: {
+        recode: {
+            type: Object
+        }
+    }
 };
 </script>
 <style lang="less" scoped>

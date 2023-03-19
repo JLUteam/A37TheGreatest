@@ -88,11 +88,11 @@ export default {
     },
     watch: {
         Amount(newval, oldval) {
-            this.$parent.getchange(['amount', newval, oldval])
+            this.$parent.getchange(['amount', newval, oldval, recode])
               this.$parent.isupdate()
         },
         payment(newval, oldval) {
-            this.$parent.getchange(['payment', newval, oldval])
+            this.$parent.getchange(['payment', newval, oldval,recode])
                this.$parent.isupdate()
         }
     }
