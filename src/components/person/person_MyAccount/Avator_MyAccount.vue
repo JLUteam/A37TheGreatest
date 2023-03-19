@@ -38,8 +38,10 @@ export default {
     margin-top: 1rem;
 
     img {
-        width: 120px;
-        height: 120px;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 1.2rem;
+        
     }
 
     .pie {
