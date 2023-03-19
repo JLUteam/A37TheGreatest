@@ -144,20 +144,22 @@ const mutations = {
         })
     },
     delete_intsorouts(contect, recode) {
-        // console.log('delete_intsorouts')
+        console.log('delete_intsorouts')
         const temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
+        console.log('delete_intsorouts')
         // console.log(temp)
         let index = -1;
         for (let i = 0; i < temp.length; i++) {
             var isEqual = _.isEqual(recode, temp[i]);
             if (isEqual) {
                 index = i;
+                  console.log(state.radio1 === '支出'?'支出':'收入')
+                 console.log(index)//输出第几条被删了
                 break
             }
         }
         if (index > -1) {
-            console.log(state.radio1 === '支出'?'支出':'收入')
-            console.log(index)//输出第几条被删了
+          
             temp.splice(index, 1);//本地删除
 
         }

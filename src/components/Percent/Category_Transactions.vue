@@ -329,7 +329,7 @@ export default {
                 this.$store.commit('updateactiveName', value)
                 this.drawLine();
             },
-            immediate: true
+            // immediate: true
         },
     },
     computed: {
