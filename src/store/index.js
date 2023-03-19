@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import _ from 'lodash';
+import axios from 'axios';
 Vue.use(Vuex)
 const actions = {
     searchIncome({ commit, state }, keyword) {
@@ -147,7 +148,8 @@ const mutations = {
         console.log('delete_intsorouts')
         const temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
         console.log('delete_intsorouts')
-        // console.log(temp)
+        console("??????")
+        console.log(temp)
         let index = -1;
         for (let i = 0; i < temp.length; i++) {
             var isEqual = _.isEqual(recode, temp[i]);
@@ -155,6 +157,7 @@ const mutations = {
                 index = i;
                 console.log(state.radio1 === '支出' ? '支出' : '收入')
                 console.log(index)//输出第几条被删了
+                console.log(temp[index].id)
                 break
             }
         }
@@ -191,6 +194,7 @@ const mutations = {
             for (var key in temp[i]) {
                 console.log(state.temp_insorouts[i])
                 if (temp[i][key] != state.temp_insorouts[i][key]) {
+                    console.log("!!!!!!!!!!!!")
                     console.log(state.radio1 === '支出' ? '支出' : '收入')
                     console.log(key)//输出不相等的属性名
                     console.log(temp[i][key])//输出改后的属性值

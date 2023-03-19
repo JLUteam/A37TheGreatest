@@ -32,11 +32,8 @@ export default {
     },
     delete_() {
       if (this.deleteorsave == "删除") {
-        var data = this.$store.commit(
-          "delete_intsorouts",
-          this.$route.query.recode
-        );
-        console.log(data);
+        this.$store.commit("delete_intsorouts", this.$route.query.recode);
+
         //补删除代码
       } else {
         console.log("保存");
