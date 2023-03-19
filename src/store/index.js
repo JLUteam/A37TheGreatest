@@ -166,7 +166,9 @@ const mutations = {
     updatarecode_insorouts(contect, recode) {
         let temp= [...state.radio1 === '支出' ? state.recodes : state.income_statement];
         for (var i = 0; i < temp.length; i++) {
-             var isEqual = _.isEqual(recode[3], temp[i]);
+            console.log(recode)
+            console.log(temp[i])
+             var isEqual = _.isEqual(recode[0][3], temp[i]);
             if (isEqual) {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
@@ -183,7 +185,8 @@ const mutations = {
         // console.log(temp)
         for (var i = 0; i < temp.length; i++){
         // console.log( state.temp_insorouts)
-           for (var key in temp[i]) {
+            for (var key in temp[i]) {
+               console.log(state.temp_insorouts[i])
                if (temp[i][key] != state.temp_insorouts[i][key]) {
                  console.log(state.radio1 === '支出'?'支出':'收入')
                   console.log(key)//输出不相等的属性名

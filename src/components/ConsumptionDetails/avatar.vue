@@ -14,7 +14,7 @@ export default {
     },
     watch: {
         name_: function (val, oldval) {
-            this.$parent.getchange(['bname', val, oldval, recode]);
+            this.$parent.getchange(['bname', val, oldval, this.recode]);
             this.$parent.isupdate()
         }
     },

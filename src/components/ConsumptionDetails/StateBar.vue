@@ -68,7 +68,7 @@ export default {
             },
             set(value, oldval) {
                 // console.log(123)
-                this.$parent.getchange(['bcategory', value, oldval, recode])
+                this.$parent.getchange(['bcategory', value, oldval, this.recode])
                 this.$parent.isupdate()
                 // this.$store.commit('updatenote', [this.recode.uid, value])
 
@@ -81,7 +81,7 @@ export default {
     watch: {
         value: {
             handler: function (value, oldval) {
-                this.$parent.getchange(['bcategory', value, oldval, recode])
+                this.$parent.getchange(['bcategory', value, oldval, this.recode])
                 this.$parent.isupdate()
                 // this.$store.commit('updateCategory', [this.recode.uid, value])
             }
