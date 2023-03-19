@@ -19,11 +19,11 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
-    this.deleteorsave = !this.$route.query.isphoto ? "删除" : '保存';
+    this.deleteorsave = !this.$route.query.isphoto ? "删除" : "保存";
   },
   data() {
     return {
-      deleteorsave: !this.$route.query.isphoto ? "删除" : '保存',
+      deleteorsave: !this.$route.query.isphoto ? "删除" : "保存",
     };
   },
   methods: {
@@ -33,18 +33,36 @@ export default {
     delete_() {
       if (this.deleteorsave == "删除") {
         this.$store.commit("delete_intsorouts", this.$route.query.recode);
-
         //补删除代码
+        axios({
+          method: "delete",
+          url: "https://mineralsteins.icu:8080/a37/outs-query",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          data: getdetails,
+        }).then(
+          (response) => {
+            console.log("987654321");
+            console.log(response.data.data);
+            df.$store.state.recodes = response.data.data;
+            console.log(df.$store.state.recodes);
+          },
+          (error) => {
+            console.log("失败了");
+            console.log(error);
+          }
+        );
       } else {
         console.log("保存");
         this.$store.commit("save_insorouts");
-        console.log('yyyyyyyyyyy');
+        console.log("yyyyyyyyyyy");
         console.log(this.$store.getters.getchanges);
         this.$store.state.changes = {
           keys: [],
           newvals: [],
-          id: '-1',
-          isout: true
+          id: "-1",
+          isout: true,
         };
         //补修改代码
       }
