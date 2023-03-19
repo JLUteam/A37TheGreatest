@@ -14,7 +14,89 @@ const actions = {
             let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
             return allinfo.indexOf(keyword) > -1
         })
-        commit('setSearchResult', result1.concat(resul2));
+        let ans =result1.concat(resul2)
+        for (let i = 0; i < ans.length; i++) {
+             if (ans[i].bpic == null) {
+                    switch (ans[i].bcategory) {
+                        case '餐饮':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/canyin.svg')
+                            break;
+                        case '服饰':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/fushi.svg')
+                            break;
+                        case '公交':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongjiao.svg')
+                            break;
+                        case '工作':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gongzuo.svg')
+                            break;
+                        case '购物':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/gouwu.svg')
+                            break;
+                        case '居家':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/jujia.svg')
+                            break;
+                        case '礼物':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/liwu.svg')
+                            break;
+                        case '旅行':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg')
+                            break;
+                        case '学习':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/xuexi.svg')
+                            break;
+                        case '美容':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg')
+                            break;
+                        case '日用':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/riyongpin.svg')
+                            break;
+                        case '蔬菜':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shucai.svg')
+                            break;
+                        case '水果':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shuiguo.svg')
+                            break;
+                        case '通讯':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg')
+                            break;
+                        case '娱乐':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yule.svg')
+                            break;
+                        case '运动':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/yundong.svg')
+                            break;
+                        case '其他':
+                            ans[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
+                            break;
+                          case '兼职':
+                            ans[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/jianzhi.svg')
+                            break;
+                        case '礼金':
+                            ans[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/lijin.svg')
+                            break;
+                        case '退货':
+                            ans[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/tuihuo.svg')
+                            break;
+                        case '金融':
+                            ans[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/weibiaoti5.svg')
+                            break;
+                        case '银行':
+                            ans[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yinhangka.svg')
+                            break;
+                        case '工资':
+                            ans[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/yuangonggongzi.svg')
+                            break;
+                        case '投资':
+                            ans[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/zizhuguanli1.svg')
+                            break;
+                        default:
+                            break;
+                    }
+            }
+            
+        }
+        commit('setSearchResult', ans);
     }
 }
 
@@ -169,44 +251,81 @@ const mutations = {
     },
     updatarecode_insorouts(contect, recode) {
         console.log('updatarecode_insorouts')
-        let temp = state.temp_insorouts === null ? [...state.radio1 === '支出' ? state.recodes : state.income_statement] : state.temp_insorouts;
+        console.log(recode)
+        let temp = [];
+        //  let temp = state.temp_insorouts === null ? [...(state.radio1 === '支出' ? state.recodes : state.income_statement)] : state.temp_insorouts;
+        if (state.temp_insorouts === null) {
+            var copyobj = state.radio1 === '支出' ? state.recodes : state.income_statement
+            for (let i = 0; i < copyobj.length; i++) {
+                temp.push({ ...copyobj[i] })
+            }
+        } else {
+            temp = state.temp_insorouts
+        }
         console.log(temp)
-        for (var i = 0; i < temp.length; i++) {
+        for (let i = 0; i < temp.length; i++) {
             console.log(recode)
             console.log(temp[i])
             var isEqual = _.isEqual(recode[0][3], { ...temp[i] });
             if (isEqual) {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
+                console.log(recode[0][1]+'1111111')
                 temp[i][recode[0][0]] = recode[0][1];
                 state.temp_insorouts = temp
                 console.log(state.radio1 === '支出' ? '支出' : '收入')
                 console.log(i)
+                state.changes.id=temp[i].id
                 break;
             }
         }
     },
     save_insorouts(contect) {
+         let changes = {
+            keys: [],
+            newvals: [],
+            id: '0',
+            isout:true
+        }
         let temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
-        // console.log(state.temp_insorouts)    
+        // console.log(state.temp_insorouts)   
+        if (state.radio1 != '支出') {
+            changes.isout=false
+        }
         for (var i = 0; i < temp.length; i++) {
             // console.log( state.temp_insorouts)
             for (var key in temp[i]) {
+                console.log("sdgdsgersgdstfdsfds")
+                console.log(key)
                 console.log(state.temp_insorouts[i])
+                console.log(temp[i])
                 if (temp[i][key] != state.temp_insorouts[i][key]) {
-                    console.log("!!!!!!!!!!!!")
-                    console.log(state.radio1 === '支出' ? '支出' : '收入')
-                    console.log(key)//输出不相等的属性名
-                    console.log(temp[i][key])//输出改后的属性值
-                    console.log(i)//输出第几条被修改了
+                    // console.log("!!!!!!!!!!!!")
+                    // console.log(state.radio1 === '支出' ? '支出' : '收入')
+                    // console.log(key)//输出不相等的属性名
+                  console.log("iiiiiiii")
+                    changes.keys.push(key)
+                    // console.log(state.temp_insorouts[i][key])
+                    changes.newvals.push(state.temp_insorouts[i][key])//输出改后的属性值
+                    // console.log(temp[i].id)
+                    // console.log(temp[i])
+                    changes.id=temp[i]['id']
+                    // console.log(i)//输出第几条被修改了
+                    
                 }
-            }
+            } 
         }
-        console.log('修改了')
-        temp = state.temp_insorouts;
+        console.log("oooooop")
+        console.log(changes)
+        state.changes=changes
+        // console.log('修改了')
+        if (state.radio1 === '支出') {
+            state.recodes = state.temp_insorouts;
+        } else {
+            state.income_statement = state.temp_insorouts;
+        }
     }
 }
-
 const getters = {
     searchResult(state) {
         return state.searchResult;
@@ -216,6 +335,9 @@ const getters = {
     },
     getcards(state) {
         return state.cards
+    },
+    getchanges(state) {
+        return state.changes
     }
 }
 
@@ -234,7 +356,9 @@ const state = {
             "amount": 123,
             "isreceipt": true,
             "receipt": require("@/assets/Test_img/ticket_receipt_acg_0.jpg"),
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            'id':'1'
+
         }
     ],
 
@@ -445,7 +569,13 @@ const state = {
         }
     ],
     temp_insorouts: null,
+    changes: {
+        keys: [],
+        newvals: [],
+        id: '-1',
+        isout:true
 
+    }
 
 }
 

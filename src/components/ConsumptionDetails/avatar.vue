@@ -19,9 +19,14 @@ export default {
             if (this.$store.state.temp_insorouts === null) {
                 recode_ = this.recode
             } else {
-                let temp = { ...this.recode }
-                temp['bname'] = oldval
-                recode_ = temp
+                let temp_ = this.$store.state.temp_insorouts
+                for (let i = 0; i < temp_.length; i++) {
+                    if (temp_[i]['id'] == this.$store.state.changes.id) {
+                        recode_ = temp_[i]
+
+                    }
+                }
+
             }
             this.$parent.getchange(['bname', val, oldval, recode_]);
             this.$parent.isupdate()

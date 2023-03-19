@@ -210,7 +210,7 @@ export default {
                             break;
                         case '投资':
                             temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/zizhuguanli1.svg')
-                            break;
+                            break;       
                         default:
                             break;
                     }

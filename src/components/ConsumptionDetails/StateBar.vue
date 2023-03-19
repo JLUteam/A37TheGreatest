@@ -27,6 +27,7 @@
     </div>
 </template>
 <script>
+import _ from 'lodash';
 export default {
     name: "StateBar",
     data() {
@@ -73,9 +74,14 @@ export default {
                 if (this.$store.state.temp_insorouts === null) {
                     recode_ = this.recode
                 } else {
-                    let temp = { ...this.recode }
-                    temp['note'] = oldval
-                    recode_ = temp
+                     let temp_ = this.$store.state.temp_insorouts
+                    for (let i = 0; i < temp_.length; i++) {
+                        if (temp_[i]['id'] == this.$store.state.changes.id) {
+                            recode_ = temp_[i]
+
+                        }
+                    }
+
                 }
                 this.$parent.getchange(['note', value, oldval, recode_])
                 this.$parent.isupdate()
@@ -94,9 +100,14 @@ export default {
                 if (this.$store.state.temp_insorouts === null) {
                     recode_ = this.recode
                 } else {
-                    let temp = { ...this.recode }
-                    temp['bcategory'] = oldval
-                    recode_ = temp
+                    let temp_ = this.$store.state.temp_insorouts
+                    for (let i = 0; i < temp_.length; i++) {
+                        if (temp_[i]['id']==this.$store.state.changes.id) {
+                             recode_ = temp_[i]
+                             
+                        }
+                    }
+                 
                 }
                 this.$parent.getchange(['bcategory', value, oldval, recode_])
                 this.$parent.isupdate()

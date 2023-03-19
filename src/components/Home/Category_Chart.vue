@@ -9,7 +9,7 @@ export default {
   mounted() {
    setTimeout(() => {
     this.drawLine()
-   }, 300);
+   }, 900);
    
   },
   beforeDestroy() {

@@ -19,11 +19,11 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
-    this.deleteorsave = "删除";
+    this.deleteorsave = !this.$route.query.isphoto ? "删除" : '保存';
   },
   data() {
     return {
-      deleteorsave: "删除",
+      deleteorsave: !this.$route.query.isphoto ? "删除" : '保存',
     };
   },
   methods: {
@@ -38,6 +38,14 @@ export default {
       } else {
         console.log("保存");
         this.$store.commit("save_insorouts");
+        console.log('yyyyyyyyyyy');
+        console.log(this.$store.getters.getchanges);
+        this.$store.state.changes = {
+          keys: [],
+          newvals: [],
+          id: '-1',
+          isout: true
+        };
         //补修改代码
       }
 
