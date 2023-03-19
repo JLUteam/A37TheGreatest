@@ -74,7 +74,17 @@ export default {
           info: "健身账本",
         },
         {
-          src: "white",
+          src: require("@/assets/waterfall_img/white.jpeg"),
+          href: "https://www.baidu.com",
+          info: "",
+        },
+        {
+          src: require("@/assets/waterfall_img/white.jpeg"),
+          href: "https://www.baidu.com",
+          info: "",
+        },
+        {
+          src: require("@/assets/waterfall_img/white.jpeg"),
           href: "https://www.baidu.com",
           info: "",
         },
