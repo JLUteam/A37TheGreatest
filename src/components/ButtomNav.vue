@@ -4,36 +4,52 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'home',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'home',
+              }"
+            >
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'Percent',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'Percent',
+              }"
+            >
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
+              <img
+                src="@/assets/svg/tx-fill-shizixing.svg"
+                class="item_s"
+                alt=""
+              />
             </div>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'needs',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'needs',
+              }"
+            >
               <img :src="img.Notification" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'person',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'person',
+              }"
+            >
               <img :src="img.user_Home" class="item" />
             </router-link>
           </li>
@@ -84,7 +100,8 @@ export default {
         this.img.Percent = require("@/assets/svg/Percent" + "_active.svg");
         break;
       case "needs":
-        this.img.Notification = require("@/assets/svg/Notification" + "_active.svg");
+        this.img.Notification = require("@/assets/svg/Notification" +
+          "_active.svg");
         break;
       case "person":
         this.img.user_Home = require("@/assets/svg/person" + "_active.svg");
@@ -178,7 +195,18 @@ export default {
           data: this.result,
         }).then(
           (response) => {
-            console.log(response.data);
+            console.log(response.data.result.item_list);
+            var dataofimage = {
+              bname: response.data.result.item_list[3].value,
+              bcategory: "其他",
+              note: response.data.result.item_list[5].value,
+              payment: "支付宝",
+              amount: response.data.result.item_list[0].value,
+              btime: response.data.result.item_list[1].value,
+              isreceipt: true,
+              reseipt: str,
+            };
+            console.log(dataofimage);
           },
           (error) => {
             console.log(error.message);

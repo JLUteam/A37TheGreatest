@@ -153,30 +153,29 @@ const mutations = {
             var isEqual = _.isEqual(recode, temp[i]);
             if (isEqual) {
                 index = i;
-                  console.log(state.radio1 === '支出'?'支出':'收入')
-                 console.log(index)//输出第几条被删了
+                console.log(state.radio1 === '支出' ? '支出' : '收入')
+                console.log(index)//输出第几条被删了
                 break
             }
         }
         if (index > -1) {
-          
             temp.splice(index, 1);//本地删除
 
         }
         // console.log(temp)
     },
     updatarecode_insorouts(contect, recode) {
-        let temp= [...state.radio1 === '支出' ? state.recodes : state.income_statement];
+        let temp = [...state.radio1 === '支出' ? state.recodes : state.income_statement];
         for (var i = 0; i < temp.length; i++) {
             console.log(recode)
             console.log(temp[i])
-             var isEqual = _.isEqual(recode[0][3], temp[i]);
+            var isEqual = _.isEqual(recode[0][3], temp[i]);
             if (isEqual) {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
                 temp[i][recode[0][0]] = recode[0][1];
                 state.temp_insorouts = temp
-                console.log(state.radio1 === '支出'?'支出':'收入')
+                console.log(state.radio1 === '支出' ? '支出' : '收入')
                 console.log(i)
                 break;
             }
@@ -185,17 +184,17 @@ const mutations = {
     save_insorouts(contect) {
         let temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
         // console.log(temp)
-        for (var i = 0; i < temp.length; i++){
-        // console.log( state.temp_insorouts)
+        for (var i = 0; i < temp.length; i++) {
+            // console.log( state.temp_insorouts)
             for (var key in temp[i]) {
-               console.log(state.temp_insorouts[i])
-               if (temp[i][key] != state.temp_insorouts[i][key]) {
-                 console.log(state.radio1 === '支出'?'支出':'收入')
-                  console.log(key)//输出不相等的属性名
-                  console.log(temp[i][key])//输出改后的属性值
-                  console.log(i)//输出第几条被修改了
-              }
-          }
+                console.log(state.temp_insorouts[i])
+                if (temp[i][key] != state.temp_insorouts[i][key]) {
+                    console.log(state.radio1 === '支出' ? '支出' : '收入')
+                    console.log(key)//输出不相等的属性名
+                    console.log(temp[i][key])//输出改后的属性值
+                    console.log(i)//输出第几条被修改了
+                }
+            }
         }
         console.log('修改了')
         temp = state.temp_insorouts;
@@ -439,7 +438,7 @@ const state = {
             id: 2
         }
     ],
-    temp_insorouts:[],
+    temp_insorouts: [],
 
 
 }

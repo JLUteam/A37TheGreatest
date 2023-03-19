@@ -85,29 +85,33 @@ export default {
       // var str = imageURL;
       this.img = str;
       this.$store.state.userinfo.upic = str;
-
-      // axios({
-      //   method: "post",
-      //   url: "http://mineralsteins.icu:8081/a37/string-get",
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      //   data: { data: str },
-      // }).then(
-      //   (response) => {
-      //     console.log(response.data);
-      //   },
-      //   (error) => {
-      //     console.log(error);
-      //   }
-      // );
-      // this.$alert("", "上传成功", {
-      //   confirmButtonText: "确定",
-      //   showClose: false,
-      //   center: true,
-      //   type: "success",
-      //   customClass: "success",
-      // });
+      var tr = {
+        data: str,
+        uid: this.$store.state.userinfo.uid,
+      };
+      console.log(tr);
+      axios({
+        method: "post",
+        url: "https://mineralsteins.icu:8080/a37/avatar-post",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: tr,
+      }).then(
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.$alert("", "上传成功", {
+        confirmButtonText: "确定",
+        showClose: false,
+        center: true,
+        type: "success",
+        customClass: "success",
+      });
     },
     onFail(message) {
       this.$alert("", "上传失败", {
