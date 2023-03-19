@@ -9,12 +9,12 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import Avatar from "@/components/ConsumptionDetails/avatar.vue";
 import Back from "@/components/ConsumptionDetails/back.vue";
 import StateBar from "@/components/ConsumptionDetails/StateBar.vue";
 import PayState from "@/components/ConsumptionDetails/PayState.vue";
 import Another from "@/components/ConsumptionDetails/Another.vue";
-
 export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
@@ -34,43 +34,101 @@ export default {
       if (this.deleteorsave == "删除") {
         this.$store.commit("delete_intsorouts", this.$route.query.recode);
         console.log(this.$store.getters.getdeletes);
+        if (this.$store.getters.getdeletes.isout === true) {
+          axios({
+            method: "delete",
+            url:
+              "https://mineralsteins.icu:8080/a37/outs/" +
+              this.$store.getters.getdeletes.id +
+              "/",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }).then(
+            (response) => {
+              console.log("success");
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        } else {
+          axios({
+            method: "delete",
+            url:
+              "https://mineralsteins.icu:8080/a37/ins/" +
+              this.$store.getters.getdeletes.id +
+              "/",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }).then(
+            (response) => {
+              console.log("success");
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
         this.$store.state.deletes = {
           id: "-1",
           isout: true,
         };
-
-        //补删除代码
-        axios({
-          method: "delete",
-          url: "https://mineralsteins.icu:8080/a37/outs-query",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          data: getdetails,
-        }).then(
-          (response) => {
-            console.log("987654321");
-            console.log(response.data.data);
-            df.$store.state.recodes = response.data.data;
-            console.log(df.$store.state.recodes);
-          },
-          (error) => {
-            console.log("失败了");
-            console.log(error);
-          }
-        );
       } else {
         console.log("保存");
         this.$store.commit("save_insorouts");
         console.log("yyyyyyyyyyy");
         console.log(this.$store.getters.getchanges);
+        var kv = {};
+        var len = this.$store.getters.getchanges.keys.length;
+        console.log(len);
+        for (var i = 0; i < len; i++) {
+          var key = this.$store.getters.getchanges.keys[i];
+          var value = this.$store.getters.getchanges.newvals[i];
+          kv[key] = value;
+        }
+        console.log(kv);
+        id = this.$store.getters.getchanges.id;
+        if (this.$store.getters.getchanges.isout === true) {
+          axios({
+            method: "patch",
+            url: "https://mineralsteins.icu:8080/a37/outs/" + id + "/",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            data: kv,
+          }).then(
+            (response) => {
+              console.log("success");
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        } else {
+          axios({
+            method: "patch",
+            url: "https://mineralsteins.icu:8080/a37/ins/" + id + "/",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            data: kv,
+          }).then(
+            (response) => {
+              console.log("success");
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
         this.$store.state.changes = {
           keys: [],
           newvals: [],
           id: "-1",
           isout: true,
         };
-        //补修改代码
       }
 
       this.$router.back(-1);
