@@ -32,6 +32,8 @@ export default {
     data() {
         return {
             value: this.recode.bcategory,
+            oldval_bcategory: this.recode.bcategory,
+            oldval_addnote: this.recode.note
 
         }
     },
@@ -67,8 +69,15 @@ export default {
                 return this.recode.note
             },
             set(value, oldval) {
-                // console.log(123)
-                this.$parent.getchange(['bcategory', value, oldval, this.recode])
+                let recode_;
+                if (this.$store.state.temp_insorouts === null) {
+                    recode_ = this.recode
+                } else {
+                    let temp = { ...this.recode }
+                    temp['note'] = oldval
+                    recode_ = temp
+                }
+                this.$parent.getchange(['note', value, oldval, recode_])
                 this.$parent.isupdate()
                 // this.$store.commit('updatenote', [this.recode.uid, value])
 
@@ -81,7 +90,15 @@ export default {
     watch: {
         value: {
             handler: function (value, oldval) {
-                this.$parent.getchange(['bcategory', value, oldval, this.recode])
+                let recode_;
+                if (this.$store.state.temp_insorouts === null) {
+                    recode_ = this.recode
+                } else {
+                    let temp = { ...this.recode }
+                    temp['bcategory'] = oldval
+                    recode_ = temp
+                }
+                this.$parent.getchange(['bcategory', value, oldval, recode_])
                 this.$parent.isupdate()
                 // this.$store.commit('updateCategory', [this.recode.uid, value])
             }
