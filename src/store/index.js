@@ -166,11 +166,13 @@ const mutations = {
         // console.log(temp)
     },
     updatarecode_insorouts(contect, recode) {
-        let temp= [...state.radio1 === '支出' ? state.recodes : state.income_statement];
+        console.log('updatarecode_insorouts')
+        let temp = state.temp_insorouts === null ? [...state.radio1 === '支出' ? state.recodes : state.income_statement] : state.temp_insorouts;
+        console.log(temp)
         for (var i = 0; i < temp.length; i++) {
             console.log(recode)
             console.log(temp[i])
-             var isEqual = _.isEqual(recode[0][3], temp[i]);
+             var isEqual = _.isEqual(recode[0][3], {...temp[i]});
             if (isEqual) {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
@@ -184,7 +186,7 @@ const mutations = {
     },
     save_insorouts(contect) {
         let temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
-        // console.log(temp)
+        // console.log(state.temp_insorouts)    
         for (var i = 0; i < temp.length; i++){
         // console.log( state.temp_insorouts)
             for (var key in temp[i]) {
@@ -439,7 +441,7 @@ const state = {
             id: 2
         }
     ],
-    temp_insorouts:[],
+    temp_insorouts:null,
 
 
 }

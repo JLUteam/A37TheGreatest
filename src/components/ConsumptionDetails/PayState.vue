@@ -72,6 +72,8 @@ export default {
                 value: '应收款项',
                 label: '应收款项'
             },],
+            oldval_amount: this.recode.amount,
+            oldval_payment: this.recode.payment
         }
     }
     ,
@@ -88,12 +90,28 @@ export default {
     },
     watch: {
         Amount(newval, oldval) {
-            this.$parent.getchange(['amount', newval, oldval, this.recode])
-              this.$parent.isupdate()
+            let recode_;
+            if (this.$store.state.temp_insorouts === null) {
+                recode_ = this.recode
+            } else {
+                let temp = { ...this.recode }
+                temp['amount'] = oldval
+                recode_ = temp
+            }
+            this.$parent.getchange(['amount',(newval), oldval, recode_])
+            this.$parent.isupdate()
         },
         payment(newval, oldval) {
-            this.$parent.getchange(['payment', newval, oldval, this.recode])
-               this.$parent.isupdate()
+            let recode_;
+            if (this.$store.state.temp_insorouts === null) {
+                recode_ = this.recode
+            } else {
+                let temp = { ...this.recode }
+                temp['payment'] = oldval
+                recode_ = temp
+            }
+            this.$parent.getchange(['payment', newval, oldval, recode_])
+            this.$parent.isupdate()
         }
     }
 

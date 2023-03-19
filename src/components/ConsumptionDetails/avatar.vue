@@ -9,12 +9,21 @@ export default {
     name: "avatar",
     data() {
         return {
-            name_: this.recode.bname
+            name_: this.recode.bname,
+            oldval_name: this.recode.bname,
         }
     },
     watch: {
         name_: function (val, oldval) {
-            this.$parent.getchange(['bname', val, oldval, this.recode]);
+            let recode_;
+            if (this.$store.state.temp_insorouts === null) {
+                recode_ = this.recode
+            } else {
+                let temp = { ...this.recode }
+                temp['bname'] = oldval
+                recode_ = temp
+            }
+            this.$parent.getchange(['bname', val, oldval, recode_]);
             this.$parent.isupdate()
         }
     },
