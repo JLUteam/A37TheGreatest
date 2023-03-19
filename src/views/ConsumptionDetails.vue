@@ -33,6 +33,12 @@ export default {
     delete_() {
       if (this.deleteorsave == "删除") {
         this.$store.commit("delete_intsorouts", this.$route.query.recode);
+        console.log(this.$store.getters.getdeletes);
+        this.$store.state.deletes = {
+          id: "-1",
+          isout: true,
+        };
+
         //补删除代码
         axios({
           method: "delete",

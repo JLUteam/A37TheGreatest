@@ -230,7 +230,7 @@ const mutations = {
         console.log('delete_intsorouts')
         const temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
         console.log('delete_intsorouts')
-        console("??????")
+        console.log("??????")
         console.log(temp)
         let index = -1;
         for (let i = 0; i < temp.length; i++) {
@@ -240,14 +240,20 @@ const mutations = {
                 console.log(state.radio1 === '支出' ? '支出' : '收入')
                 console.log(index)//输出第几条被删了
                 console.log(temp[index].id)
-                break
+                if (state.radio1 === '支出') {
+                    state.deletes.isout = true
+                      
+                } else {
+                    state.deletes.isout = false
+                    break
+                }
+                state.deletes.id = temp[i].id;
             }
+            if (index > -1) {
+                temp.splice(index, 1);//本地删除
+            }
+            // console.log(temp)
         }
-        if (index > -1) {
-            temp.splice(index, 1);//本地删除
-
-        }
-        // console.log(temp)
     },
     updatarecode_insorouts(contect, recode) {
         console.log('updatarecode_insorouts')
@@ -338,7 +344,11 @@ const getters = {
     },
     getchanges(state) {
         return state.changes
+    },
+    getdeletes(state) {
+        return state.deletes
     }
+
 }
 
 const state = {
@@ -575,6 +585,10 @@ const state = {
         id: '-1',
         isout:true
 
+    },
+    deletes: {
+         id: '-1',
+        isout:true
     }
 
 }
