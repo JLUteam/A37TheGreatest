@@ -99,7 +99,6 @@ export default {
               data: getdetails,
             }).then(
               (response) => {
-                console.log(response.data.data);
                 //这儿补处理收入的代码
                 df.$store.state.income_statement = response.data.data;
               },

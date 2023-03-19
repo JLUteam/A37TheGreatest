@@ -20,34 +20,33 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
-    this.deleteorsave = '删除'
+    this.deleteorsave = "删除";
   },
   data() {
     return {
-      deleteorsave: '删除'
-    }
+      deleteorsave: "删除",
+    };
   },
   methods: {
     getchange(type, val) {
-      this.$store.commit('updatarecode_insorouts', [type, val])
+      this.$store.commit("updatarecode_insorouts", [type, val]);
     },
     delete_() {
-      if (this.deleteorsave == '删除') {
-        this.$store.commit('delete_intsorouts', this.$route.query.recode)
-      }
-      else {
-        console.log('保存')
-        this.$store.commit('save_insorouts')
+      if (this.deleteorsave == "删除") {
+        this.$store.commit("delete_intsorouts", this.$route.query.recode);
+        //补删除代码
+      } else {
+        console.log("保存");
+        this.$store.commit("save_insorouts");
+        //补修改代码
       }
 
-      this.$router.back(-1)
+      this.$router.back(-1);
     },
     isupdate() {
-      this.deleteorsave = '保存'
-    }
+      this.deleteorsave = "保存";
+    },
   },
-
-
 };
 </script>
 <style lang='less' scoped>
