@@ -31,6 +31,8 @@ export default {
     getchange(type, val) {
       this.$store.commit("updatarecode_insorouts", [type, val]);
     },
+
+    
     delete_() {
       if (this.$route.query.isphoto != null) {
         var dataofim =

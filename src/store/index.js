@@ -269,6 +269,7 @@ const mutations = {
             temp = state.temp_insorouts
         }
         console.log(temp)
+
         for (let i = 0; i < temp.length; i++) {
             console.log(recode)
             console.log(temp[i])
@@ -281,10 +282,12 @@ const mutations = {
                 state.temp_insorouts = temp
                 console.log(state.radio1 === '支出' ? '支出' : '收入')
                 console.log(i)
-                state.changes.id=temp[i].id
+                state.changes.id = temp[i].id
+                flag = true;
                 break;
             }
         }
+       
     },
     save_insorouts(contect) {
          let changes = {
