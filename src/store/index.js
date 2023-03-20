@@ -5,7 +5,7 @@ import axios from 'axios';
 Vue.use(Vuex)
 const actions = {
     searchIncome({ commit, state }, keyword) {
-        console.log('searchIncome')
+        // console.log('searchIncome')
         const result1 = state.income_statement.filter(item => {
             let allinfo = item.bname + item.bcategory + item.note + item.payment + item.btime
             return allinfo.indexOf(keyword) > -1
@@ -575,7 +575,7 @@ const state = {
             amount: null,
             confirmed: false,
             pic: require('@/assets/svg/yinlian.svg'),
-            id: 2
+            id: 3
         }
     ],
     temp_insorouts: null,

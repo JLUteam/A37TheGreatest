@@ -1,7 +1,7 @@
 <template>
     <div class="basic">
         <div class="container">
-            <div class="icon"><img src="@/assets/svg/search .svg" alt=""></div>
+            <div class="icon"><img :src="require('@/assets/svg/search_.svg')" alt=""></div>
             <input type="text" class="search" placeholder="此处输入待搜索的信息" v-model="search_">
 
         </div>
@@ -11,13 +11,13 @@
         </div>
         <div class="recodes_border">
             <div class="recordsets">
-                <div class="record" v-for='recode in this.recodes_seleced.reverse()' :key="recode.btime">
+                <div class="record" v-for='recode in this.recodes_seleced' :key="recode.btime">
                     <img :src=recode.bpic class="merchantAvatar">
                     <div class="middle">
                         <p class="merchantname">{{ recode.bname }}</p>
                         <p class="ShoppingTime">{{ recode.btime }}</p>
                     </div>
-                    <img class="jian" src="@/assets/svg/jian1.svg" @click="jian(recode)">
+                    <img class="jian" :src="require('@/assets/svg/jian1.svg')" @click="jian(recode)">
                     <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
                 </div>
                 <div class="temp2">
@@ -30,13 +30,13 @@
         </div>
         <div class="recodes_border2">
             <div class="recordsets">
-                <div class="record" v-for='recode in recodes.reverse()' :key="recode.btime">
+                <div class="record" v-for='recode in recodes' :key="recode.btime">
                     <img :src=recode.bpic class="merchantAvatar">
                     <div class="middle">
                         <p class="merchantname">{{ recode.bname }}</p>
                         <p class="ShoppingTime">{{ recode.btime }}</p>
                     </div>
-                    <img class="jian" src="@/assets/svg/add (1).svg" @click="add(recode)">
+                    <img class="jian" :src="require('@/assets/svg/add_1.svg')" @click="add(recode)">
                     <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
                 </div>
                 <div class="temp2">
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="save">
-            <button class="save_button">分享已选账目</button>
+            <button class="save_button" @click="toshare_()">分享已选账目</button>
         </div>
     </div>
 </template>
@@ -67,6 +67,14 @@ export default {
         jian(recode) {
             this.$store.commit('jian_selectedItems', recode);
             this.$store.commit('add_SearchResult', recode);
+        },
+        toshare_() {
+            this.$router.push({
+                name: 'share',
+                query: {
+                    recode: this.recodes_seleced
+                }
+            })
         }
     },
     computed: {
@@ -93,7 +101,7 @@ export default {
     watch: {
         search_: {
             handler: function (newval, oldval) {
-                // console.log('!!!')
+                // console.log('xxxxxxx');
                 this.$store.dispatch('searchIncome', newval);
             },
             immediate: true
