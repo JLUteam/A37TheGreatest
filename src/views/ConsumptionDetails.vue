@@ -30,6 +30,8 @@ export default {
     getchange(type, val) {
       this.$store.commit("updatarecode_insorouts", [type, val]);
     },
+
+    
     delete_() {
       if (this.deleteorsave == "删除") {
         this.$store.commit("delete_intsorouts", this.$route.query.recode);
