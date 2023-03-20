@@ -65,7 +65,7 @@ export default {
               " " +
               this.$refs.Another.getTime_(),
             amount: this.$refs.PayState.geAmount_(),
-            // isreceipt: this.$refs.Another.getisreceipt(),
+            isreceipt: this.$refs.Another.getisreceipt(),
             // receipt: this.$refs.Another.getisreceipt(),
           };
           console.log(recode_new);
@@ -109,6 +109,16 @@ export default {
               lock = false;
             }
           );
+          if (this.$refs.Another.getisreceipt() === true) {
+            axios({
+              method: "post",
+              url: "https://mineralsteins.icu:8080/a37/outs/", //待加
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              data: recode_new,
+            })
+          }
         } else {
           //收入
           recode_new = {

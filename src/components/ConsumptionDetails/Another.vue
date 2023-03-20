@@ -21,7 +21,7 @@
       </div>
     </div>
     <div v-if="showImage" class="image-container" @click="showImage = false">
-      <img :src="this.recode__.receipt" class="image" />
+      <img :src="showinfo()" class="image" />
     </div>
   </div>
 </template>
@@ -119,11 +119,11 @@ export default {
       const recode_ =
         this.$store.state.radio1 == "支出"
           ? this.$store.state.recodes.find((recode) =>
-              recode_compare.isEqual(recode, this.recode)
-            )
+            recode_compare.isEqual(recode, this.recode)
+          )
           : this.$store.state.income_statement.find((recode) =>
-              recode_compare.isEqual(recode, this.recode)
-            );
+            recode_compare.isEqual(recode, this.recode)
+          );
 
       var photo = str; //添加照片数据
       recode_.receipt = photo;
@@ -139,6 +139,11 @@ export default {
         customClass: "fail",
       });
     },
+    showinfo() {
+      console.log("查看收据");
+      console.log(this.recode__);
+      return this.recode__.receipt
+    }
   },
 };
 </script>

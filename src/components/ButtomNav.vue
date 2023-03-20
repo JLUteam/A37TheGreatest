@@ -194,11 +194,11 @@ export default {
               amount: response.data.result.item_list[0].value,
               btime: response.data.result.item_list[1].value,
               isreceipt: true,
-              reseipt: str,
+              receipt: str,
               ispic: true,
               bpic: null,
               usr: usr,
-              id: id,
+              // id: id,
             };
             if (dataofimage.bpic == null) {
               switch (dataofimage.bcategory) {

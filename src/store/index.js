@@ -330,7 +330,27 @@ const mutations = {
         } else {
             state.income_statement = state.temp_insorouts;
         }
-    }
+    },
+    updatereceipt(contect, recode) {
+        //recode[0] bool true 表示支出 ，false 表示收入
+        //recode[1] id
+        //recode[2] 图片
+        if (recode[0]) {
+            for (let i = 0; i < state.recodes.length; i++) {
+                if (state.recodes[i].id == recode[1]) {
+                    state.recodes[i].receipt = recode[2];
+                    state.recodes[i].isreceipt = true;
+                }
+            }
+        } else {
+            for (let i = 0; i < state.income_statement.length; i++) {
+                if (state.income_statement[i].id == recode[1]) {
+                    state.income_statement[i].receipt = recode[2];
+                    state.income_statement[i].isreceipt = true;
+                }
+            }
+        }
+       }
 }
 const getters = {
     searchResult(state) {

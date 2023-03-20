@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="Add_note info">
-            <p>Add note</p>
+            <p>备注</p>
             <div class="result">
                 <input type="text" v-model="Add_note" placeholder="备注">
             </div>
@@ -74,7 +74,7 @@ export default {
                 if (this.$store.state.temp_insorouts === null) {
                     recode_ = this.recode
                 } else {
-                     let temp_ = this.$store.state.temp_insorouts
+                    let temp_ = this.$store.state.temp_insorouts
                     for (let i = 0; i < temp_.length; i++) {
                         if (temp_[i]['id'] == this.$store.state.changes.id) {
                             recode_ = temp_[i]
@@ -102,12 +102,12 @@ export default {
                 } else {
                     let temp_ = this.$store.state.temp_insorouts
                     for (let i = 0; i < temp_.length; i++) {
-                        if (temp_[i]['id']==this.$store.state.changes.id) {
-                             recode_ = temp_[i]
-                             
+                        if (temp_[i]['id'] == this.$store.state.changes.id) {
+                            recode_ = temp_[i]
+
                         }
                     }
-                 
+
                 }
                 this.$parent.getchange(['bcategory', value, oldval, recode_])
                 this.$parent.isupdate()
