@@ -4,36 +4,52 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'home',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'home',
+              }"
+            >
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'Percent',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'Percent',
+              }"
+            >
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
+              <img
+                src="@/assets/svg/tx-fill-shizixing.svg"
+                class="item_s"
+                alt=""
+              />
             </div>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'needs',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'needs',
+              }"
+            >
               <img :src="img.Notification" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'person',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'person',
+              }"
+            >
               <img :src="img.user_Home" class="item" />
             </router-link>
           </li>
@@ -198,60 +214,61 @@ export default {
               ispic: true,
               bpic: null,
               usr: usr,
-              // id: id,
+              id: id,
             };
+            vm.$store.state.recodes.push(dataofimage);
             if (dataofimage.bpic == null) {
               switch (dataofimage.bcategory) {
-                case '餐饮':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/canyin.svg')
+                case "餐饮":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/canyin.svg");
                   break;
-                case '服饰':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/fushi.svg')
+                case "服饰":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/fushi.svg");
                   break;
-                case '公交':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/gongjiao.svg')
+                case "公交":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongjiao.svg");
                   break;
-                case '工作':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/gongzuo.svg')
+                case "工作":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongzuo.svg");
                   break;
-                case '购物':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/gouwu.svg')
+                case "购物":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gouwu.svg");
                   break;
-                case '居家':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/jujia.svg')
+                case "居家":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/jujia.svg");
                   break;
-                case '礼物':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/liwu.svg')
+                case "礼物":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/liwu.svg");
                   break;
-                case '旅行':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg')
+                case "旅行":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/lvhang.svg");
                   break;
-                case '学习':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/xuexi.svg')
+                case "学习":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/xuexi.svg");
                   break;
-                case '美容':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg')
+                case "美容":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg");
                   break;
-                case '日用':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/riyongpin.svg')
+                case "日用":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/riyongpin.svg");
                   break;
-                case '蔬菜':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/shucai.svg')
+                case "蔬菜":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shucai.svg");
                   break;
-                case '水果':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/shuiguo.svg')
+                case "水果":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shuiguo.svg");
                   break;
-                case '通讯':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg')
+                case "通讯":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg");
                   break;
-                case '娱乐':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/yule.svg')
+                case "娱乐":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yule.svg");
                   break;
-                case '运动':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/yundong.svg')
+                case "运动":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yundong.svg");
                   break;
-                case '其他':
-                  dataofimage.bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
+                case "其他":
+                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shezhi.svg");
                   break;
                 default:
                   break;

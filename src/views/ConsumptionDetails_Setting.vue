@@ -78,7 +78,38 @@ export default {
             data: recode_new,
           }).then(
             (response) => {
+              console.log("文字上传");
               console.log(response.data);
+              this.$store.commit("pushrecodes", response.data);
+              var idoflast = response.data.id;
+              lock = false;
+              var dataofim = this.$refs.Another.getreceipt();
+              var im = {
+                id: idoflast,
+                data: dataofim,
+              };
+              console.log(im);
+              if (this.$refs.Another.getisreceipt() === true) {
+                axios({
+                  method: "post",
+                  url: "https://mineralsteins.icu:8080/a37/outs-pic-post",
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
+                  data: im,
+                }).then(
+                  (response) => {
+                    console.log("图片上传");
+
+                    this.$store.commit("updatereceipt", [
+                      true,
+                      idoflast,
+                      dataofim,
+                    ]);
+                  },
+                  (erroe) => {}
+                );
+              }
               this.$alert("", "上传成功", {
                 confirmButtonText: "确定",
                 showClose: false,
@@ -94,8 +125,6 @@ export default {
                   }
                 },
               });
-              this.$store.commit("pushrecodes", response.data);
-              lock = false;
             },
             (error) => {
               console.log(error);
@@ -109,16 +138,6 @@ export default {
               lock = false;
             }
           );
-          if (this.$refs.Another.getisreceipt() === true) {
-            axios({
-              method: "post",
-              url: "https://mineralsteins.icu:8080/a37/outs/", //待加
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              data: recode_new,
-            })
-          }
         } else {
           //收入
           recode_new = {
@@ -136,7 +155,7 @@ export default {
               " " +
               this.$refs.Another.getTime_(),
             isreceipt: this.$refs.Another.getisreceipt(),
-            receipt: this.$refs.Another.getisreceipt(),
+            // receipt: this.$refs.Another.getisreceipt(),
           };
           console.log(recode_new);
           axios({
@@ -149,6 +168,35 @@ export default {
           }).then(
             (response) => {
               console.log(response.data);
+              this.$store.commit("pushincome_statement", response.data);
+              var idoflast = response.data.id;
+              lock = false;
+              var dataofim = this.$refs.Another.getreceipt();
+              var im = {
+                id: idoflast,
+                data: dataofim,
+              };
+              console.log(im);
+              if (this.$refs.Another.getisreceipt() === true) {
+                axios({
+                  method: "post",
+                  url: "https://mineralsteins.icu:8080/a37/ins-pic-post",
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
+                  data: im,
+                }).then(
+                  (response) => {
+                    console.log("图片上传");
+                    this.$store.commit("updatereceipt", [
+                      false,
+                      idoflast,
+                      dataofim,
+                    ]);
+                  },
+                  (erro) => {}
+                );
+              }
               this.$alert("", "上传成功", {
                 confirmButtonText: "确定",
                 showClose: false,
@@ -164,8 +212,6 @@ export default {
                   }
                 },
               });
-              this.$store.commit("pushincome_statement", response.data);
-              lock = false;
             },
             (error) => {
               console.log(error);

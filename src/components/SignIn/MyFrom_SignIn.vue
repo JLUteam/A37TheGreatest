@@ -80,6 +80,14 @@ export default {
               (response) => {
                 console.log("987654321");
                 console.log(response.data.data);
+                var len = response.data.data.length;
+                for (var i = 0; i < len; i++) {
+                  if (response.data.data[i].isreceipt === true) {
+                    response.data.data[i].receipt =
+                      "https://mineralsteins.icu:8080/" +
+                      response.data.data[i].receipt;
+                  }
+                }
                 df.$store.state.recodes = response.data.data;
                 console.log(df.$store.state.recodes);
               },
@@ -100,6 +108,14 @@ export default {
             }).then(
               (response) => {
                 //这儿补处理收入的代码
+                var len = response.data.data.length;
+                for (var i = 0; i < len; i++) {
+                  if (response.data.data[i].isreceipt === true) {
+                    response.data.data[i].receipt =
+                      "https://mineralsteins.icu:8080/" +
+                      response.data.data[i].receipt;
+                  }
+                }
                 df.$store.state.income_statement = response.data.data;
               },
               (error) => {
