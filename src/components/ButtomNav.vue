@@ -4,36 +4,52 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'home',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'home',
+              }"
+            >
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'Percent',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'Percent',
+              }"
+            >
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
+              <img
+                src="@/assets/svg/tx-fill-shizixing.svg"
+                class="item_s"
+                alt=""
+              />
             </div>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'needs',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'needs',
+              }"
+            >
               <img :src="img.Notification" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'person',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'person',
+              }"
+            >
               <img :src="img.user_Home" class="item" />
             </router-link>
           </li>
@@ -162,6 +178,11 @@ export default {
         type: "success",
         customClass: "success",
       });
+      var usr = this.$store.state.userinfo.uid;
+      var id =
+        this.$store.state.recodes
+          .map((item) => item.id)
+          .reduce((a, b) => Math.max(a, b)) + 1;
       var str = "data:image/jpeg;base64," + imageURL;
       var pblob = this.dataURLtoBlob(str);
       var reader = new FileReader();
@@ -189,19 +210,19 @@ export default {
               btime: response.data.result.item_list[1].value,
               isreceipt: true,
               reseipt: str,
-              "ispic": true,
-              "bpic": null,
-              "usr": this.$store.state.userinfo.uid,
-              'id': (this.$store.state.recodes.map(item => item.id).reduce((a, b) => Math.max(a, b))) + 1
+              ispic: true,
+              bpic: null,
+              usr: usr,
+              id: id,
             };
             console.log(dataofimage);
             this.$router.push({
-              name: 'ConsumptionDetails',
+              name: "ConsumptionDetails",
               query: {
                 recode: dataofimage,
-                isphoto: true
-              }
-            })
+                isphoto: true,
+              },
+            });
           },
           (error) => {
             console.log(error.message);

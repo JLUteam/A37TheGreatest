@@ -1,11 +1,28 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <Avatar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" :img_="$route.query.img" ref="Avatar">
+    <Avatar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      :img_="$route.query.img"
+      ref="Avatar"
+    >
     </Avatar>
-    <StateBar :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="StateBar"></StateBar>
-    <PayState :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="PayState"></PayState>
-    <Another :bcategory="$route.query.bcategory" :Ispay="$route.query.Ispay" ref="Another"></Another>
+    <StateBar
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="StateBar"
+    ></StateBar>
+    <PayState
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="PayState"
+    ></PayState>
+    <Another
+      :bcategory="$route.query.bcategory"
+      :Ispay="$route.query.Ispay"
+      ref="Another"
+    ></Another>
     <button @click="throttle(uplode, 1000)">保存</button>
   </div>
 </template>
@@ -48,8 +65,8 @@ export default {
               " " +
               this.$refs.Another.getTime_(),
             amount: this.$refs.PayState.geAmount_(),
-            isreceipt: this.$refs.Another.getisreceipt(),
-            receipt: this.$refs.Another.getisreceipt(),
+            // isreceipt: this.$refs.Another.getisreceipt(),
+            // receipt: this.$refs.Another.getisreceipt(),
           };
           console.log(recode_new);
           axios({
