@@ -32,7 +32,6 @@ export default {
       this.$store.commit("updatarecode_insorouts", [type, val]);
     },
 
-
     delete_() {
       if (this.$route.query.isphoto != null) {
         var dataofim =
@@ -67,48 +66,60 @@ export default {
         console.log("信息");
         console.log(dataoftr);
         // if (this.$store.getters.getdeletes.isout === true) {
-        //   axios({
-        //     method: "post",
-        //     url: "https://mineralsteins.icu:8080/a37/outs/", //待加
-        //     headers: {
-        //       "Content-Type": "application/x-www-form-urlencoded",
-        //     },
-        //     data:, //待加
-        //   }).then(
-        //     (response) => {
-        //       console.log("文字上传");
-        //       console.log(response.data);
-        //       this.$store.commit("pushrecodes", response.data);
-        //       var idoflast = response.data.id;
-        //       var dataofim = "!!!!"; //待补
-        //       var im = {
-        //         id: idoflast,
-        //         data: dataofim,
-        //       };
-        //       console.log(im);
-        //       axios({
-        //         method: "post",
-        //         url: "https://mineralsteins.icu:8080/a37/outs-pic-post",
-        //         headers: {
-        //           "Content-Type": "multipart/form-data",
-        //         },
-        //         data: im,
-        //       }).then(
-        //         (response) => {
-        //           console.log("图片上传");
-        //           this.$store.commit("updatereceipt", [
-        //             true,
-        //             idoflast,
-        //             dataofim,
-        //           ]);
-        //         },
-        //         (erroe) => {}
-        //       );
-        //     },
-        //     (error) => {
-        //       console.log(error);
-        //     }
-        //   );
+        axios({
+          method: "post",
+          url: "https://mineralsteins.icu:8080/a37/outs/", //待加
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          data: dataoftr, //待加
+        }).then(
+          (response) => {
+            console.log("文字上传");
+            this.$store.commit("deleterecodesbyid", id_);
+            console.log(response.data);
+            this.$store.commit("pushrecodes", response.data);
+            var idoflast = response.data.id;
+            //       var dataofim = "!!!!"; //待补
+            var im = {
+              id: idoflast,
+              data: dataofre,
+            };
+            console.log(im);
+            axios({
+              method: "post",
+              url: "https://mineralsteins.icu:8080/a37/outs-pic-post",
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              data: im,
+            }).then(
+              (response) => {
+                console.log("图片上传");
+                this.$store.commit("updatereceipt", [true, idoflast, dataofre]);
+                this.$alert("", "上传成功", {
+                  confirmButtonText: "确定",
+                  showClose: false,
+                  center: true,
+                  type: "success",
+                  customClass: "success",
+                  beforeClose: (action, instance, done) => {
+                    if (action === "confirm") {
+                      this.$router.push({
+                        name: "Percent",
+                      });
+                      done();
+                    }
+                  },
+                });
+              },
+              (erroe) => {}
+            );
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
         // }
       } else {
         if (this.deleteorsave == "删除") {
