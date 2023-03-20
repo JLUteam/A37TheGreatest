@@ -277,7 +277,7 @@ const mutations = {
             if (isEqual) {
                 // 找到对象后修改数值
                 // console.log(( [recode[0]]))
-                console.log(recode[0][1]+'1111111')
+                console.log(recode[0][1] + '1111111')
                 temp[i][recode[0][0]] = recode[0][1];
                 state.temp_insorouts = temp
                 console.log(state.radio1 === '支出' ? '支出' : '收入')
@@ -290,16 +290,16 @@ const mutations = {
        
     },
     save_insorouts(contect) {
-         let changes = {
+        let changes = {
             keys: [],
             newvals: [],
             id: '0',
-            isout:true
+            isout: true
         }
         let temp = state.radio1 === '支出' ? state.recodes : state.income_statement;
         // console.log(state.temp_insorouts)   
         if (state.radio1 != '支出') {
-            changes.isout=false
+            changes.isout = false
         }
         for (var i = 0; i < temp.length; i++) {
             // console.log( state.temp_insorouts)
@@ -312,21 +312,21 @@ const mutations = {
                     // console.log("!!!!!!!!!!!!")
                     // console.log(state.radio1 === '支出' ? '支出' : '收入')
                     // console.log(key)//输出不相等的属性名
-                  console.log("iiiiiiii")
+                    console.log("iiiiiiii")
                     changes.keys.push(key)
                     // console.log(state.temp_insorouts[i][key])
                     changes.newvals.push(state.temp_insorouts[i][key])//输出改后的属性值
                     // console.log(temp[i].id)
                     // console.log(temp[i])
-                    changes.id=temp[i]['id']
+                    changes.id = temp[i]['id']
                     // console.log(i)//输出第几条被修改了
                     
                 }
-            } 
+            }
         }
         console.log("oooooop")
         console.log(changes)
-        state.changes=changes
+        state.changes = changes
         // console.log('修改了')
         if (state.radio1 === '支出') {
             state.recodes = state.temp_insorouts;
@@ -353,7 +353,15 @@ const mutations = {
                 }
             }
         }
-       }
+    },
+    deleterecodesbyid(contect, id) {
+        for (let i = 0; i < state.recodes.length; i++) {
+            if (state.recodes[i].id == id) {
+                state.recodes.splice(i, 1);
+            }
+        }
+
+    }
 }
 const getters = {
     searchResult(state) {

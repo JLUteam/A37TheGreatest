@@ -32,7 +32,7 @@ export default {
       this.$store.commit("updatarecode_insorouts", [type, val]);
     },
 
-    
+
     delete_() {
       if (this.$route.query.isphoto != null) {
         var dataofim =
@@ -155,6 +155,7 @@ export default {
             id: "-1",
             isout: true,
           };
+          console.log("删除");
         } else {
           console.log("保存");
           this.$store.commit("save_insorouts");
