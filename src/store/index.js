@@ -269,7 +269,6 @@ const mutations = {
             temp = state.temp_insorouts
         }
         console.log(temp)
-        var flag = false;
 
         for (let i = 0; i < temp.length; i++) {
             console.log(recode)
@@ -288,12 +287,7 @@ const mutations = {
                 break;
             }
         }
-        if (!flag) {
-            recode[0][3][recode[0][0]] = recode[0][1];
-            state.temp_insorouts = temp;
-            state.temp_insorouts.push(recode[0][3])
-            
-        }
+       
     },
     save_insorouts(contect) {
          let changes = {
