@@ -1,18 +1,39 @@
 <template>
     <div class="basic">
-        <p class="title">现有金额</p>
-        <div class="input_" v-for="recode in recodes" :key="recode.id">
-            <div class="recode__div">
-                <input type="text" v-model="recode.name" class="recode__title" placeholder="点此输入支付类型"
-                    v-bind:readonly="recode.confirmed">
-                <div class="container">
-                    <div class="icon"><img :src="recode.pic" alt=""></div>
-                    <input type="text" class="search" v-model="recode.amount" v-bind:readonly="recode.confirmed">
-                    <button @click="confirmAmount(recode)" :class="!recode.confirmed ? 'button_' : 'button_ button_vis'">
-                        <img src="@/assets/svg/gou.svg" alt="" class="gou">
-                    </button>
+        <p class="title_">您的消费倾向为:</p>
+        <p class="result">{{ this.result }}</p>
+        <div class="category" ref="caiwu_category">
+        </div>
+        <div class="suggest">
+            <p class="title_">建议:</p>
+            <div class="item_suggest">
+                <div class="item">
+                    <p class="result_suggest">{{ result_text.text1 }}</p>
+                </div>
+                <div class="content" style="white-space: pre-wrap;">
+                {{ result_text.text1_content }}
                 </div>
             </div>
+            <div class="item_suggest">
+                <div class="item2">
+                    <p class="result_suggest">{{ result_text.text2  }}</p>
+                </div>
+                <div class="content" style="white-space: pre-wrap;">
+                    {{ result_text.text2_content }}
+                </div>
+            </div>
+            <div class="item_suggest">
+                <div class="item">
+                    <p class="result_suggest">{{ result_text.text3 }}</p>
+                </div>
+                <div class="content" style="white-space: pre-wrap;">
+                   {{ result_text.text3_content }}
+                </div>
+            </div>
+
+
+        </div>
+        <div class="blank">
 
         </div>
     </div>
@@ -23,26 +44,165 @@ export default {
     name: "caiwujiankang",
     data() {
         return {
-            search_: '',
+
         };
     },
-    computed: {
-        recodes() {
-            return this.$store.getters.getcards
-        }
-    },
     methods: {
-        confirmAmount(recode) {
-            if (recode.name != '' && recode.amount != null) {
+        getEngel_coefficient() {
+            return (this.sum(this.foodrecode) / this.sum(this.recodes__)).toFixed(2)
+        },
+        getAPC() {
+            return (this.sum(this.recodes__) / this.sum(this.income_salary)).toFixed(2)
+        },
+        month() {
+            let date = new Date();
+            let year = date.getFullYear()
+            let month = (date.getMonth() + 1).toString().padStart(2, "0");
+            return ('' + year + '-' + month)
+        },
+        sum(recode_) {
+            return recode_.reduce((total, item) => {
+                return total + parseFloat(item.amount);
+            }, 0);
+        },
+        data_caiwu() {
+            return [
+                {
+                    name: '总支出', value: this.sum(this.recodes__)
+                },
+                {
+                    name: '投资与存储', value: this.sum(this.income) - this.sum(this.income_salary),
+                }
+            ]
+        },
+        drawcategroy() {
+            let myChart = this.$echarts.init(this.$refs.caiwu_category);
+            this.myChart = myChart;
+            let option = {
+                tooltip: {
+                    trigger: "item",
+                    show: false
+                },
+                backgroundColor: "transparent", //rgba设置透明度0.1,
+                //rgba设置透明度0.1,
+                legend: {
+                    show: 'true',
+                    top: '90%',
+                    left: 'center',
+                    icon: 'circle'
+                },
+                series: [
+                    {
+                        name: "Access From",
+                        type: "pie",
+                        radius: ["75%", "90%"],
+                        center: ["50%", "50%"],
+                        avoidLabelOverlap: false,
+                        itemStyle: {
+                            borderColor: "#fff",
+                            borderWidth: 10,
+                            borderRadius: 20,
+                        },
+                        label: {
+                            show: false,
+                            position: "center",
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 40,
+                                fontWeight: "bold",
+                                formatter: "{b}\n{d}%",
+                                padding: [10, 10],
+                            },
+                        },
+                        labelLine: {
+                            show: false,
+                        },
+                        data: this.data_caiwu()
 
-                recode.confirmed = true
-            }
-            if (this.recodes.every(card => card.confirmed)) {
-                this.$store.commit('addcard')
-            }
+                    },
+                ],
+            };
+            myChart.setOption(option);
+        },
+
+
+    }
+    ,
+    computed: {
+        recodes__() {
+            let recodes__ = this.$store.getters.getreoces;
+            recodes__ = recodes__.filter((item) => (item.btime.indexOf(this.month()) != -1))
+            return recodes__
+        },
+        foodrecode() {
+            let foodrecode = this.recodes__.filter((item) => (item.bcategory == '餐饮' || item.bcategory == '蔬菜' || item.bcategory == '水果'))
+            return foodrecode
+        },
+
+        income() {
+            let income = this.$store.getters.getincome;
+            income = income.filter((item) => (item.btime.indexOf(this.month()) != -1))
+            return income
+        },
+        income_salary() {
+            let income_salary = this.income.filter((item) => (item.bcategory == '工资'))
+            return income_salary
         }
+        ,
+        result() {
+            let result;
+            if (this.getAPC() > 1) {
+                result = '过度消费人群'
+            } else if (this.getAPC() >= 0.5) {
+                result = '重视消费人群'
+            } else {
+                result = '倾向投资储蓄人群'
+            }
+            return result
+        },
+        result_text() {
+            let text;
+            if (this.getAPC() > 1) {
+                let ans = {
+                    text1: '仔细分析您的账单',
+                    text1_content:'您在消费方面的支出已超出您的收入\n请仔细分析您的账单\n并适当减少开支',
+                    text2: '建立合理的预算',
+                    text2_content: '建立合理的预算\n规划好每月可支配的收入和支出\n并尽可能按照预算执行\n以便更好地控制支出',
+                    text3: '建立储蓄习惯',
+                    text3_content: '建立储蓄习惯\n每月将一定比例的收入用于储蓄\n以增加财务稳定性和减轻压力',
+                }
+                text = ans
+            } else if (this.getAPC() >= 0.5) {
+                let ans = {
+                    text1: '制定合理预算',
+                    text1_content: '制定合理预算\n明确自己每月可支配的收入和支出\n规划好每一笔开支\n并尽可能按照预算执行',
+                    text2: '建立紧急基金',
+                    text2_content: '建立紧急基金\n对于消费倾向强的人来说\n突发事件可能会使你们陷入财务困境\n建立紧急基金可以帮助你们应对突发事件',
+                    text3: '进行适当投资',
+                    text3_content: '可以考虑进行适当投资\n以增加收入并实现财务目标',
+                }
+                text = ans
+            } else {
+                let ans = {
+                    text1: '确认明确的目标',
+                    text1_content: '储蓄和投资需要有明确的目标\n以便合理地制定储蓄和投资计划\n更好地实现财务目标',
+                    text2: '选择高效的储蓄方式',
+                    text2_content: '选择高效的储蓄方式\n以提高储蓄的效率和收益',
+                    text3: '进行多元化投资',
+                    text3_content: '在进行投资时\n应该进行多元化投资\n以减少风险和提高收益',
+                }
+                text = ans
+            }
+            return text
+        }
+
     },
-    watch: {
+    mounted() {
+        setTimeout(() => {
+            this.drawcategroy()
+        }, 0);
     }
 };
 </script>
@@ -52,120 +212,89 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
-    .title {
-        display: flex;
-        margin-right: 4.8rem;
-        margin-top: .5rem;
+.title_ {
+    display: flex;
+    justify-content: start;
+    margin-left: -3rem;
+    font-size: .5rem;
+    font-weight: 500;
+}
 
-        height: .42rem;
-        color: #121826;
-        font-family: SimSun;
-        font-size: .48rem;
-        font-weight: 500;
+.result {
+    display: flex;
+    justify-content: center;
 
-    }
+    font-size: .7rem;
+    font-weight: 500;
+}
 
-    .input_ {
+.suggest {
 
 
+    .item_suggest {
+        width: 6rem;
+        margin-top: .2rem;
 
-        .recode__div {
-            // height: 1.96rem;
-            display: flex;
-            flex-direction: column;
-            margin-top: .5rem;
-            margin-left: 0rem;
-            // justify-content: ;
-            // align-items: center;
-            // margin-left: -1.2rem;
+        .item {
+            margin-left: -.6rem;
+            // margin-top: -0.8rem;
+            width: 3.46rem;
+            height: .9rem;
+            border-radius: 0 0.54rem 0.54rem 0;
+            background: #a8a5ff;
+            background-blend-mode: normal;
 
-            .recode__title {
-                color: #121826;
-                font-family: Manrope;
-                font-size: .28rem;
+            .result_suggest {
+                padding-top: .1rem;
+                text-align: center;
+                font-size: .4rem;
                 font-weight: 500;
-                line-height: .48rem;
-                border: none;
-                background-color: transparent;
-                outline: none;
-                margin-left: .2rem;
-                margin-bottom: .3rem;
-                // margin-bottom: 1rem;
             }
-
-            .container {
-                // height: 20%;
-                // width: 90%;
-                display: flex;
-                flex-flow: row nowrap;
-                align-items: center;
-                // margin-top: 1.5rem;
-                margin-left: 0rem;
-
-                .icon {
-                    height: 1.28rem;
-                    width: 1.28rem;
-                    box-sizing: border-box;
-                    padding: 5px;
-                    background: #f4f4f6;
-                    border-radius: 0.32rem 0 0 0.32rem;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    img {
-                        height: .64rem;
-                        width: .64rem;
-                    }
-                }
-
-                .search {
-                    border: 1px solid #ccc;
-                    width: 5rem;
-                    height: 1.28rem;
-                    // padding-left: 0.96rem;
-                    background: none;
-                    outline: none;
-                    z-index: 1;
-                    border-radius: 0 0.32rem 0.32rem 0;
-                    background: #f4f4f6;
-                    background-blend-mode: normal;
-                    border: none;
-                    font-weight: 500;
-                    font-size: .32rem;
-
-
-                }
-
-                .button_ {
-                    width: .48rem;
-                    height: .48rem;
-                    background-color: transparent;
-                    border: none;
-                    margin-left: .2rem;
-
-                    .gou {
-                        background-color: transparent;
-                        width: .48rem;
-                        height: .48rem;
-                        cursor: pointer;
-                    }
-                }
-
-                .button_vis {
-                    visibility: hidden;
-                }
-
-
-
-            }
-
         }
 
+        .item2 {
+            margin-left: 3rem;
+            // margin-top: -0.8rem;
+            width: 3.46rem;
+            height: .9rem;
+            border-radius: 0.54rem 0 0 0.54rem;
+            background: #a8a5ff;
+            background-blend-mode: normal;
 
+            .result_suggest {
+                padding-top: .1rem;
+                text-align: center;
+                font-size: .4rem;
+                font-weight: 500;
+            }
+        }
+
+        .content {
+
+            margin-top: .2rem;
+            width: 100%;
+           
+            margin-bottom: .3rem;
+            border-radius: .5rem;
+            background-color: #e2e0e0;
+            font-size: .4rem;
+            font-weight: 500;
+            padding-left: .3rem;
+            padding-top: .2rem;
+            padding-bottom: .2rem;
+            
+        }
     }
+}
 
+.category {
+    width: 6.54rem;
+    height: 7.7044rem;
+}
 
+.blank {
+    height: 2rem;
 }
 </style>

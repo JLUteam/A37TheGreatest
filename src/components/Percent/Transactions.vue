@@ -210,7 +210,7 @@ export default {
                             break;
                         case '投资':
                             temp[i].bpic = require('@/assets/svg/icon_0p9q85sdf0hp/zizhuguanli1.svg')
-                            break;       
+                            break;
                         default:
                             break;
                     }
@@ -411,6 +411,7 @@ export default {
     border-radius: .64rem .64rem 0 0;
     // box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
     top: 1rem;
+    left: 0rem;
 
     .Category {
         position: absolute;

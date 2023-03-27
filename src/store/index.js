@@ -283,7 +283,6 @@ const mutations = {
                 console.log(state.radio1 === '支出' ? '支出' : '收入')
                 console.log(i)
                 state.changes.id = temp[i].id
-                flag = true;
                 break;
             }
         }
@@ -378,6 +377,13 @@ const getters = {
     },
     getdeletes(state) {
         return state.deletes
+    }
+    ,
+    getreoces(state) {
+        return state.recodes
+    },
+    getincome(state) {
+        return state.income_statement
     }
 
 }
@@ -586,36 +592,12 @@ const state = {
     activeName_needs: 'first',
     selectedItems: [],
     searchResult: [],
-    cards: [
-        {
-            name: '支付宝',
-            amount: null,
-            confirmed: false,
-            pic: require('@/assets/svg/zhifubao.svg'),
-            id: 1
-        },
-        {
-            name: '微信',
-            amount: null,
-            confirmed: false,
-            pic: require('@/assets/svg/wechat1.svg'),
-            id: 2
-        },
-        {
-            name: '',
-            amount: null,
-            confirmed: false,
-            pic: require('@/assets/svg/yinlian.svg'),
-            id: 3
-        }
-    ],
     temp_insorouts: null,
     changes: {
         keys: [],
         newvals: [],
         id: '-1',
         isout:true
-
     },
     deletes: {
          id: '-1',

@@ -113,7 +113,7 @@ export default {
                   },
                 });
               },
-              (erroe) => {}
+              (erroe) => { }
             );
           },
           (error) => {
@@ -162,11 +162,33 @@ export default {
               }
             );
           }
+
           this.$store.state.deletes = {
             id: "-1",
             isout: true,
           };
           console.log("删除");
+          this.$alert("", "删除成功", {
+            confirmButtonText: "确定",
+            showClose: false,
+            center: true,
+            type: "success",
+            customClass: "success",
+            beforeClose: (action, instance, done) => {
+
+              if (action === "confirm") {
+                console.log('oppppppppppppppppppp');
+                console.log(action);
+                this.$router.push({
+                  name: "Percent",
+                });
+                done();
+              } else {
+                console.log('oppppppppppppppppppp');
+                console.log(action);
+              }
+            },
+          });
         } else {
           console.log("保存");
           this.$store.commit("save_insorouts");
@@ -221,13 +243,29 @@ export default {
             id: "-1",
             isout: true,
           };
+          this.$alert("", "修改成功", {
+            confirmButtonText: "确定",
+            showClose: false,
+            center: true,
+            type: "success",
+            customClass: "success",
+            beforeClose: (action, instance, done) => {
+              if (action === "confirm") {
+                this.$router.push({
+                  name: "Percent",
+                });
+                done();
+              }
+            },
+          });
         }
 
-        this.$router.back(-1);
+
       }
     },
     isupdate() {
       this.deleteorsave = "保存";
+      console.log('opppppppppp!!!!!!!!!!!');
     },
   },
 };

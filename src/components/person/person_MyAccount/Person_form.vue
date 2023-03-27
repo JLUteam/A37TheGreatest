@@ -185,8 +185,9 @@ export default {
 }
 
 .save {
-  position: absolute;
-  top: 85%;
+  // position: absolute;
+  // top: 85%;
+  margin-top: 1rem;
 
   .save_button {
     width: 6.54rem;

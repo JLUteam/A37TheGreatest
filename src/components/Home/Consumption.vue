@@ -49,7 +49,6 @@ export default {
             let data = this.$store.state.recodes.filter(
                 (item) => (item.btime.indexOf(time) != -1)
             );
-            console.log('1259')
             console.log(data)
             return data.reduce((total, item) => {
                 return total + parseFloat(item.amount);

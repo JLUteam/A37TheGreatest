@@ -1,6 +1,6 @@
 <template>
   <div class="base">
-    <router-view ></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -36,4 +36,7 @@ body::-webkit-scrollbar {
 a {
   text-decoration: none;
 }
-</style>
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}</style>

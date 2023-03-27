@@ -28,6 +28,7 @@ export default {
   justify-content: center;
   background-color: #ffffff;
   margin-top: .25rem;
+  margin-left:.2rem ;
 
   .signin_tip {
     color: #121826;

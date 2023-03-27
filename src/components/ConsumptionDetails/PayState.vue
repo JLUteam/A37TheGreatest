@@ -103,7 +103,7 @@ export default {
                 }
 
             }
-            this.$parent.getchange(['amount',(newval), oldval, recode_])
+            this.$parent.getchange(['amount', (newval), oldval, recode_])
             this.$parent.isupdate()
         },
         payment(newval, oldval) {
@@ -111,7 +111,7 @@ export default {
             if (this.$store.state.temp_insorouts === null) {
                 recode_ = this.recode
             } else {
-                 let temp_ = this.$store.state.temp_insorouts
+                let temp_ = this.$store.state.temp_insorouts
                 for (let i = 0; i < temp_.length; i++) {
                     if (temp_[i]['id'] == this.$store.state.changes.id) {
                         recode_ = temp_[i]
@@ -197,7 +197,7 @@ input {
                 cursor: pointer;
                 // width: 2rem !important;
                 margin-left: 1rem;
-                margin-right: -3.3rem;
+                margin-right: -3.8rem;
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
@@ -210,6 +210,8 @@ input {
 
 
     .Amount {
+        margin-top: .3rem;
+
         .result {
             p {
                 color: #121826;

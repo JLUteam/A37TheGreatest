@@ -49,7 +49,7 @@ export default {
     position: absolute;
     width: .54rem;
     top: .384rem;
-    left: 1.28rem;
+    left: 1.78rem;
   }
 
   #wechat {
@@ -70,7 +70,7 @@ export default {
   .signup {
     position: relative;
     width: 4rem;
-    left: 1.92rem;
+    left: 2.4rem;
     top: .384rem;
     font-family: Manrope;
     font-size: .32rem;

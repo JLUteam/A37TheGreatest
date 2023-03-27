@@ -7,10 +7,10 @@
 export default {
   name: "Category_Chart",
   mounted() {
-   setTimeout(() => {
-    this.drawLine()
-   }, 900);
-   
+    setTimeout(() => {
+      this.drawLine()
+    }, 900);
+
   },
   beforeDestroy() {
     window.removeEventListener("resize", () => {
@@ -101,7 +101,7 @@ export default {
                 show: true,
                 fontSize: 40,
                 fontWeight: "bold",
-                formatter: "{d}%",
+                formatter: "{b}\n{d}%",
                 padding: [10, 10],
               },
             },
@@ -113,7 +113,7 @@ export default {
         ],
       };
       console.log("cbsahccjbsaj")
-      console.log(this.data_)
+      // console.log(this.data_)
       myChart.setOption(option);
 
       window.addEventListener("resize", () => {
