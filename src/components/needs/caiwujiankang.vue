@@ -1,35 +1,43 @@
 <template>
     <div class="basic">
-        <p class="title_">您的消费倾向为:</p>
-        <p class="result">{{ this.result }}</p>
-        <div class="category" ref="caiwu_category">
-        </div>
+        <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInDown">
+            <p class="title_" :key="1">您的消费倾向为:</p>
+            <p class="result" :key="2">{{ this.result }}</p>
+            <div class="category" ref="caiwu_category" :key="3">
+            </div>
+        </transition-group>
         <div class="suggest">
-            <p class="title_">建议:</p>
-            <div class="item_suggest">
-                <div class="item">
-                    <p class="result_suggest">{{ result_text.text1 }}</p>
+            <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
+                <p class="title_suggest" :key="1">建议:</p>
+                <div class="item_suggest" :key="2">
+                    <div class="item">
+                        <p class="result_suggest">{{ result_text.text1 }}</p>
+                    </div>
+                    <div class="content" style="white-space: pre-wrap;">
+                        {{ result_text.text1_content }}
+                    </div>
                 </div>
-                <div class="content" style="white-space: pre-wrap;">
-                {{ result_text.text1_content }}
+            </transition-group>
+            <transition appear name="animate__animated animate__bounce" enter-active-class="animate__backInRight">
+                <div class="item_suggest">
+                    <div class="item2">
+                        <p class="result_suggest">{{ result_text.text2 }}</p>
+                    </div>
+                    <div class="content" style="white-space: pre-wrap;">
+                        {{ result_text.text2_content }}
+                    </div>
                 </div>
-            </div>
-            <div class="item_suggest">
-                <div class="item2">
-                    <p class="result_suggest">{{ result_text.text2  }}</p>
+            </transition>
+            <transition appear name="animate__animated animate__bounce" enter-active-class="animate__backInLeft">
+                <div class="item_suggest">
+                    <div class="item">
+                        <p class="result_suggest">{{ result_text.text3 }}</p>
+                    </div>
+                    <div class="content" style="white-space: pre-wrap;">
+                        {{ result_text.text3_content }}
+                    </div>
                 </div>
-                <div class="content" style="white-space: pre-wrap;">
-                    {{ result_text.text2_content }}
-                </div>
-            </div>
-            <div class="item_suggest">
-                <div class="item">
-                    <p class="result_suggest">{{ result_text.text3 }}</p>
-                </div>
-                <div class="content" style="white-space: pre-wrap;">
-                   {{ result_text.text3_content }}
-                </div>
-            </div>
+            </transition>
 
 
         </div>
@@ -68,7 +76,7 @@ export default {
         data_caiwu() {
             return [
                 {
-                    name: '总支出', value: this.sum(this.recodes__)
+                    name: '消费', value: this.sum(this.recodes__)
                 },
                 {
                     name: '投资与存储', value: this.sum(this.income) - this.sum(this.income_salary),
@@ -91,11 +99,13 @@ export default {
                     left: 'center',
                     icon: 'circle'
                 },
+                color: ['#e04141', '#74be62']
+                ,
                 series: [
                     {
                         name: "Access From",
                         type: "pie",
-                        radius: ["75%", "90%"],
+                        radius: ["70%", "90%"],
                         center: ["50%", "50%"],
                         avoidLabelOverlap: false,
                         itemStyle: {
@@ -154,6 +164,7 @@ export default {
         result() {
             let result;
             if (this.getAPC() > 1) {
+
                 result = '过度消费人群'
             } else if (this.getAPC() >= 0.5) {
                 result = '重视消费人群'
@@ -167,7 +178,7 @@ export default {
             if (this.getAPC() > 1) {
                 let ans = {
                     text1: '仔细分析您的账单',
-                    text1_content:'您在消费方面的支出已超出您的收入\n请仔细分析您的账单\n并适当减少开支',
+                    text1_content: '您在消费方面的支出已超出您的收入\n请仔细分析您的账单\n并适当减少开支',
                     text2: '建立合理的预算',
                     text2_content: '建立合理的预算\n规划好每月可支配的收入和支出\n并尽可能按照预算执行\n以便更好地控制支出',
                     text3: '建立储蓄习惯',
@@ -202,7 +213,7 @@ export default {
     mounted() {
         setTimeout(() => {
             this.drawcategroy()
-        }, 0);
+        }, 1000);
     }
 };
 </script>
@@ -217,7 +228,7 @@ export default {
 .title_ {
     display: flex;
     justify-content: start;
-    margin-left: -3rem;
+    margin-left: -.0rem;
     font-size: .5rem;
     font-weight: 500;
 }
@@ -232,6 +243,12 @@ export default {
 
 .suggest {
 
+    .title_suggest {
+        display: flex;
+        font-size: .5rem;
+        font-weight: 500;
+        margin-left: -0.1rem;
+    }
 
     .item_suggest {
         width: 6rem;
@@ -275,7 +292,7 @@ export default {
 
             margin-top: .2rem;
             width: 100%;
-           
+
             margin-bottom: .3rem;
             border-radius: .5rem;
             background-color: #e2e0e0;
@@ -284,7 +301,7 @@ export default {
             padding-left: .3rem;
             padding-top: .2rem;
             padding-bottom: .2rem;
-            
+
         }
     }
 }

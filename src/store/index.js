@@ -556,40 +556,47 @@ const state = {
         {
             "btime": "2023-03-13 21:59:29",
             "amount": 340,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+            "shenfen": "父亲",
         },
         {
             "btime": "2023-02-12 21:59:29",
             "amount": -123,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+             "shenfen": "母亲",
         },
         {
             "btime": "2023-02-13 18:59:29",
             "amount": -175,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+             "shenfen": "母亲",
         },
         {
             "btime": "2023-03-13 12:59:29",
             "amount": 256,
             "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+             , "shenfen": "儿子",
         },
         {
             "btime": "2023-03-10 21:59:29",
             "amount": -156,
             "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            , "shenfen": "儿子",
         },
         {
             "btime": "2023-03-15 21:59:27",
             "amount": -156,
             "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            , "shenfen": "女儿",
         },
         {
             "btime": "2023-03-15 21:59:28",
             "amount": -156,
             "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+            , "shenfen": "儿子",
         }
     ],
-    activeName_needs: 'first',
+    activeName_needs: 'second',
     selectedItems: [],
     searchResult: [],
     temp_insorouts: null,

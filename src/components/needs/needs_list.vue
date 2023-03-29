@@ -17,7 +17,7 @@
                 <span>请选择支付时间：</span>
                 <el-date-picker v-model="date"></el-date-picker>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="showDialog = false">取 消</el-button>
+                    <el-button @click="dialogVisible = false">取 消</el-button>
                     <el-button type="primary" @click="confirm">确 定</el-button>
                 </span>
             </el-dialog>
@@ -26,9 +26,9 @@
         </div>
         <div class="recodes_border">
             <div class="recordsets">
-                <div class="record" v-for='recode in recodes.reverse()' :key="recode.btime">
+                <div class="record" v-for="(recode) in recodes.reverse()" :key="recode.btime">
                     <div class="middle">
-                        <p class="merchantname">{{ recode.bname }}</p>
+                        <p class="merchantname">{{ recode.shenfen }}</p>
 
                         <p class="ShoppingTime">{{ recode.btime.substr(0, 10) }}</p>
                         <!-- <div style="width: .48rem; height: .48rem; background-color: blueviolet; margin-left: 2.0rem;"></div> -->
@@ -144,7 +144,8 @@ export default {
             let data = {
                 "btime": '' + year + '-' + month + '-' + day,
                 "amount": this.amount,
-                "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
+                "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+                "shenfen": "儿子",
             }
             console.log('支付金额：', this.amount);
             console.log('支付时间：', this.date);
@@ -154,15 +155,9 @@ export default {
         },
         jian(recode) {
             this.$store.commit('jian_needs', recode)
-        }
+        },
+
     }
-
-
-
-
-
-
-
 };
 </script>
 <style lang="less" scoped>
@@ -177,7 +172,7 @@ export default {
         width: 2.9856rem;
         height: .64rem;
         border-radius: .16rem;
-        background: #ffffff;
+        background: #e9e9ff;
         background-blend-mode: normal;
         color: #4a44c6;
         font-family: Manrope;
@@ -328,12 +323,13 @@ export default {
                     height: .96rem;
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
-                    align-content: center;
+                    height: 1rem;
+                    // justify-content: center;
+                    // align-content: center;
 
 
                     .merchantname {
-                        // display: inline-block;
+
                         width: 2rem;
                         height: .52rem;
                         color: #121826;
@@ -341,13 +337,12 @@ export default {
                         font-size: .32rem;
                         font-weight: 700;
                         line-height: .26rem;
-                        margin-left: .5rem;
+                        padding-left: .5rem;
                     }
 
                     .ShoppingTime {
-
                         display: inline-block;
-                        margin-top: -.5rem;
+                        margin-top: -.2rem;
                         height: .32rem;
                         color: #6c727f;
                         font-family: Manrope;
@@ -355,6 +350,7 @@ export default {
                         font-weight: 400;
                         line-height: .32rem;
                         margin-left: .5rem;
+
                     }
                 }
 

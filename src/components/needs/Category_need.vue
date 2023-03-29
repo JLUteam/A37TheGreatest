@@ -1,6 +1,6 @@
 <template>
     <div class="Category_Chart">
-
+        <p>您当前的身份为:儿子</p>
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="select">
             <el-tab-pane label="一周" name="first"></el-tab-pane>
             <el-tab-pane label="一月" name="second"></el-tab-pane>
@@ -28,7 +28,7 @@ export default {
                 label: '一年'
             },],
             value: '',
-            activeName: 'first'
+            activeName: 'second'
         }
     },
     mounted() {
@@ -273,7 +273,13 @@ export default {
     display: flex;
     flex-direction: column;
     width: 6.5rem;
-
+    p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: .5rem;
+        margin-top: .1rem;
+    }
     .chart {
         margin-top: -.6rem;
         width: 6.54rem;
