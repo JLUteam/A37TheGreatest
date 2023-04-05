@@ -79,7 +79,7 @@ export default {
                     name: '消费', value: this.sum(this.recodes__)
                 },
                 {
-                    name: '投资与存储', value: this.sum(this.income) - this.sum(this.income_salary),
+                    name: '投资与存储', value: this.sum(this.income_salary) - this.sum(this.recodes__),
                 }
             ]
         },
@@ -169,6 +169,8 @@ export default {
             } else if (this.getAPC() >= 0.5) {
                 result = '重视消费人群'
             } else {
+                console.log('oppppppppppppppppppppppppppp!')
+                console.log(this.getAPC())
                 result = '倾向投资储蓄人群'
             }
             return result

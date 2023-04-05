@@ -7,7 +7,7 @@
         <img class='icon' src="@/assets/svg/wechat.svg" alt="Icon" />
         <p class="signup">微信账号登录</p>
       </a>
-      <a id="zhifubao">
+      <a id="zhifubao" @click="getAuthCode_()">
         <img class="icon" src="@/assets/svg/alipay.svg" alt="Icon" />
         <p class="signup">支付宝账号登录</p>
       </a>
@@ -16,11 +16,35 @@
   </transition>
 </template>
 <script>
+
 export default {
   name: "MySocialSignIn",
   data() {
-    return {};
+    return {
+      appId: "2021001165650001",
+    };
   },
+  methods: {
+    getAuthCode_() {
+      console.log('getAuthCode_');
+      console.log(this.appId);
+      ap.getAuthCode({
+        appId: this.appId,
+        scopes: ['auth_user']
+      }, function (res) {
+        consolo.log(res);
+        if (res.authCode) {
+          ap.alert('获取authCode成功: ' + res.authCode);
+        } else {
+          ap.alert('获取authCode失败: ' + res.errorMessage);
+        }
+    });
+
+     
+      
+
+    }
+  }
 };
 </script>
 
