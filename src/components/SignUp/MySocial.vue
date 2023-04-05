@@ -16,8 +16,30 @@
 export default {
   name: "MySocial",
   data() {
-    return {};
+    return {
+       appId: "2021001165650001",
+    };
   },
+   methods: {
+    getAuthCode_() {
+      // console.log('getAuthCode_');
+      // console.log(this.appId);
+      // console.log(ap)
+      // console.log(ap.getAuthCode)
+      ap.getAuthCode({
+        appId: `${this.appId}`,
+        scopes: ['auth_user']
+      }, function (res) {
+        if (res.authCode) {
+        ap.alert(JSON.stringify(res));
+        } 
+      });
+
+
+
+
+    }
+  }
 };
 </script>
 
