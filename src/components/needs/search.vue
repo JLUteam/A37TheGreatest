@@ -4,12 +4,7 @@
       <div class="icon">
         <img :src="require('@/assets/svg/search_.svg')" alt="" />
       </div>
-      <input
-        type="text"
-        class="search"
-        placeholder="此处输入待搜索的信息"
-        v-model="search_"
-      />
+      <input type="text" class="search" placeholder="此处输入待搜索的信息" v-model="search_" />
     </div>
 
     <div class="tip">
@@ -17,21 +12,13 @@
     </div>
     <div class="recodes_border">
       <div class="recordsets">
-        <div
-          class="record"
-          v-for="recode in this.recodes_seleced"
-          :key="recode.btime"
-        >
+        <div class="record" v-for="recode in this.recodes_seleced" :key="recode.btime">
           <img :src="recode.bpic" class="merchantAvatar" />
           <div class="middle">
             <p class="merchantname">{{ recode.bname }}</p>
             <p class="ShoppingTime">{{ recode.btime }}</p>
           </div>
-          <img
-            class="jian"
-            :src="require('@/assets/svg/jian1.svg')"
-            @click="jian(recode)"
-          />
+          <img class="jian" :src="require('@/assets/svg/jian1.svg')" @click="jian(recode)" />
           <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
         </div>
         <div class="temp2"></div>
@@ -49,11 +36,7 @@
             <p class="merchantname">{{ recode.bname }}</p>
             <p class="ShoppingTime">{{ recode.btime }}</p>
           </div>
-          <img
-            class="jian"
-            :src="require('@/assets/svg/add_1.svg')"
-            @click="add(recode)"
-          />
+          <img class="jian" :src="require('@/assets/svg/add_1.svg')" @click="add(recode)" />
           <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
         </div>
         <div class="temp2"></div>
@@ -61,6 +44,9 @@
     </div>
     <div class="save">
       <button class="save_button" @click="toshare_()">确认</button>
+    </div>
+    <div class="blank">
+
     </div>
   </div>
 </template>
@@ -301,7 +287,7 @@ export default {
     justify-content: center;
     align-items: center;
     overflow: scroll;
-    height: 3.5rem;
+    height: 4rem;
 
     .recordsets {
       width: 6.54rem;
@@ -410,6 +396,10 @@ export default {
     .save_button:hover {
       opacity: 1;
     }
+  }
+
+  .blank {
+    height: 1.5rem;
   }
 }
 </style>

@@ -360,6 +360,9 @@ const mutations = {
             }
         }
 
+    },
+    clearselectedItems(contect) {
+        state.selectedItems = [];
     }
 }
 const getters = {

@@ -28,8 +28,10 @@ export default {
     getAuthCode_() {
       console.log('getAuthCode_');
       console.log(this.appId);
+      console.log(ap)
+      console.log(ap.getAuthCode)
       ap.getAuthCode({
-        appId: this.appId,
+        appId:  `${this.appId}`,
         scopes: ['auth_user']
       }, function (res) {
         consolo.log(res);
@@ -38,10 +40,10 @@ export default {
         } else {
           ap.alert('获取authCode失败: ' + res.errorMessage);
         }
-    });
+      });
 
-     
-      
+
+
 
     }
   }

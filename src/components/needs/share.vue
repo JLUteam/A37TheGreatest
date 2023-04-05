@@ -2,11 +2,7 @@
   <div class="basic">
     <div class="recodes_border">
       <div class="recordsets" id="share">
-        <div
-          class="record"
-          v-for="recode in this.$store.getters.getselectedItems"
-          :key="recode.btime"
-        >
+        <div class="record" v-for="recode in this.$store.getters.getselectedItems" :key="recode.btime">
           <img :src="recode.bpic" class="merchantAvatar" />
           <div class="middle">
             <p class="merchantname">{{ recode.bname }}</p>
@@ -49,6 +45,7 @@ export default {
           customClass: "success",
           beforeClose: (action, instance, done) => {
             if (action === "confirm") {
+              this.$store.commit("clearselectedItems", []);
               this.$router.push({
                 name: "search",
               });
