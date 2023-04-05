@@ -41,6 +41,21 @@ export default {
         canvas.id = "share";
         let url = canvas.toDataURL("image/png");
         console.log(url);
+        this.$alert("请前往图库进行分享", "照片生成成功", {
+          confirmButtonText: "确定",
+          showClose: false,
+          center: true,
+          type: "success",
+          customClass: "success",
+          beforeClose: (action, instance, done) => {
+            if (action === "confirm") {
+              this.$router.push({
+                name: "search",
+              });
+              done();
+            }
+          },
+        });
       });
     },
   },
