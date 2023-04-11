@@ -6,8 +6,9 @@
             <p class="More" @mousedown="pull_up">查看更多</p>
         </div>
         <div class="search" v-show=Flag>
+    
 
-            <input type="text" class="search_record" placeholder="Search transactions">
+            <input type="text" class="search_record" placeholder="点击搜索">
         </div>
         <div class="recodes_border">
             <div class="recordsets">
@@ -17,6 +18,8 @@
                         <p class="merchantname">{{ recode.bname }}</p>
                         <p class="ShoppingTime">{{ recode.btime }}</p>
                     </div>
+
+                    
                     <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
                 </div>
                 <div class="temp" v-if="Flag"></div>

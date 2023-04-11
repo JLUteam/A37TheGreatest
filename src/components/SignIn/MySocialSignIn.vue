@@ -7,7 +7,7 @@
         <img class='icon' src="@/assets/svg/wechat.svg" alt="Icon" />
         <p class="signup">微信账号登录</p>
       </a>
-      <a id="zhifubao" @click="getAuthCode_()">
+      <a id="zhifubao" @click="tozhifubaosiginin()">
         <img class="icon" src="@/assets/svg/alipay.svg" alt="Icon" />
         <p class="signup">支付宝账号登录</p>
       </a>
@@ -25,6 +25,7 @@ export default {
     };
   },
   methods: {
+    
     getAuthCode_() {
       console.log('getAuthCode_');
       console.log(this.appId);
@@ -41,10 +42,6 @@ export default {
           ap.alert('获取authCode失败: ' + res.errorMessage);
         }
       });
-
-
-
-
     }
   }
 };
