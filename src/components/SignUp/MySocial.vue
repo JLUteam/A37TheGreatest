@@ -6,7 +6,7 @@
         <p>使用微信登录</p>
       </a>
       <a class="zhifubao">
-        <img class='icon' src="@/assets/img/alipay.png" alt="Icon" />
+        <img class='icon' src="@/assets/img/alipay.png" alt="Icon" @click="getAuthCode_" />
         <p>使用支付宝登录</p>
       </a>
     </div>
@@ -17,28 +17,18 @@ export default {
   name: "MySocial",
   data() {
     return {
-       appId: "2021001165650001",
+      appId: "2021001165650001",
     };
   },
-   methods: {
+  methods: {
     getAuthCode_() {
-      // console.log('getAuthCode_');
-      // console.log(this.appId);
-      // console.log(ap)
-      // console.log(ap.getAuthCode)
-      ap.getAuthCode({
-        appId: `${this.appId}`,
-        scopes: ['auth_user']
-      }, function (res) {
-        if (res.authCode) {
-        ap.alert(JSON.stringify(res));
-        } 
-      });
+      let data = "apiname=com.alipay.account.auth&app_id=2021003186676826&app_name=mc&auth_type=AUTHACCOUNT&biz_type=openservice&method=alipay.open.auth.sdk.code.get&pid=2021003186676826&product_id=APP_FAST_LOGIN&scope=auth_user&sign="
+      cordova.plugins.alipay.authLogin(data);
+    },
 
 
 
 
-    }
   }
 };
 </script>

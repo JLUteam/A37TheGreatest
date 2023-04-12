@@ -7,7 +7,7 @@
         <img class='icon' src="@/assets/svg/wechat.svg" alt="Icon" />
         <p class="signup">微信账号登录</p>
       </a>
-      <a id="zhifubao" @click="tozhifubaosiginin()">
+      <a id="zhifubao" @click="getAuthCode_()">
         <img class="icon" src="@/assets/svg/alipay.svg" alt="Icon" />
         <p class="signup">支付宝账号登录</p>
       </a>
@@ -16,33 +16,38 @@
   </transition>
 </template>
 <script>
-
+// import cordova from 'cordova'
 export default {
   name: "MySocialSignIn",
   data() {
     return {
       appId: "2021001165650001",
+      qrTimer: null,
     };
   },
   methods: {
-    
+
     getAuthCode_() {
-      console.log('getAuthCode_');
-      console.log(this.appId);
-      console.log(ap)
-      console.log(ap.getAuthCode)
-      ap.getAuthCode({
-        appId:  `${this.appId}`,
-        scopes: ['auth_user']
-      }, function (res) {
-        consolo.log(res);
-        if (res.authCode) {
-          ap.alert('获取authCode成功: ' + res.authCode);
-        } else {
-          ap.alert('获取authCode失败: ' + res.errorMessage);
-        }
+      console.log('支付宝登录')
+      let data = "apiname=com.alipay.account.auth&app_id=2021003186676826&app_name=mc&auth_type=AUTHACCOUNT&biz_type=openservice&method=alipay.open.auth.sdk.code.get&pid=2088641042129872&product_id=APP_FAST_LOGIN&scope=auth_user&target_id=61ef37122e104d148c855d14e9bf90e2&sign=m6K7Dz4CxPAgLn2uwIjGSmgRcOBYtHcqaYqLc85/C6PCqoIu6tUHDmx5/hb0xy+dMCdQoFcQWKRGzBl040g/6avD/PhOUSUi9Cmtd2HxSzEEjk7LuFn9QrpAmcM7/tub+K/G/2rQp9ce8FY2RCbJ/sFDA09M5B+2gqzy9Qkc5fE==com.alipay.account.auth&app_id=2021003186676826&app_name=mc&auth_type=AUTHACCOUNT&biz_type=openservice&method=alipay.open.auth.sdk.code.get&pid=2021003186676826&product_id=APP_FAST_LOGIN&scope=auth_user&sign=";
+      cordova.plugins.alipay.authLogin(data, function success(result) {
+        console.log('result')
+      }, function error(error) {
+        console.log('error')
+        console.log(error.resultStatus)
       });
-    }
+    },
+    // tozhifubaosiginin() {
+    //   //支付宝登录
+    //   this.qrTimer = setInterval(async () => {
+    //     console.log('轮询')
+
+
+    //   }, 3000)
+    // }
+  },
+  beforeDestroy() {
+    clearInterval(this.qrTimer)
   }
 };
 </script>
