@@ -7,7 +7,7 @@
             </el-radio-group>
         </div>
         <div class="title">
-            <p class="title_number">{{ (this.radio1 === '支出' ? '-$' : '$') + title_number.toFixed(2) }}</p>
+            <p class="title_number">{{ (this.radio1 === '支出' ? '-¥' : '¥') + title_number.toFixed(2) }}</p>
             <!-- <p class="title_p">Category Chart</p> -->
             <p class="title_time">{{ '过去' + this.radio2 + '的' + (this.radio1 === '支出' ? '支出' : '收入') }}</p>
         </div>
@@ -193,7 +193,7 @@ export default {
                                 fontSize: 18,
                                 fontWeight: 'bold',
                                 formatter: function (arg) {
-                                    return '$' + arg.value
+                                    return '¥' + arg.value
                                 },
                             }
                         },

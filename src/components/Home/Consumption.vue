@@ -8,7 +8,7 @@
         </div>
         <div class="price">
             <p class="Spengding">
-                ${{ zhenshu }}.{{ xiaoshu }}
+               ¥{{ zhenshu }}.{{ xiaoshu }}
             </p>
             <div class="comparetoy">
                 对比昨天的消费

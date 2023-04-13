@@ -160,7 +160,7 @@ export default {
                         },
                         formatter: function (arg) {
 
-                            return '$' + arg.data
+                            return '¥' + arg.data
                         },
                         textStyle: {
                             color: '#ffffff',
