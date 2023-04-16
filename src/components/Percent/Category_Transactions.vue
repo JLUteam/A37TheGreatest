@@ -76,8 +76,6 @@ export default {
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + day + ' ' + i + ':')
                     yAxis2.push(temp2)
-
-
                 }
 
             } else if (this.activeName === 'second') {
@@ -90,7 +88,7 @@ export default {
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
                     month = (newDate.getMonth() + 1).toString().padStart(2, "0");
                     day = newDate.getDate().toString().padStart(2, "0");
-                    //  console.log('' + year + '-' + month + '-' + day)
+
                     let temp = this.sum('' + year + '-' + month + '-' + day)
                     //  console.log('!!!'+i + '' + year + '-' + month + '-' + day)
                     yAxis.push(temp)
@@ -217,9 +215,9 @@ export default {
                         triggerOn: 'mousemove|click',
 
                     },
-
-
-
+                    grid: {
+                        containLabel: true,
+                    },
                     series: [
                         {
                             data: this.$store.state.radio1 === '支出' ? yAxis : yAxis2,

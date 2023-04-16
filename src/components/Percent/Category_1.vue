@@ -84,9 +84,9 @@ export default {
                     const newDate = new Date(date.getTime() + (i - dayOfWeek) * oneDayTime);
                     month = (newDate.getMonth() + 1).toString().padStart(2, "0");
                     day = newDate.getDate().toString().padStart(2, "0");
-                  //  console.log('' + year + '-' + month + '-' + day)
+                    //  console.log('' + year + '-' + month + '-' + day)
                     let temp = this.sum('' + year + '-' + month + '-' + day)
-                  //  console.log('!!!'+i + '' + year + '-' + month + '-' + day)
+                    //  console.log('!!!'+i + '' + year + '-' + month + '-' + day)
                     yAxis.push(temp)
                     let temp2 = this.sum_income('' + year + '-' + month + '-' + day)
                     yAxis2.push(temp2)
@@ -151,7 +151,8 @@ export default {
                             lineStyle: {
                                 type: 'dashed',
                             }
-                        }
+                        },
+                        //更改坐标轴文字大小
                     },
 
                     tooltip: {
@@ -188,9 +189,9 @@ export default {
                         triggerOn: 'mousemove|click',
 
                     },
-
-
-
+                    grid: {
+                        containLabel: true,
+                    },
                     series: [
                         {
                             data: yAxis,
@@ -297,6 +298,7 @@ export default {
         margin-top: -.6rem;
         width: 6.54rem;
         height: 6.7044rem;
+        margin-left: -.3rem;
     }
 
     .select {

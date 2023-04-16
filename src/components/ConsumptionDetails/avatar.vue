@@ -43,18 +43,16 @@ export default {
 input {
     border: none;
     outline: none;
-    padding-left: 3.0rem; // text-align: right;
+    // padding-left: 3.0rem; // text-align: right;
     background-color: transparent;
     color: #121826;
     font-family: "Manrope-Regular";
     font-size: 0.28rem;
     font-weight: 400;
     line-height: 0.48rem;
-    //  text-align: center;
-    // margin-left: -1.5rem;
+    text-align:center;
 
 }
-
 .avatar {
     display: flex;
     flex-direction: column;

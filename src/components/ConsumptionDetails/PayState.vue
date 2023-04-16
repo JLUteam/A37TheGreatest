@@ -171,13 +171,20 @@ input {
 
     .payment {
         .result {
-
-            p {
+            /deep/ .el-input__inner {
+                border: none;
+                background: transparent;
+                text-align: right;
+                cursor: pointer;
+                color: #121826;
                 font-family: "Manrope-Regular";
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
-                color: #121826;
+            }
+
+            /deep/ .el-select-dropdown__item {
+                font-size: .24rem;
             }
 
             /deep/ .el-input__inner,
@@ -197,13 +204,16 @@ input {
                 cursor: pointer;
                 // width: 2rem !important;
                 margin-left: 1rem;
-                margin-right: -3.8rem;
+                margin-right: -3.3rem;
                 font-size: .28rem;
                 font-weight: 400;
                 line-height: .48rem;
-                padding-right: .5rem;
                 color: #121826;
 
+            }
+
+            /deep/.el-select .el-input__inner {
+                padding-right: 1rem !important;
             }
         }
     }
