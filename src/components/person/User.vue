@@ -43,8 +43,7 @@ export default {
             done();
           }
         },
-      })
-        .then(() => {
+      }).then(() => {
           this.$message({
             type: "info",
             message: "拍照上传",

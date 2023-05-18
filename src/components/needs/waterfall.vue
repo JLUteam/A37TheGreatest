@@ -1,15 +1,21 @@
 <template>
   <div id="waterfall" ref="waterfall">
-    <div
-      class="img-box default-card-animation"
-      v-for="(item, index) in imgsArr_c"
-      :key="index"
-      :style="{ width: imgWidth + 'px', height: item._height + 'px' }"
-      ref="imgBox"
-    >
-      <img :data-src="item.src" @click="tozhuangbeng()" />
+    <div class="img-box default-card-animation" v-for="(item, index) in imgsArr_c" :key="index"
+      :style="{ width: imgWidth + 'px', height: item._height + 'px' }" ref="imgBox">
+      <img :data-src="item.src" @click="dialogVisible = true" />
       <P class="info">{{ item.info }}</P>
     </div>
+
+    <el-dialog :visible.sync="dialogVisible" title="请输入房间号" :before-close="handleClose">
+      <el-input v-model="roomNumber" placeholder="请输入房间号"></el-input>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="confirm">
+          {{ roomNumber ? '进入房间' : '新建房间号' }}
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -97,7 +103,9 @@ export default {
       beginIndex: 0,
       colsHeightArr: [], // 保存当前每一列的高度
       reachBottomDistance: 20, // 滚动触底距离，触发加载新图片
-      viewHeight: 0, // 窗口视图大小
+      viewHeight: 0, // 窗口视图大小，
+      roomNumber: '',
+      dialogVisible: false
     };
   },
   computed: {
@@ -120,6 +128,7 @@ export default {
     colNum() {
       return this.isMobile ? 2 : this.imgCol;
     },
+
   },
   watch: {
     imgsArr(newVal, oldVal) {
@@ -263,11 +272,25 @@ export default {
       };
     },
     tozhuangbeng() {
+
+
+
+
+
+
+    },
+    confirm() {
+      this.dialogVisible = false;
+
       this.$router.push({
         name: "qingjingzhuangbeng",
       });
     },
-  },
+    handleClose(done) {
+      done();
+    }
+  }
+  ,
   mounted() {
     this.viewHeight =
       document.documentElement.clientHeight == 0
@@ -278,7 +301,11 @@ export default {
   },
 };
 </script >
-
+<style>
+.el-dialog {
+  width: 100% !important;
+}
+</style>
 <style lang="less" scoped>
 #waterfall {
   width: 100%;
@@ -323,6 +350,7 @@ export default {
       transition-delay: 0.1s;
       cursor: pointer;
     }
+
   }
 }
 </style>
