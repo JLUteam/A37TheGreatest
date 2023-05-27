@@ -177,14 +177,14 @@ export default {
             beforeClose: (action, instance, done) => {
 
               if (action === "confirm") {
-                console.log('oppppppppppppppppppp');
+              
                 console.log(action);
                 this.$router.push({
                   name: "Percent",
                 });
                 done();
               } else {
-                console.log('oppppppppppppppppppp');
+               
                 console.log(action);
               }
             },
@@ -265,7 +265,7 @@ export default {
     },
     isupdate() {
       this.deleteorsave = "保存";
-      console.log('opppppppppp!!!!!!!!!!!');
+    
     },
   },
 };

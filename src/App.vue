@@ -24,7 +24,7 @@ ul {
 }
 
 body::-webkit-scrollbar {
-  display: none;
+  display: none ;
 }
 
 .base {
@@ -38,5 +38,6 @@ a {
 }
 
 * {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}</style>
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+}
+</style>
