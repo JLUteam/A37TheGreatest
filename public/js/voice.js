@@ -32,7 +32,7 @@
             this.resultTextTemp = '';
             // 音频数据多线程
             this.init();
-        };
+        }
         // WebSocket请求地址鉴权
         getWebSocketUrl() {
             return new Promise((resolve, reject) => {
@@ -64,7 +64,7 @@
                     resolve(`${url}?authorization=${authorization}&date=${date}&host=${host}`);
                 };
             });
-        };
+        }
         // 操作初始化
         init() {
             const self = this;
@@ -98,7 +98,7 @@
         setParams({ language, accent } = {}) {
             language && (this.language = language)
             accent && (this.accent = accent)
-        };
+        }
         // 对处理后的音频数据进行base64编码，
         toBase64(buffer) {
             let binary = '';
@@ -107,7 +107,7 @@
                 binary += String.fromCharCode(bytes[i]);
             }
             return window.btoa(binary);
-        };
+        }
         // 连接WebSocket
         connectWebSocket() {
             return this.getWebSocketUrl().then(url => {
@@ -139,9 +139,10 @@
                     this.recorderStop(e);
                 };
             })
-        };
+        }
         // 初始化浏览器录音
         recorderInit() {
+            const self = this;
             // 创建音频环境
             try {
                 this.audioContext = this.audioContext ? this.audioContext : new (window.AudioContext || window.webkitAudioContext)();
@@ -184,35 +185,48 @@
                     this.webSocket.close();
                 }
             };
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
             // 获取浏览器录音权限
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({
-                    audio: true
-                }).then(stream => {
-                    this.streamRef = stream;
-                    getMediaSuccess();
-                }).catch(e => {
-                    getMediaFail(e);
-                })
-            } else if (navigator.getUserMedia) {
-                navigator.getUserMedia({
-                    audio: true
-                }, (stream) => {
-                    this.streamRef = stream;
-                    getMediaSuccess();
-                }, function (e) {
-                    getMediaFail(e);
-                })
-            } else {
-                if (navigator.userAgent.toLowerCase().match(/chrome/) && location.origin.indexOf('https://') < 0) {
-                    console.error('获取浏览器录音功能，因安全性问题，需要在localhost 或 127.0.0.1 或 https 下才能获取权限！');
-                } else {
-                    alert('对不起：未识别到录音设备!');
-                }
-                this.audioContext && this.audioContext.close();
-                return false;
-            };
+            // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            //     navigator.mediaDevices.getUserMedia({
+            //         audio: true
+            //     }).then(stream => {
+            //         this.streamRef = stream;
+            //         getMediaSuccess();
+            //     }).catch(e => {
+            //         getMediaFail(e);
+            //     })
+            // } else if (navigator.getUserMedia) {
+            //     navigator.getUserMedia({
+            //         audio: true
+            //     }, (stream) => {
+            //         this.streamRef = stream;
+            //         getMediaSuccess();
+            //     }, function (e) {
+            //         getMediaFail(e);
+            //     })
+            // } else {
+            //     if (navigator.userAgent.toLowerCase().match(/chrome/) && location.origin.indexOf('https://') < 0) {
+            //         console.error('获取浏览器录音功能，因安全性问题，需要在localhost 或 127.0.0.1 或 https 下才能获取权限！');
+            //     } else {
+            //         alert('对不起：未识别到录音设备!');
+            //     }
+            //     this.audioContext && this.audioContext.close();
+            //     return false;
+            // };
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                self.streamRef = stream;
+                     getMediaSuccess();
+    // 用户授权麦克风权限
+    // 在这里可以进行相关操作，如录音等
+            })
+                .catch(function (error) {
+                console.log(error);
+    // 用户拒绝了麦克风权限或发生了错误
+    // 在这里可以处理错误情况
+             });
+
         };
         // 向webSocket发送数据(音频二进制数据经过Base64处理)
         webSocketSend() {
