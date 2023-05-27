@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     drawLine() {
-      // 基于刚刚准备好的 DOM 容器，初始化 EChart 实例
+     
       let myChart = this.$echarts.init(this.$refs.myChart);
       this.myChart = myChart;
       // 绘制图表
@@ -90,7 +90,7 @@ export default {
             itemStyle: {
               borderColor: "#fff",
               borderWidth: 10,
-              borderRadius: 20,
+             
             },
             label: {
               show: false,
@@ -112,7 +112,7 @@ export default {
           },
         ],
       };
-      console.log("cbsahccjbsaj")
+    
       // console.log(this.data_)
       myChart.setOption(option);
 

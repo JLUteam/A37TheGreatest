@@ -54,16 +54,19 @@
         <img src="@/assets/svg/text.svg" class="icon" alt="" />
         <p>相册输入</p>
       </div>
-      <div class="method">
+      <div class="method" @click="tovoiceinput">
         <img src="@/assets/svg/yuying.svg" class="icon" alt="" />
         <p>语音录入</p>
+      </div>
+      <div class="method">
+        <img src="@/assets/svg/text.svg" class="icon" alt="" />
+        <p>多图录入</p>
       </div>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-import Vue from "vue";
 export default {
   name: "ButtomNav",
   data() {
@@ -299,6 +302,11 @@ export default {
       }
       return new Blob([u8arr], {
         type: mime,
+      });
+    },
+    tovoiceinput() {
+      this.$router.push({
+        name: "voiceinput",
       });
     },
   },

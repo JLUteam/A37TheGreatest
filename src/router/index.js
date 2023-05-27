@@ -20,7 +20,8 @@ import waterfall from "@/components/needs/waterfall.vue"
 import search from "@/components/needs/search.vue";
 import qingjingzhuangbeng from '@/components/needs/qingjingzhuangbeng.vue'
 import caiwujiankang from '@/components/needs/caiwujiankang.vue'
-import share from'@/components/needs/share.vue'
+import share from '@/components/needs/share.vue'
+import Voiceinput from '@/views/Voiceinput.vue'
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -140,7 +141,13 @@ const router = new VueRouter({
                           component:share
                  }
             ]
+        },
+        {
+            name: 'voiceinput',
+            path: '/voice_input',
+            component: Voiceinput
         }
+
 
     ]
 });

@@ -145,7 +145,6 @@ export default {
             // 基于刚刚准备好的 DOM 容器，初始化 EChart 实例
             let list_come = this.radio1 === '支出' ? this.$store.state.outcomelist : this.$store.state.incomelist;
             let data_ = [];
-            console.log(321)
             list_come = ([...list_come])
             list_come.forEach(element => {
                 data_.push({
@@ -162,7 +161,6 @@ export default {
                     show: false,
                     trigger: 'item',
                     formatter: function (arg) {
-
                         return arg.name + ':' + arg.percent + '%'
                     }
 
