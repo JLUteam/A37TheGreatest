@@ -214,19 +214,41 @@
             //     this.audioContext && this.audioContext.close();
             //     return false;
             // };
-            navigator.mediaDevices.getUserMedia({ audio: true })
+            // checkAudioPermission();
+            console.log("TMD");
+            var permissions = cordova.plugins.permissions;
+            var self2 = self
+            permissions.hasPermission(permissions.RECORD_AUDIO, function(status) {
+            if (status.hasPermission) {
+                console.log('录音权限已授予');
+                navigator.mediaDevices.getUserMedia({ audio: true })
                 .then(function (stream) {
-                self.streamRef = stream;
-                     getMediaSuccess();
-    // 用户授权麦克风权限
-    // 在这里可以进行相关操作，如录音等
-            })
+                    self.streamRef = stream;
+                    getMediaSuccess();
+                    var self2 = self
+                })
                 .catch(function (error) {
-                console.log(error);
-    // 用户拒绝了麦克风权限或发生了错误
-    // 在这里可以处理错误情况
-             });
-
+                    console.log(error);
+                });
+                } else {
+                    var permissions = cordova.plugins.permissions;
+                    permissions.requestPermission(permissions.RECORD_AUDIO, function(status) {
+                    if (status.hasPermission) {
+                        console.log('录音权限已授予');
+                        navigator.mediaDevices.getUserMedia({ audio: true })
+                            .then(function (stream) {
+                                self2.streamRef = stream;
+                                getMediaSuccess();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                            } else {
+                                console.log('获取录音权限失败');
+                            }
+                    });
+                }
+            });
         };
         // 向webSocket发送数据(音频二进制数据经过Base64处理)
         webSocketSend() {
@@ -357,5 +379,35 @@
         stop() {
             this.recorderStop();
         }
+
+        
     };
 }));
+function checkAudioPermission() {
+    var permissions = cordova.plugins.permissions;
+    permissions.hasPermission(permissions.RECORD_AUDIO, function(status) {
+      if (status.hasPermission) {
+        // 录音权限已授予，可以进行录音操作
+        console.log('录音权限已授予');
+        // 在这里进行录音操作
+      } else {
+        // 录音权限未授予，尝试请求权限
+        requestAudioPermission();
+      }
+    });
+  }
+  function requestAudioPermission() {
+    var permissions = cordova.plugins.permissions;
+    permissions.requestPermission(permissions.RECORD_AUDIO, function(status) {
+      if (status.hasPermission) {
+        // 录音权限已授予，可以进行录音操作
+        console.log('录音权限已授予');
+        // 在这里进行录音操作
+      } else {
+        // 录音权限被拒绝
+        console.log('获取录音权限失败');
+      }
+    });
+  }
+    
+
