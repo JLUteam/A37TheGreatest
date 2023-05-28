@@ -12,7 +12,7 @@
         </div> -->
 
         <div class="voice-box">
-                <input type="text" v-model="text_voice" class="voice_text">
+                <textarea name="" id="" cols="30" rows="5" v-model="text_voice" class="voice_text"></textarea>
                 <div class="fixed-icon" @click="startRecognition">
                         <img :src="require('@/assets/img/voice.png')" alt="" />
                 </div>
@@ -278,19 +278,20 @@ export default {
                 }
         }
 
-        input {
-                display: contents;
+        .voice_text {
+                display: flex;
                 justify-content: center;
-
-                width: 100%;
-                height: 100%;
+                height: 6rem;
+                width: 90%;
                 border: none;
                 outline: none;
-                margin-top: 4rem;
-                font-size: 0.75rem;
+                font-size: 0.5rem;
                 text-align: center;
                 color: #000;
                 background-color: transparent;
+                overflow-x: scroll;
+                word-wrap: break-word;
+                margin-top: 4rem;
         }
 
 }

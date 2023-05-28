@@ -1,8 +1,8 @@
 <template>
     <div class="voiceinput">
-        <div class="voiceinput__title">
+        <!-- <div class="voiceinput__title">
             <span>语音输入</span>
-        </div>
+        </div> -->
         <div class="voiceinput__content">
             <voice_home></voice_home>
         </div>
@@ -42,7 +42,7 @@ export default {
     .voiceinput__content {
         width: 100%;
         // height: 100%;
-        height: 6rem;
+       
         flex-direction: column;
         justify-content: center;
         align-items: center;
