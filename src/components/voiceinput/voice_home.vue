@@ -13,8 +13,19 @@
 
         <div class="voice-box">
                 <textarea name="" id="" cols="30" rows="5" v-model="text_voice" class="voice_text"></textarea>
-                <div class="fixed-icon" @click="startRecognition">
+                <div class="fixed-icon" @click="startRecognition" v-if="!isvoiceend">
                         <img :src="require('@/assets/img/voice.png')" alt="" />
+                </div>
+
+                <div class="queryisright" v-if="isvoiceend">
+                        <button class="success_">确认</button>
+                </div>
+
+
+                <div class="icon_back">
+
+                        <img src="@/assets/svg/IconsChevron-left.svg" alt="" @click="back()">
+
                 </div>
 
                 <!-- <div v-if="showFixedBox" class="fixed-box">
@@ -122,6 +133,7 @@ export default {
                         button_name: '开始录音',
                         Status: null,
                         text_voice: '',
+                        isvoiceend: !false
                 };
         },
         mounted() {
@@ -171,6 +183,14 @@ export default {
 
 
                 },
+                back() {
+                        if (this.isvoiceend) {
+                                this.isvoiceend = false;
+                        } else {
+                                this.$router.back(-1)
+
+                        }
+                }
 
         },
         watch: {
@@ -195,6 +215,7 @@ export default {
                                 //识别结束
                                 console.log('识别结束');
                                 this.recognitionText = '识别结束';
+                                this.isvoiceend = !this.isvoiceend
                                 this.button_name = '开始录音'
 
                         } else {
@@ -276,6 +297,8 @@ export default {
                                 transform: scale(2);
                         }
                 }
+
+
         }
 
         .voice_text {
@@ -293,6 +316,77 @@ export default {
                 word-wrap: break-word;
                 margin-top: 4rem;
         }
+
+        .queryisright {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: transparent;
+
+                .success_ {
+
+                        width: 6.54rem;
+                        height: 1.28rem;
+                        border-radius: 0.48rem;
+                        background: #928fff;
+                        opacity: 1;
+                        // margin-left: 0.48rem;
+                        margin-top: 2rem;
+                        background-blend-mode: normal;
+                        border: none;
+                        color: #ffffff;
+                        font-family: Manrope;
+                        font-size: 0.32rem;
+                        font-weight: 700;
+                        line-height: 0.52rem;
+                        text-align: center;
+                        transition: 0.3s;
+                        cursor: pointer;
+
+                        &:hover {
+                                box-shadow: 0 0.2rem 0.72rem rgba(0, 0, 0, 0.15);
+                                opacity: 1;
+                        }
+
+                }
+        }
+
+        .icon_back {
+                display: flex;
+                position: absolute;
+                align-items: center;
+                left: 0;
+                top: 0;
+                width: .8rem;
+                height: .8rem;
+                margin-left: .48rem;
+                margin-top: .48rem;
+                border-radius: .4rem;
+                border: .03rem dashed #f4f4f6;
+
+                img {
+                        width: .8rem;
+                        height: .8rem;
+                }
+        }
+
+
+
+
+        // .back {
+        //         color: #fff;
+        //         background-color: rgb(21, 47, 72);
+        //         border-color: rgb(21, 47, 72);
+        // }
+
+        // .back:hover,
+        // .back:focus {
+        //         background: var(--el-button-hover-color);
+        //         border-color: var(--el-button-hover-color);
+        //         color: var(--el-button-font-color);
+        // }
+
 
 }
 </style> 

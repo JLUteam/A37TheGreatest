@@ -10,12 +10,20 @@
             <el-button type="primary" @click="showDialog" class="button_">
                 <img src="@/assets/svg/add.svg" class="add">
             </el-button>
-            <el-dialog title="支付信息" :visible.sync="dialogVisible">
+            <el-dialog title="支付信息" :visible.sync="dialogVisible" class="dialog">
 
-                <span>请输入支付金额：</span>
-                <el-input v-model="amount"></el-input>
-                <span>请选择支付时间：</span>
-                <el-date-picker v-model="date"></el-date-picker>
+                <div class="shopinfo">
+                    <div class="amount">
+                        <span>请输入支付金额：</span>
+                        <el-input v-model="amount" class="amountinfo"></el-input>
+                    </div>
+                    <div class="time">
+                        <span>请选择支付时间：</span>
+                        <div>
+                            <el-date-picker v-model="date"></el-date-picker>
+                        </div>
+                    </div>
+                </div>
                 <span slot="footer" class="dialog-footer">
                     <el-button @click="dialogVisible = false">取 消</el-button>
                     <el-button type="primary" @click="confirm">确 定</el-button>
@@ -168,6 +176,45 @@ export default {
     align-items: center;
     overflow: scroll;
 
+    .dialog {
+
+        .shopinfo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .amount {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .time {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                span {
+                    margin-left: .1rem;
+                }
+
+                /deep/.el-input__inner{
+                    margin-left: .1rem;
+                    width: 4rem;
+                }
+            }
+        }
+
+        .dialog-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+
     /deep/.el-radio-button__orig-radio:checked+.el-radio-button__inner {
         width: 2.9856rem;
         height: .64rem;
@@ -261,11 +308,13 @@ export default {
 
 
 
+
         /deep/.el-input__inner {
             // height: 0.4rem;
 
             margin-top: .2rem;
-            width: 3.5rem;
+
+            width: 100%;
             font-size: .28rem;
             font-weight: 500;
             line-height: .48rem;

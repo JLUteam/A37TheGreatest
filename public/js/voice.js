@@ -225,7 +225,7 @@
                 .then(function (stream) {
                     self.streamRef = stream;
                     getMediaSuccess();
-                    var self2 = self
+                    
                 })
                 .catch(function (error) {
                     console.log(error);

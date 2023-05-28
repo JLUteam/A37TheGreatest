@@ -51,7 +51,7 @@
         <p>相机输入</p>
       </div>
       <div class="method" @click="phototakefromku">
-        <img src="@/assets/svg/text.svg" class="icon" alt="" />
+        <img src="@/assets/svg/album3.svg" class="icon" alt="" />
         <p>相册输入</p>
       </div>
       <div class="method" @click="tovoiceinput">
@@ -59,7 +59,7 @@
         <p>语音录入</p>
       </div>
       <div class="method">
-        <img src="@/assets/svg/text.svg" class="icon" alt="" />
+        <img src="@/assets/svg/photos.svg" class="icon" alt="" />
         <p>多图录入</p>
       </div>
     </div>
@@ -410,7 +410,7 @@ export default {
 .addmethod {
   position: fixed;
   display: flex;
-  height: 4.8rem;
+  height: 8.5rem;
   width: 100%;
   flex-direction: column;
   justify-content: center;
