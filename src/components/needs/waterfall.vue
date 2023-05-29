@@ -1,12 +1,21 @@
 <template>
   <div id="waterfall" ref="waterfall">
-    <div class="img-box default-card-animation" v-for="(item, index) in imgsArr_c" :key="index"
-      :style="{ width: imgWidth + 'px', height: item._height + 'px' }" ref="imgBox">
+    <div
+      class="img-box default-card-animation"
+      v-for="(item, index) in imgsArr_c"
+      :key="index"
+      :style="{ width: imgWidth + 'px', height: item._height + 'px' }"
+      ref="imgBox"
+    >
       <img :data-src="item.src" @click="dialogVisible = true" />
       <P class="info">{{ item.info }}</P>
     </div>
 
-    <el-dialog :visible.sync="dialogVisible" title="进入房间" :before-close="handleClose">
+    <el-dialog
+      :visible.sync="dialogVisible"
+      title="进入房间"
+      :before-close="handleClose"
+    >
       <!-- <el-input v-model="roomNumber" placeholder="请输入房间号"></el-input>
 
       <span slot="footer" class="dialog-footer">
@@ -17,32 +26,55 @@
       </span> -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="已有" name="first" class="comeroom">
-          <el-input v-model="room.roomNumber" placeholder="请输入房间号" class="roomnumber"></el-input>
+          <el-input
+            v-model="room.roomNumber"
+            placeholder="请输入房间号"
+            class="roomnumber"
+          ></el-input>
 
-          <el-input v-model="room.password" placeholder="请输入密码" class="roompassword"></el-input>
+          <el-input
+            v-model="room.password"
+            placeholder="请输入密码"
+            class="roompassword"
+          ></el-input>
 
           <el-button type="primary" @click="confirm">确认</el-button>
         </el-tab-pane>
         <el-tab-pane label="新建" name="second">
+          <el-input
+            v-model="room.roomNumber"
+            placeholder="请输入房间号"
+            class="roomnumber"
+            :disabled="true"
+          ></el-input>
 
-          <el-input v-model="room.roomNumber" placeholder="请输入房间号" class="roomnumber" :disabled="true"></el-input>
+          <el-input
+            v-model="room.password"
+            placeholder="请设置密码"
+            class="roompassword"
+          ></el-input>
 
-          <el-input v-model="room.password" placeholder="请设置密码" class="roompassword"></el-input>
-
-          <el-select v-model="role" transfer="true" :popper-append-to-body="false" style="z-index:999;">
-            <el-option v-for="item in rolelist" :key="item.value" :value="item.value" :label="item.label"></el-option>
+          <el-select
+            v-model="role"
+            transfer="true"
+            :popper-append-to-body="false"
+            style="z-index: 999"
+          >
+            <el-option
+              v-for="item in rolelist"
+              :key="item.value"
+              :value="item.value"
+              :label="item.label"
+            ></el-option>
           </el-select>
           <el-button type="primary" @click="confirm">确认</el-button>
-
-
-
         </el-tab-pane>
       </el-tabs>
-
     </el-dialog>
   </div>
 </template>
 <script>
+import axios from "axios";
 import { isMobile } from "@/assets/js/util.js";
 export default {
   name: "waterfall",
@@ -134,13 +166,13 @@ export default {
       },
       dialogVisible: false,
       isnewroom: false,
-      activeName: 'first',
-      role: '请确认身份',
+      activeName: "first",
+      role: "请确认身份",
       rolelist: [
-        { value: '0', label: '父亲' },
-        { value: '1', label: '儿子' },
-        { value: '2', label: '母亲' },
-        { value: '3', label: '女儿' },
+        { value: "父亲", label: "父亲" },
+        { value: "儿子", label: "儿子" },
+        { value: "母亲", label: "母亲" },
+        { value: "女儿", label: "女儿" },
       ],
     };
   },
@@ -164,7 +196,6 @@ export default {
     colNum() {
       return this.isMobile ? 2 : this.imgCol;
     },
-
   },
   watch: {
     imgsArr(newVal, oldVal) {
@@ -176,12 +207,12 @@ export default {
       this.preLoad();
     },
     activeName(newVal, oldVal) {
-      if (newVal == 'second') {
+      if (newVal == "second") {
         this.isnewroom = true;
       } else {
         this.isnewroom = false;
       }
-    }
+    },
   },
   methods: {
     // 预加载 设置图片宽高
@@ -318,52 +349,135 @@ export default {
       this.dialogVisible = false;
 
       if (this.isnewroom) {
-        console.log("newroom")
-      }
-      else {
-        console.log("comeroom")
+        console.log("newroom");
+        axios({
+          method: "post",
+          url: "https://mineralsteins.icu:8080/a37/room/",
+
+          data: {
+            room_num: this.room.roomNumber,
+            context: "家庭账本",
+            psd: this.room.password,
+          },
+        }).then(
+          (response) => {
+            console.log(response.data);
+            axios({
+              method: "post",
+              url: "https://mineralsteins.icu:8080/a37/own/",
+              data: {
+                role: this.role,
+                room: this.room.roomNumber,
+                usr: this.$store.state.userinfo.uid,
+              },
+            }).then(
+              (response) => {
+                console.log(response.data);
+                axios({
+                  method: "post",
+                  url: "https://mineralsteins.icu:8080/a37/room-login",
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  data: {
+                    password: this.room.password,
+                    room_num: this.room.roomNumber,
+                    uid: this.$store.state.userinfo.uid,
+                  },
+                }).then(
+                  (response) => {
+                    console.log(response.data);
+                    this.$router.push({
+                      name: "qingjingzhuangbeng",
+                      query: {
+                        data: response.data.info,
+                        role: response.data.role,
+                        room_num: response.data.room_num,
+                      },
+                    });
+                  },
+                  (error) => {
+                    window.alert(error.message);
+                  }
+                );
+              },
+              (error) => {
+                window.alert(error.message);
+              }
+            );
+          },
+          (error) => {
+            window.alert(error.message);
+          }
+        );
+      } else {
+        console.log("comeroom");
+        axios({
+          method: "post",
+          url: "https://mineralsteins.icu:8080/a37/room-login",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          data: {
+            password: this.room.password,
+            room_num: this.room.roomNumber,
+            uid: this.$store.state.userinfo.uid,
+          },
+        }).then(
+          (response) => {
+            console.log(response.data);
+            this.$router.push({
+              name: "qingjingzhuangbeng",
+              query: {
+                data: response.data.info,
+                role: response.data.role,
+                room_num: response.data.room_num,
+              },
+            });
+          },
+          (error) => {
+            window.alert(error.message);
+          }
+        );
       }
 
-
-      this.$router.push({
-        name: "qingjingzhuangbeng",
-      });
+      // this.$router.push({
+      //   name: "qingjingzhuangbeng",
+      // });
     },
     handleClose(done) {
       done();
     },
     newroom() {
-      console.log("newroom")
+      console.log("newroom");
       var min = 1000;
       var max = 9999;
-      var randomnum = (Math.floor(Math.random() * (max - min + 1)) + min) + '';
-      console.log(randomnum)
+      var randomnum = Math.floor(Math.random() * (max - min + 1)) + min + "";
+      console.log(randomnum);
       this.room.roomNumber = randomnum;
     },
     handleClick() {
-      this.room.roomNumber = '';
-      if (this.activeName == 'second') {
+      this.room.roomNumber = "";
+      if (this.activeName == "second") {
         this.newroom();
       }
     },
     formatRole(value) {
-      if (value === '0') {
-        return '父亲'
+      if (value === "0") {
+        return "父亲";
       }
-      if (value === '1') {
-        return '儿子'
+      if (value === "1") {
+        return "儿子";
       }
-      if (value === '2') {
-        return '母亲'
+      if (value === "2") {
+        return "母亲";
       }
-      if (value === '3') {
-        return '女儿'
+      if (value === "3") {
+        return "女儿";
       }
-      return '请确认身份'
-    }
-
-  }
-  ,
+      return "请确认身份";
+    },
+  },
   mounted() {
     this.viewHeight =
       document.documentElement.clientHeight == 0
@@ -373,7 +487,7 @@ export default {
     this.scroll();
   },
 };
-</script >
+</script>
 <style>
 .el-dialog {
   width: 100% !important;
@@ -423,8 +537,6 @@ export default {
       transition-delay: 0.1s;
       cursor: pointer;
     }
-
-
   }
 
   /deep/.el-tab-pane {
@@ -434,7 +546,7 @@ export default {
   }
 
   /deep/.el-input__inner {
-    margin-top: .4rem;
+    margin-top: 0.4rem;
   }
 
   /deep/.el-tabs__item {
@@ -442,9 +554,7 @@ export default {
   }
 
   /deep/.el-button {
-    margin-top: .3rem;
-
+    margin-top: 0.3rem;
   }
-
 }
 </style>

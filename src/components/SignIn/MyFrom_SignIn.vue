@@ -163,7 +163,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped >
+<style lang="less" scoped>
 .from {
   width: 7.5rem;
   border-radius: 0.32rem;
