@@ -317,6 +317,14 @@ export default {
     confirm() {
       this.dialogVisible = false;
 
+      if (this.isnewroom) {
+        console.log("newroom")
+      }
+      else {
+        console.log("comeroom")
+      }
+
+
       this.$router.push({
         name: "qingjingzhuangbeng",
       });
