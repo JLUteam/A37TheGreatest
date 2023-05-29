@@ -29,7 +29,11 @@
 
           <el-input v-model="room.password" placeholder="请设置密码" class="roompassword"></el-input>
 
+          <el-select v-model="role" transfer="true" :popper-append-to-body="false" style="z-index:999;">
+            <el-option v-for="item in rolelist" :key="item.value" :value="item.value" :label="item.label"></el-option>
+          </el-select>
           <el-button type="primary" @click="confirm">确认</el-button>
+
 
 
         </el-tab-pane>
@@ -130,7 +134,14 @@ export default {
       },
       dialogVisible: false,
       isnewroom: false,
-      activeName: 'first'
+      activeName: 'first',
+      role: '请确认身份',
+      rolelist: [
+        { value: '0', label: '父亲' },
+        { value: '1', label: '儿子' },
+        { value: '2', label: '母亲' },
+        { value: '3', label: '女儿' },
+      ],
     };
   },
   computed: {
@@ -326,6 +337,21 @@ export default {
       if (this.activeName == 'second') {
         this.newroom();
       }
+    },
+    formatRole(value) {
+      if (value === '0') {
+        return '父亲'
+      }
+      if (value === '1') {
+        return '儿子'
+      }
+      if (value === '2') {
+        return '母亲'
+      }
+      if (value === '3') {
+        return '女儿'
+      }
+      return '请确认身份'
     }
 
   }
