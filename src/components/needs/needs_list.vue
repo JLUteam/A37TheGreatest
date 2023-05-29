@@ -25,8 +25,7 @@
                     </div>
                 </div>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="confirm">确 定</el-button>
+                    <el-button type="primary" @click="confirm" class="confirmbuttom">确 定</el-button>
                 </span>
             </el-dialog>
 
@@ -210,6 +209,11 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            
+            .confirmbuttom{
+                width: 4rem;
+                margin-top: ;
+            }
         }
 
     }

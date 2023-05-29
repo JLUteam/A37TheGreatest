@@ -6,15 +6,35 @@
       <P class="info">{{ item.info }}</P>
     </div>
 
-    <el-dialog :visible.sync="dialogVisible" title="请输入房间号" :before-close="handleClose">
-      <el-input v-model="roomNumber" placeholder="请输入房间号"></el-input>
+    <el-dialog :visible.sync="dialogVisible" title="进入房间" :before-close="handleClose">
+      <!-- <el-input v-model="roomNumber" placeholder="请输入房间号"></el-input>
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
         <el-button type="primary" @click="confirm">
           {{ roomNumber ? '进入房间' : '新建房间号' }}
         </el-button>
-      </span>
+      </span> -->
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="已有" name="first" class="comeroom">
+          <el-input v-model="room.roomNumber" placeholder="请输入房间号" class="roomnumber"></el-input>
+
+          <el-input v-model="room.password" placeholder="请输入密码" class="roompassword"></el-input>
+
+          <el-button type="primary" @click="confirm">确认</el-button>
+        </el-tab-pane>
+        <el-tab-pane label="新建" name="second">
+
+          <el-input v-model="room.roomNumber" placeholder="请输入房间号" class="roomnumber" :disabled="true"></el-input>
+
+          <el-input v-model="room.password" placeholder="请设置密码" class="roompassword"></el-input>
+
+          <el-button type="primary" @click="confirm">确认</el-button>
+
+
+        </el-tab-pane>
+      </el-tabs>
+
     </el-dialog>
   </div>
 </template>
@@ -104,8 +124,13 @@ export default {
       colsHeightArr: [], // 保存当前每一列的高度
       reachBottomDistance: 20, // 滚动触底距离，触发加载新图片
       viewHeight: 0, // 窗口视图大小，
-      roomNumber: '',
-      dialogVisible: false
+      room: {
+        roomNumber: "",
+        password: "",
+      },
+      dialogVisible: false,
+      isnewroom: false,
+      activeName: 'first'
     };
   },
   computed: {
@@ -139,6 +164,13 @@ export default {
         this.reset();
       this.preLoad();
     },
+    activeName(newVal, oldVal) {
+      if (newVal == 'second') {
+        this.isnewroom = true;
+      } else {
+        this.isnewroom = false;
+      }
+    }
   },
   methods: {
     // 预加载 设置图片宽高
@@ -271,14 +303,6 @@ export default {
         }, time);
       };
     },
-    tozhuangbeng() {
-
-
-
-
-
-
-    },
     confirm() {
       this.dialogVisible = false;
 
@@ -288,7 +312,22 @@ export default {
     },
     handleClose(done) {
       done();
+    },
+    newroom() {
+      console.log("newroom")
+      var min = 1000;
+      var max = 9999;
+      var randomnum = (Math.floor(Math.random() * (max - min + 1)) + min) + '';
+      console.log(randomnum)
+      this.room.roomNumber = randomnum;
+    },
+    handleClick() {
+      this.room.roomNumber = '';
+      if (this.activeName == 'second') {
+        this.newroom();
+      }
     }
+
   }
   ,
   mounted() {
@@ -351,6 +390,27 @@ export default {
       cursor: pointer;
     }
 
+
   }
+
+  /deep/.el-tab-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /deep/.el-input__inner {
+    margin-top: .4rem;
+  }
+
+  /deep/.el-tabs__item {
+    font-size: large;
+  }
+
+  /deep/.el-button {
+    margin-top: .3rem;
+
+  }
+
 }
 </style>

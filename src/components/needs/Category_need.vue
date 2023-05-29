@@ -1,6 +1,11 @@
 <template>
     <div class="Category_Chart">
-        <p>您当前的身份为:儿子</p>
+        <div class="identy">
+            <p>您当前的身份为:儿子</p>
+            <el-button type="primary" @click="showDialog" class="button_">
+                <img src="@/assets/svg/inv.svg" class="add" @click="dialogVisible_ = true">
+            </el-button>
+        </div>
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="select">
             <el-tab-pane label="一周" name="first"></el-tab-pane>
             <el-tab-pane label="一月" name="second"></el-tab-pane>
@@ -9,6 +14,44 @@
         <div class="chart" ref="myChart">
 
         </div>
+
+        <el-dialog title="修改身份" :visible.sync="dialogVisible_" :before-close="handleClose">
+            <vxe-table border resizable show-overflow :data="tableData" :edit-config="{ trigger: 'click', mode: 'cell' }"
+                :column-config="{ resizable: true }">
+                <!-- <vxe-column type="seq" width="60" title="序号"></vxe-column> -->
+
+                <vxe-column field="nickname" title="昵称" :edit-render="{}">
+                    <template #edit="{ row }">
+                        <vxe-input v-model="row.nickname" type="text" placeholder="请输入昵称"></vxe-input>
+                    </template>
+                </vxe-column>
+                <vxe-column field="phonenumber" title="手机号" :edit-render="{}">
+                    <template #edit="{ row }">
+                        <vxe-input v-model="row.phonenumber" type="text"></vxe-input>
+                    </template>
+                </vxe-column>
+                <!-- <vxe-column field="role" title="身份" :edit-render="{ autofocus: '.vxe-input--inner' }">
+                    <template #edit="{ row }">
+                        <vxe-input v-model="row.role" type="text" placeholder="请输入身份"></vxe-input>
+                    </template>
+                </vxe-column> -->
+                <vxe-column field="role" title="role" :edit-render="{}">
+                    <template #default="{ row }">
+                        <span>{{ formatRole(row.role) }}</span>
+                    </template>
+                    <template #edit="{ row }">
+                        <el-select v-model="row.role" transfer="true" :popper-append-to-body="false" style="z-index:999;">
+                            <el-option v-for="item in rolelist" :key="item.value" :value="item.value"
+                                :label="item.label"></el-option>
+                        </el-select>
+                    </template>
+                </vxe-column>
+            </vxe-table>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="insertEvent()">新建</el-button>
+                <el-button type="primary" @click="submitForm()">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -28,9 +71,23 @@ export default {
                 label: '一年'
             },],
             value: '',
-            activeName: 'second'
+            activeName: 'second',
+            dialogVisible_: false,
+            tableData: [
+                { id: 10001, phonenumber: 'Test1', role: '0', nickname: 'T1', },
+                { id: 10002, phonenumber: 'Test2', role: '1', nickname: 'T2', },
+                { id: 10003, phonenumber: 'Test3', role: '2', nickname: 'T3', },
+                { id: 10004, phonenumber: 'Test4', role: '3', nickname: 'T4', },
+            ],//列表信息
+            rolelist: [
+                { value: '0', label: '父亲' },
+                { value: '1', label: '儿子' },
+                { value: '2', label: '母亲' },
+                { value: '3', label: '女儿' },
+            ],
         }
-    },
+    }
+    ,
     mounted() {
         this.drawLine();
         this.$store.commit('updateradio2', '一天')
@@ -258,12 +315,55 @@ export default {
         },
         getactivename() {
             return this.activename
+        },
+        handleClose(done) {
+            done();
+        },
+        formatRole(value) {
+            if (value === '0') {
+                return '父亲'
+            }
+            if (value === '1') {
+                return '儿子'
+            }
+            if (value === '2') {
+                return '母亲'
+            }
+            if (value === '3') {
+                return '女儿'
+            }
+            return '请确认身份'
+        },
+        async insertEvent(row) {
+
+            // 获得tableData中最大的id+1
+            const maxID = this.tableData.reduce((max, item) => {
+                return item.id > max ? item.id : max
+            }, 0)
+
+            const record = {
+                id: maxID + 1,
+                phonenumber: '请输入手机号',
+                role: '请确认身份',
+                nickname: '请输入昵称'
+            }
+
+            //向tableData中插入一条数据
+            this.tableData.push(record)
+        },
+        submitForm() {
+            this.dialogVisible_ = false
         }
 
-    },
+    }
+    ,
     watch: {
         activeName(newval, oldval) {
             this.$store.state.activeName_needs = newval
+        },
+        //监视tableData的变化
+        tableData(newval, oldval) {
+            console.log(newval)
         }
     }
 }
@@ -273,13 +373,15 @@ export default {
     display: flex;
     flex-direction: column;
     width: 6.5rem;
-    p{
+
+    p {
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: .5rem;
         margin-top: .1rem;
     }
+
     .chart {
         margin-top: -.6rem;
         width: 6.54rem;
@@ -315,6 +417,32 @@ export default {
 
 
 
+    }
+
+
+
+    .identy {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .button_ {
+
+            background-color: transparent;
+            border: none !important;
+
+            img {
+                width: .35rem;
+                height: .35rem;
+                margin-top: .2rem;
+                cursor: pointer;
+            }
+
+        }
+    }
+
+    /deep/.vxe-icon-edit:before {
+        content: "";
     }
 
 }
