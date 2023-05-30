@@ -16,12 +16,11 @@ Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueCordova)
- Vue.use(VXETable)
+Vue.use(VXETable)
 Vue.component(MessageBox.name, MessageBox)
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$alert = MessageBox.alert
 Vue.prototype.$prompt = MessageBox.prompt
-
 Vue.prototype.$XModal = VXETable.modal
 Vue.prototype.$XPrint = VXETable.print
 Vue.prototype.$XSaveFile = VXETable.saveFile
