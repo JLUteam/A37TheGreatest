@@ -1,7 +1,7 @@
 <template>
   <div class="Category_Chart">
     <div class="identy">
-      <p>您当前的身份为:儿子</p>
+      <p>{{"家庭"  }}账本</p>
       <el-button type="primary" @click="showDialog" class="button_">
         <img
           src="@/assets/svg/inv.svg"
@@ -450,8 +450,13 @@ export default {
 
   .identy {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+
+
+    p{
+      margin-left: 2.3rem;
+    }
 
     .button_ {
       background-color: transparent;
