@@ -366,7 +366,6 @@ export default {
               method: "post",
               url: "https://mineralsteins.icu:8080/a37/own/",
               data: {
-                role: this.role,
                 room: this.room.roomNumber,
                 usr: this.$store.state.userinfo.uid,
               },
@@ -391,7 +390,6 @@ export default {
                       name: "qingjingzhuangbeng",
                       query: {
                         data: response.data.info,
-                        role: response.data.role,
                         room_num: response.data.room_num,
                       },
                     });
@@ -430,7 +428,6 @@ export default {
               name: "qingjingzhuangbeng",
               query: {
                 data: response.data.info,
-                role: response.data.role,
                 room_num: response.data.room_num,
               },
             });
