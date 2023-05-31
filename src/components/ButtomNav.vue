@@ -122,6 +122,7 @@ export default {
       var file = document.getElementById("test").files[0];
       var reader = new FileReader();
       reader.readAsArrayBuffer(file);
+      // eslint-disable-next-line no-unused-vars
       reader.onload = function (e) {
         var fileData = this.result;
         axios({
@@ -298,6 +299,7 @@ export default {
         );
       };
     },
+    // eslint-disable-next-line no-unused-vars
     onFail(message) {
       this.$alert("", "上传失败", {
         confirmButtonText: "确定",
@@ -337,6 +339,7 @@ export default {
         },
         {
           maximumImagesCount: 9,
+          outputType: 1,
         }
       );
     },
