@@ -2,7 +2,7 @@
   <div class="Category_Chart">
     <div class="identy">
       <p>{{ "家庭" }}账本</p>
-      <el-button type="primary" @click="showDialog" class="button_">
+      <el-button type="primary" class="button_">
         <img src="@/assets/svg/inv.svg" class="add" @click="dialogVisible_ = true" />
       </el-button>
     </div>
@@ -283,9 +283,10 @@ export default {
       this.drawLine();
     },
     sum(time) {
+      console.log("求和前")
       console.log(this.$store.state.recodes_needs)
       let data = this.$store.state.recodes_needs.filter((item) => {
-        console.log(item.btime)
+
         return item.btime.indexOf(time) != -1 && item.amount < 0;
       });
 

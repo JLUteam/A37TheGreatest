@@ -364,9 +364,6 @@ const mutations = {
     clearselectedItems(contect) {
         state.selectedItems = [];
     },
-    updaterecodes_needs(contect,newvalues){
-        state.recodes_needs.push(newvalues);
-    }
 }
 const getters = {
     searchResult(state) {
@@ -546,48 +543,7 @@ const state = {
 
     ],
     recodes_needs: [
-        {
-            "btime": "2023-03-13 21:59:29",
-            "amount": 340,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-            "comment": "这是备注",
-        },
-        {
-            "btime": "2023-02-12 21:59:29",
-            "amount": -123,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-             "comment": "这是备注",
-        },
-        {
-            "btime": "2023-02-13 18:59:29",
-            "amount": -175,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-             "comment": "这是备注",
-        },
-        {
-            "btime": "2023-03-13 12:59:29",
-            "amount": 256,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-         , "comment": "这是备注",
-        },
-        {
-            "btime": "2023-03-10 21:59:29",
-            "amount": -156,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            , "comment": "这是备注",
-        },
-        {
-            "btime": "2023-03-15 21:59:27",
-            "amount": -156,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            , "comment": "这是备注",
-        },
-        {
-            "btime": "2023-03-15 21:59:28",
-            "amount": -156,
-            "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47"
-            , "comment": "这是备注",
-        }
+       
     ],
     activeName_needs: 'second',
     selectedItems: [],
