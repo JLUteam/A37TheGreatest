@@ -364,9 +364,6 @@ const mutations = {
     clearselectedItems(contect) {
         state.selectedItems = [];
     },
-    updaterecodes_needs(contect,newvalues){
-        state.recodes_needs.push(newvalues);
-    }
 }
 const getters = {
     searchResult(state) {
@@ -545,7 +542,9 @@ const state = {
         '其他'
 
     ],
-    recodes_needs: [],
+    recodes_needs: [
+       
+    ],
     activeName_needs: 'second',
     selectedItems: [],
     searchResult: [],

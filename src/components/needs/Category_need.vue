@@ -2,31 +2,18 @@
   <div class="Category_Chart">
     <div class="identy">
       <p>{{ "家庭" }}账本</p>
-      <el-button type="primary" @click="showDialog" class="button_">
-        <img
-          src="@/assets/svg/inv.svg"
-          class="add"
-          @click="dialogVisible_ = true"
-        />
+      <el-button type="primary" class="button_">
+        <img src="@/assets/svg/inv.svg" class="add" @click="dialogVisible_ = true" />
       </el-button>
     </div>
-    <el-tabs
-      v-model="activeName"
-      type="card"
-      @tab-click="handleClick"
-      class="select"
-    >
+    <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="select">
       <el-tab-pane label="一周" name="first"></el-tab-pane>
       <el-tab-pane label="一月" name="second"></el-tab-pane>
       <el-tab-pane label="一年" name="third"></el-tab-pane>
     </el-tabs>
     <div class="chart" ref="myChart"></div>
 
-    <el-dialog
-      title="添加被邀请人"
-      :visible.sync="dialogVisible_"
-      :before-close="handleClose"
-    >
+    <el-dialog title="添加被邀请人" :visible.sync="dialogVisible_" :before-close="handleClose">
       <div class="yaoqing">
         <div class="phone">
           <span>请输入被邀请人手机号</span>
@@ -296,7 +283,10 @@ export default {
       this.drawLine();
     },
     sum(time) {
+      console.log("求和前")
+      console.log(this.$store.state.recodes_needs)
       let data = this.$store.state.recodes_needs.filter((item) => {
+
         return item.btime.indexOf(time) != -1 && item.amount < 0;
       });
 

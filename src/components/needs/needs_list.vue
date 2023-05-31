@@ -24,7 +24,7 @@
           </div>
           <div class="beizhu">
             <span>请输入备注：</span>
-            <el-input v-model="beizhu" class="beizhuinfo"></el-input>
+            <el-input v-model="comment" class="beizhuinfo"></el-input>
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
