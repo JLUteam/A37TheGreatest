@@ -185,6 +185,9 @@ const mutations = {
     addrecode_needs(contect, newvalue) {
         state.recodes_needs.push(newvalue)
     },
+    clearall(content){
+        state.recodes_needs = [];
+    },
     jian_needs(contect, recode) {
         const index = state.recodes_needs.indexOf(recode);
         if (index > -1) {

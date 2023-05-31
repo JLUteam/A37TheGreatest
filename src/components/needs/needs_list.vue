@@ -88,6 +88,14 @@ export default {
       comment: "",
     };
   },
+  mounted() {
+    this.getList();
+    this.timer = window.setInterval(() => {
+      setTimeout(() => {
+        this.getList();
+      }, 0);
+    }, 3000);
+  },
   computed: {
     recodes: {
       get() {
@@ -177,6 +185,26 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
+    getList() {
+      axios({
+        method: "get",
+        url: "https://mineralsteins.icu:8080/a37/info/",
+      }).then(
+        (response) => {
+          console.log(response.data);
+          if (response.data.length != this.$store.state.recodes_needs.length) {
+            this.$store.commit("clearall");
+            for (var i = 0; i < response.data.info.length; i++) {
+              this.$store.commit("addrecode_needs", response.data.info[i]);
+            }
+          }
+        },
+        (error) => {
+          window.alert(error.message);
+        }
+      );
+    },
+
     confirm() {
       // 处理用户输入的数据
       const date_ = new Date();
@@ -214,6 +242,9 @@ export default {
     jian(recode) {
       this.$store.commit("jian_needs", recode);
     },
+  },
+  destroyed() {
+    window.clearInterval(this.timer);
   },
 };
 </script>
