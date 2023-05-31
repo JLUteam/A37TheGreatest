@@ -386,7 +386,7 @@ export default {
         console.log("comeroom");
         axios({
           method: "post",
-          url: "http://mineralsteins.icu:8081/a37/room-login",
+          url: "https://mineralsteins.icu:8080/a37/room-login",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
@@ -411,16 +411,32 @@ export default {
               console.log("传输后")
               console.log(this.$store.state.recodes_needs)
             }
-            this.$router.push({
-              name: "qingjingzhuangbeng",
-              query: {
-                room_num: response.data.room_num,
-              },
-            });
+            console.log(this.$store.state.recodes_needs);
+            if (response.data.login == true) {
+              this.$router.push({
+                name: "qingjingzhuangbeng",
+                query: {
+                  room_num: response.data.room_num,
+                },
+              });
+            } else {
+              this.$alert("", "房间号或密码错误", {
+                confirmButtonText: "确定",
+                showClose: false,
+                center: true,
+                type: "warning",
+                customClass: "fail",
+              });
+            }
           },
           (error) => {
-            console.log("123")
-            window.alert(error.message);
+            this.$alert("", error, {
+              confirmButtonText: "确定",
+              showClose: false,
+              center: true,
+              type: "warning",
+              customClass: "fail",
+            });
           }
         );
       }

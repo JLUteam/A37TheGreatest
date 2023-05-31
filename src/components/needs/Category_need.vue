@@ -14,7 +14,6 @@
     <div class="chart" ref="myChart"></div>
 
     <el-dialog title="添加被邀请人" :visible.sync="dialogVisible_" :before-close="handleClose">
-
       <div class="yaoqing">
         <div class="phone">
           <span>请输入被邀请人手机号</span>
@@ -23,7 +22,7 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <!-- <el-button @click="insertEvent()">新建</el-button> -->
-        <el-button type="primary" @click="submitForm()">确 定</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -62,7 +61,7 @@ export default {
       //   { value: "2", label: "母亲" },
       //   { value: "3", label: "女儿" },
       // ],
-      phonenum: ''
+      phonenum: "",
     };
   },
   mounted() {
@@ -341,6 +340,50 @@ export default {
       this.tableData.push(record);
     },
     submitForm() {
+      console.log(phonenum);
+      // axios({
+      //     method: "post",
+      //     url: "https://mineralsteins.icu:8080/a37/room-login",
+      //     headers: {
+      //       "Content-Type": "application/x-www-form-urlencoded",
+      //     },
+      //     data: {
+      //       phone_num:,
+      //     },
+      //   }).then(
+      //     (response) => {
+      //       console.log(response.data);
+      //       for (var i = 0; i < response.data.info.length; i++) {
+      //         this.$store.commit("updaterecodes_needs", response.data.info[i]);
+      //       }
+      //       console.log(this.$store.state.recodes_needs);
+      //       if (response.data.login == true) {
+      //         this.$router.push({
+      //           name: "qingjingzhuangbeng",
+      //           query: {
+      //             room_num: response.data.room_num,
+      //           },
+      //         });
+      //       } else {
+      //         this.$alert("", "房间号或密码错误", {
+      //           confirmButtonText: "确定",
+      //           showClose: false,
+      //           center: true,
+      //           type: "warning",
+      //           customClass: "fail",
+      //         });
+      //       }
+      //     },
+      //     (error) => {
+      //       this.$alert("", error, {
+      //         confirmButtonText: "确定",
+      //         showClose: false,
+      //         center: true,
+      //         type: "warning",
+      //         customClass: "fail",
+      //       });
+      //     }
+      //   );
       this.dialogVisible_ = false;
     },
   },
@@ -405,7 +448,6 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-
     p {
       margin-left: 2.3rem;
     }
@@ -430,7 +472,7 @@ export default {
   .yaoqing {
     .phone {
       /deep/ .el-input {
-        margin-top: .4rem;
+        margin-top: 0.4rem;
       }
     }
   }
