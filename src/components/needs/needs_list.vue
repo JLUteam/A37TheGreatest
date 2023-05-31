@@ -210,7 +210,7 @@ export default {
         room: this.$route.query.room_num,
       };
       console.log("支付金额：", this.amount);
-      console.log("支付时间：", btime);
+      // console.log("支付时间：", btime);
       console.log(data);
       // this.$store.commit("addrecode_needs", data);
       axios({
