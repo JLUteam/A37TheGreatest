@@ -10,7 +10,7 @@
         <div class="Category info">
             <p>{{ Ispay_ ? '支付类型' : ' 收入类型' }}</p>
             <div class="result">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="bcategory" placeholder="请选择">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                 </el-select>
@@ -32,9 +32,6 @@ export default {
     name: "StateBar",
     data() {
         return {
-            value: this.recode.bcategory,
-            oldval_bcategory: this.recode.bcategory,
-            oldval_addnote: this.recode.note
 
         }
     },
@@ -92,11 +89,11 @@ export default {
         Ispay_() {
             return this.$store.state.radio1 === '支出'
         },
-        
-    },
-    watch: {
-        value: {
-            handler: function (value, oldval) {
+        bcategory: {
+            get() {
+                return this.recode.bcategory
+            },
+            set() {
                 let recode_;
                 if (this.$store.state.temp_insorouts === null) {
                     recode_ = this.recode
@@ -112,12 +109,20 @@ export default {
                 }
                 this.$parent.getchange(['bcategory', value, oldval, recode_])
                 this.$parent.isupdate()
-                // this.$store.commit('updateCategory', [this.recode.uid, value])
+            }
+        }
+
+    },
+    watch: {
+        value: {
+            handler: function (value, oldval) {
+
             }
         },
         recode: {
             handler(newV) {
                 this.recode = newV;
+
                 // console.log("监视到了")
                 // console.log(newV)
             },

@@ -30,8 +30,6 @@ export default {
     },
     data() {
         return {
-            payment: this.recode.payment,
-            Amount: this.recode.amount,
             options: [{
                 value: '现金',
                 label: '现金'
@@ -72,17 +70,10 @@ export default {
                 value: '应收款项',
                 label: '应收款项'
             },],
-            oldval_amount: this.recode.amount,
-            oldval_payment: this.recode.payment
+
         }
     }
     ,
-    computed: {
-
-        Ispay_() {
-            return this.$store.state.radio1 === '支出'
-        }
-    },
     methods: {
         geAmount_() {
             return this.Amount.toString()
@@ -90,38 +81,7 @@ export default {
     },
     watch: {
         Amount(newval, oldval) {
-            let recode_;
-            if (this.$store.state.temp_insorouts === null) {
-                recode_ = this.recode
-            } else {
-                let temp_ = this.$store.state.temp_insorouts
-                for (let i = 0; i < temp_.length; i++) {
-                    if (temp_[i]['id'] == this.$store.state.changes.id) {
-                        recode_ = temp_[i]
 
-                    }
-                }
-
-            }
-            this.$parent.getchange(['amount', (newval), oldval, recode_])
-            this.$parent.isupdate()
-        },
-        payment(newval, oldval) {
-            let recode_;
-            if (this.$store.state.temp_insorouts === null) {
-                recode_ = this.recode
-            } else {
-                let temp_ = this.$store.state.temp_insorouts
-                for (let i = 0; i < temp_.length; i++) {
-                    if (temp_[i]['id'] == this.$store.state.changes.id) {
-                        recode_ = temp_[i]
-
-                    }
-                }
-
-            }
-            this.$parent.getchange(['payment', newval, oldval, recode_])
-            this.$parent.isupdate()
         },
         recode: {
             handler(newV) {
@@ -132,11 +92,59 @@ export default {
             deep: true,
             immediate: true
         }
+    },
+    computed: {
+        payment: {
+            get() {
+                return this.recode.payment
+            },
+            set() {
+                let recode_;
+                if (this.$store.state.temp_insorouts === null) {
+                    recode_ = this.recode
+                } else {
+                    let temp_ = this.$store.state.temp_insorouts
+                    for (let i = 0; i < temp_.length; i++) {
+                        if (temp_[i]['id'] == this.$store.state.changes.id) {
+                            recode_ = temp_[i]
+
+                        }
+                    }
+
+                }
+                this.$parent.getchange(['payment', newval, oldval, recode_])
+                this.$parent.isupdate()
+            }
+        },
+        Amount: {
+            get() {
+                return this.recode.amount
+            },
+            set() {
+                let recode_;
+                if (this.$store.state.temp_insorouts === null) {
+                    recode_ = this.recode
+                } else {
+                    let temp_ = this.$store.state.temp_insorouts
+                    for (let i = 0; i < temp_.length; i++) {
+                        if (temp_[i]['id'] == this.$store.state.changes.id) {
+                            recode_ = temp_[i]
+
+                        }
+                    }
+
+                }
+                this.$parent.getchange(['amount', (newval), oldval, recode_])
+                this.$parent.isupdate()
+            }
+        },
+        Ispay_() {
+            return this.$store.state.radio1 === '支出'
+        }
     }
+}
 
 
-
-};
 </script>
 <style lang="less" scoped>
 input {

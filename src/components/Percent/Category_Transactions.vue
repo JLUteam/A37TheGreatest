@@ -1,7 +1,7 @@
 <template>
     <div class="Category_Chart">
         <div class="shoppingrecode">
-            <p class="number">¥{{ selectedvalue }}</p>
+            <p class="number">¥{{ selectedvalue.toFixed(2) }}</p>
             <!-- <p class="time">You’ve spent $32.4 this week</p> -->
         </div>
         <div class="chart" ref="myChart">

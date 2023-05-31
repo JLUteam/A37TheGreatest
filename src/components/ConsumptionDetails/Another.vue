@@ -31,7 +31,9 @@ export default {
   data() {
     return {
       showImage: false,
-      recode__: this.recode,
+      Date_: '',
+      Time_: ''
+
     };
   },
   props: {
@@ -40,20 +42,23 @@ export default {
     },
   },
   computed: {
-    Date_() {
-      // console.log("日期");
-      // console.log(this.recode);
-      return this.recode.btime.split(" ")[0];
-    },
-    Time_() {
-      return this.recode.btime.split(" ")[1];
-    },
     Ispay_() {
       return this.$store.state.radio1 === "支出";
     },
-    isreceipt() {
-      return this.recode__.isreceipt;
+    isreceipt: {
+      get() {
+        return this.recode.isreceipt;
+      },
     },
+    recode__: {
+      get() {
+        return this.recode
+      },
+      set() {
+        this.Date_ = this.recode__.btime.split(" ")[0];
+        this.Time_ = this.recode__.btime.split(" ")[1];
+      }
+    }
   },
   methods: {
     addreceipt() {
@@ -152,8 +157,8 @@ export default {
       handler(newV) {
         this.recode = newV;
         this.recode__ = this.recode
-        // console.log("监视到了")
-        // console.log(this.recode)
+        console.log("监视到了")
+        console.log(this.recode)
       },
       deep: true,
       immediate: true

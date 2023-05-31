@@ -85,6 +85,9 @@ export default {
           : this.recodes_income(this.time());
       },
     },
+    recodes_length() {
+      return this.recodes.length;
+    },
   },
   methods: {
     recodes_(time) {
@@ -202,6 +205,11 @@ export default {
     jian(recode) {
       this.$store.commit("jian_needs", recode);
     },
+  
+  },
+  mounted() {
+    this.$store.commit("getrecode_needs");
+    
   },
 };
 </script>

@@ -110,7 +110,7 @@ export default {
         },
         {
           "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "支付宝",
+          "bname": "支付宝1",
           "ispic": false,
           "bpic": null,
           "bcategory": "理财",
