@@ -3,20 +3,32 @@
     <div class="identy">
       <p>{{ "家庭" }}账本</p>
       <el-button type="primary" @click="showDialog" class="button_">
-        <img src="@/assets/svg/inv.svg" class="add" @click="dialogVisible_ = true" />
+        <img
+          src="@/assets/svg/inv.svg"
+          class="add"
+          @click="dialogVisible_ = true"
+        />
       </el-button>
     </div>
-    <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="select">
+    <el-tabs
+      v-model="activeName"
+      type="card"
+      @tab-click="handleClick"
+      class="select"
+    >
       <el-tab-pane label="一周" name="first"></el-tab-pane>
       <el-tab-pane label="一月" name="second"></el-tab-pane>
       <el-tab-pane label="一年" name="third"></el-tab-pane>
     </el-tabs>
     <div class="chart" ref="myChart"></div>
 
-    <el-dialog title="添加被邀请人" :visible.sync="dialogVisible_" :before-close="handleClose">
-
+    <el-dialog
+      title="添加被邀请人"
+      :visible.sync="dialogVisible_"
+      :before-close="handleClose"
+    >
       <!-- <vxe-table border resizable show-overflow :data="tableData" :edit-config="{ trigger: 'click', mode: 'cell' }"
-        :column-config="{ resizable: true }">
+      :column-config="{ resizable: true }">
         <!-- <vxe-column type="seq" width="60" title="序号"></vxe-column> -->
       <!-- 
                 <vxe-column field="nickname" title="昵称" :edit-render="{}">
@@ -64,7 +76,7 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <!-- <el-button @click="insertEvent()">新建</el-button> -->
-        <el-button type="primary" @click="submitForm()">确 定</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -378,6 +390,50 @@ export default {
       this.tableData.push(record);
     },
     submitForm() {
+      console.log(phonenum);
+      // axios({
+      //     method: "post",
+      //     url: "https://mineralsteins.icu:8080/a37/room-login",
+      //     headers: {
+      //       "Content-Type": "application/x-www-form-urlencoded",
+      //     },
+      //     data: {
+      //       phone_num:,
+      //     },
+      //   }).then(
+      //     (response) => {
+      //       console.log(response.data);
+      //       for (var i = 0; i < response.data.info.length; i++) {
+      //         this.$store.commit("updaterecodes_needs", response.data.info[i]);
+      //       }
+      //       console.log(this.$store.state.recodes_needs);
+      //       if (response.data.login == true) {
+      //         this.$router.push({
+      //           name: "qingjingzhuangbeng",
+      //           query: {
+      //             room_num: response.data.room_num,
+      //           },
+      //         });
+      //       } else {
+      //         this.$alert("", "房间号或密码错误", {
+      //           confirmButtonText: "确定",
+      //           showClose: false,
+      //           center: true,
+      //           type: "warning",
+      //           customClass: "fail",
+      //         });
+      //       }
+      //     },
+      //     (error) => {
+      //       this.$alert("", error, {
+      //         confirmButtonText: "确定",
+      //         showClose: false,
+      //         center: true,
+      //         type: "warning",
+      //         customClass: "fail",
+      //       });
+      //     }
+      //   );
       this.dialogVisible_ = false;
     },
   },
@@ -442,7 +498,6 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-
     p {
       margin-left: 2.3rem;
     }
@@ -466,8 +521,8 @@ export default {
 
   .yaoqing {
     .phone {
-      /deep/ .el-input{
-        margin-top: .4rem;
+      /deep/ .el-input {
+        margin-top: 0.4rem;
       }
     }
   }
