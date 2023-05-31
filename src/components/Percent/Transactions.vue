@@ -7,6 +7,9 @@
                 <p>{{ bcategory + '消费记录' }}</p>
                 <p class="More" @mousedown="pull_up">查看更多</p>
             </div>
+            <div class="search" v-show=Flag>
+                <input type="text" class="search_record" placeholder="点击搜索" v-model="search_text">
+            </div>
             <div class="Category" v-show='Flag'>
                 <Category_Transactions ref="Category_Transactions"></Category_Transactions>
             </div>
@@ -36,16 +39,18 @@ export default {
     data() {
         return {
             Transactions_css: 'Transactions',
+            search_text: ''
         }
     },
     computed: {
         recodes: {
             get() {
                 let recodes = this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
+                //根据recode的bname进行搜索
+                if (this.search_text != '') {
+                    recodes = recodes.filter(item => item.bname.indexOf(this.search_text) != -1)
+                }
                 return recodes
-            },
-            set() {
-                return this.$store.state.radio1 === '支出' ? this.recodes_(this.time()) : this.recodes_income(this.time())
             }
         },
         Flag() {
@@ -68,6 +73,11 @@ export default {
         Flag: function () {
             this.Transactions_pull = this.$store.state.Transactions_pull
             this.$refs.Category_Transactions.drawLine()
+        },
+        search_text: function () {
+            if (this.search_text != '') {
+                this.recodes = this.recodes.filter(item => item.bname.indexOf(this.search_text) != -1)
+            }
         }
     },
     methods: {
@@ -325,6 +335,36 @@ export default {
         }
     }
 
+    .search {
+        display: none;
+        position: absolute;
+
+        width: 6.54rem;
+        height: 1.28rem;
+        border-radius: .48rem;
+        background: #f4f4f6;
+        background-blend-mode: normal;
+        margin-bottom: .5rem;
+
+        .search_record {
+            position: relative;
+            width: 100%;
+            height: 1.28rem;
+            padding-left: .98rem;
+            outline: none;
+            border: 0 none;
+            background-blend-mode: normal;
+            color: #6c727f;
+            font-family: Manrope;
+            font-size: .32rem;
+            font-weight: 400;
+            line-height: .52rem;
+            background: transparent;
+
+        }
+
+    }
+
     .recordsets {
         width: 6.54rem;
         display: flex;
@@ -459,6 +499,37 @@ export default {
             cursor: pointer;
             display: none;
         }
+    }
+
+    .search {
+        position: absolute;
+        top: 7%;
+        left: 45%;
+        width: 3.5rem;
+        height: .8rem;
+        border-radius: .48rem;
+        background: #f4f4f6;
+        background-blend-mode: normal;
+        margin-bottom: .5rem;
+
+        .search_record {
+            position: relative;
+            width: 100%;
+            height: 1.28rem;
+            padding-left: .58rem;
+            outline: none;
+            border: 0 none;
+            background-blend-mode: normal;
+            color: #6c727f;
+            font-family: Manrope;
+            font-size: .32rem;
+            font-weight: 400;
+            line-height: .52rem;
+            background: transparent;
+            margin-top: -.25rem;
+
+        }
+
     }
 
     .recodes_border {
