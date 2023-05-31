@@ -283,7 +283,9 @@ export default {
       this.drawLine();
     },
     sum(time) {
+      console.log(this.$store.state.recodes_needs)
       let data = this.$store.state.recodes_needs.filter((item) => {
+        console.log(item.btime)
         return item.btime.indexOf(time) != -1 && item.amount < 0;
       });
 

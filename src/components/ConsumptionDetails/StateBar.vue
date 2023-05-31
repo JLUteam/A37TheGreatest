@@ -91,7 +91,8 @@ export default {
         },
         Ispay_() {
             return this.$store.state.radio1 === '支出'
-        }
+        },
+        
     },
     watch: {
         value: {
