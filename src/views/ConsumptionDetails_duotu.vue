@@ -386,5 +386,9 @@ export default {
     display: none;
     background-color: transparent;
   }
+
+  .avatar{
+    margin-top: .2rem;
+  }
 }
 </style>

@@ -204,7 +204,7 @@ export default {
       let day = date_.getDate().toString().padStart(2, "0");
       let btime = "" + year + "-" + month + "-" + day;
       var data = {
-        btime: btime,
+        btime: this.date,
         comment: this.comment,
         amount: this.amount,
         room: this.$route.query.room_num,
@@ -278,7 +278,7 @@ export default {
 
         /deep/.el-input__inner {
           margin-left: 0.1rem;
-          width: 4rem;
+          width: 4.5rem;
         }
       }
 

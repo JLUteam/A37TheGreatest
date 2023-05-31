@@ -8,7 +8,7 @@
         <div class="search" v-show=Flag>
             <input type="text" class="search_record" placeholder="点击搜索" v-model="search_text">
         </div>
-        <div class="recodes_border">
+        <div class="recodes_border" v-show="isShow">
             <div class="recordsets">
                 <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.btime">
                     <img :src=recode.bpic class="merchantAvatar">
@@ -32,7 +32,10 @@ export default {
     data() {
         return {
             Transactions_css: 'Transactions',
-            search_text: ''
+            search_text: '',
+            originalHeight: 0, //原始高度
+            screenHeight: 0, //实时高度
+            isShow: true,
         }
     },
     computed: {
@@ -103,7 +106,7 @@ export default {
 
             }
 
-              if (this.search_text != '') {
+            if (this.search_text != '') {
                 temp = temp.filter(item => item.bname.indexOf(this.search_text) != -1)
             }
 
@@ -125,7 +128,7 @@ export default {
             this.Transactions_pull = this.$store.state.Transactions_pull
         },
         search_text: function () {
-             if (this.search_text != '') {
+            if (this.search_text != '') {
                 this.recodes = this.recodes.filter(item => item.bname.indexOf(this.search_text) != -1)
             }
         }
@@ -166,10 +169,24 @@ export default {
             let month = (date.getMonth() + 1).toString().padStart(2, "0");
             let day = date.getDate().toString().padStart(2, "0");
             return ('' + year + '-' + month + '-' + day)
-        }
+        },
+        watchResize() {
+            //实时变化的窗口高度
+            this.screenHeight = document.documentElement.clientHeight;
+        },
     },
     beforeDestroy() {
         this.$store.commit('pull_down')
+        window.removeEventListener("resize", this.watchResize);
+    },
+    mounted() {
+        const height = document.querySelector('body').clientHeight;
+        // 监听窗口尺寸变化
+        window.addEventListener('resize', () => {
+            // 设置body高度为初始高度
+            document.querySelector('body').style.height = `${height}px`;
+        },
+        )
     }
 }
 </script>
@@ -221,7 +238,7 @@ export default {
         align-items: center;
         overflow: hidden;
         height: 3.8rem;
-        margin-bottom: .2rem;
+        // margin-bottom: .3rem;
 
         .record {
             width: 6.54rem;
@@ -497,6 +514,16 @@ export default {
         }
     }
 }
+
+
+@media screen and (max-width:900px) {
+    .Transactions_after {
+        .recodes_border {
+            top: 33%;
+        }
+    }
+}
+
 
 ::-webkit-scrollbar {
     display: none;

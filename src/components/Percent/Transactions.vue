@@ -39,7 +39,10 @@ export default {
     data() {
         return {
             Transactions_css: 'Transactions',
-            search_text: ''
+            search_text: '',
+            originalHeight: 0, //原始高度
+            screenHeight: 0, //实时高度
+            isShow: true,
         }
     },
     computed: {
@@ -78,7 +81,12 @@ export default {
             if (this.search_text != '') {
                 this.recodes = this.recodes.filter(item => item.bname.indexOf(this.search_text) != -1)
             }
-        }
+        },
+        screenHeight(new_, old) {
+
+            console.log("height=" + new_)
+        },
+
     },
     methods: {
         pull_up() {
@@ -285,7 +293,12 @@ export default {
             }
             console.log(time)
             return time
-        }
+        },
+        watchResize() {
+            //实时变化的窗口高度
+            this.screenHeight = document.documentElement.clientHeight;
+            console.log("当前高度为" + this.screenHeight)
+        },
     },
 
     components: {
@@ -293,7 +306,12 @@ export default {
     },
     beforeDestroy() {
         this.$store.commit('pull_down')
-    }
+        window.removeEventListener("resize", this.watchResize);
+    },
+    mounted() {
+        this.originalHeight = document.documentElement.clientHeight;
+        window.addEventListener('resize', this.watchResize);
+    },
 }
 </script>
 <style lang="less" scoped>
@@ -658,13 +676,16 @@ export default {
     }
 }
 
-@media screen and (min-width:414px) {
-    .Transactions_after {
-        .recodes_border {
-            top: 55%;
-        }
-    }
-}
+//width为420时，设为80%
+
+
+// @media screen and (min-height:420px) {
+//     .Transactions_after {
+//         .recodes_border {
+//             top: 80%;
+//         }
+//     }
+// }
 
 
 
@@ -696,7 +717,7 @@ export default {
 @media screen and (min-width:540px) {
     .Transactions_after {
         .recodes_border {
-            top: 80%;
+            top: 88%;
         }
     }
 }
@@ -708,6 +729,15 @@ export default {
         }
     }
 }
+
+// @media screen and (max-width:400px) {
+//     .Transactions_after {
+//         .recodes_border {
+//             top: 88%;
+//         }
+//     }
+// }
+
 
 ::-webkit-scrollbar {
     display: none;
