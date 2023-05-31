@@ -2,7 +2,11 @@
   <div class="basic">
     <div class="recodes_border">
       <div class="recordsets" id="share">
-        <div class="record" v-for="recode in this.$store.getters.getselectedItems" :key="recode.btime">
+        <div
+          class="record"
+          v-for="recode in this.$store.getters.getselectedItems"
+          :key="recode.btime"
+        >
           <img :src="recode.bpic" class="merchantAvatar" />
           <div class="middle">
             <p class="merchantname">{{ recode.bname }}</p>
@@ -15,7 +19,7 @@
       </div>
     </div>
     <div class="save">
-      <button class="save_button" @click="share()">分享</button>
+      <button class="save_button" @click="share">分享</button>
     </div>
   </div>
 </template>
@@ -36,7 +40,115 @@ export default {
       }).then((canvas) => {
         canvas.id = "share";
         let url = canvas.toDataURL("image/png");
-        console.log(url);
+        var params = {
+          data: url,
+          // prefix: "myPrefix_",
+          format: "PNG",
+          quality: 80,
+          mediaScanner: true,
+        };
+
+        var permissions = cordova.plugins.permissions;
+        permissions.requestPermission(
+          permissions.WRITE_EXTERNAL_STORAGE,
+          function (status) {
+            if (status.hasPermission) {
+              console.log("写权限已有");
+              var permissions = cordova.plugins.permissions;
+              permissions.requestPermission(
+                permissions.READ_EXTERNAL_STORAGE,
+                function (status) {
+                  if (status.hasPermission) {
+                    console.log("存储权限已授予");
+                    window.imageSaver.saveBase64Image(
+                      params,
+                      function (filePath) {
+                        console.log("File saved on " + filePath);
+                      },
+                      function (msg) {
+                        console.error(msg);
+                      }
+                    );
+                  } else {
+                    console.log("获取存储权限失败");
+                    var permissions = cordova.plugins.permissions;
+                    permissions.requestPermission(
+                      permissions.READ_EXTERNAL_STORAGE,
+                      function (status) {
+                        if (status.hasPermission) {
+                          window.imageSaver.saveBase64Image(
+                            params,
+                            function (filePath) {
+                              console.log("File saved on " + filePath);
+                            },
+                            function (msg) {
+                              console.error(msg);
+                            }
+                          );
+                        } else {
+                          console.log("获取存储权限失败");
+                        }
+                      }
+                    );
+                  }
+                }
+              );
+            } else {
+              console.log("获取存储权限失败");
+              var permissions = cordova.plugins.permissions;
+              permissions.requestPermission(
+                permissions.WRITE_EXTERNAL_STORAGE,
+                function (status) {
+                  if (status.hasPermission) {
+                    console.log("写权限已有");
+                    var permissions = cordova.plugins.permissions;
+                    permissions.requestPermission(
+                      permissions.READ_EXTERNAL_STORAGE,
+                      function (status) {
+                        if (status.hasPermission) {
+                          console.log("存储权限已授予");
+                          window.imageSaver.saveBase64Image(
+                            params,
+                            function (filePath) {
+                              console.log("File saved on " + filePath);
+                            },
+                            function (msg) {
+                              console.error(msg);
+                            }
+                          );
+                        } else {
+                          console.log("获取存储权限失败");
+                          var permissions = cordova.plugins.permissions;
+                          permissions.requestPermission(
+                            permissions.READ_EXTERNAL_STORAGE,
+                            function (status) {
+                              if (status.hasPermission) {
+                                window.imageSaver.saveBase64Image(
+                                  params,
+                                  function (filePath) {
+                                    console.log("File saved on " + filePath);
+                                  },
+                                  function (msg) {
+                                    console.error(msg);
+                                  }
+                                );
+                              } else {
+                                console.log("获取存储权限失败");
+                              }
+                            }
+                          );
+                        }
+                      }
+                    );
+                  } else {
+                    console.log("获取写2权限失败");
+                  }
+                }
+              );
+            }
+          }
+        );
+
         this.$alert("请前往图库进行分享", "照片生成成功", {
           confirmButtonText: "确定",
           showClose: false,
@@ -54,6 +166,14 @@ export default {
           },
         });
       });
+    },
+
+    onSuccess(filePath) {
+      console.log("success：" + filePath);
+    },
+
+    onFail(error) {
+      console.log(error);
     },
   },
 };

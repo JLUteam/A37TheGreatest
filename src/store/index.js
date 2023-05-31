@@ -363,6 +363,9 @@ const mutations = {
     },
     clearselectedItems(contect) {
         state.selectedItems = [];
+    },
+    updaterecodes_needs(contect,newvalues){
+        state.recodes_needs.push(newvalues);
     }
 }
 const getters = {

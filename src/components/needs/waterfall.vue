@@ -412,7 +412,7 @@ export default {
         console.log("comeroom");
         axios({
           method: "post",
-          url: "https://mineralsteins.icu:8080/a37/room-login",
+          url: "http://mineralsteins.icu:8081/a37/room-login",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
@@ -424,10 +424,13 @@ export default {
         }).then(
           (response) => {
             console.log(response.data);
+            for (var i = 0; i < response.data.info.length; i++) {
+              this.$store.commit("updaterecodes_needs", response.data.info[i]);
+            }
+            console.log(this.$store.state.recodes_needs);
             this.$router.push({
               name: "qingjingzhuangbeng",
               query: {
-                data: response.data.info,
                 room_num: response.data.room_num,
               },
             });
