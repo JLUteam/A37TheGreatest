@@ -13,11 +13,11 @@
 
         <div class="voice-box">
                 <textarea name="" id="" cols="30" rows="5" v-model="text_voice" class="voice_text"></textarea>
-                <div class="fixed-icon" @click="startRecognition" v-if="!isvoiceend">
+                <div class="fixed-icon" @click="startRecognition" v-if="isvoiceend">
                         <img :src="require('@/assets/img/voice.png')" alt="" />
                 </div>
 
-                <div class="queryisright" v-if="isvoiceend">
+                <div class="queryisright" v-if="!isvoiceend">
                         <button class="success_" @click="gotonext">确认</button>
                 </div>
 
@@ -185,31 +185,32 @@ export default {
                 },
                 back() {
                         if (this.isvoiceend) {
-                                this.isvoiceend = false;
-                        } else {
                                 this.$router.back(-1)
 
+                        } else {
+
+                                this.isvoiceend = false;
                         }
                 },
-                gotonext(){
-                        var voice = "请从以下文本中直接提取可能的bname（商铺名）amount（金额）btime（支付时间）并以python string 键值对的形式直接给出，并且不要展示提取过程，并且btime字段需要使用二十四小时制展示，amount字段需要删除货币单位，注意，这就是所有内容，没有更多提示 。以下是文本："+this.voice_text;
+                gotonext() {
+                        var voice = "请从以下文本中直接提取可能的bname（商铺名）amount（金额）btime（支付时间）并以python string 键值对的形式直接给出，并且不要展示提取过程，并且btime字段需要使用二十四小时制展示，amount字段需要删除货币单位，注意，这就是所有内容，没有更多提示 。以下是文本：" + this.voice_text;
                         axios({
                                 method: "get",
                                 url: "http://mineralsteins.icu:8081/a37/chatgpt-ask",
 
-                        // headers: {
-                        //         "Content-Type": "multipart/form-data",
-                        // },
-                        data: {
-                                prompt: voice,
-                        },
+                                // headers: {
+                                //         "Content-Type": "multipart/form-data",
+                                // },
+                                data: {
+                                        prompt: voice,
+                                },
                         }).then(
                                 (response) => {
-                                console.log(response.data);
-                        },
-                        (error) => {
-                                window.alert(error.message);
-                        }
+                                        console.log(response.data);
+                                },
+                                (error) => {
+                                        window.alert(error.message);
+                                }
                         );
                 }
 

@@ -21,10 +21,11 @@
             <div>
               <el-date-picker v-model="date"></el-date-picker>
             </div>
-            <div class="beizhu">
-              <span>请输入备注：</span>
-              <el-input v-model="beizhu" class="beizhuinfo"></el-input>
-            </div>
+
+          </div>
+          <div class="beizhu">
+            <span>请输入备注：</span>
+            <el-input v-model="beizhu" class="beizhuinfo"></el-input>
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
@@ -159,8 +160,8 @@ export default {
       this.dialogVisible = true;
     },
     confirm() {
-      // 处理用户输入的数据    const date = new Date();
-      const date_ = this.date;
+      // 处理用户输入的数据
+      const date_ = new Date();
       let year = date_.getFullYear();
       let month = (date_.getMonth() + 1).toString().padStart(2, "0");
       let day = date_.getDate().toString().padStart(2, "0");
@@ -173,7 +174,7 @@ export default {
       // };
       var data = {
         time: btime,
-        role: this.$route.query.role,
+        beizhu: this.$route.query.beizhu,
         amount: this.amount,
         room: this.$route.query.room_num,
       };
@@ -230,6 +231,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin-right: 1.5rem;
 
         span {
           margin-left: 0.1rem;
@@ -240,6 +242,13 @@ export default {
           width: 4rem;
         }
       }
+
+      .beizhu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 1.5rem;
+      }
     }
 
     .dialog-footer {
@@ -249,7 +258,7 @@ export default {
 
       .confirmbuttom {
         width: 4rem;
-        margin-top: ;
+        margin-top: .2rem;
       }
     }
   }
@@ -292,7 +301,7 @@ export default {
   }
 
   /deep/.el-button {
-    background-color: transparent;
+    // background-color: transparent;
     border: none !important;
   }
 

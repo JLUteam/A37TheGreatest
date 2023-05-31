@@ -22,6 +22,7 @@ import qingjingzhuangbeng from '@/components/needs/qingjingzhuangbeng.vue'
 import caiwujiankang from '@/components/needs/caiwujiankang.vue'
 import share from '@/components/needs/share.vue'
 import Voiceinput from '@/views/Voiceinput.vue'
+import ConsumptionDetails_duotu from "@/views/ConsumptionDetails_duotu.vue"
 const router = new VueRouter({
     model: 'hash',
     routes: [
@@ -146,12 +147,17 @@ const router = new VueRouter({
             name: 'voiceinput',
             path: '/voice_input',
             component: Voiceinput
+        },
+        {
+            name: 'ConsumptionDetails_duotu',
+            path: '/ConsumptionDetails_duotu',
+            component: ConsumptionDetails_duotu
         }
 
 
     ]
 });
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push //解决路由重复点击报错问题
 
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)

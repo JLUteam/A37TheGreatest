@@ -1,58 +1,40 @@
 <template>
   <div class="Category_Chart">
     <div class="identy">
-      <p>{{"家庭"  }}账本</p>
+      <p>{{ "家庭" }}账本</p>
       <el-button type="primary" @click="showDialog" class="button_">
-        <img
-          src="@/assets/svg/inv.svg"
-          class="add"
-          @click="dialogVisible_ = true"
-        />
+        <img src="@/assets/svg/inv.svg" class="add" @click="dialogVisible_ = true" />
       </el-button>
     </div>
-    <el-tabs
-      v-model="activeName"
-      type="card"
-      @tab-click="handleClick"
-      class="select"
-    >
+    <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="select">
       <el-tab-pane label="一周" name="first"></el-tab-pane>
       <el-tab-pane label="一月" name="second"></el-tab-pane>
       <el-tab-pane label="一年" name="third"></el-tab-pane>
     </el-tabs>
     <div class="chart" ref="myChart"></div>
 
-    <el-dialog
-      title="修改身份"
-      :visible.sync="dialogVisible_"
-      :before-close="handleClose"
-    >
-      <vxe-table
-        border
-        resizable
-        show-overflow
-        :data="tableData"
-        :edit-config="{ trigger: 'click', mode: 'cell' }"
-        :column-config="{ resizable: true }"
-      >
+    <el-dialog title="添加被邀请人" :visible.sync="dialogVisible_" :before-close="handleClose">
+
+      <!-- <vxe-table border resizable show-overflow :data="tableData" :edit-config="{ trigger: 'click', mode: 'cell' }"
+        :column-config="{ resizable: true }">
         <!-- <vxe-column type="seq" width="60" title="序号"></vxe-column> -->
-        <!-- 
+      <!-- 
                 <vxe-column field="nickname" title="昵称" :edit-render="{}">
                     <template #edit="{ row }">
                         <vxe-input v-model="row.nickname" type="text" placeholder="请输入昵称"></vxe-input>
                     </template>
                 </vxe-column> -->
-        <vxe-column field="phonenumber" title="手机号" :edit-render="{}">
+      <!-- <vxe-column field="phonenumber" title="手机号" :edit-render="{}">
           <template #edit="{ row }">
             <vxe-input v-model="row.phonenumber" type="text"></vxe-input>
           </template>
-        </vxe-column>
-        <!-- <vxe-column field="role" title="身份" :edit-render="{ autofocus: '.vxe-input--inner' }">
+        </vxe-column> -->
+      <!-- <vxe-column field="role" title="身份" :edit-render="{ autofocus: '.vxe-input--inner' }">
                     <template #edit="{ row }">
                         <vxe-input v-model="row.role" type="text" placeholder="请输入身份"></vxe-input>
                     </template>
                 </vxe-column> -->
-        <vxe-column field="role" title="role" :edit-render="{}">
+      <!-- <vxe-column field="role" title="role" :edit-render="{}">
           <template #default="{ row }">
             <span>{{ formatRole(row.role) }}</span>
           </template>
@@ -71,10 +53,17 @@
               ></el-option>
             </el-select>
           </template>
-        </vxe-column>
-      </vxe-table>
+        </vxe-column> -->
+      <!-- </vxe-table> -->
+
+      <div class="yaoqing">
+        <div class="phone">
+          <span>请输入被邀请人手机号</span>
+          <el-input v-model="phonenum" class="phoneinfo"></el-input>
+        </div>
+      </div>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="insertEvent()">新建</el-button>
+        <!-- <el-button @click="insertEvent()">新建</el-button> -->
         <el-button type="primary" @click="submitForm()">确 定</el-button>
       </div>
     </el-dialog>
@@ -108,12 +97,12 @@ export default {
         { id: 10003, phonenumber: "Test3", role: "2", nickname: "T3" },
         { id: 10004, phonenumber: "Test4", role: "3", nickname: "T4" },
       ], //列表信息
-      rolelist: [
-        { value: "0", label: "父亲" },
-        { value: "1", label: "儿子" },
-        { value: "2", label: "母亲" },
-        { value: "3", label: "女儿" },
-      ],
+      // rolelist: [
+      //   { value: "0", label: "父亲" },
+      //   { value: "1", label: "儿子" },
+      //   { value: "2", label: "母亲" },
+      //   { value: "3", label: "女儿" },
+      // ],
     };
   },
   mounted() {
@@ -357,21 +346,21 @@ export default {
     handleClose(done) {
       done();
     },
-    formatRole(value) {
-      if (value === "0") {
-        return "父亲";
-      }
-      if (value === "1") {
-        return "儿子";
-      }
-      if (value === "2") {
-        return "母亲";
-      }
-      if (value === "3") {
-        return "女儿";
-      }
-      return "请确认身份";
-    },
+    // formatRole(value) {
+    //   if (value === "0") {
+    //     return "父亲";
+    //   }
+    //   if (value === "1") {
+    //     return "儿子";
+    //   }
+    //   if (value === "2") {
+    //     return "母亲";
+    //   }
+    //   if (value === "3") {
+    //     return "女儿";
+    //   }
+    //   return "请确认身份";
+    // },
     async insertEvent(row) {
       // 获得tableData中最大的id+1
       const maxID = this.tableData.reduce((max, item) => {
@@ -454,7 +443,7 @@ export default {
     align-items: center;
 
 
-    p{
+    p {
       margin-left: 2.3rem;
     }
 
@@ -471,8 +460,16 @@ export default {
     }
   }
 
-  /deep/.vxe-icon-edit:before {
-    content: "";
+  // /deep/.vxe-icon-edit:before {
+  //   content: "";
+  // }
+
+  .yaoqing {
+    .phone {
+      /deep/ .el-input{
+        margin-top: .4rem;
+      }
+    }
   }
 }
 </style>
