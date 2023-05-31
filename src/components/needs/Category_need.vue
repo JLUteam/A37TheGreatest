@@ -28,6 +28,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "Category_Chart",
   data() {
@@ -340,50 +341,43 @@ export default {
       this.tableData.push(record);
     },
     submitForm() {
-      console.log(phonenum);
-      // axios({
-      //     method: "post",
-      //     url: "https://mineralsteins.icu:8080/a37/room-login",
-      //     headers: {
-      //       "Content-Type": "application/x-www-form-urlencoded",
-      //     },
-      //     data: {
-      //       phone_num:,
-      //     },
-      //   }).then(
-      //     (response) => {
-      //       console.log(response.data);
-      //       for (var i = 0; i < response.data.info.length; i++) {
-      //         this.$store.commit("updaterecodes_needs", response.data.info[i]);
-      //       }
-      //       console.log(this.$store.state.recodes_needs);
-      //       if (response.data.login == true) {
-      //         this.$router.push({
-      //           name: "qingjingzhuangbeng",
-      //           query: {
-      //             room_num: response.data.room_num,
-      //           },
-      //         });
-      //       } else {
-      //         this.$alert("", "房间号或密码错误", {
-      //           confirmButtonText: "确定",
-      //           showClose: false,
-      //           center: true,
-      //           type: "warning",
-      //           customClass: "fail",
-      //         });
-      //       }
-      //     },
-      //     (error) => {
-      //       this.$alert("", error, {
-      //         confirmButtonText: "确定",
-      //         showClose: false,
-      //         center: true,
-      //         type: "warning",
-      //         customClass: "fail",
-      //       });
-      //     }
-      //   );
+      console.log(this.phonenum);
+      console.log("---------------");
+      console.log(this.$route.query.room_num);
+      axios({
+        method: "post",
+        url: "http://mineralsteins.icu:8081/a37/check-create-own-relation",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: {
+          uphone: this.phonenum,
+          room_num: this.$route.query.room_num,
+        },
+      }).then(
+        (response) => {
+          console.log(response.data);
+          if (response.data.status) {
+            this.$alert("", "该用户已加入房间", {
+              confirmButtonText: "确定",
+              showClose: false,
+              center: true,
+              type: "success",
+              customClass: "success",
+            });
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.$alert("", "该用户不存在", {
+            confirmButtonText: "确定",
+            showClose: false,
+            center: true,
+            type: "warning",
+            customClass: "fail",
+          });
+        }
+      );
       this.dialogVisible_ = false;
     },
   },

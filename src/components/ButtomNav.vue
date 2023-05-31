@@ -4,36 +4,52 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'home',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'home',
+              }"
+            >
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
+            <router-link
+              class="nav__link"
+              :to="{
                 name: 'Percent',
-              }">
+              }"
+            >
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
+              <img
+                src="@/assets/svg/tx-fill-shizixing.svg"
+                class="item_s"
+                alt=""
+              />
             </div>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
+            <router-link
+              class="nav__link"
+              :to="{
                 name: 'needs',
-              }">
+              }"
+            >
               <img :src="img.Notification" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
+            <router-link
+              class="nav__link"
+              :to="{
                 name: 'person',
-              }">
+              }"
+            >
               <img :src="img.user_Home" class="item" />
             </router-link>
           </li>

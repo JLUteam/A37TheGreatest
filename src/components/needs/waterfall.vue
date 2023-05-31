@@ -1,12 +1,21 @@
 <template>
   <div id="waterfall" ref="waterfall">
-    <div class="img-box default-card-animation" v-for="(item, index) in imgsArr_c" :key="index"
-      :style="{ width: imgWidth + 'px', height: item._height + 'px' }" ref="imgBox">
+    <div
+      class="img-box default-card-animation"
+      v-for="(item, index) in imgsArr_c"
+      :key="index"
+      :style="{ width: imgWidth + 'px', height: item._height + 'px' }"
+      ref="imgBox"
+    >
       <img :data-src="item.src" @click="dialogVisible = true" />
       <P class="info">{{ item.info }}</P>
     </div>
 
-    <el-dialog :visible.sync="dialogVisible" title="进入房间" :before-close="handleClose">
+    <el-dialog
+      :visible.sync="dialogVisible"
+      title="进入房间"
+      :before-close="handleClose"
+    >
       <!-- <el-input v-model="roomNumber" placeholder="请输入房间号"></el-input>
 
       <span slot="footer" class="dialog-footer">
@@ -17,16 +26,33 @@
       </span> -->
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="已有" name="first" class="comeroom">
-          <el-input v-model="room.roomNumber" placeholder="请输入房间号" class="roomnumber"></el-input>
+          <el-input
+            v-model="room.roomNumber"
+            placeholder="请输入房间号"
+            class="roomnumber"
+          ></el-input>
 
-          <el-input v-model="room.password" placeholder="请输入密码" class="roompassword"></el-input>
+          <el-input
+            v-model="room.password"
+            placeholder="请输入密码"
+            class="roompassword"
+          ></el-input>
 
           <el-button type="primary" @click="confirm">确认</el-button>
         </el-tab-pane>
         <el-tab-pane label="新建" name="second">
-          <el-input v-model="room.roomNumber" placeholder="请输入房间号" class="roomnumber" :disabled="true"></el-input>
+          <el-input
+            v-model="room.roomNumber"
+            placeholder="请输入房间号"
+            class="roomnumber"
+            :disabled="true"
+          ></el-input>
 
-          <el-input v-model="room.password" placeholder="请设置密码" class="roompassword"></el-input>
+          <el-input
+            v-model="room.password"
+            placeholder="请设置密码"
+            class="roompassword"
+          ></el-input>
 
           <!-- <el-select
             v-model="role"
@@ -397,19 +423,14 @@ export default {
           },
         }).then(
           (response) => {
-            console.log("插入前")
+            console.log("插入前");
             console.log(this.$store.state.recodes_needs);
-
             console.log(response.data);
+            this.$store.commit("clearall");
             for (var i = 0; i < response.data.info.length; i++) {
-              console.log("1111111111")
-              console.log(response.data.info[i])
-              console.log('22222222222')
-              console.log("传输前")
-              console.log(this.$store.state.recodes_needs)
               this.$store.commit("addrecode_needs", response.data.info[i]);
-              console.log("传输后")
-              console.log(this.$store.state.recodes_needs)
+              console.log("传输后");
+              console.log(this.$store.state.recodes_needs);
             }
             console.log(this.$store.state.recodes_needs);
             if (response.data.login == true) {
