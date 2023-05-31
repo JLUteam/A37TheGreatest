@@ -15,47 +15,6 @@
 
     <el-dialog title="添加被邀请人" :visible.sync="dialogVisible_" :before-close="handleClose">
 
-      <!-- <vxe-table border resizable show-overflow :data="tableData" :edit-config="{ trigger: 'click', mode: 'cell' }"
-        :column-config="{ resizable: true }">
-        <!-- <vxe-column type="seq" width="60" title="序号"></vxe-column> -->
-      <!-- 
-                <vxe-column field="nickname" title="昵称" :edit-render="{}">
-                    <template #edit="{ row }">
-                        <vxe-input v-model="row.nickname" type="text" placeholder="请输入昵称"></vxe-input>
-                    </template>
-                </vxe-column> -->
-      <!-- <vxe-column field="phonenumber" title="手机号" :edit-render="{}">
-          <template #edit="{ row }">
-            <vxe-input v-model="row.phonenumber" type="text"></vxe-input>
-          </template>
-        </vxe-column> -->
-      <!-- <vxe-column field="role" title="身份" :edit-render="{ autofocus: '.vxe-input--inner' }">
-                    <template #edit="{ row }">
-                        <vxe-input v-model="row.role" type="text" placeholder="请输入身份"></vxe-input>
-                    </template>
-                </vxe-column> -->
-      <!-- <vxe-column field="role" title="role" :edit-render="{}">
-          <template #default="{ row }">
-            <span>{{ formatRole(row.role) }}</span>
-          </template>
-          <template #edit="{ row }">
-            <el-select
-              v-model="row.role"
-              transfer="true"
-              :popper-append-to-body="false"
-              style="z-index: 999"
-            >
-              <el-option
-                v-for="item in rolelist"
-                :key="item.value"
-                :value="item.value"
-                :label="item.label"
-              ></el-option>
-            </el-select>
-          </template>
-        </vxe-column> -->
-      <!-- </vxe-table> -->
-
       <div class="yaoqing">
         <div class="phone">
           <span>请输入被邀请人手机号</span>
@@ -103,7 +62,7 @@ export default {
       //   { value: "2", label: "母亲" },
       //   { value: "3", label: "女儿" },
       // ],
-      phoneinfo: ''
+      phonenum: ''
     };
   },
   mounted() {
