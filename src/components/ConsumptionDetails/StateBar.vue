@@ -114,6 +114,15 @@ export default {
                 // this.$store.commit('updateCategory', [this.recode.uid, value])
             }
         },
+        recode: {
+            handler(newV) {
+                this.recode = newV;
+                // console.log("监视到了")
+                // console.log(newV)
+            },
+            deep: true,
+            immediate: true
+        }
     }
 };
 </script>

@@ -41,6 +41,8 @@ export default {
   },
   computed: {
     Date_() {
+      // console.log("日期");
+      // console.log(this.recode);
       return this.recode.btime.split(" ")[0];
     },
     Time_() {
@@ -145,6 +147,18 @@ export default {
       return this.recode__.receipt
     }
   },
+  watch: {
+    recode: {
+      handler(newV) {
+        this.recode = newV;
+        this.recode__ = this.recode
+        // console.log("监视到了")
+        // console.log(this.recode)
+      },
+      deep: true,
+      immediate: true
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

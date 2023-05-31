@@ -122,8 +122,18 @@ export default {
             }
             this.$parent.getchange(['payment', newval, oldval, recode_])
             this.$parent.isupdate()
+        },
+        recode: {
+            handler(newV) {
+                this.recode = newV;
+                // console.log('监视到了')
+                // console.log(this.recode)
+            },
+            deep: true,
+            immediate: true
         }
     }
+
 
 
 };
