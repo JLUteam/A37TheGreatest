@@ -1,7 +1,7 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <el-pagination small layout="prev, pager, next" :total="recodes.length" @current-change="handleCurrentChange"
+    <el-pagination layout="prev, pager, next" :total="recodes.length" @current-change="handleCurrentChange"
       :page-size="1">
     </el-pagination>
     <Avatar :recode="this.recode_now"> </Avatar>
@@ -32,95 +32,44 @@ export default {
       recodes: [
         {
           "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "KFC",
+          "bname": "东方酒家烤鸭店",
           "ispic": false,
           "bpic": null,
-          "bcategory": "兼职",
-          "note": "打工",
-          "payment": "银行卡",
-          "amount": 178.0,
-          "btime": "2023-05-27 00:00:00",
-          "isreceipt": false,
-          "receipt": null
-        },
-        {
-          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "KFC",
-          "ispic": false,
-          "bpic": null,
-          "bcategory": "兼职",
-          "note": "打工",
-          "payment": "银行卡",
-          "amount": 178.0,
-          "btime": "2023-02-12 00:00:00",
-          "isreceipt": false,
-          "receipt": null
-        },
-        {
-          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "KFC",
-          "ispic": false,
-          "bpic": null,
-          "bcategory": "兼职",
-          "note": "打工",
-          "payment": "银行卡",
-          "amount": 178.0,
-          "btime": "2023-02-19 00:00:00",
-          "isreceipt": false,
-          "receipt": null
-        },
-        {
-          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "KFC",
-          "ispic": false,
-          "bpic": null,
-          "bcategory": "兼职",
-          "note": "打工",
-          "payment": "银行卡",
-          "amount": 178.0,
-          "btime": "2023-02-26 00:00:00",
-          "isreceipt": false,
-          "receipt": null
-        },
-        {
-          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "KFC",
-          "ispic": false,
-          "bpic": null,
-          "bcategory": "兼职",
-          "note": "打工",
-          "payment": "银行卡",
-          "amount": 178.0,
-          "btime": "2023-03-04 00:00:00",
-          "isreceipt": false,
-          "receipt": null
-        },
-        {
-          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "KFC",
-          "ispic": false,
-          "bpic": null,
-          "bcategory": "兼职",
-          "note": "打工",
-          "payment": "银行卡",
-          "amount": 179.0,
-          "btime": "2023-03-05 00:00:00",
-          "isreceipt": false,
-          "receipt": null
-        },
-        {
-          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "支付宝1",
-          "ispic": false,
-          "bpic": null,
-          "bcategory": "理财",
-          "note": "买基金",
+          "bcategory": "餐饮",
+          "note": "请客吃饭",
           "payment": "支付宝",
-          "amount": 200.0,
-          "btime": "2023-03-27 00:00:00",
-          "isreceipt": false,
+          "amount": 74.8,
+          "btime": "2023-05-27 12:37:14",
+          "isreceipt": true,
           "receipt": null
-        }
+        },
+        {
+          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+          "bname": "东方酒家烤鸭店",
+          "ispic": false,
+          "bpic": null,
+          "bcategory": "餐饮",
+          "note": "请客吃饭",
+          "payment": "支付宝",
+          "amount": 74.8,
+          "btime": "2023-05-27 12:37:14",
+          "isreceipt": true,
+          "receipt": null
+        },
+        {
+          "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+          "bname": "东方酒家烤鸭店",
+          "ispic": false,
+          "bpic": null,
+          "bcategory": "餐饮",
+          "note": "请客吃饭",
+          "payment": "支付宝",
+          "amount": 74.8,
+          "btime": "2023-05-27 12:37:14",
+          "isreceipt": true,
+          "receipt": null
+        },
+
       ],
       recode_now: {}
     };
@@ -414,7 +363,8 @@ export default {
 
 
   /deep/.el-pagination {
-    margin-top: .5rem;
+    margin-left: .2rem;
+    margin-top: .6rem;
     background-color: transparent;
   }
 
@@ -426,12 +376,12 @@ export default {
     background-color: transparent;
   }
 
-  /deep/.el-pagination--small .btn-prev {
+  /deep/.el-pagination .btn-prev {
     display: none;
     background-color: transparent;
   }
 
-  /deep/.el-pagination--small .btn-next {
+  /deep/.el-pagination .btn-next {
 
     display: none;
     background-color: transparent;

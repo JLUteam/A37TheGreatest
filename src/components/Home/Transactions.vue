@@ -6,9 +6,7 @@
             <p class="More" @mousedown="pull_up">查看更多</p>
         </div>
         <div class="search" v-show=Flag>
-    
-
-            <input type="text" class="search_record" placeholder="点击搜索">
+            <input type="text" class="search_record" placeholder="点击搜索" v-model="search_text">
         </div>
         <div class="recodes_border">
             <div class="recordsets">
@@ -19,7 +17,7 @@
                         <p class="ShoppingTime">{{ recode.btime }}</p>
                     </div>
 
-                    
+
                     <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
                 </div>
                 <div class="temp" v-if="Flag"></div>
@@ -33,7 +31,8 @@ export default {
     name: 'Transactions',
     data() {
         return {
-            Transactions_css: 'Transactions'
+            Transactions_css: 'Transactions',
+            search_text: ''
         }
     },
     computed: {
@@ -104,6 +103,10 @@ export default {
 
             }
 
+              if (this.search_text != '') {
+                temp = temp.filter(item => item.bname.indexOf(this.search_text) != -1)
+            }
+
             return temp
         },
         Flag() {
@@ -120,6 +123,11 @@ export default {
         },
         Flag: function () {
             this.Transactions_pull = this.$store.state.Transactions_pull
+        },
+        search_text: function () {
+             if (this.search_text != '') {
+                this.recodes = this.recodes.filter(item => item.bname.indexOf(this.search_text) != -1)
+            }
         }
     },
     methods: {

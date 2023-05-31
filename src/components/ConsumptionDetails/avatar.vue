@@ -1,17 +1,12 @@
 <template>
     <div class="avatar">
-        <img :src=recode.bpic alt="">
+        <img :src="avatar" alt="">
         <input type="text" v-model="name_" ref="name_" />
     </div>
 </template>
 <script>
 export default {
     name: "avatar",
-    data() {
-        return {
-        }
-    },
-
     props: {
         recode: {
             type: Object
@@ -52,67 +47,67 @@ export default {
         },
         avatar: {
             get() {
-                //有 '餐饮',
-                // '购物',
-                //     '美容',
-                //     '通讯',
-                //     '服饰',
-                //     '居家',
-                //     '日用',
-                //     '学习',
-                //     '公交',
-                //     '礼物',
-                //     '蔬菜',
-                //     '娱乐',
-                //     '工作',
-                //     '旅行',
-                //     '水果',
-                //     '运动',
-                //     '其他'几种，根据这个写switch
+                switch (this.recode.bcategory) {
+                    case '餐饮':
+                        return require('@/assets/svg/icon_ycof0s6ppu/canyin.svg');
 
-                // switch (this.recode.bcategory) {
-                //     case '餐饮':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/canyin.svg');
-                //         break;
-                //     case '购物':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/gouwu.svg');
-                //         break;
-                //     case '美容':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/meirong.svg');
-                //         break;
-                //     case '通讯':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/tongxun.svg');
-                //         break;          
-                //     case '服饰':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/fushi.svg');
-                //         break;
-                //     case '居家':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/jujia.svg');
-                //         break;
-                //     case '日用':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/riyong.svg');
-                //         break;
-                //     case '学习':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/xuexi.svg');
-                //         break;
-                //     case '公交':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/gongjiao.svg');
-                //         break;
-                //     case '礼物':
-                //         this.recode.bpic = require('@/assets/svg/icon_0p9q85sdf0hp/liwu.svg');
-                //         break;
-                //     case '蔬菜':
+                    case '购物':
+                        return require('@/assets/svg/icon_ycof0s6ppu/gouwu.svg');
 
-                // }
+                    case '美容':
+                        return require('@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg');
 
+                    case '通讯':
+                        return require('@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg');
 
-                return this.recode.bpic;
+                    case '服饰':
+                        return require('@/assets/svg/icon_ycof0s6ppu/fushi.svg');
+
+                    case '居家':
+                        return require('@/assets/svg/icon_ycof0s6ppu/jujia.svg');
+
+                    case '日用':
+                        return require('@/assets/svg/icon_ycof0s6ppu/riyongpin.svg');
+
+                    case '学习':
+                        return require('@/assets/svg/icon_ycof0s6ppu/xuexi.svg');
+
+                    case '公交':
+                        return require('@/assets/svg/icon_ycof0s6ppu/gongjiao.svg');
+
+                    case '礼物':
+                        return require('@/assets/svg/icon_ycof0s6ppu/liwu.svg');
+
+                    case '蔬菜':
+                        return require('@/assets/svg/icon_ycof0s6ppu/shucai.svg');
+
+                    case '娱乐':
+                        return require('@/assets/svg/icon_ycof0s6ppu/yule.svg');
+
+                    case '工作':
+                        return require('@/assets/svg/icon_ycof0s6ppu/gongzuo.svg');
+
+                    case '旅行':
+                        return require('@/assets/svg/icon_ycof0s6ppu/lvhang.svg');
+
+                    case '水果':
+                        return require('@/assets/svg/icon_ycof0s6ppu/shuiguo.svg');
+
+                    case '运动':
+                        return require('@/assets/svg/icon_ycof0s6ppu/yundong.svg');
+
+                    case '其他':
+                        return require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg');
+
+                    default:
+                        return require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg');
+                }
 
 
 
             },
         }
-    
+
     }
 
 };
