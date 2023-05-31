@@ -13,6 +13,12 @@ export default {
             oldval_name: this.recode.bname,
         }
     },
+    
+    props: {
+        recode: {
+            type: Object
+        }
+    },
     watch: {
         name_: function (val, oldval) {
             let recode_;
@@ -30,13 +36,19 @@ export default {
             }
             this.$parent.getchange(['bname', val, oldval, recode_]);
             this.$parent.isupdate()
-        }
-    },
-    props: {
+        },
         recode: {
-            type: Object
+            handler(newV) {
+                this.recode = newV;
+                // console.log("监视到了")
+                // console.log(newV)
+            },
+            deep: true,
+            immediate: true
         }
-    }
+
+    },
+
 };
 </script>
 <style lang="less" scoped>
@@ -50,9 +62,10 @@ input {
     font-size: 0.28rem;
     font-weight: 400;
     line-height: 0.48rem;
-    text-align:center;
+    text-align: center;
 
 }
+
 .avatar {
     display: flex;
     flex-direction: column;

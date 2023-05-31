@@ -147,6 +147,18 @@ export default {
       return this.recode__.receipt
     }
   },
+  watch: {
+    recode: {
+      handler(newV) {
+        this.recode = newV;
+        this.recode__ = this.recode
+        // console.log("监视到了")
+        // console.log(this.recode)
+      },
+      deep: true,
+      immediate: true
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

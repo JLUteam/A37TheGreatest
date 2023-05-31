@@ -40,7 +40,7 @@
             <!-- <p class="merchantname">{{ recode.shenfen }}</p> -->
             <el-popover placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
               class="merchantname">
-              <el-button slot="reference">{{ recode.comment }}</el-button>
+              <el-button slot="reference" class="comment_button">{{ recode.comment }}</el-button>
             </el-popover>
           </div>
           <div class="recode_mid">
@@ -173,7 +173,7 @@ export default {
       //   shenfen: "儿子",
       // };
       var data = {
-        btime: btime,
+        time: btime,
         comment: this.$route.query.comment,
         amount: this.amount,
         room: this.$route.query.room_num,
@@ -421,6 +421,10 @@ export default {
             font-weight: 700;
             line-height: 0.26rem;
             padding-left: 0.5rem;
+
+            .comment_button {
+              background-color: transparent !important;
+            }
           }
 
 

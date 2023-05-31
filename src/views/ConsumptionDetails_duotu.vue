@@ -24,7 +24,7 @@ export default {
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
     this.recode_now = this.recodes[0];
-    
+
   },
   data() {
     return {
@@ -374,6 +374,7 @@ export default {
     recode_now: {
       handler: function (val, oldval) {
         console.log("recode_now");
+        console.log(this.recode_now)
         console.log(val);
       },
       deep: true,

@@ -103,6 +103,7 @@ export default {
       //   { value: "2", label: "母亲" },
       //   { value: "3", label: "女儿" },
       // ],
+      phoneinfo: ''
     };
   },
   mounted() {
@@ -466,7 +467,7 @@ export default {
 
   .yaoqing {
     .phone {
-      /deep/ .el-input{
+      /deep/ .el-input {
         margin-top: .4rem;
       }
     }
