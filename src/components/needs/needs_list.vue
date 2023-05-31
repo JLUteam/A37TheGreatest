@@ -21,7 +21,6 @@
             <div>
               <el-date-picker v-model="date"></el-date-picker>
             </div>
-
           </div>
           <div class="beizhu">
             <span>请输入备注：</span>
@@ -29,27 +28,46 @@
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="confirm" class="confirmbuttom">确 定</el-button>
+          <el-button type="primary" @click="confirm" class="confirmbuttom"
+            >确 定</el-button
+          >
         </span>
       </el-dialog>
     </div>
     <div class="recodes_border">
       <div class="recordsets">
-        <div class="record" v-for="recode in recodes.reverse()" :key="recode.btime">
+        <div
+          class="record"
+          v-for="recode in recodes.reverse()"
+          :key="recode.btime"
+        >
           <div class="reccode_first">
             <!-- <p class="merchantname">{{ recode.shenfen }}</p> -->
-            <el-popover placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-              class="merchantname">
-              <el-button slot="reference" class="comment_button">{{ recode.comment }}</el-button>
+            <el-popover
+              placement="bottom"
+              title="标题"
+              width="200"
+              trigger="click"
+              content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+              class="merchantname"
+            >
+              <el-button slot="reference" class="comment_button">{{
+                recode.comment
+              }}</el-button>
             </el-popover>
           </div>
           <div class="recode_mid">
             <p class="ShoppingTime">{{ recode.btime.substr(0, 10) }}</p>
 
-            <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
-
+            <p class="consumption">
+              {{ parseFloat(recode.amount).toFixed(2) }}
+            </p>
           </div>
-          <img class="jian" src="@/assets/svg/jian1.svg" @click="jian(recode)" />
+          <img
+            class="jian"
+            src="@/assets/svg/jian1.svg"
+            @click="jian(recode)"
+          />
         </div>
         <div class="temp2"></div>
       </div>
@@ -67,7 +85,7 @@ export default {
       amount: "",
       date: "",
       visible: false,
-      comment: ''
+      comment: "",
     };
   },
   computed: {
@@ -166,15 +184,9 @@ export default {
       let month = (date_.getMonth() + 1).toString().padStart(2, "0");
       let day = date_.getDate().toString().padStart(2, "0");
       let btime = "" + year + "-" + month + "-" + day;
-      // let data = {
-      //   btime: "" + year + "-" + month + "-" + day,
-      //   amount: this.amount,
-      //   usr: "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-      //   shenfen: "儿子",
-      // };
       var data = {
-        time: btime,
-        comment: this.$route.query.comment,
+        btime: btime,
+        comment: this.comment,
         amount: this.amount,
         room: this.$route.query.room_num,
       };
@@ -258,12 +270,12 @@ export default {
 
       .confirmbuttom {
         width: 4rem;
-        margin-top: .2rem;
+        margin-top: 0.2rem;
       }
     }
   }
 
-  /deep/.el-radio-button__orig-radio:checked+.el-radio-button__inner {
+  /deep/.el-radio-button__orig-radio:checked + .el-radio-button__inner {
     width: 2.9856rem;
     height: 0.64rem;
     border-radius: 0.16rem;
@@ -403,14 +415,12 @@ export default {
         justify-content: space-between;
         cursor: pointer;
 
-
-
         .reccode_first {
           height: 0.96rem;
           display: flex;
           flex-direction: column;
           height: 1rem;
-          width: .5rem;
+          width: 0.5rem;
 
           .merchantname {
             width: 2rem;
@@ -426,8 +436,6 @@ export default {
               background-color: transparent !important;
             }
           }
-
-
         }
 
         .recode_mid {
@@ -441,7 +449,7 @@ export default {
             font-family: Manrope;
             font-size: 0.12rem;
             font-weight: 400;
-            margin-left: .1rem;
+            margin-left: 0.1rem;
             margin-top: 0rem;
             height: 40%;
           }
@@ -453,7 +461,7 @@ export default {
             font-weight: 700;
             line-height: 0.52rem;
             height: 60%;
-            margin-top: .2rem;
+            margin-top: 0.2rem;
             margin-left: -1.15rem;
           }
         }
@@ -466,7 +474,6 @@ export default {
           margin-top: 0.2rem;
           cursor: pointer;
         }
-
       }
 
       .temp2 {
