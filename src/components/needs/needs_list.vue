@@ -21,6 +21,10 @@
             <div>
               <el-date-picker v-model="date"></el-date-picker>
             </div>
+            <div class="beizhu">
+              <span>请输入备注：</span>
+              <el-input v-model="beizhu" class="beizhuinfo"></el-input>
+            </div>
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
@@ -35,7 +39,7 @@
             <!-- <p class="merchantname">{{ recode.shenfen }}</p> -->
             <el-popover placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
               class="merchantname">
-              <el-button slot="reference">备注</el-button>
+              <el-button slot="reference">{{ recode.beizhu }}</el-button>
             </el-popover>
           </div>
           <div class="recode_mid">
@@ -61,7 +65,8 @@ export default {
       dialogVisible: false,
       amount: "",
       date: "",
-      visible: false
+      visible: false,
+      beizhu: ''
     };
   },
   computed: {
@@ -218,6 +223,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin-right: 1.5rem;
       }
 
       .time {
@@ -382,7 +388,7 @@ export default {
         width: 6.54rem;
         height: 0.96rem;
         border-color: #ffffff;
-       
+
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -434,8 +440,8 @@ export default {
             font-weight: 700;
             line-height: 0.52rem;
             height: 60%;
-            margin-top: .1rem;
-            margin-left: -1.35rem;
+            margin-top: .2rem;
+            margin-left: -1.15rem;
           }
         }
 
