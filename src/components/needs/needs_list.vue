@@ -21,35 +21,34 @@
             <div>
               <el-date-picker v-model="date"></el-date-picker>
             </div>
+            <div class="beizhu">
+              <span>请输入备注：</span>
+              <el-input v-model="beizhu" class="beizhuinfo"></el-input>
+            </div>
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="confirm" class="confirmbuttom"
-            >确 定</el-button
-          >
+          <el-button type="primary" @click="confirm" class="confirmbuttom">确 定</el-button>
         </span>
       </el-dialog>
     </div>
     <div class="recodes_border">
       <div class="recordsets">
-        <div
-          class="record"
-          v-for="recode in recodes.reverse()"
-          :key="recode.btime"
-        >
-          <div class="middle">
-            <p class="merchantname">{{ recode.shenfen }}</p>
-
-            <p class="ShoppingTime">{{ recode.btime.substr(0, 10) }}</p>
-            <!-- <div style="width: .48rem; height: .48rem; background-color: blueviolet; margin-left: 2.0rem;"></div> -->
-            <!-- <img class="jian" src="@/assets/svg/jian1.svg"> -->
+        <div class="record" v-for="recode in recodes.reverse()" :key="recode.btime">
+          <div class="reccode_first">
+            <!-- <p class="merchantname">{{ recode.shenfen }}</p> -->
+            <el-popover placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+              class="merchantname">
+              <el-button slot="reference">{{ recode.beizhu }}</el-button>
+            </el-popover>
           </div>
-          <img
-            class="jian"
-            src="@/assets/svg/jian1.svg"
-            @click="jian(recode)"
-          />
-          <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
+          <div class="recode_mid">
+            <p class="ShoppingTime">{{ recode.btime.substr(0, 10) }}</p>
+
+            <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
+
+          </div>
+          <img class="jian" src="@/assets/svg/jian1.svg" @click="jian(recode)" />
         </div>
         <div class="temp2"></div>
       </div>
@@ -66,6 +65,8 @@ export default {
       dialogVisible: false,
       amount: "",
       date: "",
+      visible: false,
+      beizhu: ''
     };
   },
   computed: {
@@ -222,6 +223,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin-right: 1.5rem;
       }
 
       .time {
@@ -252,7 +254,7 @@ export default {
     }
   }
 
-  /deep/.el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  /deep/.el-radio-button__orig-radio:checked+.el-radio-button__inner {
     width: 2.9856rem;
     height: 0.64rem;
     border-radius: 0.16rem;
@@ -287,6 +289,11 @@ export default {
 
   /deep/ .el-radio-button:first-child .el-radio-button__inner {
     border-left: none;
+  }
+
+  /deep/.el-button {
+    background-color: transparent;
+    border: none !important;
   }
 
   .title {
@@ -381,25 +388,20 @@ export default {
         width: 6.54rem;
         height: 0.96rem;
         border-color: #ffffff;
-        margin-bottom: 0.3rem;
+
         display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         cursor: pointer;
 
-        .jian {
-          margin-left: 2.95rem;
-          width: 0.48rem;
-          height: 0.48rem;
-          margin-top: 0.2rem;
-          cursor: pointer;
-        }
 
-        .middle {
+
+        .reccode_first {
           height: 0.96rem;
           display: flex;
           flex-direction: column;
           height: 1rem;
-          // justify-content: center;
-          // align-content: center;
+          width: .5rem;
 
           .merchantname {
             width: 2rem;
@@ -412,30 +414,46 @@ export default {
             padding-left: 0.5rem;
           }
 
+
+        }
+
+        .recode_mid {
+          display: flex;
+          direction: columns;
+          justify-content: center;
+          margin-left: 1.23rem;
+
           .ShoppingTime {
-            display: inline-block;
-            margin-top: -0.2rem;
-            height: 0.32rem;
             color: #6c727f;
             font-family: Manrope;
-            font-size: 0.24rem;
+            font-size: 0.12rem;
             font-weight: 400;
-            line-height: 0.32rem;
-            margin-left: 0.5rem;
+            margin-left: .1rem;
+            margin-top: 0rem;
+            height: 40%;
+          }
+
+          .consumption {
+            color: #932205;
+            font-family: Manrope;
+            font-size: 0.32rem;
+            font-weight: 700;
+            line-height: 0.52rem;
+            height: 60%;
+            margin-top: .2rem;
+            margin-left: -1.15rem;
           }
         }
 
-        .consumption {
-          position: relative;
-          color: #932205;
-          font-family: Manrope;
-          font-size: 0.32rem;
-          font-weight: 700;
-          line-height: 0.52rem;
-          text-align: right;
+        .jian {
+          margin-left: 0rem;
+          margin-right: 1.2rem;
+          width: 0.48rem;
+          height: 0.48rem;
           margin-top: 0.2rem;
-          margin-left: -2.5rem;
+          cursor: pointer;
         }
+
       }
 
       .temp2 {

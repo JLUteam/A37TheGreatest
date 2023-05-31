@@ -54,7 +54,7 @@
             class="roompassword"
           ></el-input>
 
-          <el-select
+          <!-- <el-select
             v-model="role"
             transfer="true"
             :popper-append-to-body="false"
@@ -66,7 +66,7 @@
               :value="item.value"
               :label="item.label"
             ></el-option>
-          </el-select>
+          </el-select> -->
           <el-button type="primary" @click="confirm">确认</el-button>
         </el-tab-pane>
       </el-tabs>
@@ -167,13 +167,13 @@ export default {
       dialogVisible: false,
       isnewroom: false,
       activeName: "first",
-      role: "请确认身份",
-      rolelist: [
-        { value: "父亲", label: "父亲" },
-        { value: "儿子", label: "儿子" },
-        { value: "母亲", label: "母亲" },
-        { value: "女儿", label: "女儿" },
-      ],
+      // role: "请确认身份",
+      // rolelist: [
+      //   { value: "父亲", label: "父亲" },
+      //   { value: "儿子", label: "儿子" },
+      //   { value: "母亲", label: "母亲" },
+      //   { value: "女儿", label: "女儿" },
+      // ],
     };
   },
   computed: {
@@ -459,21 +459,21 @@ export default {
         this.newroom();
       }
     },
-    formatRole(value) {
-      if (value === "0") {
-        return "父亲";
-      }
-      if (value === "1") {
-        return "儿子";
-      }
-      if (value === "2") {
-        return "母亲";
-      }
-      if (value === "3") {
-        return "女儿";
-      }
-      return "请确认身份";
-    },
+    // formatRole(value) {
+    //   if (value === "0") {
+    //     return "父亲";
+    //   }
+    //   if (value === "1") {
+    //     return "儿子";
+    //   }
+    //   if (value === "2") {
+    //     return "母亲";
+    //   }
+    //   if (value === "3") {
+    //     return "女儿";
+    //   }
+    //   return "请确认身份";
+    // },
   },
   mounted() {
     this.viewHeight =
