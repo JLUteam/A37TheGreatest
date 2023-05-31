@@ -19,7 +19,7 @@
           <div class="time">
             <span>请选择支付时间：</span>
             <div>
-              <el-date-picker v-model="date"></el-date-picker>
+              <el-date-picker v-model="date" value-format='yyyy-MM-dd'></el-date-picker>
             </div>
           </div>
           <div class="beizhu">
@@ -28,29 +28,17 @@
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="confirm" class="confirmbuttom"
-            >确 定</el-button
-          >
+          <el-button type="primary" @click="confirm" class="confirmbuttom">确 定</el-button>
         </span>
       </el-dialog>
     </div>
     <div class="recodes_border">
       <div class="recordsets">
-        <div
-          class="record"
-          v-for="recode in recodes.reverse()"
-          :key="recode.btime"
-        >
+        <div class="record" v-for="recode in recodes.reverse()" :key="recode.btime">
           <div class="reccode_first">
             <!-- <p class="merchantname">{{ recode.shenfen }}</p> -->
-            <el-popover
-              placement="bottom"
-              title="标题"
-              width="200"
-              trigger="click"
-              content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-              class="merchantname"
-            >
+            <el-popover placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+              class="merchantname">
               <el-button slot="reference" class="comment_button">{{
                 recode.comment
               }}</el-button>
@@ -63,11 +51,7 @@
               {{ parseFloat(recode.amount).toFixed(2) }}
             </p>
           </div>
-          <img
-            class="jian"
-            src="@/assets/svg/jian1.svg"
-            @click="jian(recode)"
-          />
+          <img class="jian" src="@/assets/svg/jian1.svg" @click="jian(recode)" />
         </div>
         <div class="temp2"></div>
       </div>
@@ -141,7 +125,7 @@ export default {
     },
     time() {
       let time = [];
-      const date = new Date();
+      const date = new Date()
       let year = date.getFullYear();
       let month = (date.getMonth() + 1).toString().padStart(2, "0");
       let dayOfWeek = date.getUTCDay() === 0 ? 7 : date.getUTCDay();
@@ -214,11 +198,11 @@ export default {
 
     confirm() {
       // 处理用户输入的数据
-      const date_ = new Date();
-      let year = date_.getFullYear();
-      let month = (date_.getMonth() + 1).toString().padStart(2, "0");
-      let day = date_.getDate().toString().padStart(2, "0");
-      let btime = "" + year + "-" + month + "-" + day;
+      // const date_ = new Date();
+      // let year = date_.getFullYear();
+      // let month = (date_.getMonth() + 1).toString().padStart(2, "0");
+      // let day = date_.getDate().toString().padStart(2, "0");
+      // let btime = "" + year + "-" + month + "-" + day;
       var data = {
         btime: this.date,
         comment: this.comment,
@@ -226,7 +210,7 @@ export default {
         room: this.$route.query.room_num,
       };
       console.log("支付金额：", this.amount);
-      console.log("支付时间：", btime);
+      // console.log("支付时间：", btime);
       console.log(data);
       // this.$store.commit("addrecode_needs", data);
       axios({
@@ -317,7 +301,7 @@ export default {
     }
   }
 
-  /deep/.el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  /deep/.el-radio-button__orig-radio:checked+.el-radio-button__inner {
     width: 2.9856rem;
     height: 0.64rem;
     border-radius: 0.16rem;
