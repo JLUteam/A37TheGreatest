@@ -28,17 +28,29 @@
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="confirm" class="confirmbuttom">确 定</el-button>
+          <el-button type="primary" @click="confirm" class="confirmbuttom"
+            >确 定</el-button
+          >
         </span>
       </el-dialog>
     </div>
     <div class="recodes_border">
       <div class="recordsets">
-        <div class="record" v-for="recode in recodes.reverse()" :key="recode.btime">
+        <div
+          class="record"
+          v-for="recode in recodes.reverse()"
+          :key="recode.btime"
+        >
           <div class="reccode_first">
             <!-- <p class="merchantname">{{ recode.shenfen }}</p> -->
-            <el-popover placement="bottom" title="标题" width="200" trigger="click" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-              class="merchantname">
+            <el-popover
+              placement="bottom"
+              title="标题"
+              width="200"
+              trigger="click"
+              content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+              class="merchantname"
+            >
               <el-button slot="reference" class="comment_button">{{
                 recode.comment
               }}</el-button>
@@ -51,7 +63,11 @@
               {{ parseFloat(recode.amount).toFixed(2) }}
             </p>
           </div>
-          <img class="jian" src="@/assets/svg/jian1.svg" @click="jian(recode)" />
+          <img
+            class="jian"
+            src="@/assets/svg/jian1.svg"
+            @click="jian(recode)"
+          />
         </div>
         <div class="temp2"></div>
       </div>
@@ -181,13 +197,13 @@ export default {
           console.log(response.data);
           if (response.data.length != this.$store.state.recodes_needs.length) {
             this.$store.commit("clearall");
-            for (var i = 0; i < response.data.info.length; i++) {
-              this.$store.commit("addrecode_needs", response.data.info[i]);
+            for (var i = 0; i < response.data.length; i++) {
+              this.$store.commit("addrecode_needs", response.data[i]);
             }
-            this.recodes = this.value2 === "支出"
-              ? this.recodes_(this.time())
-              : this.recodes_income(this.time());
-
+            this.recodes =
+              this.value2 === "支出"
+                ? this.recodes_(this.time())
+                : this.recodes_income(this.time());
           }
         },
         (error) => {
@@ -233,7 +249,6 @@ export default {
     jian(recode) {
       this.$store.commit("jian_needs", recode);
     },
-
   },
   // mounted() {
   //   this.$store.commit("getrecode_needs");
@@ -302,7 +317,7 @@ export default {
     }
   }
 
-  /deep/.el-radio-button__orig-radio:checked+.el-radio-button__inner {
+  /deep/.el-radio-button__orig-radio:checked + .el-radio-button__inner {
     width: 2.9856rem;
     height: 0.64rem;
     border-radius: 0.16rem;

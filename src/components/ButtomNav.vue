@@ -74,7 +74,7 @@
         <img src="@/assets/svg/yuying.svg" class="icon" alt="" />
         <p>语音录入</p>
       </div>
-      <div class="method">
+      <div class="method" @click="tomorepic">
         <img src="@/assets/svg/photos.svg" class="icon" alt="" />
         <p>多图录入</p>
       </div>
@@ -324,6 +324,21 @@ export default {
       this.$router.push({
         name: "voiceinput",
       });
+    },
+    tomorepic() {
+      window.imagePicker.getPictures(
+        function (results) {
+          for (var i = 0; i < results.length; i++) {
+            console.log("Image URI: " + results[i]);
+          }
+        },
+        function (error) {
+          console.log("Error: " + error);
+        },
+        {
+          maximumImagesCount: 9,
+        }
+      );
     },
   },
 };
