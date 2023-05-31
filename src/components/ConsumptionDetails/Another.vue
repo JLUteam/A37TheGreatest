@@ -41,6 +41,8 @@ export default {
   },
   computed: {
     Date_() {
+      // console.log("日期");
+      // console.log(this.recode);
       return this.recode.btime.split(" ")[0];
     },
     Time_() {

@@ -1,13 +1,14 @@
 <template>
   <div class="basic">
     <Back></Back>
-    <el-pagination small layout="prev, pager, next" :total="recodes.length" @current-change=" handleCurrentChange " :page-size="1">
-        </el-pagination>
-        <!-- <Avatar : recode =" this.recode_new"> </Avatar>
-      <StateBar :recode=" this.recode_new "></StateBar>
-      <PayState :recode=" this.recode_new "></PayState>
-      <Another :recode=" this.recode_new "></Another>
-      <button @click=" this.delete_ ">{{ deleteorsave }}</button> -->
+    <el-pagination small layout="prev, pager, next" :total="recodes.length" @current-change="handleCurrentChange"
+      :page-size="1">
+    </el-pagination>
+    <Avatar :recode="this.recode_now"> </Avatar>
+    <StateBar :recode="this.recode_now"></StateBar>
+    <PayState :recode="this.recode_now"></PayState>
+    <Another :recode="this.recode_now"></Another>
+    <button @click="this.delete_">{{ deleteorsave }}</button>
   </div>
 </template>
 <script>
@@ -22,10 +23,8 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
-    this.deleteorsave = !this.$route.query.isphoto ? "删除" : "保存";
-    // this.recodes = this.$route.recodes;
-    console.log("多图");
-    console.log(this.recodes.length);
+    this.recode_now = this.recodes[0];
+    
   },
   data() {
     return {
@@ -123,7 +122,7 @@ export default {
           "receipt": null
         }
       ],
-      recode_new: {}
+      recode_now: {}
     };
   },
   methods: {
@@ -368,8 +367,20 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+      this.recode_now = this.recodes[val - 1];
     }
   },
+  watch: {
+    recode_now: {
+      handler: function (val, oldval) {
+        console.log("recode_now");
+        console.log(val);
+      },
+      deep: true,
+      immediate: true,
+    }
+
+  }
 };
 </script>
 <style lang='less' scoped>
