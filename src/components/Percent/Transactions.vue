@@ -13,7 +13,7 @@
             <div class="Category" v-show='Flag'>
                 <Category_Transactions ref="Category_Transactions"></Category_Transactions>
             </div>
-            <div class="recodes_border">
+            <div class="recodes_border" v-if="isShow">
                 <div class="recordsets">
                     <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.btime">
                         <img :src=recode.bpic class="merchantAvatar">
@@ -297,7 +297,12 @@ export default {
         watchResize() {
             //实时变化的窗口高度
             this.screenHeight = document.documentElement.clientHeight;
-            console.log("当前高度为" + this.screenHeight)
+            // console.log("当前高度为" + this.screenHeight)
+            if (this.screenHeight < 500) {
+                this.isShow = false
+            } else {
+                this.isShow = true
+            }
         },
     },
 

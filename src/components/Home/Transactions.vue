@@ -100,6 +100,7 @@ export default {
                             temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
                             break;
                         default:
+                            temp[i].bpic = require('@/assets/svg/icon_ycof0s6ppu/shezhi.svg')
                             break;
                     }
                 }
