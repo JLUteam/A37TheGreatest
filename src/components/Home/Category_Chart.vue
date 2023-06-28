@@ -10,7 +10,9 @@ export default {
   name: "Category_Chart",
   mounted() {
     setTimeout(() => {
-      this.drawLine()
+     if (this.sum_ > 0) {
+      this.drawLine();
+     }
     }, 900);
 
     console.log('this.data_')

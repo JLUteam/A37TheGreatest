@@ -1,29 +1,34 @@
 <template>
-    <div :class="Flag ? 'Transactions_after' : 'Transactions'" @touchstart='touchstart' @touchmove='touchmove'>
-        <div class="TransactionsTitle">
-            <div class="line"></div>
-            <p>消费记录</p>
-            <p class="More" @mousedown="pull_up">查看更多</p>
-        </div>
-        <div class="search" v-show=Flag>
-            <input type="text" class="search_record" placeholder="点击搜索" v-model="search_text">
-        </div>
-        <div class="recodes_border" v-show="isShow">
-            <div class="recordsets">
-                <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.btime">
-                    <img :src=recode.bpic class="merchantAvatar">
-                    <div class="middle">
-                        <p class="merchantname">{{ recode.bname }}</p>
-                        <p class="ShoppingTime">{{ recode.btime }}</p>
-                    </div>
-
-
-                    <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
-                </div>
-                <div class="temp" v-if="Flag"></div>
+    <div>
+        <div :class="Flag ? 'Transactions_after' : 'Transactions'" @touchstart='touchstart' @touchmove='touchmove'>
+            <div class="TransactionsTitle">
+                <div class="line"></div>
+                <p>消费记录</p>
+                <p class="More" @mousedown="pull_up">查看更多</p>
             </div>
+            <div class="search" v-show=Flag>
+                <input type="text" class="search_record" placeholder="点击搜索" v-model="search_text">
+            </div>
+            <div class="recodes_border" v-show="this.sum_>0">
+                <div class="recordsets">
+                    <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.btime">
+                        <img :src=recode.bpic class="merchantAvatar">
+                        <div class="middle">
+                            <p class="merchantname">{{ recode.bname }}</p>
+                            <p class="ShoppingTime">{{ recode.btime }}</p>
+                        </div>
+                        <p class="consumption">{{ parseFloat(recode.amount).toFixed(2) }}</p>
+                    </div>
+                    <div class="temp" v-if="Flag"></div>
+                </div>
+            </div>
+            <div class="nodata" v-show="this.sum_<=0">
+                暂无数据
+            </div>
+
         </div>
 
+       
     </div>
 </template>
 <script>
@@ -43,7 +48,7 @@ export default {
             let temp = this.$store.state.recodes.filter(
                 (item) => (item.btime.indexOf(this.today()) != -1)
             )
-
+      
             for (let i = 0; i < temp.length; i++) {
                 console.log(temp[i])
                 if (temp[i].bpic == null) {
@@ -111,20 +116,21 @@ export default {
                 temp = temp.filter(item => item.bname.indexOf(this.search_text) != -1)
             }
 
+
+
             return temp
         },
         Flag() {
             return this.$store.state.Transactions_pull
         },
-
+        sum_() {
+            return this.recodes.reduce((total, item) => {
+                return total + parseFloat(item.amount);
+            }, 0);
+        },
+        
     },
     watch: {
-        recodes: function () {
-            this.$store.state.recodes.filter(
-                (item) =>
-                    (item.btime.indexOf(this.today()) != -1)
-            )
-        },
         Flag: function () {
             this.Transactions_pull = this.$store.state.Transactions_pull
         },
@@ -188,13 +194,14 @@ export default {
             document.querySelector('body').style.height = `${height}px`;
         },
         )
+
     }
 }
 </script>
 <style lang="less" scoped>
 .Transactions {
     width: 6.54rem;
-    height: 6.3rem;
+    // height: 6.3rem;
     margin-top: .7rem;
     padding-left: .1rem;
     // transition: width 2s, height 3s;
@@ -496,6 +503,19 @@ export default {
 
 }
 
+.nodata{
+    display: flex;
+    font-size: .45rem;
+    justify-content: center;
+   
+    align-items: center;
+    font-weight: 700;
+    padding-top: .5rem;
+   
+
+}
+
+
 // @media screen and (min-width:750px) {
 //     .Transactions_after {
 //         max-height: 79%;
@@ -507,6 +527,7 @@ export default {
 //         max-height: 85%;
 //     }
 // }
+
 
 @media screen and (min-width:1024px) {
     .Transactions_after {

@@ -14,7 +14,7 @@
       name="animate__animated animate__bounce"
       enter-active-class="animate__backInUp"
     >
-      <Transactions></Transactions>
+      <Transactions ></Transactions>
     </transition>
   </div>
 </template>
