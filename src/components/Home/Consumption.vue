@@ -8,14 +8,14 @@
         </div>
         <div class="price">
             <p class="Spengding">
-               ¥{{ zhenshu }}.{{ xiaoshu }}
+                ¥{{ zhenshu }}.{{ xiaoshu }}
             </p>
             <div class="comparetoy">
                 对比昨天的消费
             </div>
             <div class="percent">
                 <img src="@/assets/svg/Triangle.svg" class="triangle-up"></img>
-                <p>{{ present }}%</p>
+                <p>{{present }}</p>
             </div>
         </div>
     </div>
@@ -38,10 +38,12 @@ export default {
 
         present() {
             let present = ((this.sum(this.today()) - this.sum(this.yesterday())) / this.sum(this.yesterday())) * 100
-            if(present===Infinity){
-              return  '昨日无消费'
+
+            if (isNaN(present)) {
+
+                return '暂无数据'
             }
-            return present.toFixed(0)
+            return present.toFixed(0)+"%"
         },
     },
     methods: {
@@ -70,6 +72,10 @@ export default {
             let day = date.getDate().toString().padStart(2, "0");
             return ('' + year + '-' + month + '-' + day)
         }
+    },
+    mounted() {
+        console.log('this.today()')
+        console.log(this.present)
     },
 }
 </script>
@@ -169,7 +175,7 @@ export default {
             position: relative;
             left: 1.62rem;
             top: -.35rem;
-          width: 2rem;
+            width: 2rem;
             height: .4rem;
             border-radius: .2rem;
             background: #ffffff;
@@ -186,7 +192,7 @@ export default {
             }
 
             p {
-              padding-left: .1rem;
+                padding-left: .1rem;
                 margin-right: .2rem;
                 height: .32rem;
                 color: #121826;
