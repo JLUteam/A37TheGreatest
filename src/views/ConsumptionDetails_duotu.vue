@@ -28,47 +28,50 @@ export default {
   },
   data() {
     return {
-      deleteorsave: !this.$route.query.isphoto ? "删除" : "保存",
+      deleteorsave: "保存",
       recodes: [
         {
           "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "东方酒家烤鸭店",
+          "bname": "武林川木桶饭",
           "ispic": false,
           "bpic": null,
           "bcategory": "餐饮",
-          "note": "请客吃饭",
+          "note": "顾客需要餐具",
           "payment": "支付宝",
-          "amount": 74.8,
-          "btime": "2023-05-27 12:37:14",
+          "amount": 22.56,
+          "btime": "2023-02-15 17:47:15",
           "isreceipt": true,
           "receipt": null
         },
         {
           "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "东方酒家烤鸭店",
+          "bname": "状元狼食坊",
           "ispic": false,
           "bpic": null,
           "bcategory": "餐饮",
-          "note": "请客吃饭",
+          "note": "特色凉菜(12元),招牌酸菜鱼,糖醋里嵴",
           "payment": "支付宝",
-          "amount": 74.8,
-          "btime": "2023-05-27 12:37:14",
+          "amount": 56.8,
+          "btime": "2023-06-05 17:25:14",
           "isreceipt": true,
           "receipt": null
         },
+
         {
           "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-          "bname": "东方酒家烤鸭店",
+          "bname": "农家木桶饭",
           "ispic": false,
           "bpic": null,
           "bcategory": "餐饮",
-          "note": "请客吃饭",
+          "note": "四季豆炒肉丝木桶饭",
           "payment": "支付宝",
-          "amount": 74.8,
-          "btime": "2023-05-27 12:37:14",
+          "amount": 17.30,
+          "btime": "2023-04-02 12:55:34",
           "isreceipt": true,
           "receipt": null
         },
+
+
 
       ],
       recode_now: {}
@@ -80,235 +83,25 @@ export default {
     },
 
     delete_() {
-      if (this.$route.query.isphoto != null) {
-        var dataofim =
-          this.$store.state.temp_insorouts === null
-            ? this.$route.query.recode
-            : this.$store.state.temp_insorouts;
-        // console.log("recode");
-        // console.log(this.$route.query.recode);
-        // console.log("insorouts");
-        // console.log(this.$store.state.temp_insorouts);
-        console.log(dataofim);
-        console.log(dataofim[dataofim.length - 1]);
-        var dataofre = dataofim[dataofim.length - 1].receipt;
-        console.log("图片地址");
-        console.log(dataofre);
-        var id_ = dataofim[dataofim.length - 1].id;
-        console.log("编号");
-        console.log(id_);
-        var uid = this.$store.state.userinfo.uid;
-        var dataoftr = {
-          bname: dataofim[dataofim.length - 1].bname,
-          bcategory: dataofim[dataofim.length - 1].bcategory,
-          note: dataofim[dataofim.length - 1].note,
-          payment: dataofim[dataofim.length - 1].payment,
-          amount: dataofim[dataofim.length - 1].amount,
-          btime: dataofim[dataofim.length - 1].btime,
-          isreceipt: true,
-          ispic: false,
-          bpic: null,
-          usr: uid,
-        };
-        console.log("信息");
-        console.log(dataoftr);
-        // if (this.$store.getters.getdeletes.isout === true) {
-        axios({
-          method: "post",
-          url: "https://mineralsteins.icu:8080/a37/outs/", //待加
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          data: dataoftr, //待加
-        }).then(
-          (response) => {
-            console.log("文字上传");
-            this.$store.commit("deleterecodesbyid", id_);
-            console.log(response.data);
-            this.$store.commit("pushrecodes", response.data);
-            var idoflast = response.data.id;
-            //       var dataofim = "!!!!"; //待补
-            var im = {
-              id: idoflast,
-              data: dataofre,
-            };
-            console.log(im);
-            axios({
-              method: "post",
-              url: "https://mineralsteins.icu:8080/a37/outs-pic-post",
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-              data: im,
-            }).then(
-              (response) => {
-                console.log("图片上传");
-                this.$store.commit("updatereceipt", [true, idoflast, dataofre]);
-                this.$alert("", "上传成功", {
-                  confirmButtonText: "确定",
-                  showClose: false,
-                  center: true,
-                  type: "success",
-                  customClass: "success",
-                  beforeClose: (action, instance, done) => {
-                    if (action === "confirm") {
-                      this.$router.push({
-                        name: "Percent",
-                      });
-                      done();
-                    }
-                  },
-                });
-              },
-              (erroe) => { }
-            );
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-        // }
-      } else {
-        if (this.deleteorsave == "删除") {
-          this.$store.commit("delete_intsorouts", this.$route.query.recode);
-          console.log(this.$store.getters.getdeletes);
-          if (this.$store.getters.getdeletes.isout === true) {
-            axios({
-              method: "delete",
-              url:
-                "https://mineralsteins.icu:8080/a37/outs/" +
-                this.$store.getters.getdeletes.id +
-                "/",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-            }).then(
-              (response) => {
-                console.log("success");
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
-          } else {
-            axios({
-              method: "delete",
-              url:
-                "https://mineralsteins.icu:8080/a37/ins/" +
-                this.$store.getters.getdeletes.id +
-                "/",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-            }).then(
-              (response) => {
-                console.log("success");
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
-          }
-
-          this.$store.state.deletes = {
-            id: "-1",
-            isout: true,
-          };
-          console.log("删除");
-          this.$alert("", "删除成功", {
-            confirmButtonText: "确定",
-            showClose: false,
-            center: true,
-            type: "success",
-            customClass: "success",
-            beforeClose: (action, instance, done) => {
-
-              if (action === "confirm") {
-
-                console.log(action);
-                this.$router.push({
-                  name: "Percent",
-                });
-                done();
-              } else {
-
-                console.log(action);
-              }
-            },
-          });
-        } else {
-          console.log("保存");
-          this.$store.commit("save_insorouts");
-          console.log("yyyyyyyyyyy");
-          console.log(this.$store.getters.getchanges);
-          var kv = {};
-          var len = this.$store.getters.getchanges.keys.length;
-          console.log(len);
-          for (var i = 0; i < len; i++) {
-            var key = this.$store.getters.getchanges.keys[i];
-            var value = this.$store.getters.getchanges.newvals[i];
-            kv[key] = value;
-          }
-          console.log(kv);
-          let id = this.$store.getters.getchanges.id;
-          if (this.$store.getters.getchanges.isout === true) {
-            axios({
-              method: "patch",
-              url: "https://mineralsteins.icu:8080/a37/outs/" + id + "/",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              data: kv,
-            }).then(
-              (response) => {
-                console.log("success");
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
-          } else {
-            axios({
-              method: "patch",
-              url: "https://mineralsteins.icu:8080/a37/ins/" + id + "/",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              data: kv,
-            }).then(
-              (response) => {
-                console.log("success");
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
-          }
-          this.$store.state.changes = {
-            keys: [],
-            newvals: [],
-            id: "-1",
-            isout: true,
-          };
-          this.$alert("", "修改成功", {
-            confirmButtonText: "确定",
-            showClose: false,
-            center: true,
-            type: "success",
-            customClass: "success",
-            beforeClose: (action, instance, done) => {
-              if (action === "confirm") {
-                this.$router.push({
-                  name: "Percent",
-                });
-                done();
-              }
-            },
-          });
+      this.$confirm('是否保存', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        customClass: 'msgbox'
+      }).then(() => {
+        //从recodes中删除recode_now
+        this.recodes.splice(this.recodes.indexOf(this.recode_now), 1);
+        console.log(1232135)
+        console.log(this.recodes.length);
+        if (this.recodes.length == 0) {
+          this.$router.push("/Percent");
         }
-
-
-      }
+      }).catch(() => {
+        // this.$message({
+        //   type: 'info',
+        //   message: '已取消删除'
+        // });
+      });
     },
     isupdate() {
       this.deleteorsave = "保存";
@@ -328,11 +121,27 @@ export default {
       },
       deep: true,
       immediate: true,
+    },
+    recodes: {
+      handler: function (val, oldval) {
+        console.log("recodes");
+        console.log(val);
+      },
+      deep: true,
+      immediate: true,
     }
 
   }
 };
 </script>
+
+<style>
+.msgbox {
+  width: 5.9rem !important;
+}
+</style>
+
+
 <style lang='less' scoped>
 .basic {
   display: flex;
@@ -387,8 +196,12 @@ export default {
     background-color: transparent;
   }
 
-  .avatar{
+  .avatar {
     margin-top: .2rem;
   }
+
+
+
+
 }
 </style>

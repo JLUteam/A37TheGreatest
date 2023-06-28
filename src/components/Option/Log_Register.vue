@@ -2,8 +2,8 @@
   <div class="Log_Register">
     <input type="submit" class="log-register__submit" value="登录" @click.prevent="submit" />
     <router-link class="log-register__sign-in" :to="{
-      name: 'SignUp',
-    }">注册账号</router-link>
+        name: 'SignUp',
+      }">注册账号</router-link>
   </div>
 </template>
 <script>
@@ -62,5 +62,6 @@ export default {
   color: #4a44c6;
   font-weight: bold;
   text-decoration: none;
+  margin-left: .5rem;
 }
 </style>
