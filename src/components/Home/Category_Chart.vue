@@ -1,6 +1,8 @@
 <template>
   <div class="Category_Chart">
-    <div class="chart" ref="myChart" :auto-resize="'true'"></div>
+    <div class="chart" ref="myChart" :auto-resize="'true'" v-if="this.sum_ > 0"></div>
+    <div class="title_nodata" v-if="this.sum_ <= 0">今日支出百分比</div>
+    <div class="nodata" v-if="this.sum_ <= 0">还没有相关数据,快去添加吧</div>
   </div>
 </template>
 <script>
@@ -8,9 +10,13 @@ export default {
   name: "Category_Chart",
   mounted() {
     setTimeout(() => {
-      this.drawLine()
+     if (this.sum_ > 0) {
+      this.drawLine();
+     }
     }, 900);
 
+    console.log('this.data_')
+    console.log(this.data_)
   },
   beforeDestroy() {
     window.removeEventListener("resize", () => {
@@ -47,11 +53,16 @@ export default {
       let month = (date.getMonth() + 1).toString().padStart(2, "0");
       let day = date.getDate().toString().padStart(2, "0");
       return ('' + year + '-' + month + '-' + day)
+    },
+    sum_() {
+      return this.data_.reduce((total, item) => {
+        return total + 1 * item.value;
+      }, 0);
     }
   },
   methods: {
     drawLine() {
-     
+
       let myChart = this.$echarts.init(this.$refs.myChart);
       this.myChart = myChart;
       // 绘制图表
@@ -90,7 +101,7 @@ export default {
             itemStyle: {
               borderColor: "#fff",
               borderWidth: 10,
-             
+
             },
             label: {
               show: false,
@@ -112,7 +123,7 @@ export default {
           },
         ],
       };
-    
+
       // console.log(this.data_)
       myChart.setOption(option);
 
@@ -140,8 +151,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 6.54rem;
-  height: 7.7044rem;
+  flex-grow: 1;
 
   // 
   .percentage {
@@ -164,6 +174,26 @@ export default {
     width: 6.54rem;
     height: 6.7044rem;
 
+  }
+
+  .nodata {
+    display: flex;
+    font-size: .45rem;
+    justify-content: center;
+    height: 5rem;
+    align-items: center;
+    font-weight: 700;
+    padding-bottom: 1rem;
+  }
+
+  .title_nodata {
+    display: flex;
+    font-size: .3rem;
+    justify-content: start;
+    margin-left: .6rem;
+    height: 1rem;
+    align-items: center;
+    font-weight: 700;
   }
 }
 </style>

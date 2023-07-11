@@ -328,26 +328,18 @@ export default {
       });
     },
     tomorepic() {
-      var a = this;
-      ImagePicker.getPictures(
-        function (result) {
-          // alert(JSON.stringify(result));
-          a.$alert("请稍等...", "上传成功", {
-            confirmButtonText: "确定",
-            showClose: false,
-            center: true,
-            type: "success",
-            customClass: "success",
-          });
+      window.imagePicker.getPictures(
+        function (results) {
+          for (var i = 0; i < results.length; i++) {
+            console.log("Image URI: " + results[i]);
+          }
         },
-        function (err) {
-          alert(err);
+        function (error) {
+          console.log("Error: " + error);
         },
         {
           maximumImagesCount: 9,
-          width: 1920,
-          height: 1440,
-          quality: 100,
+          outputType: 1,
         }
       );
     },
