@@ -83,6 +83,8 @@
 </template>
 <script>
 import axios from "axios";
+import Compressor from "compressorjs";
+import { resolve } from "vue-cordova";
 export default {
   name: "ButtomNav",
   data() {
@@ -192,112 +194,125 @@ export default {
         this.$store.state.recodes
           .map((item) => item.id)
           .reduce((a, b) => Math.max(a, b)) + 1;
-      var str = "data:image/jpeg;base64," + imageURL;
-      var pblob = this.dataURLtoBlob(str);
-      var reader = new FileReader();
-      reader.readAsArrayBuffer(pblob);
-      reader.onload = function () {
-        console.log(this.result);
-        axios({
-          method: "post",
-          url: "https://api.textin.com/robot/v1.0/api/receipt",
-          headers: {
-            "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
-            "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
-            "Content-Type": "application/octet-stream",
-          },
-          data: this.result,
-        }).then(
-          (response) => {
-            console.log(response.data.result.item_list);
-            var dataofimage = {
-              bname: response.data.result.item_list[3].value,
-              bcategory: "餐饮",
-              note: response.data.result.item_list[5].value,
-              payment: "支付宝",
-              amount: response.data.result.item_list[0].value,
-              btime: response.data.result.item_list[1].value,
-              isreceipt: true,
-              receipt: str,
-              ispic: true,
-              bpic: null,
-              usr: usr,
-              id: id,
-            };
-            vm.$store.state.recodes.push(dataofimage);
-            if (dataofimage.bpic == null) {
-              switch (dataofimage.bcategory) {
-                case "餐饮":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/canyin.svg");
-                  break;
-                case "服饰":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/fushi.svg");
-                  break;
-                case "公交":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongjiao.svg");
-                  break;
-                case "工作":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongzuo.svg");
-                  break;
-                case "购物":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gouwu.svg");
-                  break;
-                case "居家":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/jujia.svg");
-                  break;
-                case "礼物":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/liwu.svg");
-                  break;
-                case "旅行":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/lvhang.svg");
-                  break;
-                case "学习":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/xuexi.svg");
-                  break;
-                case "美容":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg");
-                  break;
-                case "日用":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/riyongpin.svg");
-                  break;
-                case "蔬菜":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shucai.svg");
-                  break;
-                case "水果":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shuiguo.svg");
-                  break;
-                case "通讯":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg");
-                  break;
-                case "娱乐":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yule.svg");
-                  break;
-                case "运动":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yundong.svg");
-                  break;
-                case "其他":
-                  dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shezhi.svg");
-                  break;
-                default:
-                  break;
-              }
-            }
-            console.log(dataofimage);
 
-            console.log(vm);
-            vm.$router.push({
-              name: "ConsumptionDetails",
-              query: {
-                recode: dataofimage,
-                isphoto: true,
-              },
-            });
-          },
-          (error) => {
-            console.log(error.message);
-          }
-        );
+      var str = "data:image/jpeg;base64," + imageURL;
+      console.log(str);
+      let targetObj = {
+        src: str,
       };
+      vm.compressImg(targetObj.src, 0.5, this.useImg, targetObj);
+
+      // axios({
+      //   mothed : "post",
+      //   url : "https://mineralsteins.icu:8080/a37/recog-post"
+
+      // })
+      // var pblob = this.dataURLtoBlob(str);
+
+      // var reader = new FileReader();
+      // reader.readAsArrayBuffer(pblob);
+      // reader.onload = function () {
+      //   console.log(this.result);
+      //   // axios({
+      //   //   method: "post",
+      //   //   url: "https://api.textin.com/robot/v1.0/api/receipt",
+      //   //   headers: {
+      //   //     "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+      //   //     "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+      //   //     "Content-Type": "application/octet-stream",
+      //   //   },
+      //   //   data: this.result,
+      //   // }).then(
+      //   //   (response) => {
+      //   //     console.log(response.data.result.item_list);
+      //   //     var dataofimage = {
+      //   //       bname: response.data.result.item_list[3].value,
+      //   //       bcategory: "餐饮",
+      //   //       note: response.data.result.item_list[5].value,
+      //   //       payment: "支付宝",
+      //   //       amount: response.data.result.item_list[0].value,
+      //   //       btime: response.data.result.item_list[1].value,
+      //   //       isreceipt: true,
+      //   //       receipt: str,
+      //   //       ispic: true,
+      //   //       bpic: null,
+      //   //       usr: usr,
+      //   //       id: id,
+      //   //     };
+      //   //     vm.$store.state.recodes.push(dataofimage);
+      //   //     if (dataofimage.bpic == null) {
+      //   //       switch (dataofimage.bcategory) {
+      //   //         case "餐饮":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/canyin.svg");
+      //   //           break;
+      //   //         case "服饰":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/fushi.svg");
+      //   //           break;
+      //   //         case "公交":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongjiao.svg");
+      //   //           break;
+      //   //         case "工作":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongzuo.svg");
+      //   //           break;
+      //   //         case "购物":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gouwu.svg");
+      //   //           break;
+      //   //         case "居家":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/jujia.svg");
+      //   //           break;
+      //   //         case "礼物":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/liwu.svg");
+      //   //           break;
+      //   //         case "旅行":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/lvhang.svg");
+      //   //           break;
+      //   //         case "学习":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/xuexi.svg");
+      //   //           break;
+      //   //         case "美容":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg");
+      //   //           break;
+      //   //         case "日用":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/riyongpin.svg");
+      //   //           break;
+      //   //         case "蔬菜":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shucai.svg");
+      //   //           break;
+      //   //         case "水果":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shuiguo.svg");
+      //   //           break;
+      //   //         case "通讯":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg");
+      //   //           break;
+      //   //         case "娱乐":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yule.svg");
+      //   //           break;
+      //   //         case "运动":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yundong.svg");
+      //   //           break;
+      //   //         case "其他":
+      //   //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shezhi.svg");
+      //   //           break;
+      //   //         default:
+      //   //           break;
+      //   //       }
+      //   //     }
+      //   //     console.log(dataofimage);
+
+      //   //     console.log(vm);
+      //   //     vm.$router.push({
+      //   //       name: "ConsumptionDetails",
+      //   //       query: {
+      //   //         recode: dataofimage,
+      //   //         isphoto: true,
+      //   //       },
+      //   //     });
+      //   //   },
+      //   //   (error) => {
+      //   //     console.log(error.message);
+      //   //   }
+      //   // );
+      // };
     },
     // eslint-disable-next-line no-unused-vars
     onFail(message) {
@@ -309,6 +324,213 @@ export default {
         customClass: "fail",
       });
     },
+    // ImageCompressor(image, backTpe, quality) {
+    //   return new Promise((resolve, reject) => {
+    //     new Compressor(image, {
+    //       quality: quality || 0.3,
+    //       success(result) {
+    //         let file = new File([result], image.name, { type: image.type });
+    //         if (!backTpe || backTpe == "blob") {
+    //           resolve(result);
+    //         } else if (backTpe == "file") {
+    //           resolve(result);
+    //         } else {
+    //           resolve(file);
+    //         }
+    //       },
+    //       error(err) {
+    //         console.log("图片压缩失败------>>>>>>", err);
+    //         reject(err);
+    //       },
+    //     });
+    //   });
+    // },
+
+    compressImg(base64, multiple, useImg, targetObj) {
+      // 第一个参数就是需要加密的base65，
+      // 第二个是压缩系数 0-1，
+      // 第三个压缩后的回调 用来获取处理后的 base64
+      if (!base64) {
+        return;
+      }
+      const length = base64.length / 1024;
+      // 压缩方法
+      let newImage = new Image();
+      let quality = 0.8; // 压缩系数0-1之间
+      newImage.src = base64;
+      newImage.setAttribute("crossOrigin", "Anonymous"); // url为外域时需要
+      let imgWidth, imgHeight;
+      let w = undefined;
+      newImage.onload = function () {
+        // 这里面的 this 指向 newImage
+        // 通过改变图片宽高来实现压缩
+        w = this.width * multiple;
+        imgWidth = this.width;
+        imgHeight = this.height;
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+        if (Math.max(imgWidth, imgHeight) > w) {
+          if (imgWidth > imgHeight) {
+            canvas.width = w;
+            // 等比例缩小
+            canvas.height = w * (imgHeight / imgWidth);
+          } else {
+            canvas.height = w;
+            // 等比例缩小
+            canvas.width = w * (imgWidth / imgHeight);
+          }
+        } else {
+          canvas.width = imgWidth;
+          canvas.height = imgHeight;
+          // quality 设置转换为base64编码后图片的质量，取值范围为0-1  没什么压缩效果
+          // 还是得通过设置 canvas 的宽高来压缩
+          quality = 0.6;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(this, 0, 0, canvas.width, canvas.height); //  // 这里面的 this 指向 newImage
+        let smallBase64 = canvas.toDataURL("image/jpeg", quality); // 压缩语句
+        // 如想确保图片压缩到自己想要的尺寸,如要求在50-150kb之间，请加以下语句，quality初始值根据情况自定
+        while (smallBase64.length / 1024 > 150) {
+          quality -= 0.01;
+          smallBase64 = canvas.toDataURL("image/jpeg", quality);
+        }
+        // 防止最后一次压缩低于最低尺寸，只要quality递减合理，无需考虑
+        while (smallBase64.length / 1024 < 50) {
+          quality += 0.001;
+          smallBase64 = canvas.toDataURL("image/jpeg", quality);
+        }
+
+        // 必须通过回调函数返回，否则无法及时拿到该值，回调函数异步执行
+        console.log(`压缩前：${length}KB`);
+        console.log(`压缩后：${smallBase64.length / 1024} KB`);
+
+        useImg(smallBase64, targetObj);
+      };
+    },
+    useImg(base64, targetObj) {
+      console.log("压缩后的 base64 :", base64);
+      console.log(base64.length);
+      // this.uploadImg(base64);
+    },
+
+    uploadImg(base64) {
+      console.log("上传");
+      console.log(base64);
+      axios({
+        method: "post",
+        url: "https://mineralsteins.icu:8080/a37/recog-post",
+        data: base64,
+      }).then((response) => {
+        console.log(response.data);
+      });
+
+      // var pblob = this.dataURLtoBlob(str);
+
+      // var reader = new FileReader();
+      // reader.readAsArrayBuffer(pblob);
+      // reader.onload = function () {
+      //   console.log(this.result);
+      // axios({
+      //   method: "post",
+      //   url: "https://api.textin.com/robot/v1.0/api/receipt",
+      //   headers: {
+      //     "x-ti-app-id": "6b07d2d756f3be15198633de37dcc852",
+      //     "x-ti-secret-code": "a38872198de6545a6464969c71ef1272",
+      //     "Content-Type": "application/octet-stream",
+      //   },
+      //   data: this.result,
+      // }).then(
+      //   (response) => {
+      //     console.log(response.data.result.item_list);
+      //     var dataofimage = {
+      //       bname: response.data.result.item_list[3].value,
+      //       bcategory: "餐饮",
+      //       note: response.data.result.item_list[5].value,
+      //       payment: "支付宝",
+      //       amount: response.data.result.item_list[0].value,
+      //       btime: response.data.result.item_list[1].value,
+      //       isreceipt: true,
+      //       receipt: str,
+      //       ispic: true,
+      //       bpic: null,
+      //       usr: usr,
+      //       id: id,
+      //     };
+      //     vm.$store.state.recodes.push(dataofimage);
+      //     if (dataofimage.bpic == null) {
+      //       switch (dataofimage.bcategory) {
+      //         case "餐饮":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/canyin.svg");
+      //           break;
+      //         case "服饰":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/fushi.svg");
+      //           break;
+      //         case "公交":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongjiao.svg");
+      //           break;
+      //         case "工作":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongzuo.svg");
+      //           break;
+      //         case "购物":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gouwu.svg");
+      //           break;
+      //         case "居家":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/jujia.svg");
+      //           break;
+      //         case "礼物":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/liwu.svg");
+      //           break;
+      //         case "旅行":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/lvhang.svg");
+      //           break;
+      //         case "学习":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/xuexi.svg");
+      //           break;
+      //         case "美容":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg");
+      //           break;
+      //         case "日用":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/riyongpin.svg");
+      //           break;
+      //         case "蔬菜":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shucai.svg");
+      //           break;
+      //         case "水果":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shuiguo.svg");
+      //           break;
+      //         case "通讯":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg");
+      //           break;
+      //         case "娱乐":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yule.svg");
+      //           break;
+      //         case "运动":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yundong.svg");
+      //           break;
+      //         case "其他":
+      //           dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shezhi.svg");
+      //           break;
+      //         default:
+      //           break;
+      //       }
+      //     }
+      //     console.log(dataofimage);
+
+      //     console.log(vm);
+      //     vm.$router.push({
+      //       name: "ConsumptionDetails",
+      //       query: {
+      //         recode: dataofimage,
+      //         isphoto: true,
+      //       },
+      //     });
+      //   },
+      //   (error) => {
+      //     console.log(error.message);
+      //   }
+      // );
+    },
+
     dataURLtoBlob(baseurl) {
       let arr = baseurl.split(","),
         mime = arr[0].match(/:(.*?);/)[1],

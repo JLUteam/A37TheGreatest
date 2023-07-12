@@ -9,6 +9,7 @@ import VueCordova from 'vue-cordova'
 import { MessageBox } from 'element-ui';
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
+import Compressor from 'compressorjs';
 var VueTouch = require('vue-touch')
 getElementUi(Vue)
 Vue.use(VueTouch, { name: 'v-touch' })
