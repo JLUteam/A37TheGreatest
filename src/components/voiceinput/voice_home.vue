@@ -212,7 +212,7 @@ export default {
             note: this.text_voice,
             payment: "现金",
             amount: response.data.out.AMOUNT,
-            btime: response.data.TIME,
+            btime: response.data.out.TIME,
             isreceipt: false,
             receipt: null,
             bpic: null,
