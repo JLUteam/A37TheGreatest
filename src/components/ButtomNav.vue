@@ -324,27 +324,6 @@ export default {
         customClass: "fail",
       });
     },
-    // ImageCompressor(image, backTpe, quality) {
-    //   return new Promise((resolve, reject) => {
-    //     new Compressor(image, {
-    //       quality: quality || 0.3,
-    //       success(result) {
-    //         let file = new File([result], image.name, { type: image.type });
-    //         if (!backTpe || backTpe == "blob") {
-    //           resolve(result);
-    //         } else if (backTpe == "file") {
-    //           resolve(result);
-    //         } else {
-    //           resolve(file);
-    //         }
-    //       },
-    //       error(err) {
-    //         console.log("图片压缩失败------>>>>>>", err);
-    //         reject(err);
-    //       },
-    //     });
-    //   });
-    // },
 
     compressImg(base64, multiple, useImg, targetObj) {
       // 第一个参数就是需要加密的base65，
@@ -410,7 +389,7 @@ export default {
     useImg(base64, targetObj) {
       console.log("压缩后的 base64 :", base64);
       console.log(base64.length);
-      // this.uploadImg(base64);
+      this.uploadImg(base64);
     },
 
     uploadImg(base64) {
@@ -419,10 +398,18 @@ export default {
       axios({
         method: "post",
         url: "https://mineralsteins.icu:8080/a37/recog-post",
-        data: base64,
-      }).then((response) => {
-        console.log(response.data);
-      });
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: { data: base64 },
+      }).then(
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          window.alert(error.message);
+        }
+      );
 
       // var pblob = this.dataURLtoBlob(str);
 

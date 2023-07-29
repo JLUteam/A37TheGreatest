@@ -1,5 +1,5 @@
 <template>
-        <!-- <div>
+  <!-- <div>
                 <div class="voice_input">
 
                         <div class="output">
@@ -11,24 +11,28 @@
                 </div>
         </div> -->
 
-        <div class="voice-box">
-                <textarea name="" id="" cols="30" rows="5" v-model="text_voice" class="voice_text"></textarea>
-                <div class="fixed-icon" @click="startRecognition" v-if="isvoiceend">
-                        <img :src="require('@/assets/img/voice.png')" alt="" />
-                </div>
+  <div class="voice-box">
+    <textarea
+      name=""
+      id=""
+      cols="30"
+      rows="5"
+      v-model="text_voice"
+      class="voice_text"
+    ></textarea>
+    <div class="fixed-icon" @click="startRecognition" v-if="isvoiceend">
+      <img :src="require('@/assets/img/voice.png')" alt="" />
+    </div>
 
-                <div class="queryisright" v-if="!isvoiceend">
-                        <button class="success_" @click="gotonext">确认</button>
-                </div>
+    <div class="queryisright" v-if="!isvoiceend">
+      <button class="success_" @click="gotonext">确认</button>
+    </div>
 
+    <div class="icon_back">
+      <img src="@/assets/svg/IconsChevron-left.svg" alt="" @click="back()" />
+    </div>
 
-                <div class="icon_back">
-
-                        <img src="@/assets/svg/IconsChevron-left.svg" alt="" @click="back()">
-
-                </div>
-
-                <!-- <div v-if="showFixedBox" class="fixed-box">
+    <!-- <div v-if="showFixedBox" class="fixed-box">
                         <div class="fixed-main">
                                 <button class="fixed-close" @click="stopRecognition"></button>
                                 <div>{{ recognitionText }}</div>
@@ -37,7 +41,7 @@
                                 </div>
                         </div>
                 </div> -->
-        </div>
+  </div>
 </template>
 
 <script>
@@ -125,297 +129,358 @@
 // };
 import axios from "axios";
 export default {
-        data() {
-                return {
-                        recognitionText: '',
-                        recognitionTimer: null,
-                        voiceInstance: null,
-                        button_name: '开始录音',
-                        Status: null,
-                        text_voice: '',
-                        isvoiceend: !false
-                };
-        },
-        mounted() {
-                let times = null;
-                const vm = this;
+  data() {
+    return {
+      recognitionText: "",
+      recognitionTimer: null,
+      voiceInstance: null,
+      button_name: "开始录音",
+      Status: null,
+      text_voice: "",
+      isvoiceend: !false,
+    };
+  },
+  mounted() {
+    let times = null;
+    const vm = this;
 
-                // 实例化迅飞语音听写（流式版）WebAPI
-                this.voiceInstance = new Voice({
+    // 实例化迅飞语音听写（流式版）WebAPI
+    this.voiceInstance = new Voice({
+      // 服务接口认证信息 注：apiKey 和 apiSecret 字符串的长度都差不多，请不要填错了哦！
+      appId: "3060a023",
+      apiSecret: "MDAzZGQyNWY3YWZlMTc5ZTJlYmQyZDUx",
+      apiKey: "9c63bff43a9ac93d2b5b33f35d9fad97",
+      // 注：要获取以上3个参数，请到迅飞开放平台：https://www.xfyun.cn/services/voicedictation 【注册的新用户，每天服务量500（也就是调500次），如果你需求里大请购买服务量：https://www.xfyun.cn/services/voicedictation?target=price】
 
-                        // 服务接口认证信息 注：apiKey 和 apiSecret 字符串的长度都差不多，请不要填错了哦！
-                        appId: '3060a023',
-                        apiSecret: 'MDAzZGQyNWY3YWZlMTc5ZTJlYmQyZDUx',
-                        apiKey: '9c63bff43a9ac93d2b5b33f35d9fad97',
-                        // 注：要获取以上3个参数，请到迅飞开放平台：https://www.xfyun.cn/services/voicedictation 【注册的新用户，每天服务量500（也就是调500次），如果你需求里大请购买服务量：https://www.xfyun.cn/services/voicedictation?target=price】
+      onWillStatusChange: function (oldStatus, newStatus) {
+        //在这里进行页面中一些交互逻辑处理：注：倒计时（语音听写只有60s）！
 
-                        onWillStatusChange: function (oldStatus, newStatus) {
-                                //在这里进行页面中一些交互逻辑处理：注：倒计时（语音听写只有60s）！
-
-                                vm.Status = newStatus;
-
-                        },
-                        onTextChange: function (text) {
-                                //监听识别结果的变化
-                                console.log('识别结果：', text)
-                                vm.text_voice = text;
-                                // 3秒钟内没有说话，就自动关闭
-                                if (text) {
-                                        clearTimeout(times);
-                                        times = setTimeout(() => vm.voiceInstance.stop(), 3000);
-                                        console.log(vm.voiceInstance);
-                                }
-                        }
-                });
-        },
-        methods: {
-                startRecognition() {
-
-                        if (this.button_name == '开始录音') {
-                                this.voiceInstance.start();
-
-
-                        } else {
-                                // 结束录音
-                                this.voiceInstance.stop();
-                                this.button_name = '开始录音'
-                        }
-
-
-                },
-                back() {
-                        if (this.isvoiceend) {
-                                this.$router.back(-1)
-
-                        } else {
-
-                                this.isvoiceend = false;
-                        }
-                },
-                gotonext() {
-                        // var voice = "请从以下文本中直接提取可能的bname（商铺名）amount（金额）btime（支付时间）并以python string 键值对的形式直接给出，并且不要展示提取过程，并且btime字段需要使用二十四小时制展示，amount字段需要删除货币单位，注意，这就是所有内容，没有更多提示 。以下是文本：" + this.voice_text;
-                        // axios({
-                        //         method: "get",
-                        //         url: "http://mineralsteins.icu:8081/a37/chatgpt-ask",
-
-                        //         // headers: {
-                        //         //         "Content-Type": "multipart/form-data",
-                        //         // },
-                        //         data: {
-                        //                 prompt: voice,
-                        //         },
-                        // }).then(
-                        //         (response) => {
-                        //                 console.log(response.data);
-                        //         },
-                        //         (error) => {
-                        //                 window.alert(error.message);
-                        //         }
-                        // );
-                        this.$alert("请稍等...", "上传成功", {
-                                confirmButtonText: "确定",
-                                showClose: false,
-                                center: true,
-                                type: "success",
-                                customClass: "success",
-                        });
-                }
-
-        },
-        watch: {
-                recognitionText() {
-                        console.log(this.recognitionText);
-                },
-                button_name() {
-                        console.log(this.button_name);
-                },
-                Status() {
-                        if (this.Status === 'init') {
-                                //开始录音
-                                console.log('开始录音');
-                                this.recognitionText = '开始录音';
-                        }
-                        else if (this.Status === 'ing') {
-                                //录音中
-                                console.log('录音中');
-                                this.recognitionText = '录音中';
-                                this.button_name = '录音中...'
-                        } else if (this.Status === 'end') {
-                                //识别结束
-                                console.log('识别结束');
-                                this.recognitionText = '识别结束';
-                                this.isvoiceend = !this.isvoiceend
-                                this.button_name = '开始录音'
-
-                        } else {
-                                //未知状态
-                                console.log('未知状态', this.Status);
-                                this.recognitionText = '未知状态';
-                        }
-                },
-                text_voice() {
-                        console.log(this.text);
-                }
+        vm.Status = newStatus;
+      },
+      onTextChange: function (text) {
+        //监听识别结果的变化
+        console.log("识别结果：", text);
+        vm.text_voice = text;
+        // 3秒钟内没有说话，就自动关闭
+        if (text) {
+          clearTimeout(times);
+          times = setTimeout(() => vm.voiceInstance.stop(), 3000);
+          console.log(vm.voiceInstance);
         }
+      },
+    });
+  },
+  methods: {
+    startRecognition() {
+      if (this.button_name == "开始录音") {
+        this.voiceInstance.start();
+      } else {
+        // 结束录音
+        this.voiceInstance.stop();
+        this.button_name = "开始录音";
+      }
+    },
+    back() {
+      if (this.isvoiceend) {
+        this.$router.back(-1);
+      } else {
+        this.isvoiceend = false;
+      }
+    },
+    gotonext() {
+      console.log(this.text_voice);
+      var usr = this.$store.state.userinfo.uid;
+      var id =
+        this.$store.state.recodes
+          .map((item) => item.id)
+          .reduce((a, b) => Math.max(a, b)) + 1;
+      var vm = this;
+      axios({
+        method: "post",
+        url: "https://mineralsteins.icu:8080/a37/number-extract",
+
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: { data: this.text_voice },
+      }).then(
+        (response) => {
+          console.log(response.data.out);
+          var dataofimage = {
+            bname: response.data.out.PLACE,
+            bcategory: "餐饮",
+            note: this.text_voice,
+            payment: "现金",
+            amount: response.data.out.AMOUNT,
+            btime: response.data.TIME,
+            isreceipt: false,
+            receipt: null,
+            bpic: null,
+            usr: usr,
+            id: id,
+          };
+          vm.$store.state.recodes.push(dataofimage);
+          if (dataofimage.bpic == null) {
+            switch (dataofimage.bcategory) {
+              case "餐饮":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/canyin.svg");
+                break;
+              case "服饰":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/fushi.svg");
+                break;
+              case "公交":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongjiao.svg");
+                break;
+              case "工作":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongzuo.svg");
+                break;
+              case "购物":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gouwu.svg");
+                break;
+              case "居家":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/jujia.svg");
+                break;
+              case "礼物":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/liwu.svg");
+                break;
+              case "旅行":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/lvhang.svg");
+                break;
+              case "学习":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/xuexi.svg");
+                break;
+              case "美容":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg");
+                break;
+              case "日用":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/riyongpin.svg");
+                break;
+              case "蔬菜":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shucai.svg");
+                break;
+              case "水果":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shuiguo.svg");
+                break;
+              case "通讯":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg");
+                break;
+              case "娱乐":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yule.svg");
+                break;
+              case "运动":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yundong.svg");
+                break;
+              case "其他":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shezhi.svg");
+                break;
+              default:
+                break;
+            }
+          }
+          vm.$router.push({
+            name: "ConsumptionDetails",
+            query: {
+              recode: dataofimage,
+              isphoto: true,
+            },
+          });
+        },
+        (error) => {
+          window.alert(error.message);
+        }
+      );
+      // this.$alert("请稍等...", "上传成功", {
+      //   confirmButtonText: "确定",
+      //   showClose: false,
+      //   center: true,
+      //   type: "success",
+      //   customClass: "success",
+      // });
+    },
+  },
+  watch: {
+    recognitionText() {
+      console.log(this.recognitionText);
+    },
+    button_name() {
+      console.log(this.button_name);
+    },
+    Status() {
+      if (this.Status === "init") {
+        //开始录音
+        console.log("开始录音");
+        this.recognitionText = "开始录音";
+      } else if (this.Status === "ing") {
+        //录音中
+        console.log("录音中");
+        this.recognitionText = "录音中";
+        this.button_name = "录音中...";
+      } else if (this.Status === "end") {
+        //识别结束
+        console.log("识别结束");
+        this.recognitionText = "识别结束";
+        this.isvoiceend = !this.isvoiceend;
+        this.button_name = "开始录音";
+      } else {
+        //未知状态
+        console.log("未知状态", this.Status);
+        this.recognitionText = "未知状态";
+      }
+    },
+    text_voice() {
+      console.log(this.text);
+    },
+  },
 };
 </script>
 
 <style lang="less" scoped>
 .voice-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 
-        .fixed-icon {
-                box-sizing: border-box;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                top: 80%;
-                left: 50%;
-                margin-top: -50px;
-                margin-left: -50px;
-                width: 100px;
-                height: 100px;
-                background: linear-gradient(115deg, #56d8e4 5%, #9f01ea 95%);
-                border: 1px solid #e0e7ff;
-                border-radius: 50%;
+  .fixed-icon {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(115deg, #56d8e4 5%, #9f01ea 95%);
+    border: 1px solid #e0e7ff;
+    border-radius: 50%;
 
-                &::before {
-                        content: "";
-                        position: absolute;
-                        display: inline-block;
-                        width: 100px;
-                        height: 100px;
-                        border: 1px solid #56d8e4;
-                        box-shadow: 0px 0px 6px 0px #56d8e4;
-                        border-radius: 50%;
-                        animation: move 1.5s infinite;
-                }
+    &::before {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      border: 1px solid #56d8e4;
+      box-shadow: 0px 0px 6px 0px #56d8e4;
+      border-radius: 50%;
+      animation: move 1.5s infinite;
+    }
 
-                &::after {
-                        content: "";
-                        position: absolute;
-                        display: inline-block;
-                        width: 100px;
-                        height: 100px;
-                        border: 1px solid #56d8e4;
-                        box-shadow: 0px 0px 6px 0px #56d8e4;
-                        border-radius: 50%;
-                        animation: move 1.5s infinite;
-                        animation: move 1.5s infinite;
-                        animation: move 1.5s infinite;
-                }
+    &::after {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      border: 1px solid #56d8e4;
+      box-shadow: 0px 0px 6px 0px #56d8e4;
+      border-radius: 50%;
+      animation: move 1.5s infinite;
+      animation: move 1.5s infinite;
+      animation: move 1.5s infinite;
+    }
 
-                img {
-                        width: 30px;
-                        height: 50px;
-                }
+    img {
+      width: 30px;
+      height: 50px;
+    }
 
-                @keyframes move {
-                        0% {
-                                opacity: 1;
-                                transform: scale(1);
-                        }
+    @keyframes move {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
 
-                        100% {
-                                opacity: 0;
-                                transform: scale(2);
-                        }
-                }
+      100% {
+        opacity: 0;
+        transform: scale(2);
+      }
+    }
+  }
 
+  .voice_text {
+    display: flex;
+    justify-content: center;
+    height: 6rem;
+    width: 90%;
+    border: none;
+    outline: none;
+    font-size: 0.5rem;
+    text-align: center;
+    color: #000;
+    background-color: transparent;
+    overflow-x: scroll;
+    word-wrap: break-word;
+    margin-top: 4rem;
+  }
 
-        }
+  .queryisright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: transparent;
 
-        .voice_text {
-                display: flex;
-                justify-content: center;
-                height: 6rem;
-                width: 90%;
-                border: none;
-                outline: none;
-                font-size: 0.5rem;
-                text-align: center;
-                color: #000;
-                background-color: transparent;
-                overflow-x: scroll;
-                word-wrap: break-word;
-                margin-top: 4rem;
-        }
+    .success_ {
+      width: 6.54rem;
+      height: 1.28rem;
+      border-radius: 0.48rem;
+      background: #928fff;
+      opacity: 1;
+      // margin-left: 0.48rem;
+      margin-top: 2rem;
+      background-blend-mode: normal;
+      border: none;
+      color: #ffffff;
+      font-family: Manrope;
+      font-size: 0.32rem;
+      font-weight: 700;
+      line-height: 0.52rem;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
 
-        .queryisright {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                background-color: transparent;
+      &:hover {
+        box-shadow: 0 0.2rem 0.72rem rgba(0, 0, 0, 0.15);
+        opacity: 1;
+      }
+    }
+  }
 
-                .success_ {
+  .icon_back {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-left: 0.48rem;
+    margin-top: 0.48rem;
+    border-radius: 0.4rem;
+    border: 0.03rem dashed #f4f4f6;
 
-                        width: 6.54rem;
-                        height: 1.28rem;
-                        border-radius: 0.48rem;
-                        background: #928fff;
-                        opacity: 1;
-                        // margin-left: 0.48rem;
-                        margin-top: 2rem;
-                        background-blend-mode: normal;
-                        border: none;
-                        color: #ffffff;
-                        font-family: Manrope;
-                        font-size: 0.32rem;
-                        font-weight: 700;
-                        line-height: 0.52rem;
-                        text-align: center;
-                        transition: 0.3s;
-                        cursor: pointer;
+    img {
+      width: 0.8rem;
+      height: 0.8rem;
+    }
+  }
 
-                        &:hover {
-                                box-shadow: 0 0.2rem 0.72rem rgba(0, 0, 0, 0.15);
-                                opacity: 1;
-                        }
+  // .back {
+  //         color: #fff;
+  //         background-color: rgb(21, 47, 72);
+  //         border-color: rgb(21, 47, 72);
+  // }
 
-                }
-        }
-
-        .icon_back {
-                display: flex;
-                position: absolute;
-                align-items: center;
-                left: 0;
-                top: 0;
-                width: .8rem;
-                height: .8rem;
-                margin-left: .48rem;
-                margin-top: .48rem;
-                border-radius: .4rem;
-                border: .03rem dashed #f4f4f6;
-
-                img {
-                        width: .8rem;
-                        height: .8rem;
-                }
-        }
-
-
-
-
-        // .back {
-        //         color: #fff;
-        //         background-color: rgb(21, 47, 72);
-        //         border-color: rgb(21, 47, 72);
-        // }
-
-        // .back:hover,
-        // .back:focus {
-        //         background: var(--el-button-hover-color);
-        //         border-color: var(--el-button-hover-color);
-        //         color: var(--el-button-font-color);
-        // }
-
-
+  // .back:hover,
+  // .back:focus {
+  //         background: var(--el-button-hover-color);
+  //         border-color: var(--el-button-hover-color);
+  //         color: var(--el-button-font-color);
+  // }
 }
-</style> 
+</style>
