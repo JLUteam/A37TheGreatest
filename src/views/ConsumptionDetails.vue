@@ -60,7 +60,7 @@ export default {
           payment: dataofim.payment,
           amount: dataofim.amount,
           btime: dataofim.btime,
-          isreceipt: true,
+          isreceipt: dataofim.isreceipt,
           // receipt: dataofim.receipt,
           ispic: false,
           bpic: null,
@@ -120,7 +120,7 @@ export default {
                   //   },
                   // });
                 },
-                (erroe) => { }
+                (erroe) => {}
               );
             }
             this.$alert("", "上传成功", {
