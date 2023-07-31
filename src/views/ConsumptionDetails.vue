@@ -120,7 +120,7 @@ export default {
                   //   },
                   // });
                 },
-                (erroe) => {}
+                (erroe) => { }
               );
             }
             this.$alert("", "上传成功", {
