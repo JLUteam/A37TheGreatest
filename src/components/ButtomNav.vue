@@ -4,36 +4,52 @@
       <div class="ButtomNav__menu">
         <ul class="nav_list">
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'home',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'home',
+              }"
+            >
               <img :src="img.home" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'Percent',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'Percent',
+              }"
+            >
               <img :src="img.Percent" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item"></li>
           <li class="nav__item_s">
             <div :class="mood" @click="updatemood()">
-              <img src="@/assets/svg/tx-fill-shizixing.svg" class="item_s" alt="" />
+              <img
+                src="@/assets/svg/tx-fill-shizixing.svg"
+                class="item_s"
+                alt=""
+              />
             </div>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'needs',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'needs',
+              }"
+            >
               <img :src="img.Notification" class="item" alt="" />
             </router-link>
           </li>
           <li class="nav__item">
-            <router-link class="nav__link" :to="{
-              name: 'person',
-            }">
+            <router-link
+              class="nav__link"
+              :to="{
+                name: 'person',
+              }"
+            >
               <img :src="img.user_Home" class="item" />
             </router-link>
           </li>
@@ -82,6 +98,7 @@ export default {
       },
       mood: "add",
       all_info: [],
+      len: 0,
     };
   },
   mounted() {
@@ -620,7 +637,6 @@ export default {
       var vm = this;
       var na = navigator;
       var all_uri = [];
-      var len = 0;
       ImagePicker.getPictures(
         function (result) {
           console.log(result);
@@ -631,9 +647,9 @@ export default {
           // }
           // console.log(dataofmorepic);
           console.log(result.images);
-          len = result.images.length;
-          console.log(len);
-          for (let i = 0; i < len; i++) {
+          vm.len = result.images.length;
+          console.log(vm.len);
+          for (let i = 0; i < vm.len; i++) {
             console.log(result.images[i]);
             var uri = result.images[i].uri;
             console.log(uri);
@@ -664,18 +680,6 @@ export default {
           maximumImagesCount: 9,
         }
       );
-      console.log("--------------all_info----------------");
-      console.log(this.all_info);
-      if (this.all_info.length === len) {
-        vm.$router.push({
-          name: "ConsumptionDetails_duotu",
-          query: {
-            recode: this.all_info,
-            isphoto: true,
-          },
-        });
-      }
-
     },
     splitStringAtLastSlash(str) {
       const lastSlashIndex = str.lastIndexOf("/");
@@ -689,7 +693,7 @@ export default {
         return [firstPart, secondPart];
       }
     },
-    convertToBase64(imageUrls) {
+    async convertToBase64(imageUrls) {
       this.$alert("有多张图片上传，请稍等...", "上传成功", {
         confirmButtonText: "确定",
         showClose: false,
@@ -810,15 +814,18 @@ export default {
           }
           console.log(dataofimage);
           vm.all_info.push(dataofimage);
-
-          // console.log(vm);
-          // vm.$router.push({
-          //   name: "ConsumptionDetails",
-          //   query: {
-          //     recode: dataofimage,
-          //     isphoto: true,
-          //   },
-          // });
+          if (vm.all_info.length === vm.len) {
+            console.log("--------------all_info----------------");
+            console.log(this.all_info);
+            console.log("进去了");
+            vm.$router.push({
+              name: "ConsumptionDetails_duotu",
+              query: {
+                recode: this.all_info,
+                isphoto: true,
+              },
+            });
+          }
         },
         (error) => {
           console.log(error.message);
