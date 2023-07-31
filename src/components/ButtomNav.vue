@@ -748,7 +748,7 @@ export default {
             ispic: true,
             bpic: null,
             usr: usr,
-            id: id,
+            // id: id,
           };
           // vm.$store.state.recodes.push(dataofimage);
           if (dataofimage.bpic == null) {
