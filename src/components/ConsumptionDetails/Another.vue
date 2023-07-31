@@ -2,14 +2,22 @@
   <div class="Another">
     <div class="Date info">
       <p>{{ Ispay_ ? "支付日期" : " 收入日期" }}</p>
-      <div class="result">
+      <!-- <div class="result">
         <p>{{ Date_ }}</p>
+      </div> -->
+      <div class="result">
+        <!-- <input type="text" v-model="Date_" placeholder="点此添加" ref="Date_" @click="getDate_">-->
+        <el-date-picker v-model="this.recode__.btime" type="date" placeholder="选择日期" :editable="false">
+        </el-date-picker>
       </div>
     </div>
     <div class="Time info">
       <p>{{ Ispay_ ? "支付时间" : " 收入时间" }}</p>
-      <div class="result">
-        <p>{{ Time_ }}</p>
+      <div class="result_time">
+        <el-time-picker v-model="this.recode__.btime" :picker-options="{
+          selectableRange: '0:0:00 - 23:59:59'
+        }" placeholder="任意时间点" :editable="false">
+        </el-time-picker>
       </div>
     </div>
     <div class="Receipt info">
@@ -58,7 +66,8 @@ export default {
         this.Date_ = this.recode__.btime.split(" ")[0];
         this.Time_ = this.recode__.btime.split(" ")[1];
       }
-    }
+    },
+
   },
   methods: {
     addreceipt() {
@@ -162,7 +171,7 @@ export default {
       },
       deep: true,
       immediate: true
-    }
+    },
   }
 };
 </script>
@@ -204,19 +213,59 @@ export default {
         line-height: 0.48rem;
         // text-align: right;
       }
+
+      /deep/.el-date-editor.el-input {
+        width: 3rem;
+        margin-left: .5rem;
+        font-size: 0.28rem;
+        margin-right: .2rem;
+      }
+
+      /deep/.el-input__inner {
+        height: 0.4rem;
+        border: none;
+        background-color: transparent;
+        margin-left: 1.3rem;
+      }
+
+      /deep/.el-icon-date:before {
+        content: '';
+      }
     }
   }
 
   .Time {
-    .result {
+    .result_time {
       p {
         color: #121826;
         font-family: "Manrope-Regular";
-        font-size: 0.28rem;
+        font-size: .28rem;
         font-weight: 400;
-        line-height: 0.48rem;
+        line-height: .48rem;
         text-align: right;
+        width: 1rem;
       }
+
+      /deep/ .el-input__inner {
+        height: 0.4rem;
+        border: none;
+        background-color: transparent;
+        margin-left: 1.3rem;
+        padding-left: .35rem;
+      }
+
+      /deep/.el-date-editor.el-input {
+        width: 3rem;
+        margin-left: .5rem;
+        font-size: 0.28rem;
+      }
+
+      /deep/.el-icon-time:before {
+        content: '';
+
+      }
+
+
     }
   }
 

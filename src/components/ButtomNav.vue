@@ -633,12 +633,12 @@ export default {
         name: "voiceinput",
       });
     },
-    tomorepic() {
+    async tomorepic() {
       var vm = this;
       var na = navigator;
       var all_uri = [];
       ImagePicker.getPictures(
-        function (result) {
+        async function (result) {
           console.log(result);
           // alert(JSON.stringify(result));
           // var dataofmorepic = JSON.stringify(result);
@@ -670,7 +670,7 @@ export default {
             // console.log(base64);
             // all_uri.push(base64);
           }
-          vm.convertToBase64(all_uri);
+          await vm.convertToBase64(all_uri);
           console.log(all_uri);
         },
         function (err) {
