@@ -33,6 +33,7 @@ export default {
   components: {},
   methods: {
     share() {
+      var vm = this;
       html2canvas(document.getElementById("share"), {
         allowTaint: true,
         backgroundColor: "#fff",
@@ -47,7 +48,8 @@ export default {
           quality: 80,
           mediaScanner: true,
         };
-
+        console.log(window);
+        console.log(window.imageSaver);
         var permissions = cordova.plugins.permissions;
         permissions.requestPermission(
           permissions.WRITE_EXTERNAL_STORAGE,
@@ -60,15 +62,7 @@ export default {
                 function (status) {
                   if (status.hasPermission) {
                     console.log("存储权限已授予");
-                    window.imageSaver.saveBase64Image(
-                      params,
-                      function (filePath) {
-                        console.log("File saved on " + filePath);
-                      },
-                      function (msg) {
-                        console.error(msg);
-                      }
-                    );
+                    console.log(params.data);
                   } else {
                     console.log("获取存储权限失败");
                     var permissions = cordova.plugins.permissions;
@@ -76,14 +70,9 @@ export default {
                       permissions.READ_EXTERNAL_STORAGE,
                       function (status) {
                         if (status.hasPermission) {
-                          window.imageSaver.saveBase64Image(
-                            params,
-                            function (filePath) {
-                              console.log("File saved on " + filePath);
-                            },
-                            function (msg) {
-                              console.error(msg);
-                            }
+                          vm.saveBase64ImageToGallery(
+                            params.data,
+                            vm.generateUniqueFileName()
                           );
                         } else {
                           console.log("获取存储权限失败");
@@ -107,14 +96,9 @@ export default {
                       function (status) {
                         if (status.hasPermission) {
                           console.log("存储权限已授予");
-                          window.imageSaver.saveBase64Image(
-                            params,
-                            function (filePath) {
-                              console.log("File saved on " + filePath);
-                            },
-                            function (msg) {
-                              console.error(msg);
-                            }
+                          vm.saveBase64ImageToGallery(
+                            params.data,
+                            vm.generateUniqueFileName()
                           );
                         } else {
                           console.log("获取存储权限失败");
@@ -123,14 +107,9 @@ export default {
                             permissions.READ_EXTERNAL_STORAGE,
                             function (status) {
                               if (status.hasPermission) {
-                                window.imageSaver.saveBase64Image(
-                                  params,
-                                  function (filePath) {
-                                    console.log("File saved on " + filePath);
-                                  },
-                                  function (msg) {
-                                    console.error(msg);
-                                  }
+                                vm.saveBase64ImageToGallery(
+                                  params.data,
+                                  vm.generateUniqueFileName()
                                 );
                               } else {
                                 console.log("获取存储权限失败");
@@ -174,6 +153,65 @@ export default {
 
     onFail(error) {
       console.log(error);
+    },
+
+    saveBase64ImageToGallery(base64Data, fileName) {
+      // 将Base64数据转换为Blob对象
+      var byteCharacters = atob(base64Data);
+      var byteNumbers = new Array(byteCharacters.length);
+      for (var i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      var byteArray = new Uint8Array(byteNumbers);
+      var blob = new Blob([byteArray], { type: "image/png" });
+
+      // 使用File插件保存图片到相册
+      window.resolveLocalFileSystemURL(
+        cordova.file.externalRootDirectory,
+        function (dirEntry) {
+          dirEntry.getDirectory(
+            "DCIM/Camera",
+            { create: true, exclusive: false },
+            function (subDirEntry) {
+              subDirEntry.getFile(
+                fileName,
+                { create: true, exclusive: false },
+                function (fileEntry) {
+                  fileEntry.createWriter(
+                    function (fileWriter) {
+                      fileWriter.onwriteend = function () {
+                        console.log("图片保存成功！");
+                      };
+                      fileWriter.onerror = function (e) {
+                        console.log("保存图片时发生错误：" + e.toString());
+                      };
+                      fileWriter.write(blob);
+                    },
+                    function (e) {
+                      console.log("创建文件写入器失败：" + e.toString());
+                    }
+                  );
+                },
+                function (e) {
+                  console.log("获取文件失败：" + e.toString());
+                }
+              );
+            },
+            function (e) {
+              console.log("获取子目录失败：" + e.toString());
+            }
+          );
+        },
+        function (e) {
+          console.log("获取根目录失败：" + e.toString());
+        }
+      );
+    },
+    generateUniqueFileName() {
+      var timestamp = new Date().getTime();
+      var randomString = Math.random().toString(36).substring(2, 8);
+      var fileName = "image_" + timestamp + "_" + randomString + ".png";
+      return fileName;
     },
   },
 };

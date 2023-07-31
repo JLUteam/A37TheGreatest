@@ -33,8 +33,9 @@ export default {
     },
 
     delete_() {
-      console.log("delete_");
+      console.log("zkfnihao");
       if (this.$route.query.isphoto != null) {
+        console.log("????");
         var dataofim =
           this.$store.state.temp_insorouts === null
             ? this.$route.query.recode
@@ -44,22 +45,23 @@ export default {
         // console.log("insorouts");
         // console.log(this.$store.state.temp_insorouts);
         console.log(dataofim);
-        console.log(dataofim[dataofim.length - 1]);
-        var dataofre = dataofim[dataofim.length - 1].receipt;
+        console.log(dataofim);
+        var dataofre = dataofim.receipt;
         console.log("图片地址");
         console.log(dataofre);
-        var id_ = dataofim[dataofim.length - 1].id;
+        var id_ = dataofim.id;
         console.log("编号");
         console.log(id_);
         var uid = this.$store.state.userinfo.uid;
         var dataoftr = {
-          bname: dataofim[dataofim.length - 1].bname,
-          bcategory: dataofim[dataofim.length - 1].bcategory,
-          note: dataofim[dataofim.length - 1].note,
-          payment: dataofim[dataofim.length - 1].payment,
-          amount: dataofim[dataofim.length - 1].amount,
-          btime: dataofim[dataofim.length - 1].btime,
+          bname: dataofim.bname,
+          bcategory: dataofim.bcategory,
+          note: dataofim.note,
+          payment: dataofim.payment,
+          amount: dataofim.amount,
+          btime: dataofim.btime,
           isreceipt: true,
+          // receipt: dataofim.receipt,
           ispic: false,
           bpic: null,
           usr: uid,
@@ -81,41 +83,61 @@ export default {
             console.log(response.data);
             this.$store.commit("pushrecodes", response.data);
             var idoflast = response.data.id;
-            //       var dataofim = "!!!!"; //待补
-            var im = {
-              id: idoflast,
-              data: dataofre,
-            };
-            console.log(im);
-            axios({
-              method: "post",
-              url: "https://mineralsteins.icu:8080/a37/outs-pic-post",
-              headers: {
-                "Content-Type": "multipart/form-data",
+            if (dataofre != null) {
+              var im = {
+                id: idoflast,
+                data: dataofre,
+              };
+              console.log(im);
+              axios({
+                method: "post",
+                url: "https://mineralsteins.icu:8080/a37/outs-pic-post",
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+                data: im,
+              }).then(
+                (response) => {
+                  console.log("图片上传");
+                  this.$store.commit("updatereceipt", [
+                    true,
+                    idoflast,
+                    dataofre,
+                  ]);
+                  // this.$alert("", "上传成功", {
+                  //   confirmButtonText: "确定",
+                  //   showClose: false,
+                  //   center: true,
+                  //   type: "success",
+                  //   customClass: "success",
+                  //   beforeClose: (action, instance, done) => {
+                  //     if (action === "confirm") {
+                  //       this.$router.push({
+                  //         name: "Percent",
+                  //       });
+                  //       done();
+                  //     }
+                  //   },
+                  // });
+                },
+                (erroe) => { }
+              );
+            }
+            this.$alert("", "上传成功", {
+              confirmButtonText: "确定",
+              showClose: false,
+              center: true,
+              type: "success",
+              customClass: "success",
+              beforeClose: (action, instance, done) => {
+                if (action === "confirm") {
+                  this.$router.push({
+                    name: "Percent",
+                  });
+                  done();
+                }
               },
-              data: im,
-            }).then(
-              (response) => {
-                console.log("图片上传");
-                this.$store.commit("updatereceipt", [true, idoflast, dataofre]);
-                this.$alert("", "上传成功", {
-                  confirmButtonText: "确定",
-                  showClose: false,
-                  center: true,
-                  type: "success",
-                  customClass: "success",
-                  beforeClose: (action, instance, done) => {
-                    if (action === "confirm") {
-                      this.$router.push({
-                        name: "Percent",
-                      });
-                      done();
-                    }
-                  },
-                });
-              },
-              (erroe) => { }
-            );
+            });
           },
           (error) => {
             console.log(error);
@@ -123,6 +145,7 @@ export default {
         );
         // }
       } else {
+        console.log("!!!!!");
         if (this.deleteorsave == "删除") {
           this.$store.commit("delete_intsorouts", this.$route.query.recode);
           console.log(this.$store.getters.getdeletes);
@@ -176,21 +199,19 @@ export default {
             type: "success",
             customClass: "success",
             beforeClose: (action, instance, done) => {
-
               if (action === "confirm") {
-
                 console.log(action);
                 this.$router.push({
                   name: "Percent",
                 });
                 done();
               } else {
-
                 console.log(action);
               }
             },
           });
         } else {
+          console.log("@@@@@@@@");
           console.log("保存");
           this.$store.commit("save_insorouts");
           console.log("yyyyyyyyyyy");
@@ -264,12 +285,11 @@ export default {
     },
     isupdate() {
       this.deleteorsave = "保存";
-
     },
   },
 };
 </script>
-<style lang='less' scoped>
+<style lang="less" scoped>
 .basic {
   display: flex;
   flex-direction: column;

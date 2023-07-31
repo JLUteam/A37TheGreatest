@@ -84,6 +84,7 @@
 <script>
 import axios from "axios";
 import Compressor from "compressorjs";
+import { time } from "echarts";
 import { resolve } from "vue-cordova";
 export default {
   name: "ButtomNav",
@@ -96,6 +97,7 @@ export default {
         user_Home: require("@/assets/svg/person.svg"),
       },
       mood: "add",
+      all_info: [],
     };
   },
   mounted() {
@@ -395,6 +397,12 @@ export default {
     uploadImg(base64) {
       console.log("上传");
       console.log(base64);
+      var usr = this.$store.state.userinfo.uid;
+      var id =
+        this.$store.state.recodes
+          .map((item) => item.id)
+          .reduce((a, b) => Math.max(a, b)) + 1;
+      var vm = this;
       axios({
         method: "post",
         url: "https://mineralsteins.icu:8080/a37/recog-post",
@@ -404,10 +412,98 @@ export default {
         data: { data: base64 },
       }).then(
         (response) => {
+          var am = response.data.amount;
+          console.log("-------------");
+          console.log(typeof am);
+          if (typeof am === "string") {
+            am = parseFloat(am);
+          }
           console.log(response.data);
+          var dataofimage = {
+            bname: response.data.shop_name,
+            bcategory: "餐饮",
+            note: response.data.product_name,
+            payment: "支付宝",
+            amount: am,
+            btime: response.data.time,
+            isreceipt: true,
+            receipt: base64,
+            ispic: true,
+            bpic: null,
+            usr: usr,
+            id: id,
+          };
+          vm.$store.state.recodes.push(dataofimage);
+          if (dataofimage.bpic == null) {
+            switch (dataofimage.bcategory) {
+              case "餐饮":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/canyin.svg");
+                break;
+              case "服饰":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/fushi.svg");
+                break;
+              case "公交":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongjiao.svg");
+                break;
+              case "工作":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongzuo.svg");
+                break;
+              case "购物":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gouwu.svg");
+                break;
+              case "居家":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/jujia.svg");
+                break;
+              case "礼物":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/liwu.svg");
+                break;
+              case "旅行":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/lvhang.svg");
+                break;
+              case "学习":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/xuexi.svg");
+                break;
+              case "美容":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg");
+                break;
+              case "日用":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/riyongpin.svg");
+                break;
+              case "蔬菜":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shucai.svg");
+                break;
+              case "水果":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shuiguo.svg");
+                break;
+              case "通讯":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg");
+                break;
+              case "娱乐":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yule.svg");
+                break;
+              case "运动":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yundong.svg");
+                break;
+              case "其他":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shezhi.svg");
+                break;
+              default:
+                break;
+            }
+          }
+          console.log(dataofimage);
+
+          console.log(vm);
+          vm.$router.push({
+            name: "ConsumptionDetails",
+            query: {
+              recode: dataofimage,
+              isphoto: true,
+            },
+          });
         },
         (error) => {
-          window.alert(error.message);
+          console.log(error.message);
         }
       );
 
@@ -537,18 +633,200 @@ export default {
       });
     },
     tomorepic() {
-      window.imagePicker.getPictures(
-        function (results) {
-          for (var i = 0; i < results.length; i++) {
-            console.log("Image URI: " + results[i]);
+      var vm = this;
+      var na = navigator;
+      var all_uri = [];
+      ImagePicker.getPictures(
+        function (result) {
+          console.log(result);
+          // alert(JSON.stringify(result));
+          // var dataofmorepic = JSON.stringify(result);
+          // for (var i in dataofmorepic) {
+          //   console.log(i);
+          // }
+          // console.log(dataofmorepic);
+          console.log(result.images);
+          var len = result.images.length;
+          console.log(len);
+          for (let i = 0; i < len; i++) {
+            console.log(result.images[i]);
+            var uri = result.images[i].uri;
+            console.log(uri);
+            all_uri.push(uri);
+            // var path_name = vm.splitStringAtLastSlash(uri);
+            // console.log(path_name);
+            // var path = path_name[0];
+            // var nam = path_name[1];
+            // console.log(na);
+            // console.log(window);
+            // console.log(File);
+            // console.log(File.readAsDataURL);
+            // console.log(file);
+            // na.File.readAsDataURL(path, nam).then((result) => {
+            //   base64 = result;
+            // });
+            // var base64 = vm.convertToBase64(uri);
+            // console.log(base64);
+            // all_uri.push(base64);
           }
+          vm.convertToBase64(all_uri);
+          console.log(all_uri);
         },
-        function (error) {
-          console.log("Error: " + error);
+        function (err) {
+          alert(err);
         },
         {
           maximumImagesCount: 9,
-          outputType: 1,
+        }
+      );
+      console.log("--------------all_info----------------");
+      console.log(this.all_info);
+    },
+    splitStringAtLastSlash(str) {
+      const lastSlashIndex = str.lastIndexOf("/");
+      if (lastSlashIndex === -1) {
+        // 如果字符串中没有斜杠，则直接返回原字符串作为第一个子字符串，第二个子字符串为空字符串
+        return [str, ""];
+      } else {
+        // 使用slice方法将字符串分割成两个子字符串
+        const firstPart = str.slice(0, lastSlashIndex + 1);
+        const secondPart = str.slice(lastSlashIndex + 1);
+        return [firstPart, secondPart];
+      }
+    },
+    convertToBase64(imageUrls) {
+      this.$alert("有多张图片上传，请稍等...", "上传成功", {
+        confirmButtonText: "确定",
+        showClose: false,
+        center: true,
+        type: "success",
+        customClass: "success",
+      });
+      for (var i = 0; i < imageUrls.length; i++) {
+        window.resolveLocalFileSystemURL(imageUrls[i], (fileEntry) => {
+          fileEntry.file((file) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              console.log("------------");
+              // console.log(reader.result);
+              this.usebase64(reader.result);
+            };
+            reader.readAsDataURL(file);
+          });
+        });
+      }
+    },
+    usebase64(base64) {
+      console.log("上传");
+      // console.log(base64);
+      var usr = this.$store.state.userinfo.uid;
+      var id =
+        this.$store.state.recodes
+          .map((item) => item.id)
+          .reduce((a, b) => Math.max(a, b)) + 1;
+      var vm = this;
+      axios({
+        method: "post",
+        url: "https://mineralsteins.icu:8080/a37/recog-post",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: { data: base64 },
+      }).then(
+        (response) => {
+          var am = response.data.amount;
+          console.log("-------------");
+          console.log(typeof am);
+          if (typeof am === "string") {
+            am = parseFloat(am);
+          }
+          console.log(response.data);
+          var dataofimage = {
+            bname: response.data.shop_name,
+            bcategory: "餐饮",
+            note: response.data.product_name,
+            payment: "支付宝",
+            amount: am,
+            btime: response.data.time,
+            isreceipt: true,
+            receipt: base64,
+            ispic: true,
+            bpic: null,
+            usr: usr,
+            id: id,
+          };
+          // vm.$store.state.recodes.push(dataofimage);
+          if (dataofimage.bpic == null) {
+            switch (dataofimage.bcategory) {
+              case "餐饮":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/canyin.svg");
+                break;
+              case "服饰":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/fushi.svg");
+                break;
+              case "公交":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongjiao.svg");
+                break;
+              case "工作":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gongzuo.svg");
+                break;
+              case "购物":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/gouwu.svg");
+                break;
+              case "居家":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/jujia.svg");
+                break;
+              case "礼物":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/liwu.svg");
+                break;
+              case "旅行":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/lvhang.svg");
+                break;
+              case "学习":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/xuexi.svg");
+                break;
+              case "美容":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/meirong-heicopy.svg");
+                break;
+              case "日用":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/riyongpin.svg");
+                break;
+              case "蔬菜":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shucai.svg");
+                break;
+              case "水果":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shuiguo.svg");
+                break;
+              case "通讯":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/tongxunlu.svg");
+                break;
+              case "娱乐":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yule.svg");
+                break;
+              case "运动":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/yundong.svg");
+                break;
+              case "其他":
+                dataofimage.bpic = require("@/assets/svg/icon_ycof0s6ppu/shezhi.svg");
+                break;
+              default:
+                break;
+            }
+          }
+          console.log(dataofimage);
+          vm.all_info.push(dataofimage);
+
+          // console.log(vm);
+          // vm.$router.push({
+          //   name: "ConsumptionDetails",
+          //   query: {
+          //     recode: dataofimage,
+          //     isphoto: true,
+          //   },
+          // });
+        },
+        (error) => {
+          console.log(error.message);
         }
       );
     },
