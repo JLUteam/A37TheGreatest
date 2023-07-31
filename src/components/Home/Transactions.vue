@@ -9,7 +9,7 @@
             <div class="search" v-show=Flag>
                 <input type="text" class="search_record" placeholder="点击搜索" v-model="search_text">
             </div>
-            <div class="recodes_border" v-show="this.sum_>0">
+            <div class="recodes_border" v-show="this.sum_ > 0">
                 <div class="recordsets">
                     <div class="record" @click=ShowDetail(recode) v-for='recode in recodes' :key="recode.btime">
                         <img :src=recode.bpic class="merchantAvatar">
@@ -22,13 +22,13 @@
                     <div class="temp" v-if="Flag"></div>
                 </div>
             </div>
-            <div class="nodata" v-show="this.sum_<=0">
+            <div class="nodata" v-show="this.sum_ <= 0">
                 暂无数据
             </div>
 
         </div>
 
-       
+
     </div>
 </template>
 <script>
@@ -48,7 +48,7 @@ export default {
             let temp = this.$store.state.recodes.filter(
                 (item) => (item.btime.indexOf(this.today()) != -1)
             )
-      
+
             for (let i = 0; i < temp.length; i++) {
                 console.log(temp[i])
                 if (temp[i].bpic == null) {
@@ -128,7 +128,7 @@ export default {
                 return total + parseFloat(item.amount);
             }, 0);
         },
-        
+
     },
     watch: {
         Flag: function () {
@@ -327,6 +327,7 @@ export default {
     border-radius: .64rem .64rem 0 0;
     // box-shadow: 0 4px 20px hsla(207, 24%, 35%, .4);
     top: 2rem;
+    left: 0rem;
 
     // transition: height .5s;
     .TransactionsTitle {
@@ -503,15 +504,15 @@ export default {
 
 }
 
-.nodata{
+.nodata {
     display: flex;
     font-size: .45rem;
     justify-content: center;
-   
+
     align-items: center;
     font-weight: 700;
     padding-top: .5rem;
-   
+
 
 }
 

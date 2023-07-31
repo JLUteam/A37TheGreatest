@@ -23,6 +23,7 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
+    this.recodes = this.$route.query.recode
     this.recode_now = this.recodes[0];
 
   },
