@@ -33,6 +33,7 @@ export default {
     },
 
     delete_() {
+      console.log("delete_");
       if (this.$route.query.isphoto != null) {
         var dataofim =
           this.$store.state.temp_insorouts === null
@@ -177,14 +178,14 @@ export default {
             beforeClose: (action, instance, done) => {
 
               if (action === "confirm") {
-              
+
                 console.log(action);
                 this.$router.push({
                   name: "Percent",
                 });
                 done();
               } else {
-               
+
                 console.log(action);
               }
             },
@@ -259,13 +260,11 @@ export default {
             },
           });
         }
-
-
       }
     },
     isupdate() {
       this.deleteorsave = "保存";
-    
+
     },
   },
 };
