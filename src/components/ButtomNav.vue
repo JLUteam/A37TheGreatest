@@ -616,13 +616,13 @@ export default {
         name: "voiceinput",
       });
     },
-    tomorepic() {
+   async tomorepic() {
       var vm = this;
       var na = navigator;
       var all_uri = [];
       var len = 0;
       ImagePicker.getPictures(
-        function (result) {
+       async function (result) {
           console.log(result);
           // alert(JSON.stringify(result));
           // var dataofmorepic = JSON.stringify(result);
@@ -654,7 +654,7 @@ export default {
             // console.log(base64);
             // all_uri.push(base64);
           }
-          vm.convertToBase64(all_uri);
+       await vm.convertToBase64(all_uri);
           console.log(all_uri);
         },
         function (err) {
@@ -689,7 +689,7 @@ export default {
         return [firstPart, secondPart];
       }
     },
-    convertToBase64(imageUrls) {
+   async convertToBase64(imageUrls) {
       this.$alert("有多张图片上传，请稍等...", "上传成功", {
         confirmButtonText: "确定",
         showClose: false,
