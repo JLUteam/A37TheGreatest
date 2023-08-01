@@ -63,6 +63,11 @@ export default {
                   if (status.hasPermission) {
                     console.log("存储权限已授予");
                     console.log(params.data);
+                    console.log("-----------conmein1----------");
+                    vm.saveBase64ImageToGallery(
+                      params.data,
+                      vm.generateUniqueFileName()
+                    );
                   } else {
                     console.log("获取存储权限失败");
                     var permissions = cordova.plugins.permissions;
@@ -70,6 +75,7 @@ export default {
                       permissions.READ_EXTERNAL_STORAGE,
                       function (status) {
                         if (status.hasPermission) {
+                          console.log("-----------conmein2----------");
                           vm.saveBase64ImageToGallery(
                             params.data,
                             vm.generateUniqueFileName()
@@ -157,7 +163,9 @@ export default {
 
     saveBase64ImageToGallery(base64Data, fileName) {
       // 将Base64数据转换为Blob对象
-      var byteCharacters = atob(base64Data);
+      console.log("-----come into function------");
+      var byteCharacters = atob(base64Data.split(",")[1]);
+      // var byteCharacters = decodeURIComponent(escape(atob(base64Data)));
       var byteNumbers = new Array(byteCharacters.length);
       for (var i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
