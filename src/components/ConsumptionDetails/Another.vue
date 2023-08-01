@@ -7,14 +7,14 @@
       </div> -->
       <div class="result">
         <!-- <input type="text" v-model="Date_" placeholder="点此添加" ref="Date_" @click="getDate_">-->
-        <el-date-picker v-model="this.recode__.btime" type="date" placeholder="选择日期" :editable="false">
+        <el-date-picker v-model="this.recode.btime" type="date" placeholder="选择日期" :editable="false">
         </el-date-picker>
       </div>
     </div>
     <div class="Time info">
       <p>{{ Ispay_ ? "支付时间" : " 收入时间" }}</p>
       <div class="result_time">
-        <el-time-picker v-model="this.recode__.btime" :picker-options="{
+        <el-time-picker v-model="this.recode.btime" :picker-options="{
           selectableRange: '0:0:00 - 23:59:59'
         }" placeholder="任意时间点" :editable="false">
         </el-time-picker>
