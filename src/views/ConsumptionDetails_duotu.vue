@@ -5,6 +5,7 @@
       layout="prev, pager, next"
       :total="recodes.length"
       @current-change="handleCurrentChange"
+      :current-page="this.recode_now_index"
       :page-size="1"
     >
     </el-pagination>
@@ -75,6 +76,7 @@ export default {
         // },
       ],
       recode_now: {},
+      recode_now_index: 0,
     };
   },
   methods: {
@@ -136,6 +138,7 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+      this.recode_now_index = val;
       this.recode_now = this.recodes[val - 1];
     },
   },
@@ -152,7 +155,15 @@ export default {
     recodes: {
       handler: function (val, oldval) {
         console.log("recodes");
+        console.log("现在的");
         console.log(val);
+        if (this.recode_now_index > 1)
+          this.recode_now_index = this.recode_now_index - 1;
+        else this.recode_now_index = 1;
+
+        console.log("现在的recode_now_index");
+        console.log(this.recode_now_index);
+        this.handleCurrentChange(this.recode_now_index);
       },
       deep: true,
       immediate: true,
