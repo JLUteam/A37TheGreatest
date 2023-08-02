@@ -5,8 +5,8 @@
       layout="prev, pager, next"
       :total="recodes.length"
       @current-change="handleCurrentChange"
-      :current-page="this.recode_now_index"
       :page-size="1"
+      :current-page="this.recode_now_index"
     >
     </el-pagination>
     <Avatar :recode="this.recode_now"> </Avatar>
@@ -28,52 +28,52 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
-    this.recodes = this.$route.query.recode;
+    // this.recodes = this.$route.query.recode;
     this.recode_now = this.recodes[0];
   },
   data() {
     return {
       deleteorsave: "保存",
       recodes: [
-        // {
-        //   "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        //   "bname": "武林川木桶饭",
-        //   "ispic": false,
-        //   "bpic": null,
-        //   "bcategory": "餐饮",
-        //   "note": "顾客需要餐具",
-        //   "payment": "支付宝",
-        //   "amount": 22.56,
-        //   "btime": "2023-02-15 17:47:15",
-        //   "isreceipt": true,
-        //   "receipt": null
-        // },
-        // {
-        //   "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        //   "bname": "状元狼食坊",
-        //   "ispic": false,
-        //   "bpic": null,
-        //   "bcategory": "餐饮",
-        //   "note": "特色凉菜(12元),招牌酸菜鱼,糖醋里嵴",
-        //   "payment": "支付宝",
-        //   "amount": 56.8,
-        //   "btime": "2023-06-05 17:25:14",
-        //   "isreceipt": true,
-        //   "receipt": null
-        // },
-        // {
-        //   "usr": "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
-        //   "bname": "农家木桶饭",
-        //   "ispic": false,
-        //   "bpic": null,
-        //   "bcategory": "餐饮",
-        //   "note": "四季豆炒肉丝木桶饭",
-        //   "payment": "支付宝",
-        //   "amount": 17.30,
-        //   "btime": "2023-04-02 12:55:34",
-        //   "isreceipt": true,
-        //   "receipt": null
-        // },
+        {
+          usr: "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+          bname: "武林川木桶饭",
+          ispic: false,
+          bpic: null,
+          bcategory: "餐饮",
+          note: "顾客需要餐具",
+          payment: "支付宝",
+          amount: 22.56,
+          btime: "2023-02-15 17:47:15",
+          isreceipt: true,
+          receipt: null,
+        },
+        {
+          usr: "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+          bname: "状元狼食坊",
+          ispic: false,
+          bpic: null,
+          bcategory: "餐饮",
+          note: "特色凉菜(12元),招牌酸菜鱼,糖醋里嵴",
+          payment: "支付宝",
+          amount: 56.8,
+          btime: "2023-06-05 17:25:14",
+          isreceipt: true,
+          receipt: null,
+        },
+        {
+          usr: "780303f9-b0a1-4d7b-a7b4-d191daa85f47",
+          bname: "农家木桶饭",
+          ispic: false,
+          bpic: null,
+          bcategory: "餐饮",
+          note: "四季豆炒肉丝木桶饭",
+          payment: "支付宝",
+          amount: 17.3,
+          btime: "2023-04-02 12:55:34",
+          isreceipt: true,
+          receipt: null,
+        },
       ],
       recode_now: {},
       recode_now_index: 0,
@@ -117,6 +117,7 @@ export default {
           };
           console.log("datatolocal:");
           console.log(datatolocal);
+          // this.deletenow(this.recode_now);
           this.recodes.splice(this.recodes.indexOf(this.recode_now), 1);
           console.log(1232135);
           console.log(this.recodes);
@@ -141,6 +142,9 @@ export default {
       this.recode_now_index = val;
       this.recode_now = this.recodes[val - 1];
     },
+    // deletenow(recode_now) {
+    //   this.recodes.splice(this.recodes.indexOf(recode_now), 1);
+    // },
   },
   watch: {
     recode_now: {
@@ -154,15 +158,13 @@ export default {
     },
     recodes: {
       handler: function (val, oldval) {
-        console.log("recodes");
-        console.log("现在的");
-        console.log(val);
-        if (this.recode_now_index > 1)
+        if (this.recode_now_index > 1) {
           this.recode_now_index = this.recode_now_index - 1;
-        else this.recode_now_index = 1;
-
-        console.log("现在的recode_now_index");
-        console.log(this.recode_now_index);
+        } else {
+          this.recode_now_index = 1;
+        }
+        console.log("recodes");
+        console.log(val);
         this.handleCurrentChange(this.recode_now_index);
       },
       deep: true,
