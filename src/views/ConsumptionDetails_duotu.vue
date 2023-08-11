@@ -28,7 +28,7 @@ export default {
   name: "ConsumptionDetails",
   components: { Avatar, Back, StateBar, PayState, Another },
   mounted() {
-    // this.recodes = this.$route.query.recode;
+    this.recodes = this.$route.query.recode;
     this.recode_now = this.recodes[0];
   },
   data() {
@@ -84,7 +84,32 @@ export default {
       this.$store.commit("updatarecode_insorouts", [type, val]);
     },
 
+    savef() {
+      var vm = this;
+      this.$confirm("是否保存", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        customClass: "msgbox",
+      }).then(() => {
+        this.recodes.splice(this.recodes.indexOf(this.recode_now), 1);
+        if (this.recodes.length == 0) {
+          vm.$alert("所有均已上传", "上传成功", {
+            confirmButtonText: "确定",
+            showClose: false,
+            center: true,
+            type: "success",
+            customClass: "success",
+            callback: (action) => {
+              this.$router.push("/Percent");
+            },
+          });
+        }
+      });
+    },
+
     delete_() {
+      var vm = this;
       this.$confirm("是否保存", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -96,12 +121,7 @@ export default {
           console.log("-------come in-------");
           console.log(this.recodes);
           console.log(this.recode_now);
-          var id =
-            this.$store.state.recodes
-              .map((item) => item.id)
-              .reduce((a, b) => Math.max(a, b)) + 1;
-          var usr = this.$store.state.userinfo.uid;
-          var datatolocal = {
+          var datatoback = {
             bname: this.recode_now.bname,
             bcategory: this.recode_now.bcategory,
             note: this.recode_now.note,
@@ -109,14 +129,61 @@ export default {
             amount: this.recode_now.amount,
             btime: this.recode_now.btime,
             isreceipt: this.recode_now.isreceipt,
-            receipt: this.recode_now.receipt,
             ispic: true,
             bpic: null,
-            usr: usr,
-            id: id,
+            usr: this.recode_now.usr,
           };
-          console.log("datatolocal:");
-          console.log(datatolocal);
+          console.log(datatoback);
+          axios({
+            method: "post",
+            url: "https://mineralsteins.icu:8080/a37/outs/", //待加
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            data: datatoback, //待加
+          }).then(
+            (response) => {
+              console.log("文字上传");
+              console.log(response.data);
+              this.$store.commit("pushrecodes", response.data);
+              var idoflast = response.data.id;
+              if (vm.recode_now.receipt != null) {
+                var im = {
+                  id: idoflast,
+                  data: vm.recode_now.receipt,
+                };
+                console.log(im);
+                axios({
+                  method: "post",
+                  url: "https://mineralsteins.icu:8080/a37/outs-pic-post",
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
+                  data: im,
+                }).then(
+                  (response) => {
+                    console.log("图片上传");
+                    this.$store.commit("updatereceipt", [
+                      true,
+                      idoflast,
+                      vm.recode_now.receipt,
+                    ]);
+                  },
+                  (erroe) => {}
+                );
+              }
+              this.$alert("", "上传成功", {
+                confirmButtonText: "确定",
+                showClose: false,
+                center: true,
+                type: "success",
+                customClass: "success",
+              });
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
           // this.deletenow(this.recode_now);
           this.recodes.splice(this.recodes.indexOf(this.recode_now), 1);
           console.log(1232135);
@@ -165,6 +232,9 @@ export default {
         }
         console.log("recodes");
         console.log(val);
+        if (this.recode_now_index > val.length - 1) {
+          this.recode_now_index = 1;
+        }
         this.handleCurrentChange(this.recode_now_index);
       },
       deep: true,

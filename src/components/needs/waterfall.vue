@@ -36,6 +36,7 @@
             v-model="room.password"
             placeholder="请输入密码"
             class="roompassword"
+            type="password"
           ></el-input>
 
           <el-button type="primary" @click="confirm">确认</el-button>

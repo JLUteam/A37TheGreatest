@@ -634,6 +634,28 @@ export default {
       });
     },
     async tomorepic() {
+      // var vm = this;
+      // ImagePicker.getPictures(
+      //   function (result) {
+      //     vm.$alert("有多张图片上传，请稍等...", "上传成功", {
+      //       confirmButtonText: "确定",
+      //       showClose: false,
+      //       center: true,
+      //       type: "success",
+      //       customClass: "success",
+      //       callback: (action) => {
+      //         vm.$router.push({
+      //           name: "ConsumptionDetails_duotu",
+      //         });
+      //       },
+      //     });
+      //   },
+      //   function (error) {},
+      //   {
+      //     maximumImagesCount: 9,
+      //   }
+      // );
+
       var vm = this;
       var na = navigator;
       var all_uri = [];

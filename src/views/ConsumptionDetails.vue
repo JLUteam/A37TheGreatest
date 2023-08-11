@@ -104,21 +104,6 @@ export default {
                     idoflast,
                     dataofre,
                   ]);
-                  // this.$alert("", "上传成功", {
-                  //   confirmButtonText: "确定",
-                  //   showClose: false,
-                  //   center: true,
-                  //   type: "success",
-                  //   customClass: "success",
-                  //   beforeClose: (action, instance, done) => {
-                  //     if (action === "confirm") {
-                  //       this.$router.push({
-                  //         name: "Percent",
-                  //       });
-                  //       done();
-                  //     }
-                  //   },
-                  // });
                 },
                 (erroe) => {}
               );
